@@ -1,0 +1,15 @@
+cloudbuild.yaml
+docker-compose*
+Dockerfile*
+jsconfig.json
+LICENSE
+node_modules/
+npm-debug.log
+scripts/
+README.md
+.dockerignore
+.git/
+.github/
+.gitignore
+.next/
+.vscode/
