@@ -1,0 +1,71 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.navbar {
+  padding: 0 80px;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: #f8f8f8;
+}
+
+.navbarLeft {
+  display: flex;
+  row-gap: 16px;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.4rem;
+}
+
+.navbarRight span {
+  cursor: pointer;
+  padding: 10px 16px;
+}
+
+.navbarRight span:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  padding: 10px;
+}
+
+.scrollToTopButton {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: grey;
+  border-radius: 50%;
+  height: 56px;
+  width: 56px;
+  color: white;
+  cursor: pointer;
+}
+
+.scrollToTopButton:hover {
+  background-color: #aaa;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+  width: 100%;
+  height: 200px;
+  background-color: black;
+  color: white;
+  margin-top: 32px;
+}
