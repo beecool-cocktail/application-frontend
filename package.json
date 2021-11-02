@@ -1,21 +1,25 @@
 {
-  "name": "nextjs-blog",
+  "name": "whispering-corner",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write \"{pages,components}/**/*.{js,jsx,json}\""
   },
   "dependencies": {
-    "next": "12.0.1",
+    "next": "12.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^4.3.1"
+    "react-icons": "4.3.1"
   },
   "devDependencies": {
+    "@galtz-library/prettier-config": "0.1.5",
     "eslint": "7.32.0",
-    "eslint-config-next": "12.0.1"
+    "eslint-config-next": "12.0.2",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.4.1"
   }
 }

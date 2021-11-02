@@ -1,6 +1,6 @@
-import { FaCocktail } from "react-icons/fa";
-import Image from "next/image";
-import styles from "../styles/Layout.module.css";
+import { FaCocktail } from 'react-icons/fa'
+import Image from 'next/image'
+import styles from '../styles/Layout.module.css'
 
 export default function Navbar() {
   return (
@@ -17,5 +17,5 @@ export default function Navbar() {
         <span>註冊</span>
       </div>
     </navbar>
-  );
+  )
 }
