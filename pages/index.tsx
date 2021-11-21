@@ -1,3 +1,4 @@
+import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
@@ -6,7 +7,14 @@ import SearchBar from '../components/searchBar'
 import Banner from '../components/banner'
 import CocktailList from '../components/cocktailList/cocktailList'
 
-const mockCocktails = [
+type Cocktail = {
+  id: number
+  name: string
+  tags: string[]
+  imageUrl: string
+}
+
+const mockCocktails: Cocktail[] = [
   {
     id: 1,
     name: 'Sidecar',
@@ -63,9 +71,9 @@ const mockCocktails = [
   }
 ]
 
-export default function Home() {
-  const [cocktails, setCocktails] = useState([])
-  const [loading, setLoading] = useState(false)
+const Home: NextPage = () => {
+  const [cocktails, setCocktails] = useState<Cocktail[]>([])
+  const [loading, setLoading] = useState<Boolean>(false)
 
   useEffect(() => {
     setLoading(true)
@@ -90,3 +98,5 @@ export default function Home() {
     </Layout>
   )
 }
+
+export default Home
