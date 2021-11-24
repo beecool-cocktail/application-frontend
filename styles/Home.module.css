@@ -1,11 +1,3 @@
-.main {
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .banner {
   height: 300px;
   background: #ddd;

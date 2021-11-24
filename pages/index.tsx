@@ -1,17 +1,18 @@
 import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { Stack, CircularProgress, InputBase, Paper } from '@mui/material'
+import { useRouter } from 'next/router'
 import Layout from '../components/layout'
+import SearchBar from '../components/searchBar'
+import CocktailCardList from '../components/cocktailCardList/cocktailCardList'
 import { Cocktail } from '../types/cocktail'
 import mockCocktails from '../mock/mockCocktails'
-import CocktailCardList from '../components/cocktailCardList/cocktailCardList'
-// import SearchBar from '../components/searchBar'
-// import Banner from '../components/banner'
 
 const Home: NextPage = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([])
   const [loading, setLoading] = useState<Boolean>(false)
+  const router = useRouter()
 
   useEffect(() => {
     setLoading(true)
@@ -28,12 +29,16 @@ const Home: NextPage = () => {
         <meta name="description" content="Whispering Corner" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <CocktailCardList data={cocktails} />
-        {/* <SearchBar />
-        <Banner /> */}
-        {/* <CocktailList cocktails={cocktails} loading={loading} /> */}
-      </main>
+      <SearchBar onClick={() => router.push('/search')} />
+      {loading ? (
+        <Stack justifyContent="center" alignItems="center" sx={{ flex: '1' }}>
+          <CircularProgress />
+        </Stack>
+      ) : (
+        <Stack justifyContent="flex-start" alignItems="stretch">
+          <CocktailCardList data={cocktails} />
+        </Stack>
+      )}
     </Layout>
   )
 }

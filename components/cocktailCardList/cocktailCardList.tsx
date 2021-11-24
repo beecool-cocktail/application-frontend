@@ -9,9 +9,9 @@ type CocktailCardListProps = {
 const CocktailCardList = ({ data }: CocktailCardListProps) => {
   return (
     <Stack spacing={2}>
-      {data.map(cocktail => {
-        return <CocktailCard key={cocktail.id} cocktail={cocktail} />
-      })}
+      {data.map(cocktail => (
+        <CocktailCard key={cocktail.id} cocktail={cocktail} />
+      ))}
     </Stack>
   )
 }

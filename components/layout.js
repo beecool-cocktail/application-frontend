@@ -1,27 +1,23 @@
-import { BottomNavigation, BottomNavigationAction } from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material'
 import { Home, Search, Person } from '@mui/icons-material'
 import { useRouter } from 'next/router'
-import Navbar from './navbar'
-import Footer from './footer'
-import ScrollToTopButton from './scrollToTopButton'
-import styles from '../styles/Layout.module.css'
 import { useState } from 'react'
 
 const routes = [
   {
     path: '/',
-    icon: <Home />,
-    label: 'Home'
+    label: 'Home',
+    icon: <Home />
   },
   {
     path: '/search',
-    icon: <Search />,
-    label: 'Search'
+    label: 'Search',
+    icon: <Search />
   },
   {
     path: '/person',
-    icon: <Person />,
-    label: 'person'
+    label: 'person',
+    icon: <Person />
   }
 ]
 
@@ -30,7 +26,16 @@ export default function Layout({ children }) {
   const [value, setValue] = useState(router.asPath)
 
   return (
-    <div className={styles.container}>
+    <Stack
+      justifyContent="flex-start"
+      alignItems="stretch"
+      spacing={2}
+      sx={{
+        minHeight: '100vh',
+        width: '100%',
+        padding: 2
+      }}
+    >
       {children}
       <BottomNavigation
         value={value}
@@ -52,6 +57,6 @@ export default function Layout({ children }) {
           />
         ))}
       </BottomNavigation>
-    </div>
+    </Stack>
   )
 }
