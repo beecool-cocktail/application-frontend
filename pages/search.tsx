@@ -1,29 +1,45 @@
-import { useEffect } from 'react'
-import { Typography } from '@mui/material'
-import type { NextPage } from 'next'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { Stack } from '@mui/material'
 import Head from 'next/head'
 import Layout from '../components/layout'
 import SearchBar from '../components/searchBar'
-import styles from '../styles/Home.module.css'
+import { Cocktail } from '../types/cocktail'
+import mockCocktails from '../mock/mockCocktails'
+import LoadingScreen from '../components/loadingScreen'
+import CocktailCardList from '../components/cocktailCardList/cocktailCardList'
 
-const Search: NextPage = () => {
+const Search = () => {
+  const [cocktails, setCocktails] = useState<Cocktail[]>([])
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
-    // TODO
+    setLoading(true)
+    setTimeout(() => {
+      setCocktails(mockCocktails)
+      setLoading(false)
+    }, 1000)
   }, [])
 
   return (
     <Layout>
       <Head>
-        <title>Whispering Corner</title>
-        <meta name="description" content="Whispering Corner" />
+        <title>Whispering Corner Search Page</title>
+        <meta name="description" content="Whispering Corner Search Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <SearchBar />
-        <Typography>Search Page</Typography>
-      </main>
+      {loading ? (
+        <LoadingScreen />
+      ) : (
+        <Stack justifyContent="flex-start" alignItems="stretch">
+          <CocktailCardList data={cocktails} />
+        </Stack>
+      )}
     </Layout>
   )
 }
+
+Search.getLayout = (page: ReactElement) => (
+  <Layout header={<SearchBar />}>{page}</Layout>
+)
 
 export default Search

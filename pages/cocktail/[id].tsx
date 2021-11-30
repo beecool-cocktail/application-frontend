@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
-import { Stack, IconButton, Button, Paper, Typography } from '@mui/material'
-import { ArrowBack, ArrowRight } from '@mui/icons-material'
-import Carousel from 'react-material-ui-carousel'
+import { Stack } from '@mui/material'
+import BackButton from '../../components/backButton'
+import LoadingScreen from '../../components/loadingScreen'
+import CocktailDetails from '../../components/cocktailDetails/cocktailDetails'
 import mockCocktails from '../../mock/mockCocktails'
 import { Cocktail } from '../../types/cocktail'
 
@@ -25,40 +25,17 @@ const CocktailPage: NextPage = () => {
   }, [id])
 
   return (
-    <Stack>
-      {cocktail && (
-        <>
-          <Image
-            src={cocktail.imageUrl}
-            alt={cocktail.name}
-            width="100%"
-            height={250}
-          />
-          <Typography>Cocktail Page {id}</Typography>
-          <Carousel PrevIcon={<ArrowBack />} NextIcon={<ArrowRight />}>
-            <Paper>
-              <h2>Hello</h2>
-              <p>Jey!</p>
-              <Button>Check it out!</Button>
-            </Paper>
-            <Paper>
-              <h2>@#$!</h2>
-              <p>123123!</p>
-              <Button>Check it out!</Button>
-            </Paper>
-          </Carousel>
-        </>
+    <Stack
+      justifyContent="flex-start"
+      alignItems="stretch"
+      sx={{ minHeight: '100vh', width: '100%' }}
+    >
+      {loading || !cocktail ? (
+        <LoadingScreen />
+      ) : (
+        <CocktailDetails cocktail={cocktail} />
       )}
-      <IconButton
-        onClick={() => router.back()}
-        sx={{
-          position: 'absolute',
-          left: 1,
-          top: 1
-        }}
-      >
-        <ArrowBack />
-      </IconButton>
+      <BackButton />
     </Stack>
   )
 }

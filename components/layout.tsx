@@ -1,29 +1,20 @@
 import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material'
-import { Home, Search, Person } from '@mui/icons-material'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
+import routes from '../configs/routes'
 
-const routes = [
-  {
-    path: '/',
-    label: 'Home',
-    icon: <Home />
-  },
-  {
-    path: '/search',
-    label: 'Search',
-    icon: <Search />
-  },
-  {
-    path: '/person',
-    label: 'person',
-    icon: <Person />
-  }
-]
+type LayoutProps = {
+  header?: ReactNode
+  children: ReactNode
+}
 
-export default function Layout({ children }) {
+const Layout = ({ header, children }: LayoutProps) => {
   const router = useRouter()
   const [value, setValue] = useState(router.asPath)
+
+  useEffect(() => {
+    setValue(router.asPath)
+  }, [router.asPath])
 
   return (
     <Stack
@@ -36,6 +27,7 @@ export default function Layout({ children }) {
         padding: 2
       }}
     >
+      {header}
       {children}
       <BottomNavigation
         value={value}
@@ -60,3 +52,5 @@ export default function Layout({ children }) {
     </Stack>
   )
 }
+
+export default Layout

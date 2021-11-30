@@ -1,9 +1,9 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
+import { ReactElement } from 'react'
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.css'
 
-const Person: NextPage = () => {
+const Person = () => {
   return (
     <Layout>
       <Head>
@@ -15,5 +15,7 @@ const Person: NextPage = () => {
     </Layout>
   )
 }
+
+Person.getLayout = (page: ReactElement) => <Layout>{page}</Layout>
 
 export default Person
