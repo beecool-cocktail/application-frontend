@@ -1,6 +1,12 @@
-import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material'
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Dialog,
+  DialogTitle,
+  Stack
+} from '@mui/material'
 import { useRouter } from 'next/router'
-import { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import routes from '../configs/routes'
 
 type LayoutProps = {
@@ -11,6 +17,7 @@ type LayoutProps = {
 const Layout = ({ header, children }: LayoutProps) => {
   const router = useRouter()
   const [value, setValue] = useState(router.asPath)
+  const [loginDialogOpen, setLoginDialogOpen] = useState(false)
 
   useEffect(() => {
     setValue(router.asPath)
@@ -31,7 +38,10 @@ const Layout = ({ header, children }: LayoutProps) => {
       {children}
       <BottomNavigation
         value={value}
-        onChange={(_event, index) => setValue(index)}
+        onChange={(_event, value) => {
+          if (value === '/person') return
+          setValue(value)
+        }}
         sx={{
           position: 'fixed',
           bottom: 0,
@@ -45,10 +55,16 @@ const Layout = ({ header, children }: LayoutProps) => {
             label={route.label}
             value={route.path}
             icon={route.icon}
-            onClick={() => router.push(route.path)}
+            onClick={() => {
+              if (route.path === '/person') setLoginDialogOpen(true)
+              else router.push(route.path)
+            }}
           />
         ))}
       </BottomNavigation>
+      <Dialog open={loginDialogOpen} onClose={() => setLoginDialogOpen(false)}>
+        <DialogTitle>Sign in with Google</DialogTitle>
+      </Dialog>
     </Stack>
   )
 }
