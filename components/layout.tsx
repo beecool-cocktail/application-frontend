@@ -1,12 +1,14 @@
 import {
   BottomNavigation,
   BottomNavigationAction,
+  Button,
   Dialog,
+  DialogContent,
   DialogTitle,
   Stack
 } from '@mui/material'
 import { useRouter } from 'next/router'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useCallback, useEffect, useState } from 'react'
 import routes from '../configs/routes'
 
 type LayoutProps = {
@@ -23,16 +25,23 @@ const Layout = ({ header, children }: LayoutProps) => {
     setValue(router.asPath)
   }, [router.asPath])
 
+  const handleGoogleLogin = useCallback(async () => {
+    try {
+      await fetch('/api/google-login', {
+        method: 'POST',
+        redirect: 'follow'
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }, [])
+
   return (
     <Stack
       justifyContent="flex-start"
       alignItems="stretch"
       spacing={2}
-      sx={{
-        minHeight: '100vh',
-        width: '100%',
-        padding: 2
-      }}
+      sx={{ minHeight: '100vh', width: '100%', padding: 2 }}
     >
       {header}
       {children}
@@ -64,6 +73,9 @@ const Layout = ({ header, children }: LayoutProps) => {
       </BottomNavigation>
       <Dialog open={loginDialogOpen} onClose={() => setLoginDialogOpen(false)}>
         <DialogTitle>Sign in with Google</DialogTitle>
+        <DialogContent>
+          <Button onClick={handleGoogleLogin}>Login</Button>
+        </DialogContent>
       </Dialog>
     </Stack>
   )

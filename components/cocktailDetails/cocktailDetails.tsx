@@ -1,4 +1,3 @@
-import { StackedLineChart } from '@mui/icons-material'
 import {
   Divider,
   Stack,
@@ -10,8 +9,8 @@ import {
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { Box } from '@mui/system'
-import Image from 'next/image'
 import { Cocktail } from '../../types/cocktail'
+import ImageCarousel from './imageCarousel'
 import CocktailDetailsHeader from './cocktailDetailsHeader'
 
 export type CocktailDetailsProps = {
@@ -21,12 +20,7 @@ export type CocktailDetailsProps = {
 const CocktailDetails = ({ cocktail }: CocktailDetailsProps) => {
   return (
     <Stack>
-      <Image
-        src={cocktail.imageUrl}
-        alt={cocktail.name}
-        width="100%"
-        height={250}
-      />
+      <ImageCarousel cocktail={cocktail} />
       <Stack p={2}>
         <CocktailDetailsHeader cocktail={cocktail} />
         <Box py={2}>
@@ -58,6 +52,7 @@ const CocktailDetails = ({ cocktail }: CocktailDetailsProps) => {
               <Typography>
                 Cut your lime ready for squeezing and garnish
               </Typography>
+              Typography
               <Typography variant="subtitle1">步驟二</Typography>
               <Typography>Fill your highball glass with cubed ice</Typography>
               <Typography variant="subtitle1">步驟三</Typography>
