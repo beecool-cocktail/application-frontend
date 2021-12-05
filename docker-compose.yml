@@ -4,8 +4,6 @@ services:
   app:
     image: application-frontend
     container_name: application-frontend
-    volumes:
-      - .:/app
     ports:
       - "8080:8080"
     build:
