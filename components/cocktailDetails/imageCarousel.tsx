@@ -16,7 +16,11 @@ const ImageCarousel = ({ cocktail }: ImageCarouselProps) => {
   })
 
   const bind = useDrag(({ down, movement: [mx, my] }) => {
-    api.start({ x: down ? mx : 0, y: down ? my : 0, immediate: down })
+    api.start({
+      x: down ? mx : 0,
+      y: down ? my : 0,
+      immediate: down
+    })
   })
 
   return (

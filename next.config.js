@@ -5,7 +5,11 @@ module.exports = {
     return [
       {
         source: '/api/google-login',
-        destination: 'http://localhost:8080/api/google-login'
+        destination: 'http://localhost:6969/api/google-login'
+      },
+      {
+        source: '/api/google-authenticate',
+        destination: 'http://localhost:6969/api/google-authenticate'
       }
     ]
   }

@@ -8,3 +8,9 @@ services:
       - "8080:8080"
     build:
       context: ./
+    networks:
+      - application-backend_whispering
+
+networks:
+  application-backend_whispering:
+    external: true

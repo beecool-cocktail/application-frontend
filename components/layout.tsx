@@ -1,15 +1,8 @@
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Stack
-} from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Stack } from '@mui/material'
 import { useRouter } from 'next/router'
-import React, { ReactNode, useCallback, useEffect, useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import routes from '../configs/routes'
+import LoginDialog from './loginDialog'
 
 type LayoutProps = {
   header?: ReactNode
@@ -18,23 +11,7 @@ type LayoutProps = {
 
 const Layout = ({ header, children }: LayoutProps) => {
   const router = useRouter()
-  const [value, setValue] = useState(router.asPath)
   const [loginDialogOpen, setLoginDialogOpen] = useState(false)
-
-  useEffect(() => {
-    setValue(router.asPath)
-  }, [router.asPath])
-
-  const handleGoogleLogin = useCallback(async () => {
-    try {
-      await fetch('/api/google-login', {
-        method: 'POST',
-        redirect: 'follow'
-      })
-    } catch (err) {
-      console.error(err)
-    }
-  }, [])
 
   return (
     <Stack
@@ -46,10 +23,10 @@ const Layout = ({ header, children }: LayoutProps) => {
       {header}
       {children}
       <BottomNavigation
-        value={value}
+        value={router.asPath}
         onChange={(_event, value) => {
           if (value === '/person') return
-          setValue(value)
+          router.push(value)
         }}
         sx={{
           position: 'fixed',
@@ -65,18 +42,18 @@ const Layout = ({ header, children }: LayoutProps) => {
             value={route.path}
             icon={route.icon}
             onClick={() => {
-              if (route.path === '/person') setLoginDialogOpen(true)
-              else router.push(route.path)
+              if (route.path !== '/person' || localStorage.getItem('token')) {
+                return router.push(route.path)
+              }
+              setLoginDialogOpen(true)
             }}
           />
         ))}
       </BottomNavigation>
-      <Dialog open={loginDialogOpen} onClose={() => setLoginDialogOpen(false)}>
-        <DialogTitle>Sign in with Google</DialogTitle>
-        <DialogContent>
-          <Button onClick={handleGoogleLogin}>Login</Button>
-        </DialogContent>
-      </Dialog>
+      <LoginDialog
+        open={loginDialogOpen}
+        onClose={() => setLoginDialogOpen(false)}
+      />
     </Stack>
   )
 }
