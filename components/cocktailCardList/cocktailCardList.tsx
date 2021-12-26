@@ -10,7 +10,7 @@ const CocktailCardList = ({ data }: CocktailCardListProps) => {
   return (
     <Stack spacing={2}>
       {data.map(cocktail => (
-        <CocktailCard key={cocktail.id} cocktail={cocktail} />
+        <CocktailCard key={cocktail.cocktail_id} cocktail={cocktail} />
       ))}
     </Stack>
   )

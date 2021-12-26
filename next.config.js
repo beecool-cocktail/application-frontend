@@ -4,12 +4,12 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/api/google-login',
-        destination: 'http://localhost:6969/api/google-login'
+        source: '/api/:path*',
+        destination: 'http://localhost:6969/api/:path*'
       },
       {
-        source: '/api/google-authenticate',
-        destination: 'http://localhost:6969/api/google-authenticate'
+        source: '/static/:path*',
+        destination: 'http://localhost:6969/static/:path*'
       }
     ]
   }

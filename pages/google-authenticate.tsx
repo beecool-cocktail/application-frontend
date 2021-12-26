@@ -5,11 +5,11 @@ import useAuth from '../hooks/useAuth'
 
 const GoogleAuthenticate = () => {
   const router = useRouter()
-  const { getToken } = useAuth()
+  const { getUserInfo } = useAuth()
 
   useEffect(() => {
-    getToken(router.query.code as string)
-  }, [getToken, router])
+    getUserInfo(router.query.code as string)
+  }, [getUserInfo, router])
   return <LoadingScreen />
 }
 

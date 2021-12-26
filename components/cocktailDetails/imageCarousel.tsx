@@ -27,8 +27,8 @@ const ImageCarousel = ({ cocktail }: ImageCarouselProps) => {
     <Box width={1}>
       <animated.div {...bind()} style={{ x }}>
         <Image
-          src={cocktail.imageUrl}
-          alt={cocktail.name}
+          src={cocktail.photo}
+          alt={cocktail.title}
           width="100%"
           height={250}
         />

@@ -1,6 +1,7 @@
 export type Cocktail = {
-  id: number
-  name: string
-  tags: string[]
-  imageUrl: string
+  cocktail_id: number
+  title: string
+  tags?: string[]
+  photo: string
+  created_date: string
 }

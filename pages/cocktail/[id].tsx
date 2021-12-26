@@ -18,7 +18,7 @@ const CocktailPage: NextPage = () => {
     setLoading(true)
     setTimeout(() => {
       if (!id) return
-      const cocktail = mockCocktails.find(cocktail => cocktail.id === +id)
+      const cocktail = mockCocktails[0]
       setCocktail(cocktail)
       setLoading(false)
     }, 1000)

@@ -13,7 +13,7 @@ type CocktailCardProps = {
 }
 
 const CocktailCard = ({ cocktail }: CocktailCardProps) => {
-  const { id, imageUrl, name } = cocktail
+  const { cocktail_id: id, photo: imageUrl, title: name } = cocktail
   const router = useRouter()
 
   return (

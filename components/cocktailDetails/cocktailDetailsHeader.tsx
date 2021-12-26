@@ -33,7 +33,7 @@ const CocktailDetailsHeader = ({ cocktail }: CocktailDetailsHeaderProps) => {
       await navigator.share({
         url: window.location.href,
         title: document.title,
-        text: cocktail.name
+        text: cocktail.title
       })
     } catch (err) {
       console.error('share failed:', err)
@@ -52,7 +52,7 @@ const CocktailDetailsHeader = ({ cocktail }: CocktailDetailsHeaderProps) => {
           <Avatar>U</Avatar>
         </Grid>
         <Grid item xs>
-          <Typography variant="h5">{cocktail.name}</Typography>
+          <Typography variant="h5">{cocktail.title}</Typography>
         </Grid>
         <Grid item xs="auto">
           <IconButton onClick={handleShare}>
