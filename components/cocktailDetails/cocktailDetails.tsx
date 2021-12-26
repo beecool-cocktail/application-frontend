@@ -10,7 +10,8 @@ import {
 import { grey } from '@mui/material/colors'
 import { Box } from '@mui/system'
 import { Cocktail } from '../../types/cocktail'
-import ImageCarousel from './imageCarousel'
+// import ImageCarousel from './imageCarousel'
+import ImageSwiper from './ImageSwiper'
 import CocktailDetailsHeader from './cocktailDetailsHeader'
 
 export type CocktailDetailsProps = {
@@ -20,7 +21,8 @@ export type CocktailDetailsProps = {
 const CocktailDetails = ({ cocktail }: CocktailDetailsProps) => {
   return (
     <Stack>
-      <ImageCarousel cocktail={cocktail} />
+      <ImageSwiper cocktail={cocktail} />
+      {/* <ImageCarousel cocktail={cocktail} /> */}
       <Stack p={2}>
         <CocktailDetailsHeader cocktail={cocktail} />
         <Box py={2}>

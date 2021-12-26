@@ -6,7 +6,6 @@ import SearchBar from '../components/searchBar'
 import CocktailCardList from '../components/cocktailCardList/cocktailCardList'
 import LoadingScreen from '../components/loadingScreen'
 import { Cocktail } from '../types/cocktail'
-import mockCocktails from '../mock/mockCocktails'
 
 const Home = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([])

@@ -35,3 +35,12 @@ button {
   justify-content: center;
   animation: logo-spin infinite 0.5s linear;
 }
+
+.swiper {
+  height: 250px;
+  width: 100%;
+}
+
+.swiper-slide {
+  width: 100%;
+}

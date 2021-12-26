@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["bgcolor", "cloudsdktool", "entrypoint", "gcloud", "kaniko"]
+  "cSpell.words": [
+    "bgcolor",
+    "cloudsdktool",
+    "entrypoint",
+    "gcloud",
+    "kaniko",
+    "swiper"
+  ]
 }

@@ -20,7 +20,8 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.20.5",
     "react-icons": "4.3.1",
-    "react-spring": "^9.3.2"
+    "react-spring": "^9.3.2",
+    "swiper": "^7.4.1"
   },
   "devDependencies": {
     "@galtz-library/prettier-config": "0.1.5",
