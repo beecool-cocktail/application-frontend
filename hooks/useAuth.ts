@@ -1,49 +1,41 @@
 import { useRouter } from 'next/router'
-import axios from 'axios'
-
-const TOKEN_KEY = 'token'
-const USER_INFO_KEY = 'userInfo'
+import userApi from '../api/user'
+import storage from '../helper/storage'
 
 const useAuth = () => {
   const router = useRouter()
 
-  const login = () => {
+  const askUserPermission = () => {
     location.href = '/api/google-login'
   }
 
-  const getUserInfo = async (code: string) => {
-    if (!code) return
-    const response = await fetch('/api/google-authenticate', {
-      method: 'POST',
-      body: JSON.stringify({ code })
-    })
-    const responseBody = await response.json()
-    const { token } = responseBody.data
-    localStorage.setItem(TOKEN_KEY, token)
-
-    const { data: userInfo } = await fetch('/api/user/info', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then(res => res.json())
-    localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo))
-    router.push('/')
+  const login = async (code: string) => {
+    try {
+      if (!code) return
+      const token = await userApi.googleAuth(code)
+      const userInfo = await userApi.getUserInfo(token)
+      storage.setToken(token)
+      storage.setUserInfo(userInfo)
+      router.push('/')
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const logout = async () => {
-    const userInfoString = localStorage.getItem(USER_INFO_KEY)
-    if (!userInfoString) return
-
-    const { user_id } = JSON.parse(userInfoString)
-    await axios.post('/api/user/logout', {
-      body: JSON.stringify({ user_id })
-    })
-    localStorage.removeItem(TOKEN_KEY)
-    localStorage.removeItem(USER_INFO_KEY)
-    router.push('/')
+    try {
+      const userInfo = storage.getUserInfo()
+      if (!userInfo) return
+      await userApi.logout(userInfo.user_id)
+      storage.removeToken()
+      storage.removeUserInfo()
+      router.push('/')
+    } catch (err) {
+      console.error(err)
+    }
   }
 
-  return { login, logout, getUserInfo }
+  return { askUserPermission, logout, login }
 }
 
 export default useAuth

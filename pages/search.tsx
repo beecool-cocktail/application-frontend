@@ -1,13 +1,12 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Stack } from '@mui/material'
 import Head from 'next/head'
-import axios from 'axios'
 import Layout from '../components/layout'
 import SearchBar from '../components/searchBar'
 import { Cocktail } from '../types/cocktail'
-import mockCocktails from '../mock/mockCocktails'
 import LoadingScreen from '../components/loadingScreen'
 import CocktailCardList from '../components/cocktailCardList/cocktailCardList'
+import cocktailApi from '../api/cocktail'
 
 const Search = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([])
@@ -16,12 +15,7 @@ const Search = () => {
   useEffect(() => {
     const fetchCocktails = async () => {
       setLoading(true)
-      const response = await axios.get('/api/cocktails', {
-        params: { page: 1, page_size: 10 }
-      })
-      const { data } = response.data
-      const { total, popular_cocktail_list } = data
-
+      const { popular_cocktail_list } = await cocktailApi.getCocktails()
       setLoading(false)
       setCocktails(popular_cocktail_list)
     }
