@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Stack } from '@mui/material'
 import Head from 'next/head'
+import axios from 'axios'
 import Layout from '../components/layout'
 import SearchBar from '../components/searchBar'
 import { Cocktail } from '../types/cocktail'
@@ -15,12 +16,10 @@ const Search = () => {
   useEffect(() => {
     const fetchCocktails = async () => {
       setLoading(true)
-      const response = await fetch('/api/cocktails', {
-        method: 'POST',
-        body: JSON.stringify({ page: 1, page_size: 10 })
-      }).then(res => res.json())
-
-      const { data } = response
+      const response = await axios.get('/api/cocktails', {
+        params: { page: 1, page_size: 10 }
+      })
+      const { data } = response.data
       const { total, popular_cocktail_list } = data
 
       setLoading(false)
