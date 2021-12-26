@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 const TOKEN_KEY = 'token'
 const USER_INFO_KEY = 'userInfo'
@@ -20,7 +21,7 @@ const useAuth = () => {
     const { token } = responseBody.data
     localStorage.setItem(TOKEN_KEY, token)
 
-    const userInfo = await fetch('/api/user/info', {
+    const { data: userInfo } = await fetch('/api/user/info', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -34,7 +35,7 @@ const useAuth = () => {
     if (!userInfoString) return
 
     const { user_id } = JSON.parse(userInfoString)
-    const response = await fetch('/api/user/logout', {
+    await axios.post('/api/user/logout', {
       body: JSON.stringify({ user_id })
     })
     localStorage.removeItem(TOKEN_KEY)
