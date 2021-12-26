@@ -3,7 +3,6 @@ import { IconButton } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { grey } from '@mui/material/colors'
-import routes from '../configs/routes'
 
 const BackButton = () => {
   const router = useRouter()
