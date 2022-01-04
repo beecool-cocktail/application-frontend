@@ -15,6 +15,14 @@ const getCocktails = async (page = 1, page_size = 10) => {
   return response.data.data
 }
 
-const cocktailApi = { getCocktails }
+const getCocktailById = async (id: string) => {
+  const response = await axios.get<ApiResponse<CocktailList>>(
+    '/api/cocktails',
+    { params: { page: 1, page_size: 10 } }
+  )
+  return response.data.data.popular_cocktail_list[0]
+}
+
+const cocktailApi = { getCocktails, getCocktailById }
 
 export default cocktailApi

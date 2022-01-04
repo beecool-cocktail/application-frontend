@@ -1,6 +1,7 @@
 import { Paper, InputBase } from '@mui/material'
 import { useRouter } from 'next/router'
 import { MouseEventHandler, useCallback } from 'react'
+import { paths } from '../configs/routes'
 
 type SearchBarProps = {
   onClick?: MouseEventHandler<HTMLDivElement>
@@ -9,7 +10,7 @@ type SearchBarProps = {
 const SearchBar = ({ onClick }: SearchBarProps) => {
   const router = useRouter()
   const handleClick = useCallback(() => {
-    router.push('/search')
+    router.push(paths.search)
   }, [router])
 
   return (

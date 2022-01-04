@@ -1,7 +1,7 @@
 import { AiOutlineArrowUp } from 'react-icons/ai'
 import styles from '../styles/Layout.module.css'
 
-export default function ScrollToTopButton() {
+const ScrollToTopButton = () => {
   const handleClick = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }
@@ -12,3 +12,5 @@ export default function ScrollToTopButton() {
     </button>
   )
 }
+
+export default ScrollToTopButton

@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Stack } from '@mui/material'
 import Head from 'next/head'
-import Layout from '../components/layout'
+import Layout from '../components/layout/layout'
 import SearchBar from '../components/searchBar'
 import { Cocktail } from '../types/cocktail'
 import LoadingScreen from '../components/loadingScreen'
@@ -14,16 +14,20 @@ const Search = () => {
 
   useEffect(() => {
     const fetchCocktails = async () => {
-      setLoading(true)
-      const { popular_cocktail_list } = await cocktailApi.getCocktails()
-      setLoading(false)
-      setCocktails(popular_cocktail_list)
+      try {
+        setLoading(true)
+        const { popular_cocktail_list } = await cocktailApi.getCocktails()
+        setLoading(false)
+        setCocktails(popular_cocktail_list)
+      } catch (err) {
+        console.error(err)
+      }
     }
     fetchCocktails()
   }, [])
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Whispering Corner Search Page</title>
         <meta name="description" content="Whispering Corner Search Page" />
@@ -36,7 +40,7 @@ const Search = () => {
           <CocktailCardList data={cocktails} />
         </Stack>
       )}
-    </Layout>
+    </>
   )
 }
 

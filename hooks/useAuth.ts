@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import userApi from '../api/user'
 import storage from '../helper/storage'
+import { paths } from '../configs/routes'
 
 const useAuth = () => {
   const router = useRouter()
@@ -16,7 +17,7 @@ const useAuth = () => {
       const userInfo = await userApi.getUserInfo(token)
       storage.setToken(token)
       storage.setUserInfo(userInfo)
-      router.push('/')
+      router.push(paths.index)
     } catch (err) {
       console.error(err)
     }
@@ -29,7 +30,7 @@ const useAuth = () => {
       await userApi.logout(userInfo.user_id)
       storage.removeToken()
       storage.removeUserInfo()
-      router.push('/')
+      router.push(paths.index)
     } catch (err) {
       console.error(err)
     }

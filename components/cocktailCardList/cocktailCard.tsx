@@ -7,6 +7,7 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/router'
 import { Cocktail } from '../../types/cocktail'
+import { paths } from '../../configs/routes'
 
 type CocktailCardProps = {
   cocktail: Cocktail
@@ -18,14 +19,7 @@ const CocktailCard = ({ cocktail }: CocktailCardProps) => {
 
   return (
     <Card>
-      <CardActionArea
-        onClick={() =>
-          router.push({
-            pathname: '/cocktail/[id]',
-            query: { id }
-          })
-        }
-      >
+      <CardActionArea onClick={() => router.push(paths.cocktail(id))}>
         <CardMedia component="img" height="140" image={imageUrl} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

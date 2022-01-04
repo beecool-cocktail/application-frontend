@@ -3,6 +3,11 @@ import { ApiResponse } from './responseBase'
 
 export interface UserInfo {
   user_id: string
+  user_name: string
+  email: string
+  photo: string
+  number_of_post: number
+  number_of_collection: number
 }
 
 export interface TokenInfo {
@@ -12,7 +17,7 @@ export interface TokenInfo {
 const googleAuth = async (code: string) => {
   const res = await axios.post<ApiResponse<TokenInfo>>(
     '/api/google-authenticate',
-    { body: JSON.stringify({ code }) }
+    { code }
   )
   return res.data.data.token
 }
@@ -25,9 +30,7 @@ const getUserInfo = async (token: string): Promise<UserInfo> => {
 }
 
 const logout = async (user_id: string) => {
-  await axios.post('/api/user/logout', {
-    body: JSON.stringify({ user_id })
-  })
+  await axios.post('/api/user/logout', { user_id })
 }
 
 const userApi = { googleAuth, getUserInfo, logout }

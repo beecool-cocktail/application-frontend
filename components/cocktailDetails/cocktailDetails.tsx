@@ -22,7 +22,6 @@ const CocktailDetails = ({ cocktail }: CocktailDetailsProps) => {
   return (
     <Stack>
       <ImageSwiper cocktail={cocktail} />
-      {/* <ImageCarousel cocktail={cocktail} /> */}
       <Stack p={2}>
         <CocktailDetailsHeader cocktail={cocktail} />
         <Box py={2}>

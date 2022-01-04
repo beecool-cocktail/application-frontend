@@ -4,7 +4,11 @@ import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import { grey } from '@mui/material/colors'
 
-const BackButton = () => {
+export interface BackButtonProps {
+  color?: string
+}
+
+const BackButton = ({ color = 'black' }: BackButtonProps) => {
   const router = useRouter()
   const handleClick = useCallback(() => {
     router.back()
@@ -12,10 +16,10 @@ const BackButton = () => {
 
   return (
     <IconButton
-      sx={{ position: 'absolute', left: 1, top: 1 }}
+      // sx={{ position: 'absolute', left: 1, top: 1 }}
       onClick={handleClick}
     >
-      <ArrowBack sx={{ color: grey[50] }} />
+      <ArrowBack sx={{ color }} />
     </IconButton>
   )
 }
