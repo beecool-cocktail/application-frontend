@@ -7,6 +7,7 @@ node_modules/
 npm-debug.log
 scripts/
 README.md
+.env*
 .dockerignore
 .git/
 .github/

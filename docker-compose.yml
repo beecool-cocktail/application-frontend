@@ -8,6 +8,8 @@ services:
       - "8080:8080"
     build:
       context: ./
+    env_file:
+      - ./.env.dev
     networks:
       - application-backend_whispering
 

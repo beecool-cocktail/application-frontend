@@ -10,28 +10,29 @@
     "format": "prettier --write \"{pages,components}/**/*.{js,jsx,ts,tsx,json}\""
   },
   "dependencies": {
-    "@emotion/react": "^11.6.0",
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.1.1",
-    "@mui/material": "^5.1.1",
-    "@use-gesture/react": "^10.2.0",
-    "axios": "^0.24.0",
-    "next": "12.0.1",
+    "@mui/icons-material": "^5.3.1",
+    "@mui/material": "^5.3.1",
+    "@use-gesture/react": "^10.2.4",
+    "axios": "^0.25.0",
+    "next": "12.0.9",
+    "next-http-proxy-middleware": "^1.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hook-form": "^7.20.5",
+    "react-hook-form": "^7.25.3",
     "react-icons": "4.3.1",
-    "react-spring": "^9.3.2",
+    "react-spring": "^9.4.2",
     "swiper": "^7.4.1"
   },
   "devDependencies": {
     "@galtz-library/prettier-config": "0.1.5",
     "@types/node": "^16.11.9",
-    "@types/react": "^17.0.35",
+    "@types/react": "^17.0.38",
     "eslint": "7.32.0",
-    "eslint-config-next": "12.0.1",
+    "eslint-config-next": "12.0.9",
     "eslint-config-prettier": "^8.3.0",
-    "prettier": "^2.4.1",
-    "typescript": "^4.5.2"
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.5"
   }
 }
