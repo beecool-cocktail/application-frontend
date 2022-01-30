@@ -3,22 +3,22 @@ steps:
     args:
       - 'build'
       - '--build-arg=REVISION_ID=${REVISION_ID}'
-      - '--tag=asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend'
+      - '--tag=asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}'
       - '--file=./Dockerfile'
       - '.'
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend'
+      - 'asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}'
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - 'run'
       - 'deploy'
       - 'application-frontend'
-      - '--image=asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend'
+      - '--image=asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}'
       - '--region=asia-east1'
       - '--platform=managed'
 images:
-  - asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend
+  - asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}
 timeout: 900s

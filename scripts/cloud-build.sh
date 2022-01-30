@@ -9,4 +9,4 @@ ROOT_DIR=$(dirname $SH_DIR)
 cd $ROOT_DIR
 gcloud builds submit \
   --config cloudbuild.yaml \
-  --substitutions=REVISION_ID=${REVISION_ID}
+  --substitutions=REVISION_ID=${REVISION_ID},TAG_NAME=$(git describe)
