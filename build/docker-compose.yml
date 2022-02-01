@@ -6,9 +6,6 @@ services:
     container_name: application-frontend
     ports:
       - "${PORT}:8080"
-    # build:
-    #   context: ../
-    #   dockerfile: ./build/Dockerfile
     env_file:
       - ${RUNTIME_ENV_FILE}
     networks:

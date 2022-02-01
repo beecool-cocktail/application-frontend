@@ -3,9 +3,15 @@ steps:
     args:
       - 'build'
       - '--build-arg=REVISION_ID=${REVISION_ID}'
-      - '--tag=asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}'
+      - '--tag=${_IMAGE_NAME}:${TAG_NAME}'
+      - '--tag=${_IMAGE_NAME}:latest'
       - '--file=./build/Dockerfile'
       - '.'
 images:
-  - asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}
+  - ${_IMAGE_NAME}:${TAG_NAME}
+  - ${_IMAGE_NAME}:latest
+substitutions:
+  _IMAGE_NAME: 'asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend'
+options:
+  dynamic_substitutions: true
 timeout: 900s

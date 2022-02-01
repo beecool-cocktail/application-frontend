@@ -1,4 +1,5 @@
-cloudbuild.yaml
+cloud-build-beta.yaml
+cloud-build-deploy.yaml
 docker-compose*
 Dockerfile*
 jsconfig.json

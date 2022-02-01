@@ -3,7 +3,7 @@ name: Build Beta Image to Artifact Registry
 on:
   push:
     branches:
-      - beta/**
+      - 'beta/**'
 
 jobs:
   setup-build-beta:
