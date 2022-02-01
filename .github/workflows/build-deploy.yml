@@ -1,9 +1,9 @@
 name: Build and Deploy to Cloud Run
 
 on:
-  create:
+  push:
     tags:
-      - v*
+      - v**
 
 jobs:
   setup-build-deploy:
