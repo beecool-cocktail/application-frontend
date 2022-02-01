@@ -6,6 +6,7 @@ LICENSE
 node_modules/
 npm-debug.log
 scripts/
+stories/
 README.md
 .env*
 .dockerignore
@@ -13,4 +14,5 @@ README.md
 .github/
 .gitignore
 .next/
+.storybook/
 .vscode/
