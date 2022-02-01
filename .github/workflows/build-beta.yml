@@ -26,13 +26,8 @@ jobs:
       - name: Info
         run: gcloud info
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
       - name: Build and Deploy
         run: |-
           gcloud builds submit \
-            --config cloud-build-beta.yaml \
-            --substitutions=REVISION_ID=${GITHUB_SHA},TAG_NAME=${steps.extract_branch.outputs.branch//\//\-}
+            --config cloud-build-beta.yml \
+            --substitutions=REVISION_ID=${GITHUB_SHA},TAG_NAME=${GITHUB_REF_NAME//\//\-}

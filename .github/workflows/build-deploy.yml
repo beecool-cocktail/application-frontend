@@ -2,12 +2,12 @@ name: Build and Deploy to Cloud Run
 
 on:
   create:
-    tags:
-      - v*
 
 jobs:
   setup-build-deploy:
     name: Setup, Build and Deploy
+
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
 
     steps:
