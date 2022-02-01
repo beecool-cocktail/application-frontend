@@ -1,13 +1,13 @@
-name: Build and Deploy to Cloud Run
+name: Build Beta Image to Artifact Registry
 
 on:
-  create:
-    tags:
-      - v*
+  push:
+    branches:
+      - beta/**
 
 jobs:
-  setup-build-deploy:
-    name: Setup, Build, and Deploy
+  setup-build-beta:
+    name: Setup and Build Beta
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +26,13 @@ jobs:
       - name: Info
         run: gcloud info
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       - name: Build and Deploy
         run: |-
           gcloud builds submit \
-            --config cloudbuild.yaml \
-            --substitutions=REVISION_ID=${GITHUB_SHA},TAG_NAME=$(git describe --tags)
+            --config cloud-build-beta.yaml \
+            --substitutions=REVISION_ID=${GITHUB_SHA},TAG_NAME=${steps.extract_branch.outputs.branch//\//\-}

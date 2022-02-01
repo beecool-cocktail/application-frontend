@@ -1,0 +1,11 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--build-arg=REVISION_ID=${REVISION_ID}'
+      - '--tag=asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}'
+      - '--file=./build/Dockerfile'
+      - '.'
+images:
+  - asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG_NAME}
+timeout: 900s

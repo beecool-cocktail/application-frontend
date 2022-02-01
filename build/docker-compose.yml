@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  app:
+    image: asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend:${TAG}
+    container_name: application-frontend
+    ports:
+      - "${PORT}:8080"
+    # build:
+    #   context: ../
+    #   dockerfile: ./build/Dockerfile
+    env_file:
+      - ${RUNTIME_ENV_FILE}
+    networks:
+      - application-backend_whispering
+
+networks:
+  application-backend_whispering:
+    external: true
