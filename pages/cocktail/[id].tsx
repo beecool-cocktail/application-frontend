@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Stack } from '@mui/material'
-import BackButton from '../../components/button/backButton'
-import LoadingScreen from '../../components/loadingScreen'
-import CocktailDetails from '../../components/cocktailDetails/cocktailDetails'
-import { Cocktail } from '../../types/cocktail'
-import cocktailApi from '../../api/cocktail'
+import BackButton from 'components/common/button/backButton'
+import LoadingScreen from 'components/common/loadingScreen'
+import CocktailDetails from 'components/pages/cocktailDetails/cocktailDetails'
+import { Cocktail } from 'types/cocktail'
+import cocktailApi from 'api/cocktail'
 
 const CocktailPage: NextPage = () => {
   const router = useRouter()

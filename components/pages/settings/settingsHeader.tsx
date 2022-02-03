@@ -1,6 +1,6 @@
-import BackButton from '../button/backButton'
-import SubmitButton from '../button/submitButton'
-import Header from '../layout/header'
+import BackButton from '../../common/button/backButton'
+import SubmitButton from '../../common/button/submitButton'
+import Header from '../../layout/header'
 
 const SettingsHeader = () => {
   const handleSubmit = () => {

@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material'
-import useAuth from '../hooks/useAuth'
+import useAuth from 'hooks/useAuth'
 
 export interface LoginDialogProps {
   open: boolean

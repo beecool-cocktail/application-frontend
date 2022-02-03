@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material'
 import { Typography } from '@mui/material'
-import CreatePostHeader from '../components/create-post/createPostHeader'
+import CreatePostHeader from '../components/pages/create-post/createPostHeader'
 
 const CreatePost = () => {
   return (

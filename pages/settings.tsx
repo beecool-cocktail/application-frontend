@@ -8,8 +8,8 @@ import {
   TextField
 } from '@mui/material'
 import useAuth from '../hooks/useAuth'
-import Avatar from '../components/profile/avatar'
-import SettingsHeader from '../components/settings/settingsHeader'
+import Avatar from '../components/common/image/avatar'
+import SettingsHeader from '../components/pages/settings/settingsHeader'
 import storage from '../helper/storage'
 import { UserInfo } from '../api/user'
 

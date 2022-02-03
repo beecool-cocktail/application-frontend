@@ -4,9 +4,9 @@ import {
   SettingsOutlined as SettingsIcon
 } from '@mui/icons-material'
 import { useState } from 'react'
-import useGoto from '../../hooks/useGoto'
-import storage from '../../helper/storage'
-import Avatar from './avatar'
+import useGoto from '../../../hooks/useGoto'
+import storage from '../../../helper/storage'
+import Avatar from '../../common/image/avatar'
 import ProfileDetailRow from './profileDetailRow'
 import CollectionTabPanel from './collectionTabPanel'
 import PostTabPanel from './postTabPanel'

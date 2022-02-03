@@ -1,12 +1,12 @@
 import { useState, useEffect, ReactElement } from 'react'
 import Head from 'next/head'
 import { Stack } from '@mui/material'
-import Layout from '../components/layout/layout'
-import SearchBar from '../components/searchBar'
-import CocktailCardList from '../components/cocktailCardList/cocktailCardList'
-import LoadingScreen from '../components/loadingScreen'
-import { Cocktail } from '../types/cocktail'
-import cocktailApi from '../api/cocktail'
+import Layout from 'components/layout/layout'
+import SearchBar from 'components/common/searchBar'
+import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
+import LoadingScreen from 'components/common/loadingScreen'
+import { Cocktail } from 'types/cocktail'
+import cocktailApi from 'api/cocktail'
 
 const Home = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([])

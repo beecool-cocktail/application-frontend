@@ -1,9 +1,9 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import FloatingPostButton from '../components/button/floatingPostButton'
+import FloatingPostButton from 'components/common/button/floatingPostButton'
 
 export default {
-  title: 'floatingPostButton',
+  title: 'button/floatingPostButton',
   component: FloatingPostButton,
   argTypes: {
     onClick: { action: 'click' }

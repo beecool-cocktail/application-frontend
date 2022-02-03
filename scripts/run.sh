@@ -8,9 +8,9 @@ BUILD_DIR=${ROOT_DIR}/build
 
 cd $BUILD_DIR
 
-set -o allexport;
-export PROJECT_ID="$(gcloud config get-value project)"
-source ./docker-compose.properties;
+set -o allexport
+PROJECT_ID="$(gcloud config get-value project)"
+source ./docker-compose.properties
 set +o allexport
 
 case "$1" in

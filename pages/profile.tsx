@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { ReactElement } from 'react'
 import Layout from '../components/layout/layout'
 import usePermission from '../hooks/usePermission'
-import ProfileDetail from '../components/profile/profileDetail'
+import ProfileDetail from '../components/pages/profile/profileDetail'
 
 const Profile = () => {
   const hasPermission = usePermission({ guard: true })

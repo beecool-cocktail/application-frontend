@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import LoadingScreen from '../components/loadingScreen'
-import useAuth from '../hooks/useAuth'
+import LoadingScreen from 'components/common/loadingScreen'
+import useAuth from 'hooks/useAuth'
 
 const GoogleAuthenticate = () => {
   const router = useRouter()

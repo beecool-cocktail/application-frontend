@@ -2,9 +2,9 @@ import { BookmarkOutlined, ShareOutlined } from '@mui/icons-material'
 import { Avatar, IconButton, Typography } from '@mui/material'
 import { Box, Grid, Popper } from '@mui/material'
 import React, { useRef, useState } from 'react'
-import { Cocktail } from '../../types/cocktail'
-import LoginDialog from '../loginDialog'
-import usePermission from '../../hooks/usePermission'
+import { Cocktail } from 'types/cocktail'
+import LoginDialog from 'components/common/dialog/loginDialog'
+import usePermission from 'hooks/usePermission'
 
 const POPPER_TIMEOUT = 1000
 

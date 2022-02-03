@@ -6,8 +6,8 @@ import {
   Typography
 } from '@mui/material'
 import { useRouter } from 'next/router'
-import { Cocktail } from '../../types/cocktail'
-import { paths } from '../../configs/routes'
+import { Cocktail } from '../../../types/cocktail'
+import { paths } from '../../../configs/routes'
 
 type CocktailCardProps = {
   cocktail: Cocktail

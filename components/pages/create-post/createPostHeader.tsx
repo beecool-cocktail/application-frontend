@@ -1,8 +1,8 @@
 import React from 'react'
 import { Stack } from '@mui/material'
-import Header from '../layout/header'
-import SubmitButton from '../button/submitButton'
-import BackButton from '../button/backButton'
+import Header from '../../layout/header'
+import SubmitButton from '../../common/button/submitButton'
+import BackButton from '../../common/button/backButton'
 
 const CreatePostHeader = () => {
   const handleSubmit = () => {
