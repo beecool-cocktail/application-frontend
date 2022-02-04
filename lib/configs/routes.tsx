@@ -1,3 +1,4 @@
+import React from 'react'
 import { Home, Search, Person } from '@mui/icons-material'
 
 export interface Route {

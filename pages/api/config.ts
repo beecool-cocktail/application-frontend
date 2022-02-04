@@ -1,5 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 const { serverRuntimeConfig } = getConfig()
 const { apiBaseUrl, staticBaseUrl } = serverRuntimeConfig

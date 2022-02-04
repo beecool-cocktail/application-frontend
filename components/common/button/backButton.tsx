@@ -2,7 +2,6 @@ import { ArrowBack } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
-import { grey } from '@mui/material/colors'
 
 export interface BackButtonProps {
   color?: string

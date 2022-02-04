@@ -1,10 +1,10 @@
 import { ReactElement, ReactNode, useState, useEffect } from 'react'
-import type { AppProps } from 'next/app'
 import { NextPage } from 'next'
 import ConfigContext from 'lib/context/configContext'
 import Config from 'lib/types/config'
 import 'lib/styles/globals.css'
 import configApi from 'lib/api/config'
+import type { AppProps } from 'next/app'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode

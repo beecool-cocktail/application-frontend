@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 const useMinHistoryIndex = () => {
   useEffect(() => {
-    let minIndexStr = sessionStorage.getItem('minHistoryIndex')
+    const minIndexStr = sessionStorage.getItem('minHistoryIndex')
     let minIndex: number
     if (minIndexStr === null) {
       minIndex = history.length

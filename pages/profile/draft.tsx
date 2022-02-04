@@ -1,12 +1,12 @@
 import { Box, Stack, Typography } from '@mui/material'
-import Image from 'next/dist/client/image'
-import Header from '../components/layout/header'
-import BackButton from '../components/common/button/backButton'
-import DeleteButton from '../components/common/button/deleteButton'
+import Image from 'next/image'
+import Header from 'components/layout/header'
+import BackButton from 'components/common/button/backButton'
+import DeleteButton from 'components/common/button/deleteButton'
 
 const Draft = () => {
   const handleSubmit = () => {
-    console.log('submit')
+    // TODO
   }
 
   return (

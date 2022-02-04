@@ -7,11 +7,11 @@ import {
   Typography,
   TextField
 } from '@mui/material'
-import useAuth from '../lib/hooks/useAuth'
-import Avatar from '../components/common/image/avatar'
-import SettingsHeader from '../components/pages/settings/settingsHeader'
-import storage from '../lib/helper/storage'
-import { UserInfo } from '../lib/api/user'
+import Avatar from 'components/common/image/avatar'
+import SettingsHeader from 'components/pages/settings/settingsHeader'
+import useAuth from 'lib/hooks/useAuth'
+import storage from 'lib/helper/storage'
+import { UserInfo } from 'lib/api/user'
 
 const Settings = () => {
   const { logout } = useAuth()

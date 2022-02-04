@@ -17,16 +17,12 @@ const Search = () => {
 
   useEffect(() => {
     const fetchCocktails = async () => {
-      try {
-        setLoading(true)
-        const { popular_cocktail_list } = await cocktailApi.getCocktails()
-        setLoading(false)
-        setCocktails(popular_cocktail_list)
-      } catch (err) {
-        console.error(err)
-      }
+      setLoading(true)
+      const { popular_cocktail_list } = await cocktailApi.getCocktails()
+      setLoading(false)
+      setCocktails(popular_cocktail_list)
     }
-    fetchCocktails()
+    fetchCocktails().catch(console.error)
   }, [])
 
   if (!config) return null

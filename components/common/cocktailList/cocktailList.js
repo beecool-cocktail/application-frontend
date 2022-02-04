@@ -1,6 +1,6 @@
-import styles from '../../styles/Home.module.css'
-import CocktailCard from './cocktailCard'
+import styles from 'lib/styles/Home.module.css'
 import SpinLoader from '../spinLoader'
+import CocktailCard from './cocktailCard'
 
 export default function CocktailList({ cocktails, loading }) {
   const renderContent = () => {

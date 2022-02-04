@@ -1,9 +1,9 @@
 import { Stack } from '@mui/material'
 import React, { ReactNode, useState } from 'react'
-import useGoto from '../../lib/hooks/useGoto'
-import LoginDialog from '../common/dialog/loginDialog'
+import useGoto from 'lib/hooks/useGoto'
+import LoginDialog from 'components/common/dialog/loginDialog'
+import FloatingPostButton from 'components/common/button/floatingPostButton'
 import NavigationBar from './navigationBar'
-import FloatingPostButton from '../common/button/floatingPostButton'
 
 type LayoutProps = {
   header?: ReactNode

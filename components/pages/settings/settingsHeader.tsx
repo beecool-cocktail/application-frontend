@@ -4,7 +4,7 @@ import Header from '../../layout/header'
 
 const SettingsHeader = () => {
   const handleSubmit = () => {
-    console.log('submit')
+    // TODO
   }
 
   return (

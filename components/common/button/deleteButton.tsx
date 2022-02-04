@@ -1,6 +1,5 @@
 import { Delete } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
-import { grey } from '@mui/material/colors'
 
 export interface DeleteButtonProps {
   color?: string

@@ -1,5 +1,4 @@
 import { FaCocktail } from 'react-icons/fa'
-import Image from 'next/image'
 import styles from '../styles/Layout.module.css'
 
 export default function Navbar() {

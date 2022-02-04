@@ -11,7 +11,7 @@ import cocktailApi from 'lib/api/cocktail'
 const CocktailPage: NextPage = () => {
   const router = useRouter()
   const [cocktail, setCocktail] = useState<Cocktail | undefined>()
-  const [loading, setLoading] = useState<Boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const id = router.query.id as string
 
   useEffect(() => {

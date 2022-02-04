@@ -1,5 +1,5 @@
 import { Box, BottomNavigation, BottomNavigationAction } from '@mui/material'
-import routes from '../../lib/configs/routes'
+import routes from 'lib/configs/routes'
 
 export interface NavigationBarProps {
   value: string

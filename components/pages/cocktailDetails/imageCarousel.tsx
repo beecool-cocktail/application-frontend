@@ -11,7 +11,7 @@ export type ImageCarouselProps = {
 const ImageCarousel = ({ cocktail }: ImageCarouselProps) => {
   const [{ x }, api] = useSpring(() => {
     {
-      x: 0
+      // x: 0
     }
   })
 

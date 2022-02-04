@@ -6,7 +6,7 @@ import BackButton from '../../common/button/backButton'
 
 const CreatePostHeader = () => {
   const handleSubmit = () => {
-    console.log('submit')
+    // TODO
   }
 
   return (

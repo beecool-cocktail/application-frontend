@@ -12,7 +12,7 @@ import ConfigContext from 'lib/context/configContext'
 
 const Home = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([])
-  const [loading, setLoading] = useState<Boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const config = useContext(ConfigContext)
 
   useEffect(() => {

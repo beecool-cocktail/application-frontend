@@ -17,8 +17,7 @@ const getCocktails = async (page = 1, page_size = 10) => {
 
 const getCocktailById = async (id: string) => {
   const response = await axios.get<ApiResponse<CocktailList>>(
-    '/api/cocktails',
-    { params: { page: 1, page_size: 10 } }
+    `/api/cocktails/${id}`
   )
   return response.data.data.popular_cocktail_list[0]
 }
