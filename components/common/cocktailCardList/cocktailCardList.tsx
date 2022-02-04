@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material'
-import { Cocktail } from '../../../types/cocktail'
+import { Cocktail } from '../../../lib/types/cocktail'
 import CocktailCard from './cocktailCard'
 
 type CocktailCardListProps = {

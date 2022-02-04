@@ -4,14 +4,14 @@ import {
   SettingsOutlined as SettingsIcon
 } from '@mui/icons-material'
 import { useState } from 'react'
-import useGoto from '../../../hooks/useGoto'
-import storage from '../../../helper/storage'
-import Avatar from '../../common/image/avatar'
+import useGoto from 'lib/hooks/useGoto'
+import storage from 'lib/helper/storage'
+import Avatar from 'components/common/image/avatar'
 import ProfileDetailRow from './profileDetailRow'
 import CollectionTabPanel from './collectionTabPanel'
 import PostTabPanel from './postTabPanel'
 
-const mockAvatarUrl = '/cocktail.jpg'
+const FALLBACK_URL = '/cocktail.jpg'
 
 const ProfileDetail = () => {
   const { gotoIndex, gotoDraft, gotoSettings } = useGoto()
@@ -26,6 +26,8 @@ const ProfileDetail = () => {
     gotoIndex()
     return null
   }
+
+  const avatarUrl = userInfo.photo || FALLBACK_URL
 
   return (
     <Stack flex={1}>
@@ -42,7 +44,7 @@ const ProfileDetail = () => {
         </Stack>
       </Stack>
       <Box mt={2}>
-        <Avatar src={mockAvatarUrl} size={80} />
+        <Avatar src={avatarUrl} size={80} />
       </Box>
       <Box mt={2}>
         <ProfileDetailRow

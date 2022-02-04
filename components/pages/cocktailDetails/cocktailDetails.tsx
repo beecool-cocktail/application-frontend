@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 import { grey } from '@mui/material/colors'
 import { Box } from '@mui/system'
-import { Cocktail } from 'types/cocktail'
+import { Cocktail } from 'lib/types/cocktail'
 // import ImageCarousel from './imageCarousel'
 import ImageSwiper from './ImageSwiper'
 import CocktailDetailsHeader from './cocktailDetailsHeader'

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ApiResponse } from './responseBase'
+import { ApiResponse } from '../types/api/responseBase'
 
 export interface UserInfo {
   user_id: string

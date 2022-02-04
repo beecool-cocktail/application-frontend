@@ -1,13 +1,14 @@
 import {
+  Box,
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Typography
 } from '@mui/material'
 import { useRouter } from 'next/router'
-import { Cocktail } from '../../../types/cocktail'
-import { paths } from '../../../configs/routes'
+import Image from 'next/image'
+import { Cocktail } from 'lib/types/cocktail'
+import { paths } from 'lib/configs/routes'
 
 type CocktailCardProps = {
   cocktail: Cocktail
@@ -20,7 +21,9 @@ const CocktailCard = ({ cocktail }: CocktailCardProps) => {
   return (
     <Card>
       <CardActionArea onClick={() => router.push(paths.cocktail(id))}>
-        <CardMedia component="img" height="140" image={imageUrl} />
+        <Box height={140} width={1} position="relative">
+          <Image layout="fill" src={imageUrl} alt={name} />
+        </Box>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}

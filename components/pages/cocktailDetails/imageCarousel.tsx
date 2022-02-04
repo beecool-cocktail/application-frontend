@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Box } from '@mui/system'
 import { useSpring, animated } from 'react-spring'
 import { useDrag } from '@use-gesture/react'
-import { Cocktail } from 'types/cocktail'
+import { Cocktail } from 'lib/types/cocktail'
 
 export type ImageCarouselProps = {
   cocktail: Cocktail

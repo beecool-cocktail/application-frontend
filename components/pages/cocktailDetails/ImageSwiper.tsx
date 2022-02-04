@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Navigation, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Cocktail } from 'types/cocktail'
+import { Cocktail } from 'lib/types/cocktail'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'

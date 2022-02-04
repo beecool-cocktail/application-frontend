@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material'
 import React, { ReactNode, useState } from 'react'
-import useGoto from '../../hooks/useGoto'
+import useGoto from '../../lib/hooks/useGoto'
 import LoginDialog from '../common/dialog/loginDialog'
 import NavigationBar from './navigationBar'
 import FloatingPostButton from '../common/button/floatingPostButton'

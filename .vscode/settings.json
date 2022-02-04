@@ -5,6 +5,7 @@
     "cloudsdktool",
     "entrypoint",
     "gcloud",
+    "immer",
     "kaniko",
     "swiper"
   ]

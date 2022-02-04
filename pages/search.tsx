@@ -1,16 +1,19 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { Stack } from '@mui/material'
 import Head from 'next/head'
+import produce from 'immer'
 import Layout from 'components/layout/layout'
 import SearchBar from 'components/common/searchBar'
-import { Cocktail } from 'types/cocktail'
+import { Cocktail } from 'lib/types/cocktail'
 import LoadingScreen from 'components/common/loadingScreen'
 import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
-import cocktailApi from 'api/cocktail'
+import cocktailApi from 'lib/api/cocktail'
+import ConfigContext from 'lib/context/configContext'
 
 const Search = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([])
   const [loading, setLoading] = useState(false)
+  const config = useContext(ConfigContext)
 
   useEffect(() => {
     const fetchCocktails = async () => {
@@ -26,6 +29,14 @@ const Search = () => {
     fetchCocktails()
   }, [])
 
+  if (!config) return null
+
+  const cocktailsWithApiBaseUrl = cocktails.map(cocktail =>
+    produce(cocktail, draft => {
+      draft.photo = `${config.staticBaseUrl}/${draft.photo}`
+    })
+  )
+
   return (
     <>
       <Head>
@@ -37,7 +48,7 @@ const Search = () => {
         <LoadingScreen />
       ) : (
         <Stack justifyContent="flex-start" alignItems="stretch">
-          <CocktailCardList data={cocktails} />
+          <CocktailCardList data={cocktailsWithApiBaseUrl} />
         </Stack>
       )}
     </>

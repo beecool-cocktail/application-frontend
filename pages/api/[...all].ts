@@ -10,7 +10,6 @@ export default function proxyHandler(
 ) {
   return httpProxyMiddleware(req, res, {
     target: serverRuntimeConfig.apiBaseUrl,
-    changeOrigin: true,
-    pathRewrite: [{ patternStr: '^/api/static', replaceStr: '/static' }]
+    changeOrigin: true
   })
 }

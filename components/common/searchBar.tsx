@@ -1,7 +1,7 @@
 import { Paper, InputBase } from '@mui/material'
 import { useRouter } from 'next/router'
 import { MouseEventHandler, useCallback } from 'react'
-import { paths } from 'configs/routes'
+import { paths } from 'lib/configs/routes'
 
 type SearchBarProps = {
   onClick?: MouseEventHandler<HTMLDivElement>

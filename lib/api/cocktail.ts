@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Cocktail } from '../types/cocktail'
-import { ApiResponse } from './responseBase'
+import { ApiResponse } from '../types/api/responseBase'
 
 export interface CocktailList {
   total: number
