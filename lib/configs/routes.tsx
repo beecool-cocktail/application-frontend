@@ -13,12 +13,12 @@ export const paths = {
   index: '/',
   search: '/search',
   profile: '/profile',
-  settings: '/settings',
+  settings: '/profile/settings',
+  draft: '/profile/draft',
   cocktail: (id: number) => ({
     pathname: '/cocktail/[id]',
     query: { id }
   }),
-  draft: '/draft',
   creatPost: '/create-post'
 }
 
