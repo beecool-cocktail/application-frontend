@@ -13,3 +13,9 @@ export default function proxyHandler(
     changeOrigin: true
   })
 }
+
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}

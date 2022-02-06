@@ -25,14 +25,11 @@ const logout = async (user_id: string) => {
 
 const editInfo = async (userData: EditSettingsData, token: string) => {
   const formData = new FormData()
+  if (userData.file) formData.append('file', userData.file[0])
   formData.append('name', userData.user_name)
   formData.append('is_collection_public', String(userData.is_collection_public))
-  if (userData.file) formData.append('file', userData.file[0])
   await axios.post('/api/user/edit-info', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${token}`
-    }
+    headers: { Authorization: `Bearer ${token}` }
   })
 }
 

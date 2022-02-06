@@ -32,22 +32,27 @@ const SettingsForm = ({ userInfo }: SettingsFormProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <SettingsHeader />
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <label htmlFor="upload">
-          <Avatar src={previewUrl || userInfo.photo} size={100} />
-          <input
-            id="upload"
-            {...register('file', {
-              onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                if (!e.target.files) return
-                setPreviewUrl(URL.createObjectURL(e.target.files[0]))
-              }
-            })}
-            accept="image/*"
-            type="file"
-            hidden
-          />
-        </label>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        htmlFor="upload"
+        component="label"
+        style={{ cursor: 'pointer' }}
+      >
+        <Avatar src={previewUrl || userInfo.photo} size={100} />
+        <input
+          id="upload"
+          {...register('file', {
+            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+              if (!e.target.files) return
+              setPreviewUrl(URL.createObjectURL(e.target.files[0]))
+            }
+          })}
+          accept="image/*"
+          type="file"
+          hidden
+        />
       </Box>
       <Typography variant="h6" textAlign="center">
         {userInfo.email}
