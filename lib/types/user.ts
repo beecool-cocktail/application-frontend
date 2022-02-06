@@ -5,4 +5,5 @@ export interface UserInfo {
   photo: string
   number_of_post: number
   number_of_collection: number
+  is_collection_public: boolean
 }

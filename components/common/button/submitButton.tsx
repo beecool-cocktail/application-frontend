@@ -3,15 +3,11 @@ import { IconButton } from '@mui/material'
 
 export interface SubmitButtonProps {
   color?: string
-  onClick: () => void
 }
 
-const SubmitButton = ({
-  color = 'black',
-  onClick: handleClick
-}: SubmitButtonProps) => {
+const SubmitButton = ({ color = 'black' }: SubmitButtonProps) => {
   return (
-    <IconButton onClick={handleClick}>
+    <IconButton type="submit">
       <Check sx={{ color }} />
     </IconButton>
   )

@@ -11,7 +11,10 @@ const fetcher: Fetcher<Cocktail, string> = async url => {
 
 const useCocktail = (id: string | undefined) => {
   const { config, loading: configLoading } = useConfig()
-  const { data, error } = useSWR(id ? ['/api/cocktails', id] : null, fetcher)
+  const { data, error } = useSWR(
+    id && config ? ['/api/cocktails', id] : null,
+    fetcher
+  )
 
   let cocktail = data
   if (data && config)

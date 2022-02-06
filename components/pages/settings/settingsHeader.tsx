@@ -1,17 +1,13 @@
-import BackButton from '../../common/button/backButton'
-import SubmitButton from '../../common/button/submitButton'
-import Header from '../../layout/header'
+import BackButton from 'components/common/button/backButton'
+import SubmitButton from 'components/common/button/submitButton'
+import Header from 'components/layout/header'
 
 const SettingsHeader = () => {
-  const handleSubmit = () => {
-    // TODO
-  }
-
   return (
     <Header
       title="設定"
       leftButton={<BackButton />}
-      rightButton={<SubmitButton onClick={handleSubmit} />}
+      rightButton={<SubmitButton />}
     />
   )
 }

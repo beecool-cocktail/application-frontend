@@ -1,6 +1,7 @@
 import useSWR, { Fetcher } from 'swr'
 import axios from 'axios'
 import storage from 'lib/helper/storage'
+import useConfig from './useConfig'
 import type { UserInfo } from 'lib/types/user'
 import type { ApiResponse } from 'lib/types/api/responseBase'
 
@@ -17,18 +18,23 @@ const fetcher: Fetcher<UserInfo, [string, string]> = async (url, token) => {
 
 const useUserInfo = () => {
   const token = storage.getToken()
-  const { data, error } = useSWR(
-    token ? ['/api/user/info', token] : null,
+  const { config, loading: configLoading } = useConfig()
+  const { data, error, mutate } = useSWR(
+    token && config ? ['/api/user/info', token] : null,
     fetcher
   )
   if (error) storage.removeToken()
   let userInfo = data
-  if (data && !data.photo) userInfo = { ...data, photo: FALLBACK_URL }
+  if (data && config) {
+    if (!data.photo) userInfo = { ...data, photo: FALLBACK_URL }
+    else userInfo = { ...data, photo: `${config.staticBaseUrl}/${data.photo}` }
+  }
 
   return {
     userInfo,
-    loading: !data && !error,
-    error
+    loading: (!data && !error) || configLoading,
+    error,
+    mutate
   }
 }
 
