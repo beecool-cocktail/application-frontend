@@ -15,8 +15,8 @@ export const paths = {
   profile: '/profile',
   settings: '/profile/settings',
   draft: '/profile/draft',
-  cocktail: (id: number) => ({
-    pathname: '/cocktail/[id]',
+  cocktails: (id: number) => ({
+    pathname: '/cocktails/[id]',
     query: { id }
   }),
   creatPost: '/create-post'

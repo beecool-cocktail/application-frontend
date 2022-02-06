@@ -1,8 +1,8 @@
 import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
-import { paths } from '../configs/routes'
-import routes from '../configs/routes'
-import storage from '../helper/storage'
+import { paths } from 'lib/configs/routes'
+import routes from 'lib/configs/routes'
+import storage from 'lib/helper/storage'
 
 export interface useGotoProps {
   onBlock?: () => void
@@ -31,7 +31,7 @@ const useGoto = (props?: useGotoProps) => {
     gotoProfile: () => goto(paths.profile),
     gotoDraft: () => goto(paths.draft),
     gotoSettings: () => goto(paths.settings),
-    gotoCocktailDetails: (id: number) => goto(paths.cocktail(id)),
+    gotoCocktailDetails: (id: number) => goto(paths.cocktails(id)),
     gotoCreatePost: () => goto(paths.creatPost)
   }
 }

@@ -5,3 +5,8 @@ export type Cocktail = {
   photo: string
   created_date: string
 }
+
+export interface CocktailList {
+  total: number
+  popular_cocktail_list: Cocktail[]
+}

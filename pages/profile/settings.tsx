@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import {
   Box,
   Button,
@@ -10,20 +9,14 @@ import {
 import Avatar from 'components/common/image/avatar'
 import SettingsHeader from 'components/pages/settings/settingsHeader'
 import useAuth from 'lib/hooks/useAuth'
-import storage from 'lib/helper/storage'
-import { UserInfo } from 'lib/api/user'
+import useUserInfo from 'lib/hooks/useUserInfo'
+import Spinner from 'components/common/status/spinner'
 
 const Settings = () => {
   const { logout } = useAuth()
-  const [userInfo, setUserInfo] = useState<null | UserInfo>(null)
-  useEffect(() => {
-    const userInfo = storage.getUserInfo()
-    if (!userInfo) return
-    userInfo.photo = '/cocktail.jpg'
-    setUserInfo(userInfo)
-  }, [])
-
-  if (!userInfo) return null
+  const { userInfo, loading, error } = useUserInfo()
+  if (loading) return <Spinner />
+  if (!userInfo || error) return <Typography>error</Typography>
 
   return (
     <Stack alignItems="stretch" spacing={2}>
@@ -49,7 +42,7 @@ const Settings = () => {
           <Switch defaultChecked />
         </Stack>
       </Stack>
-      <Button onClick={logout}>Logout</Button>
+      <Button onClick={() => logout(userInfo.user_id)}>Logout</Button>
     </Stack>
   )
 }

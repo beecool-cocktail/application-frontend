@@ -11,8 +11,7 @@ export interface ImageSwiperProps {
 }
 
 const ImageSwiper = ({ cocktail }: ImageSwiperProps) => {
-  const { title } = cocktail
-  const photoSrc = '/' + cocktail.photo
+  const { title, photo } = cocktail
 
   return (
     <Swiper
@@ -22,16 +21,16 @@ const ImageSwiper = ({ cocktail }: ImageSwiperProps) => {
       scrollbar={{ draggable: true }}
     >
       <SwiperSlide>
-        <Image src={photoSrc} alt={title} layout="fill" />
+        <Image src={photo} alt={title} layout="fill" />
       </SwiperSlide>
       <SwiperSlide>
-        <Image src={photoSrc} alt={title} layout="fill" />
+        <Image src={photo} alt={title} layout="fill" />
       </SwiperSlide>
       <SwiperSlide>
-        <Image src={photoSrc} alt={title} layout="fill" />
+        <Image src={photo} alt={title} layout="fill" />
       </SwiperSlide>
       <SwiperSlide>
-        <Image src={photoSrc} alt={title} layout="fill" />
+        <Image src={photo} alt={title} layout="fill" />
       </SwiperSlide>
     </Swiper>
   )

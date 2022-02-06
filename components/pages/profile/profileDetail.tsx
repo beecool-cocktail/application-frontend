@@ -1,34 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Stack, Typography, Tabs, Tab } from '@mui/material'
 import {
   FeedOutlined as FeedIcon,
   SettingsOutlined as SettingsIcon
 } from '@mui/icons-material'
-import { useState } from 'react'
 import useGoto from 'lib/hooks/useGoto'
-import storage from 'lib/helper/storage'
 import Avatar from 'components/common/image/avatar'
+import Spinner from 'components/common/status/spinner'
+import Error from 'components/common/status/error'
+import useUserInfo from 'lib/hooks/useUserInfo'
+import storage from 'lib/helper/storage'
 import ProfileDetailRow from './profileDetailRow'
 import CollectionTabPanel from './collectionTabPanel'
 import PostTabPanel from './postTabPanel'
 
-const FALLBACK_URL = '/cocktail.jpg'
-
 const ProfileDetail = () => {
   const { gotoIndex, gotoDraft, gotoSettings } = useGoto()
   const [value, setValue] = useState(0)
-  const userInfo = storage.getUserInfo()
+  const { userInfo, loading, error } = useUserInfo()
 
   const handleChange = (_e: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
 
-  if (!userInfo) {
+  if (!storage.getToken()) {
     gotoIndex()
     return null
   }
 
-  const avatarUrl = userInfo.photo || FALLBACK_URL
+  if (loading) return <Spinner />
+  if (!userInfo || error) return <Error />
 
   return (
     <Stack flex={1}>
@@ -45,15 +46,10 @@ const ProfileDetail = () => {
         </Stack>
       </Stack>
       <Box mt={2}>
-        <Avatar src={avatarUrl} size={80} />
+        <Avatar src={userInfo.photo} size={80} />
       </Box>
       <Box mt={2}>
-        <ProfileDetailRow
-          userId={userInfo.user_id}
-          userName={userInfo.user_name}
-          postCount={userInfo.number_of_post}
-          collectionCount={userInfo.number_of_collection}
-        />
+        <ProfileDetailRow />
       </Box>
       <Tabs value={value} onChange={handleChange}>
         <Tab label="我的發文" />

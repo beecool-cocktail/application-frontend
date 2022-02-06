@@ -1,11 +1,6 @@
 import axios from 'axios'
-import { Cocktail } from '../types/cocktail'
+import { CocktailList } from '../types/cocktail'
 import { ApiResponse } from '../types/api/responseBase'
-
-export interface CocktailList {
-  total: number
-  popular_cocktail_list: Cocktail[]
-}
 
 const getCocktails = async (page = 1, page_size = 10) => {
   const response = await axios.get<ApiResponse<CocktailList>>(

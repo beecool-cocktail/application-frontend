@@ -14,22 +14,17 @@ const useAuth = () => {
     try {
       if (!code) return
       const token = await userApi.googleAuth(code)
-      const userInfo = await userApi.getUserInfo(token)
       storage.setToken(token)
-      storage.setUserInfo(userInfo)
       router.push(paths.index)
     } catch (err) {
       console.error(err)
     }
   }
 
-  const logout = async () => {
+  const logout = async (userId: string) => {
     try {
-      const userInfo = storage.getUserInfo()
-      if (!userInfo) return
-      await userApi.logout(userInfo.user_id)
+      await userApi.logout(userId)
       storage.removeToken()
-      storage.removeUserInfo()
       router.push(paths.index)
     } catch (err) {
       console.error(err)

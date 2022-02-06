@@ -1,37 +1,14 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { Stack } from '@mui/material'
 import Head from 'next/head'
-import produce from 'immer'
 import Layout from 'components/layout/layout'
 import SearchBar from 'components/common/searchBar'
-import { Cocktail } from 'lib/types/cocktail'
-import LoadingScreen from 'components/common/loadingScreen'
+import Spinner from 'components/common/status/spinner'
 import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
-import cocktailApi from 'lib/api/cocktail'
-import ConfigContext from 'lib/context/configContext'
+import useCocktailList from 'lib/hooks/useCocktailList'
 
 const Search = () => {
-  const [cocktails, setCocktails] = useState<Cocktail[]>([])
-  const [loading, setLoading] = useState(false)
-  const config = useContext(ConfigContext)
-
-  useEffect(() => {
-    const fetchCocktails = async () => {
-      setLoading(true)
-      const { popular_cocktail_list } = await cocktailApi.getCocktails()
-      setLoading(false)
-      setCocktails(popular_cocktail_list)
-    }
-    fetchCocktails().catch(console.error)
-  }, [])
-
-  if (!config) return null
-
-  const cocktailsWithApiBaseUrl = cocktails.map(cocktail =>
-    produce(cocktail, draft => {
-      draft.photo = `${config.staticBaseUrl}/${draft.photo}`
-    })
-  )
+  const { cocktails = [], loading } = useCocktailList()
 
   return (
     <>
@@ -41,10 +18,10 @@ const Search = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {loading ? (
-        <LoadingScreen />
+        <Spinner />
       ) : (
         <Stack justifyContent="flex-start" alignItems="stretch">
-          <CocktailCardList data={cocktailsWithApiBaseUrl} />
+          <CocktailCardList data={cocktails} />
         </Stack>
       )}
     </>
