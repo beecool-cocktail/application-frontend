@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
+import { SWRConfig } from 'swr'
 import 'lib/styles/globals.css'
 import type { AppProps } from 'next/app'
 
@@ -13,7 +14,7 @@ type AppPropsWithLayout = AppProps & {
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
-  return getLayout(<Component {...pageProps} />)
+  return <SWRConfig>{getLayout(<Component {...pageProps} />)}</SWRConfig>
 }
 
 export default App
