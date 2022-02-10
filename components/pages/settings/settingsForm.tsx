@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import { Box, Stack, Switch, Typography, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
-import userApi, { EditSettingsData } from 'lib/api/user'
 import { UserInfo } from 'lib/types/user'
-import useUserInfo from 'lib/hooks/useUserInfo'
+import { EditSettingsData } from 'lib/api/user'
 import SettingsHeader from 'components/pages/settings/settingsHeader'
 import Avatar from 'components/common/image/avatar'
-import storage from 'lib/helper/storage'
 
 interface SettingsFormProps {
   userInfo: UserInfo
+  onSubmit(formData: EditSettingsData): void
+  onChange(): void
+  onBack(): void
 }
 
-const SettingsForm = ({ userInfo }: SettingsFormProps) => {
-  const { mutate } = useUserInfo()
+const SettingsForm = ({
+  userInfo,
+  onSubmit,
+  onChange,
+  onBack
+}: SettingsFormProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const { control, handleSubmit, register } = useForm({
     defaultValues: {
@@ -22,16 +27,10 @@ const SettingsForm = ({ userInfo }: SettingsFormProps) => {
       is_collection_public: userInfo.is_collection_public
     }
   })
-  const onSubmit = async (formData: EditSettingsData) => {
-    const token = storage.getToken()
-    if (!token) return
-    await userApi.editInfo(formData, token)
-    mutate()
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <SettingsHeader />
+      <SettingsHeader onBack={onBack} />
       <Box
         display="flex"
         alignItems="center"
@@ -63,7 +62,15 @@ const SettingsForm = ({ userInfo }: SettingsFormProps) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
-            <TextField fullWidth label="用戶名稱" {...field} />
+            <TextField
+              fullWidth
+              label="用戶名稱"
+              {...field}
+              onChange={e => {
+                onChange()
+                return field.onChange(e.target.value)
+              }}
+            />
           )}
         />
         <Stack
@@ -77,7 +84,10 @@ const SettingsForm = ({ userInfo }: SettingsFormProps) => {
             control={control}
             render={({ field }) => (
               <Switch
-                onChange={e => field.onChange(e.target.checked)}
+                onChange={e => {
+                  onChange()
+                  return field.onChange(e.target.checked)
+                }}
                 checked={field.value}
               />
             )}
