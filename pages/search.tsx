@@ -8,7 +8,7 @@ import CocktailCardList from 'components/common/cocktailCardList/cocktailCardLis
 import useCocktailList from 'lib/hooks/useCocktailList'
 
 const Search = () => {
-  const { cocktails = [], loading } = useCocktailList()
+  const { cocktails = [], isLoadingInitialData } = useCocktailList()
 
   return (
     <>
@@ -17,7 +17,7 @@ const Search = () => {
         <meta name="description" content="Whispering Corner Search Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {loading ? (
+      {isLoadingInitialData ? (
         <Spinner />
       ) : (
         <Stack justifyContent="flex-start" alignItems="stretch">
