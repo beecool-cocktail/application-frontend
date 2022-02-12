@@ -16,10 +16,7 @@ const BackButton = ({ color = 'black', onBack }: BackButtonProps) => {
   }, [onBack, router])
 
   return (
-    <IconButton
-      // sx={{ position: 'absolute', left: 1, top: 1 }}
-      onClick={handleClick}
-    >
+    <IconButton onClick={handleClick}>
       <ArrowBack sx={{ color }} />
     </IconButton>
   )
