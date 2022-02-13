@@ -48,6 +48,7 @@ const useCocktailList = () => {
 
   return {
     cocktails,
+    error,
     isLoadingInitialData,
     isLoadingMore,
     isEmpty,

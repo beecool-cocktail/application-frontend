@@ -13,7 +13,7 @@ const Search = () => {
   return (
     <>
       <Head>
-        <title>Whispering Corner Search Page</title>
+        w<title>Whispering Corner Search Page</title>
         <meta name="description" content="Whispering Corner Search Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

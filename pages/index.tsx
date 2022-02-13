@@ -11,6 +11,7 @@ import useCocktailList from 'lib/hooks/useCocktailList'
 const Home = () => {
   const {
     cocktails = [],
+    error,
     isLoadingInitialData,
     isLoadingMore,
     isEmpty,
@@ -21,8 +22,9 @@ const Home = () => {
   const { ref, inView } = useInView()
 
   useEffect(() => {
-    if (inView && !isLoadingMore && !isReachingEnd && !isRefreshing) loadMore()
-  }, [inView, isLoadingMore, isReachingEnd, isRefreshing, loadMore])
+    if (inView && !error && !isLoadingMore && !isReachingEnd && !isRefreshing)
+      loadMore()
+  }, [error, inView, isLoadingMore, isReachingEnd, isRefreshing, loadMore])
 
   return (
     <>
