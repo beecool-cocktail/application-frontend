@@ -5,15 +5,15 @@ import { useCallback } from 'react'
 
 export interface BackButtonProps {
   color?: string
-  onBack?(): void
+  onClick?(): void
 }
 
-const BackButton = ({ color = 'black', onBack }: BackButtonProps) => {
+const BackButton = ({ color = 'black', onClick }: BackButtonProps) => {
   const router = useRouter()
   const handleClick = useCallback(async () => {
-    if (onBack) return onBack()
+    if (onClick) return onClick()
     router.back()
-  }, [onBack, router])
+  }, [onClick, router])
 
   return (
     <IconButton onClick={handleClick}>

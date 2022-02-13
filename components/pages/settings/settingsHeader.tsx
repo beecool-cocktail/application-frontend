@@ -10,7 +10,7 @@ const SettingsHeader = ({ onBack }: SettingsHeaderProps) => {
   return (
     <Header
       title="設定"
-      leftButton={<BackButton onBack={onBack} />}
+      leftButton={<BackButton onClick={onBack} />}
       rightButton={<SubmitButton />}
     />
   )

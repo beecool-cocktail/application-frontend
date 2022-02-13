@@ -23,12 +23,22 @@ const logout = async (user_id: string) => {
   await axios.post('/api/user/logout', { user_id })
 }
 
+const toBase64 = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = error => reject(error)
+  })
+
 const editInfo = async (userData: EditSettingsData, token: string) => {
-  const formData = new FormData()
-  if (userData.file) formData.append('file', userData.file[0])
-  formData.append('name', userData.user_name)
-  formData.append('is_collection_public', String(userData.is_collection_public))
-  await axios.post('/api/user/edit-info', formData, {
+  const file = userData.file && (await toBase64(userData.file[0]))
+  const req = {
+    file,
+    name: userData.user_name,
+    is_collection_public: userData.is_collection_public
+  }
+  await axios.post('/api/user/edit-info', req, {
     headers: { Authorization: `Bearer ${token}` }
   })
 }
