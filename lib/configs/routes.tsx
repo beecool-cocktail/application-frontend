@@ -54,8 +54,8 @@ const routes: Route[] = [
   },
   {
     path: paths.creatPost,
-    label: 'Create Post',
-    requireAuth: true
+    label: 'Create Post'
+    // requireAuth: true
   }
 ]
 
