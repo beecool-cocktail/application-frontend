@@ -1,16 +1,27 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Stack } from '@mui/material'
+import { useForm } from 'react-hook-form'
 import CreatePostHeader from 'components/pages/create-post/createPostHeader'
 import PostTutorial from 'components/pages/create-post/postTutorial'
 import PostImageBlock from 'components/pages/create-post/postImageBlock'
 import PostPreview from 'components/pages/create-post/postPreview'
+import { CocktailPostForm } from 'lib/types/cocktail'
 
 const steps = ['step 1', 'step 2', 'step 3']
 
 const CreatePost = () => {
   const router = useRouter()
   const [activeStep, setActiveStep] = useState<number>(0)
+  const { control, getValues } = useForm<CocktailPostForm>({
+    defaultValues: {
+      title: '',
+      description: '',
+      photos: [],
+      ingredients: [{ unit: '', amount: '', name: '' }],
+      steps: [{ description: '' }]
+    }
+  })
 
   const handleBack = () => {
     setActiveStep(prevStep => {
@@ -75,11 +86,22 @@ const CreatePost = () => {
         padding={1}
       >
         {activeStep === 0 ? (
-          <PostTutorial />
+          <PostTutorial control={control} />
         ) : activeStep === 1 ? (
-          <PostImageBlock />
+          <PostImageBlock control={control} />
         ) : (
-          <PostPreview />
+          <PostPreview
+            cocktailPost={(() => {
+              const values = getValues()
+              return {
+                title: values.title,
+                description: values.description,
+                photos: ['/post.png'],
+                steps: values.steps,
+                ingredients: values.ingredients
+              }
+            })()}
+          />
         )}
       </Stack>
       <Stack

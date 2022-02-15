@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Box, Stack } from '@mui/material'
 import BackButton from 'components/common/button/backButton'
 import Spinner from 'components/common/status/spinner'
-import CocktailDetails from 'components/pages/cocktailDetails/cocktailDetails'
+import Post from 'components/common/post/post'
 import useCocktail from 'lib/hooks/useCocktail'
 
 const CocktailPage: NextPage = () => {
@@ -22,7 +22,15 @@ const CocktailPage: NextPage = () => {
       {loading || !cocktail ? (
         <Spinner />
       ) : (
-        <CocktailDetails cocktail={cocktail} />
+        <Post
+          cocktailPost={{
+            title: cocktail.title,
+            description: cocktail.title,
+            photos: ['/cocktail.jpg'],
+            ingredients: [],
+            steps: []
+          }}
+        />
       )}
       <Box position="absolute" left={1} top={1} zIndex={1}>
         <BackButton />

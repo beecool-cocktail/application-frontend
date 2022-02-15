@@ -2,17 +2,16 @@ import { BookmarkOutlined, ShareOutlined } from '@mui/icons-material'
 import { Avatar, IconButton, Typography } from '@mui/material'
 import { Box, Grid, Popper } from '@mui/material'
 import React, { useRef, useState } from 'react'
-import { Cocktail } from 'lib/types/cocktail'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import usePermission from 'lib/hooks/usePermission'
 
 const POPPER_TIMEOUT = 1000
 
 export type CocktailDetailsHeaderProps = {
-  cocktail: Cocktail
+  title: string
 }
 
-const CocktailDetailsHeader = ({ cocktail }: CocktailDetailsHeaderProps) => {
+const CocktailDetailsHeader = ({ title }: CocktailDetailsHeaderProps) => {
   const hasPermission = usePermission()
   const [loginDialogOpen, setLoginDialogOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -33,7 +32,7 @@ const CocktailDetailsHeader = ({ cocktail }: CocktailDetailsHeaderProps) => {
       await navigator.share({
         url: window.location.href,
         title: document.title,
-        text: cocktail.title
+        text: title
       })
     } catch (err) {
       console.error('share failed:', err)
@@ -52,7 +51,7 @@ const CocktailDetailsHeader = ({ cocktail }: CocktailDetailsHeaderProps) => {
           <Avatar>U</Avatar>
         </Grid>
         <Grid item xs>
-          <Typography variant="h5">{cocktail.title}</Typography>
+          <Typography variant="h5">{title}</Typography>
         </Grid>
         <Grid item xs="auto">
           <IconButton onClick={handleShare}>

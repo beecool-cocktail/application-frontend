@@ -1,7 +1,13 @@
 import React from 'react'
 import { Box, Stack, TextField, Typography } from '@mui/material'
+import { Controller, Control } from 'react-hook-form'
+import { CocktailPostForm } from 'lib/types/cocktail'
 
-const PostImageBlock = () => {
+interface PostImageBlockProps {
+  control: Control<CocktailPostForm>
+}
+
+const PostImageBlock = ({ control }: PostImageBlockProps) => {
   const handleAdd = () => {
     // TODO
   }
@@ -75,7 +81,13 @@ const PostImageBlock = () => {
       </Stack>
       <Stack>
         <Typography>介紹調酒</Typography>
-        <TextField placeholder="請輸入文字" multiline rows={5} />
+        <Controller
+          control={control}
+          name="description"
+          render={({ field }) => (
+            <TextField placeholder="請輸入文字" multiline rows={5} {...field} />
+          )}
+        ></Controller>
       </Stack>
     </Stack>
   )
