@@ -13,7 +13,7 @@ const steps = ['step 1', 'step 2', 'step 3']
 const CreatePost = () => {
   const router = useRouter()
   const [activeStep, setActiveStep] = useState<number>(0)
-  const { control, getValues } = useForm<CocktailPostForm>({
+  const { control, handleSubmit, getValues } = useForm<CocktailPostForm>({
     defaultValues: {
       title: '',
       description: '',
@@ -44,27 +44,24 @@ const CreatePost = () => {
     // TODO
   }
 
-  const handleSubmit = () => {
-    // TODO
+  const onSubmit = (data: CocktailPostForm) => {
+    // eslint-disable-next-line no-console
+    console.log({ data })
   }
 
   const renderButton = () => {
-    let onClick
+    let type: 'button' | 'submit' = 'button'
+    let onClick = handleNext
     let label
-    if (activeStep === 0) {
-      onClick = handleNext
-      label = '下一步'
-    }
-    if (activeStep === 1) {
-      onClick = handleNext
-      label = '預覽'
-    }
+    if (activeStep === 0) label = '下一步'
+    if (activeStep === 1) label = '預覽'
     if (activeStep === 2) {
-      onClick = handleSubmit
+      type = 'submit'
+      onClick = handleSubmit(onSubmit)
       label = '發布'
     }
     return (
-      <Button variant="contained" onClick={onClick}>
+      <Button variant="contained" onClick={onClick} type={type}>
         {label}
       </Button>
     )

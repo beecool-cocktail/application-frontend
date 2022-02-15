@@ -3,6 +3,7 @@ import { OutlinedInput, Stack, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { Control, Controller, useFieldArray } from 'react-hook-form'
 import AddButton from 'components/common/button/addButton'
+import RemoveButton from 'components/common/button/removeButton'
 import type { CocktailPostForm } from 'lib/types/cocktail'
 
 interface PostTutorialProps {
@@ -10,11 +11,19 @@ interface PostTutorialProps {
 }
 
 const PostTutorial = ({ control }: PostTutorialProps) => {
-  const { fields: stepFields, append: appendStep } = useFieldArray({
+  const {
+    fields: stepFields,
+    append: appendStep,
+    remove: removeStep
+  } = useFieldArray({
     name: 'steps',
     control
   })
-  const { fields: ingredientFields, append: appendIngredient } = useFieldArray({
+  const {
+    fields: ingredientFields,
+    append: appendIngredient,
+    remove: removeIngredient
+  } = useFieldArray({
     name: 'ingredients',
     control
   })
@@ -22,6 +31,7 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
   const handleAddStep = () => {
     appendStep({ description: '' })
   }
+
   const handleAddIngredient = () => {
     appendIngredient({ amount: '', unit: '', name: '' })
   }
@@ -47,6 +57,7 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
               flexDirection="row"
               spacing={1}
             >
+              <RemoveButton onClick={removeIngredient} />
               <Box flex={1}>
                 <Controller
                   control={control}
@@ -82,14 +93,16 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
         <Typography>步驟教學</Typography>
         <Stack spacing={2} width={1}>
           {stepFields.map((field, index) => (
-            <Controller
-              key={field.id}
-              control={control}
-              name={`steps.${index}.description`}
-              render={({ field }) => (
-                <OutlinedInput placeholder="輸入步驟" {...field} fullWidth />
-              )}
-            />
+            <Stack direction="row" key={field.id}>
+              <RemoveButton onClick={() => removeStep(index)} />
+              <Controller
+                control={control}
+                name={`steps.${index}.description`}
+                render={({ field }) => (
+                  <OutlinedInput placeholder="輸入步驟" {...field} fullWidth />
+                )}
+              />
+            </Stack>
           ))}
         </Stack>
         <AddButton onClick={handleAddStep} />
