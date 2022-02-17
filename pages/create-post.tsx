@@ -56,16 +56,15 @@ const CreatePost = () => {
       URL.createObjectURL(file)
     )
     if (previewUrls.length >= 5) {
-      // setSnackbarOpen(true)
       previewUrls = previewUrls.slice(0, 5)
     }
     setPreviewUrls(previewUrls)
   }
 
-  const onSubmit = (form: CocktailPostForm) => {
+  const onSubmit = async (form: CocktailPostForm) => {
     const token = storage.getToken()
     if (!token) return
-    cocktailApi.createCocktailPost(form, token)
+    await cocktailApi.createCocktailPost(form, token)
     router.push(paths.profile)
     setSnackbarOpen(true)
   }
