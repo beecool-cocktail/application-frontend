@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toBase64 } from 'lib/helper/image'
 import { ApiResponse } from '../types/api/responseBase'
 
 export interface TokenInfo {
@@ -22,14 +23,6 @@ const googleAuth = async (code: string) => {
 const logout = async (user_id: string) => {
   await axios.post('/api/user/logout', { user_id })
 }
-
-const toBase64 = (file: File) =>
-  new Promise<string>((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result as string)
-    reader.onerror = error => reject(error)
-  })
 
 const editInfo = async (userData: EditSettingsData, token: string) => {
   const file = userData.file && (await toBase64(userData.file[0]))

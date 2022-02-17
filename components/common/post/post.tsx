@@ -10,6 +10,7 @@ import {
 import { grey } from '@mui/material/colors'
 import { Box } from '@mui/system'
 import { CocktailPost } from 'lib/types/cocktail'
+import { FALLBACK_URL } from 'lib/constants/image'
 import ImageSwiper from './ImageSwiper'
 import PostHeader from './postHeader'
 
@@ -18,9 +19,12 @@ export type CocktailDetailsProps = {
 }
 
 const Post = ({ cocktailPost }: CocktailDetailsProps) => {
+  const photos = cocktailPost.photos.length
+    ? cocktailPost.photos
+    : [FALLBACK_URL]
   return (
     <Stack>
-      <ImageSwiper title={cocktailPost.title} photos={cocktailPost.photos} />
+      <ImageSwiper title={cocktailPost.title} photos={photos} />
       <Stack p={2}>
         <PostHeader title={cocktailPost.title} />
         <Box py={2}>

@@ -1,11 +1,10 @@
 import useSWR, { Fetcher } from 'swr'
 import axios from 'axios'
 import storage from 'lib/helper/storage'
+import { FALLBACK_URL } from 'lib/constants/image'
 import useConfig from './useConfig'
 import type { UserInfo } from 'lib/types/user'
 import type { ApiResponse } from 'lib/types/api/responseBase'
-
-const FALLBACK_URL = '/cocktail.jpg'
 
 const fetcher: Fetcher<UserInfo, [string, string]> = async (url, token) => {
   const res = await axios.get<ApiResponse<UserInfo>>(url, {

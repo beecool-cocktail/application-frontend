@@ -1,84 +1,53 @@
 import React from 'react'
-import { Box, Stack, TextField, Typography } from '@mui/material'
+import { Stack, TextField, Typography } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
 import { CocktailPostForm } from 'lib/types/cocktail'
+import ImageInput from './imageInput'
 
 interface PostImageBlockProps {
   control: Control<CocktailPostForm>
+  previewUrls: string[]
+  onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
-const PostImageBlock = ({ control }: PostImageBlockProps) => {
-  const handleAdd = () => {
-    // TODO
-  }
-
+const PostImageBlock = ({
+  control,
+  previewUrls,
+  onChange
+}: PostImageBlockProps) => {
   return (
     <Stack width={1} alignItems="stretch" spacing={2}>
-      <Stack spacing={1}>
-        <Box
-          width={1}
-          height={200}
-          bgcolor="#ddd"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          fontSize={50}
-          style={{ cursor: 'pointer' }}
-          onClick={handleAdd}
-        >
-          +
-        </Box>
-        <Stack width={1} spacing={1}>
-          <Stack width={1} direction="row" spacing={1}>
-            <Box
-              bgcolor="#ddd"
-              flex={1}
-              height={100}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              fontSize={40}
-            >
-              +
-            </Box>
-            <Box
-              bgcolor="#ddd"
-              flex={1}
-              height={100}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              fontSize={40}
-            >
-              +
-            </Box>
+      <Controller
+        control={control}
+        name="photos"
+        render={({ field }) => (
+          <Stack spacing={1} component="label">
+            <ImageInput size="large" src={previewUrls[0]} />
+            <Stack width={1} spacing={1}>
+              <Stack width={1} direction="row" spacing={1}>
+                <ImageInput src={previewUrls[1]} />
+                <ImageInput src={previewUrls[2]} />
+              </Stack>
+              <Stack width={1} direction="row" spacing={1}>
+                <ImageInput src={previewUrls[3]} />
+                <ImageInput src={previewUrls[4]} />
+              </Stack>
+            </Stack>
+            <input
+              ref={field.ref}
+              onChange={e => {
+                if (!e.target.files) return
+                onChange(e)
+                field.onChange(e.target.files)
+              }}
+              accept="image/*"
+              type="file"
+              multiple
+              hidden
+            />
           </Stack>
-          <Stack width={1} direction="row" spacing={1}>
-            <Box
-              bgcolor="#ddd"
-              flex={1}
-              height={100}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              fontSize={40}
-            >
-              +
-            </Box>
-            <Box
-              bgcolor="#ddd"
-              flex={1}
-              height={100}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              fontSize={40}
-            >
-              +
-            </Box>
-          </Stack>
-        </Stack>
-      </Stack>
+        )}
+      />
       <Stack>
         <Typography>介紹調酒</Typography>
         <Controller

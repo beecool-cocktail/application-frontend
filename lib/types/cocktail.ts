@@ -3,7 +3,7 @@ export interface Step {
 }
 
 export interface Ingredient {
-  amount: string
+  amount: number
   name: string
   unit: string
 }
@@ -24,7 +24,7 @@ export interface CocktailPostBase {
 }
 
 export interface CocktailPostForm extends CocktailPostBase {
-  photos: File[]
+  photos: FileList | null
 }
 
 export interface CocktailPost extends CocktailPostBase {

@@ -33,7 +33,7 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
   }
 
   const handleAddIngredient = () => {
-    appendIngredient({ amount: '', unit: '', name: '' })
+    appendIngredient({ amount: 0, unit: '', name: '' })
   }
 
   return (
@@ -54,6 +54,7 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
               key={field.id}
               direction="row"
               display="flex"
+              alignItems="center"
               flexDirection="row"
               spacing={1}
             >
@@ -74,7 +75,7 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
               <Box width={100}>
                 <Controller
                   control={control}
-                  name={`ingredients.${index}.unit`}
+                  name={`ingredients.${index}.amount`}
                   render={({ field }) => (
                     <OutlinedInput
                       placeholder="數量/單位"
@@ -93,7 +94,12 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
         <Typography>步驟教學</Typography>
         <Stack spacing={2} width={1}>
           {stepFields.map((field, index) => (
-            <Stack direction="row" key={field.id}>
+            <Stack
+              spacing={1}
+              key={field.id}
+              direction="row"
+              alignItems="center"
+            >
               <RemoveButton onClick={() => removeStep(index)} />
               <Controller
                 control={control}

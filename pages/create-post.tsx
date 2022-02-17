@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Stack } from '@mui/material'
 import { useForm } from 'react-hook-form'
@@ -7,18 +7,24 @@ import PostTutorial from 'components/pages/create-post/postTutorial'
 import PostImageBlock from 'components/pages/create-post/postImageBlock'
 import PostPreview from 'components/pages/create-post/postPreview'
 import { CocktailPostForm } from 'lib/types/cocktail'
+import cocktailApi from 'lib/api/cocktail'
+import { paths } from 'lib/configs/routes'
+import SnackbarContext from 'lib/context/snackbarContext'
+import storage from 'lib/helper/storage'
 
 const steps = ['step 1', 'step 2', 'step 3']
 
 const CreatePost = () => {
   const router = useRouter()
+  const { setOpen: setSnackbarOpen } = useContext(SnackbarContext)
   const [activeStep, setActiveStep] = useState<number>(0)
+  const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const { control, handleSubmit, getValues } = useForm<CocktailPostForm>({
     defaultValues: {
       title: '',
       description: '',
-      photos: [],
-      ingredients: [{ unit: '', amount: '', name: '' }],
+      photos: null,
+      ingredients: [{ unit: '', amount: 0, name: '' }],
       steps: [{ description: '' }]
     }
   })
@@ -44,9 +50,24 @@ const CreatePost = () => {
     // TODO
   }
 
-  const onSubmit = (data: CocktailPostForm) => {
-    // eslint-disable-next-line no-console
-    console.log({ data })
+  const handlePreviewUrlsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return setPreviewUrls([])
+    let previewUrls = Array.from(e.target.files).map(file =>
+      URL.createObjectURL(file)
+    )
+    if (previewUrls.length >= 5) {
+      // setSnackbarOpen(true)
+      previewUrls = previewUrls.slice(0, 5)
+    }
+    setPreviewUrls(previewUrls)
+  }
+
+  const onSubmit = (form: CocktailPostForm) => {
+    const token = storage.getToken()
+    if (!token) return
+    cocktailApi.createCocktailPost(form, token)
+    router.push(paths.profile)
+    setSnackbarOpen(true)
   }
 
   const renderButton = () => {
@@ -85,7 +106,11 @@ const CreatePost = () => {
         {activeStep === 0 ? (
           <PostTutorial control={control} />
         ) : activeStep === 1 ? (
-          <PostImageBlock control={control} />
+          <PostImageBlock
+            control={control}
+            previewUrls={previewUrls}
+            onChange={handlePreviewUrlsChange}
+          />
         ) : (
           <PostPreview
             cocktailPost={(() => {
@@ -93,7 +118,7 @@ const CreatePost = () => {
               return {
                 title: values.title,
                 description: values.description,
-                photos: ['/post.png'],
+                photos: previewUrls,
                 steps: values.steps,
                 ingredients: values.ingredients
               }

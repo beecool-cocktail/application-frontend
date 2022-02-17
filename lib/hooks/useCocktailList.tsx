@@ -17,7 +17,7 @@ const fetcher: Fetcher<Cocktail[], [string, number]> = async (url, page) => {
 
 const useCocktailList = () => {
   const { config, loading: configLoading } = useConfig()
-  const { data, error, size, setSize, isValidating } = useSWRInfinite(
+  const { data, error, size, setSize, isValidating, mutate } = useSWRInfinite(
     (index, previousPageData: Cocktail[]) => {
       if (!config) return null
       if (previousPageData && !previousPageData.length) return null
@@ -54,7 +54,8 @@ const useCocktailList = () => {
     isEmpty,
     isReachingEnd,
     isRefreshing,
-    loadMore
+    loadMore,
+    mutate
   }
 }
 

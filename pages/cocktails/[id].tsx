@@ -33,7 +33,7 @@ const CocktailPage: NextPage = () => {
         />
       )}
       <Box position="absolute" left={1} top={1} zIndex={1}>
-        <BackButton />
+        <BackButton color="white" />
       </Box>
     </Stack>
   )

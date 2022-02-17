@@ -7,11 +7,15 @@ export interface RemoveButtonProps {
 }
 
 const RemoveButton = ({
-  color = 'black',
+  color = 'white',
   onClick: handleClick
 }: RemoveButtonProps) => {
   return (
-    <IconButton onClick={handleClick}>
+    <IconButton
+      size="small"
+      onClick={handleClick}
+      style={{ backgroundColor: 'black', width: 30, height: 30 }}
+    >
       <Remove sx={{ color }} />
     </IconButton>
   )
