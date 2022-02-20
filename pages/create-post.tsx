@@ -16,7 +16,7 @@ const steps = ['step 1', 'step 2', 'step 3']
 
 const CreatePost = () => {
   const router = useRouter()
-  const { setOpen: setSnackbarOpen } = useContext(SnackbarContext)
+  const { api: snackbar } = useContext(SnackbarContext)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
   const { control, handleSubmit, getValues } = useForm<CocktailPostForm>({
@@ -66,7 +66,7 @@ const CreatePost = () => {
     if (!token) return
     await cocktailApi.createCocktailPost(form, token)
     router.push(paths.profile)
-    setSnackbarOpen(true)
+    snackbar.success({ message: 'saved!' })
   }
 
   const renderButton = () => {
