@@ -3,18 +3,30 @@ import { IconButton } from '@mui/material'
 
 export interface RemoveButtonProps {
   color?: string
+  disabled?: boolean
   onClick: () => void
 }
 
+const SIZE = 30
+
 const RemoveButton = ({
   color = 'white',
-  onClick: handleClick
+  disabled = false,
+  onClick
 }: RemoveButtonProps) => {
   return (
     <IconButton
       size="small"
-      onClick={handleClick}
-      style={{ backgroundColor: 'black', width: 30, height: 30 }}
+      onClick={() => {
+        if (disabled) return
+        onClick()
+      }}
+      style={{
+        width: SIZE,
+        height: SIZE,
+        backgroundColor: disabled ? 'grey' : 'black',
+        cursor: disabled ? 'default' : 'pointer'
+      }}
     >
       <Remove sx={{ color }} />
     </IconButton>

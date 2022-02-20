@@ -27,6 +27,7 @@ const IngredientList = ({ control }: IngredientListProps) => {
             control={control}
             ingredientName={`ingredients.${index}.name`}
             amountName={`ingredients.${index}.amount`}
+            removeDisabled={fields.length <= 1}
             onRemove={() => remove(index)}
           />
         ))}

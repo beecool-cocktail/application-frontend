@@ -9,6 +9,7 @@ interface IngredientInputProps {
   ingredientName: `ingredients.${number}.name`
   amountName: `ingredients.${number}.amount`
   control: Control<CocktailPostForm>
+  removeDisabled?: boolean
   onRemove(): void
 }
 
@@ -16,6 +17,7 @@ const IngredientInput = ({
   ingredientName,
   amountName,
   control,
+  removeDisabled = false,
   onRemove
 }: IngredientInputProps) => {
   return (
@@ -26,7 +28,7 @@ const IngredientInput = ({
       flexDirection="row"
       spacing={1}
     >
-      <RemoveButton onClick={onRemove} />
+      <RemoveButton disabled={removeDisabled} onClick={onRemove} />
       <Box flex={1}>
         <Controller
           control={control}

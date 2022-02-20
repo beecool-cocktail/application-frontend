@@ -11,12 +11,14 @@ import AddButton from 'components/common/button/addButton'
 import { CocktailPostForm } from 'lib/types/cocktail'
 import StepInput from './stepInput'
 
+const HEIGHT = 100
+
 const fn =
   (order: number[], active = false, originalIndex = 0, curIndex = 0, y = 0) =>
   (index: number) =>
     active && index === originalIndex
       ? {
-          y: curIndex * 100 + y,
+          y: curIndex * HEIGHT + y,
           scale: 1.005,
           zIndex: 1,
           shadow: 15,
@@ -24,7 +26,7 @@ const fn =
           config: (key: string) => (key === 'y' ? config.stiff : config.default)
         }
       : {
-          y: order.indexOf(index) * 100,
+          y: order.indexOf(index) * HEIGHT,
           scale: 1,
           zIndex: 0,
           shadow: 1,
@@ -43,7 +45,7 @@ const StepList = ({ control }: StepListProps) => {
     const curIndex = order.current.indexOf(originalIndex)
     const curRow = clamp(
       0,
-      Math.max(0, Math.round((curIndex * 100 + y) / 100)),
+      Math.max(0, Math.round((curIndex * HEIGHT + y) / HEIGHT)),
       fields.length - 1
     )
     const newOrder = swap(order.current, curIndex, curRow)
@@ -68,7 +70,7 @@ const StepList = ({ control }: StepListProps) => {
   return (
     <Stack>
       <Typography>步驟教學</Typography>
-      <Box width={1} height={fields.length * 100} position="relative">
+      <Box width={1} height={fields.length * HEIGHT} position="relative">
         {springs.map(({ zIndex, shadow, y, scale }, index) => (
           <animated.div
             key={index}
@@ -81,7 +83,7 @@ const StepList = ({ control }: StepListProps) => {
               ),
               y,
               scale,
-              height: 100
+              height: HEIGHT
             }}
           >
             <StepInput
@@ -89,7 +91,8 @@ const StepList = ({ control }: StepListProps) => {
               control={control}
               onRemove={handleRemove(index)}
               bind={bind(index)}
-              height={100}
+              height={HEIGHT}
+              removeDisabled={fields.length <= 1}
             />
           </animated.div>
         ))}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, OutlinedInput, IconButton } from '@mui/material'
+import { Stack, TextField, IconButton } from '@mui/material'
 import { Menu } from '@mui/icons-material'
 import { Controller, Control } from 'react-hook-form'
 import { CocktailPostForm } from 'lib/types/cocktail'
@@ -10,6 +10,7 @@ interface StepInputProps {
   control: Control<CocktailPostForm>
   bind: React.DOMAttributes<HTMLElement>
   height: number
+  removeDisabled?: boolean
   onRemove(): void
 }
 
@@ -18,16 +19,23 @@ const StepInput = ({
   control,
   bind,
   height,
+  removeDisabled = false,
   onRemove
 }: StepInputProps) => {
   return (
     <Stack spacing={1} direction="row" alignItems="center" height={height}>
-      <RemoveButton onClick={onRemove} />
+      <RemoveButton disabled={removeDisabled} onClick={onRemove} />
       <Controller
         control={control}
         name={name}
         render={({ field }) => (
-          <OutlinedInput placeholder="輸入步驟" {...field} fullWidth />
+          <TextField
+            placeholder="輸入步驟"
+            multiline
+            fullWidth
+            maxRows={2}
+            {...field}
+          />
         )}
       />
       <IconButton {...bind} style={{ touchAction: 'none' }}>
