@@ -81,7 +81,12 @@ const CreatePost = () => {
       label = '發布'
     }
     return (
-      <Button variant="contained" onClick={onClick} type={type}>
+      <Button
+        variant="contained"
+        disabled={false}
+        type={type}
+        onClick={onClick}
+      >
         {label}
       </Button>
     )

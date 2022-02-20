@@ -28,6 +28,7 @@ const StepInput = ({
       <Controller
         control={control}
         name={name}
+        rules={{ required: true }}
         render={({ field }) => (
           <TextField
             placeholder="輸入步驟"

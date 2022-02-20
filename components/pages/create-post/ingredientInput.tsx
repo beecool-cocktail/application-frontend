@@ -33,6 +33,7 @@ const IngredientInput = ({
         <Controller
           control={control}
           name={ingredientName}
+          rules={{ required: true }}
           render={({ field }) => (
             <OutlinedInput placeholder="輸入材料" fullWidth {...field} />
           )}
@@ -42,6 +43,7 @@ const IngredientInput = ({
         <Controller
           control={control}
           name={amountName}
+          rules={{ required: true }}
           render={({ field }) => (
             <OutlinedInput placeholder="數量/單位" fullWidth {...field} />
           )}
