@@ -30,9 +30,8 @@ const StepInput = ({
           <OutlinedInput placeholder="輸入步驟" {...field} fullWidth />
         )}
       />
-      <IconButton {...bind}>
+      <IconButton {...bind} style={{ touchAction: 'none' }}>
         <Menu />
-        <IconButton />
       </IconButton>
     </Stack>
   )

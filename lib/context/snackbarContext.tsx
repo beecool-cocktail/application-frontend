@@ -1,10 +1,9 @@
 import React from 'react'
+import { SnackbarState, SnackbarApi } from 'lib/types/snackbar'
 
 export interface SnackbarContextProps {
-  open: boolean
-  autoHideDuration: number
-  setOpen(open: boolean): void
-  setAutoHideDuration(ms: number): void
+  api: SnackbarApi
+  state: SnackbarState
 }
 
 const SnackbarContext = React.createContext<SnackbarContextProps>(

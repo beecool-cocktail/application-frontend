@@ -15,7 +15,7 @@ import { paths } from 'lib/configs/routes'
 const Settings = () => {
   const router = useRouter()
   const { userInfo, loading, error, mutate } = useUserInfo()
-  const { setOpen: setSnackbarOpen } = useContext(SnackbarContext)
+  const { api: snackbar } = useContext(SnackbarContext)
   const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false)
   const [isFormDirty, setFormDirty] = useState(false)
 
@@ -29,7 +29,7 @@ const Settings = () => {
     if (!token) return
     await userApi.editInfo(formData, token)
     mutate()
-    setSnackbarOpen(true)
+    snackbar.success({ message: 'success' })
     setFormDirty(false)
   }
 
