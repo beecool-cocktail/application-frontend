@@ -6,24 +6,19 @@ import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'
 import SettingsForm from 'components/pages/settings/settingsForm'
 import LogoutButton from 'components/common/button/logoutButton'
-import ConfirmDialog from 'components/common/dialog/confirmDialog'
 import storage from 'lib/helper/storage'
 import userApi, { EditSettingsData } from 'lib/api/user'
 import SnackbarContext from 'lib/context/snackbarContext'
 import { paths } from 'lib/configs/routes'
+import { ConfirmDialogContext } from 'components/app/confirmDialogWrapper'
 
 const Settings = () => {
   const router = useRouter()
+  const { api: confirmDialogApi } = useContext(ConfirmDialogContext)
   const { userInfo, loading, error, mutate } = useUserInfo()
   const { api: snackbar } = useContext(SnackbarContext)
-  const [isConfirmDialogOpen, setConfirmDialogOpen] = useState(false)
   const [isFormDirty, setFormDirty] = useState(false)
 
-  const handleCancelDialog = () => setConfirmDialogOpen(false)
-  const handleConfirmDialog = () => {
-    setConfirmDialogOpen(false)
-    router.push(paths.profile)
-  }
   const handleSubmit = async (formData: EditSettingsData) => {
     const token = storage.getToken()
     if (!token) return
@@ -33,8 +28,18 @@ const Settings = () => {
     setFormDirty(false)
   }
 
+  const handleConfirmDialog = () => {
+    confirmDialogApi.destroy()
+    router.push(paths.profile)
+  }
   const handleGoBack = async () => {
-    if (isFormDirty) setConfirmDialogOpen(true)
+    if (isFormDirty)
+      confirmDialogApi.open({
+        title: '尚未儲存',
+        content: '修改內容還沒儲存，是否要放棄編輯的內容？',
+        onConfirm: handleConfirmDialog,
+        onCancel: () => confirmDialogApi.destroy()
+      })
     else router.push(paths.profile)
   }
 
@@ -50,13 +55,6 @@ const Settings = () => {
         onBack={handleGoBack}
       />
       <LogoutButton />
-      <ConfirmDialog
-        open={isConfirmDialogOpen}
-        title="尚未儲存"
-        content="修改內容還沒儲存，是否要放棄編輯的內容？"
-        onConfirm={handleConfirmDialog}
-        onCancel={handleCancelDialog}
-      />
     </Stack>
   )
 }
