@@ -5,6 +5,7 @@ import ConfirmDialogWrapper from 'components/app/confirmDialogWrapper'
 import SWRConfigWrapper from 'components/app/swrConfigWrapper'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
+import 'lib/styles/swiper.css'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode

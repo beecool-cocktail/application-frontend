@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import LoginDialog from 'components/common/dialog/loginDialog'
 
 export default {
-  title: 'dialog/loginDialog',
+  title: 'dialog/Login Dialog',
   component: LoginDialog,
   argTypes: {
     onClose: { action: 'close' }

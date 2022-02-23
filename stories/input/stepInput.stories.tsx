@@ -5,7 +5,7 @@ import StepInput from 'components/pages/create-post/stepInput'
 import { CocktailPostForm } from 'lib/types/cocktail'
 
 export default {
-  title: 'input/stepInput',
+  title: 'input/Step Input',
   component: StepInput,
   argTypes: {
     name: { type: 'string' },

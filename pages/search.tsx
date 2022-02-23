@@ -21,7 +21,7 @@ const Search = () => {
         <Spinner />
       ) : (
         <Stack justifyContent="flex-start" alignItems="stretch">
-          <CocktailCardList data={cocktails} />
+          <CocktailCardList cocktails={cocktails} />
         </Stack>
       )}
     </>
@@ -29,7 +29,7 @@ const Search = () => {
 }
 
 Search.getLayout = (page: ReactElement) => (
-  <Layout header={<SearchBar />}>{page}</Layout>
+  <Layout header={<SearchBar placeHolder="Search Wines" />}>{page}</Layout>
 )
 
 export default Search

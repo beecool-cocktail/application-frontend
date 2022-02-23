@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import SubmitButton from 'components/common/button/submitButton'
 
 export default {
-  title: 'button/submitButton',
+  title: 'button/Submit Button',
   component: SubmitButton,
   argTypes: {
     onClick: { action: 'click' }

@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import FloatingPostButton from 'components/common/button/floatingPostButton'
 
 export default {
-  title: 'button/floatingPostButton',
+  title: 'button/Floating Post Button',
   component: FloatingPostButton,
   argTypes: {
     onClick: { action: 'click' }

@@ -41,13 +41,33 @@ const useCocktailList = () => {
   if (cocktails && config) {
     cocktails = cocktails.map(cocktail => {
       return produce(cocktail, draft => {
-        draft.photo = `${config.staticBaseUrl}/${draft.photo}`
+        draft.photos = draft.photos.map(photo => {
+          return `${config.staticBaseUrl}/${photo}`
+        })
       })
     })
   }
 
   return {
-    cocktails,
+    cocktails: cocktails.map(cocktail => {
+      return {
+        ...cocktail,
+        ingredients: [
+          { name: '波本或裸麥威士忌', amount: 32, unit: 'L' },
+          { name: '方糖', amount: 32, unit: 'L' },
+          { name: '安格氏苦精', amount: 32, unit: 'L' }
+        ],
+        userInfo: {
+          user_id: '1',
+          user_name: 'Raven',
+          email: '',
+          photo: '',
+          number_of_collection: 0,
+          number_of_post: 0,
+          is_collection_public: false
+        }
+      }
+    }),
     error,
     isLoadingInitialData,
     isLoadingMore,

@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
 
 export default {
-  title: 'dialog/confirmDialog',
+  title: 'dialog/Confirm Dialog',
   component: ConfirmDialog,
   argTypes: {
     onConfirm: { action: 'confirm' },

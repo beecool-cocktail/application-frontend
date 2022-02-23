@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import Avatar from 'components/common/image/avatar'
 
 export default {
-  title: 'image/avatar',
+  title: 'image/Avatar',
   component: Avatar,
   argTypes: {
     onClick: { action: 'click' }

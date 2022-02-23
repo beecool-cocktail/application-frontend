@@ -8,7 +8,7 @@ export interface NavigationBarProps {
 
 export const NavigationBar = ({ value, onChange }: NavigationBarProps) => {
   return (
-    <Box position="fixed" bottom={0} left={0} width={1}>
+    <Box position="fixed" zIndex={1} bottom={0} left={0} width={1}>
       <BottomNavigation
         value={value}
         onChange={(_event, value) => onChange(value)}

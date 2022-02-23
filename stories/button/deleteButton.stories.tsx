@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import DeleteButton from 'components/common/button/deleteButton'
 
 export default {
-  title: 'button/deleteButton',
+  title: 'button/Delete Button',
   component: DeleteButton,
   argTypes: {
     onClick: { action: 'click' }

@@ -5,37 +5,37 @@ export default [
     cocktail_id: 1,
     title: 'Sidecar',
     tags: ['酸甜', '冬季'],
-    photo: '/cocktail.jpg'
+    photos: ['/cocktail.jpg']
   },
   {
     cocktail_id: 2,
     title: 'Old Fashion',
     tags: ['酸甜', '冬季'],
-    photo: '/cocktail.jpg'
+    photos: ['/cocktail.jpg']
   },
   {
     cocktail_id: 3,
     title: 'Old Fashion',
     tags: ['酸甜', '冬季'],
-    photo: '/cocktail.jpg'
+    photos: ['/cocktail.jpg']
   },
   {
     cocktail_id: 4,
     title: 'Old Fashion',
     tags: ['酸甜', '冬季'],
-    photo: '/cocktail.jpg'
+    photos: ['/cocktail.jpg']
   },
   {
     cocktail_id: 5,
     title: 'Old Fashion',
     tags: ['酸甜', '冬季'],
-    photo: '/cocktail.jpg'
+    photos: ['/cocktail.jpg']
   },
   {
     cocktail_id: 6,
     title: 'Old Fashion',
     tags: ['酸甜', '冬季'],
-    photo: '/cocktail.jpg'
+    photos: ['/cocktail.jpg']
   },
   {
     cocktail_id: 7,

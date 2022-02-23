@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import ScrollToTopButton from 'components/common/button/scrollToTopButton'
 
 export default {
-  title: 'button/scrollToTopButton',
+  title: 'button/Scroll To Top Button',
   component: ScrollToTopButton,
   argTypes: {
     onClick: { action: 'click' }

@@ -5,7 +5,7 @@ import IngredientInput from 'components/pages/create-post/ingredientInput'
 import { CocktailPostForm } from 'lib/types/cocktail'
 
 export default {
-  title: 'input/ingredientInput',
+  title: 'input/Ingredient Input',
   component: IngredientInput,
   argTypes: {
     disabled: { type: 'boolean' },

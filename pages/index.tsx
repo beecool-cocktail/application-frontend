@@ -37,7 +37,7 @@ const Home = () => {
         <Spinner />
       ) : (
         <Stack justifyContent="flex-start" alignItems="stretch">
-          <CocktailCardList data={cocktails} />
+          <CocktailCardList cocktails={cocktails} />
           {isEmpty && <Typography>Empty</Typography>}
           <Box height={100}>
             {isLoadingMore ? (
@@ -55,7 +55,7 @@ const Home = () => {
 }
 
 Home.getLayout = (page: ReactElement) => (
-  <Layout header={<SearchBar />}>{page}</Layout>
+  <Layout header={<SearchBar placeHolder="Search Wines" />}>{page}</Layout>
 )
 
 export default Home

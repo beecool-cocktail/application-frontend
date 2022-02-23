@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import RemoveButton from 'components/common/button/removeButton'
 
 export default {
-  title: 'button/removeButton',
+  title: 'button/Remove Button',
   component: RemoveButton,
   argTypes: {
     disabled: { type: 'boolean' },

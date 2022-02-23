@@ -7,7 +7,7 @@ export interface FloatingPostButtonProps {
 
 const FloatingPostButton = ({ onClick }: FloatingPostButtonProps) => {
   return (
-    <Box position="fixed" right={10} bottom={72}>
+    <Box position="fixed" right={10} bottom={72} zIndex={1}>
       <Fab color="primary" onClick={onClick}>
         <AddIcon />
       </Fab>
