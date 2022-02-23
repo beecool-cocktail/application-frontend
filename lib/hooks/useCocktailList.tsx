@@ -41,9 +41,8 @@ const useCocktailList = () => {
   if (cocktails && config) {
     cocktails = cocktails.map(cocktail => {
       return produce(cocktail, draft => {
-        draft.photos = draft.photos.map(photo => {
-          return `${config.staticBaseUrl}/${photo}`
-        })
+        const url = `${config.staticBaseUrl}/${draft.photo}`
+        draft.photos = [url, url]
       })
     })
   }

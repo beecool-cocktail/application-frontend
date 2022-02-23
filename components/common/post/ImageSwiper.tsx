@@ -1,8 +1,8 @@
 import Image from 'next/image'
+import { Box } from '@mui/system'
 import { Navigation, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 export interface ImageSwiperProps {
@@ -12,18 +12,25 @@ export interface ImageSwiperProps {
 
 const ImageSwiper = ({ title, photos }: ImageSwiperProps) => {
   return (
-    <Swiper
-      modules={[Navigation, Pagination]}
-      navigation
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
-    >
-      {photos.map(photo => (
-        <SwiperSlide key={photo}>
-          <Image src={photo} alt={title} layout="fill" />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <Box position="relative" style={{ cursor: 'grab' }}>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+      >
+        {photos.map((image, index) => (
+          <SwiperSlide key={index}>
+            <Image
+              layout="responsive"
+              src={image}
+              alt={title}
+              width={400}
+              height={300}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Box>
   )
 }
 

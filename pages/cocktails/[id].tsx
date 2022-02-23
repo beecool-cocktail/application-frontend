@@ -25,10 +25,21 @@ const CocktailPage: NextPage = () => {
         <Post
           cocktailPost={{
             title: cocktail.title,
-            description: cocktail.title,
-            photos: ['/cocktail.jpg'],
-            ingredients: [],
-            steps: []
+            description:
+              'this is side car this is side car this is side carcar this is side carcar this is side carcar this is side carcar this is side car',
+            photos: cocktail.photos,
+            ingredients: [
+              { name: '波本或裸麥威士忌', amount: 32, unit: 'L' },
+              { name: '方糖', amount: 32, unit: 'L' },
+              { name: '安格氏苦精', amount: 32, unit: 'L' }
+            ],
+            steps: [
+              { description: 'step 1' },
+              { description: 'step 2' },
+              { description: 'step 3' },
+              { description: 'step 4' },
+              { description: 'step 5' }
+            ]
           }}
         />
       )}

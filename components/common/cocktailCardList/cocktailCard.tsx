@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+import Image from 'next/image'
 import {
   Box,
   Card,
@@ -7,8 +9,6 @@ import {
   Typography
 } from '@mui/material'
 import { FavoriteBorder, ChevronRight } from '@mui/icons-material'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'

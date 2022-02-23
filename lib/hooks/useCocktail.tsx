@@ -17,13 +17,10 @@ const useCocktail = (id: string | undefined) => {
   )
 
   let cocktail = data
-  if (data && config)
-    cocktail = {
-      ...data,
-      photos: data.photos.map(photo => {
-        return `${config.staticBaseUrl}/${photo}`
-      })
-    }
+  if (data && config) {
+    const url = `${config.staticBaseUrl}/${cocktail?.photo}`
+    cocktail = { ...data, photos: [url, url] }
+  }
 
   return {
     cocktail,
