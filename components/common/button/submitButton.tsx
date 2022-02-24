@@ -2,13 +2,14 @@ import { Check } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 
 export interface SubmitButtonProps {
+  disabled: boolean
   color?: string
 }
 
-const SubmitButton = ({ color = 'black' }: SubmitButtonProps) => {
+const SubmitButton = ({ disabled }: SubmitButtonProps) => {
   return (
-    <IconButton type="submit">
-      <Check sx={{ color }} />
+    <IconButton disabled={disabled} type="submit">
+      <Check />
     </IconButton>
   )
 }

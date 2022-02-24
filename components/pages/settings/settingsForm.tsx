@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Stack, Switch, Typography, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
 import { UserInfo } from 'lib/types/user'
@@ -9,18 +9,19 @@ import Avatar from 'components/common/image/avatar'
 interface SettingsFormProps {
   userInfo: UserInfo
   onSubmit(formData: EditSettingsData): void
-  onChange(): void
-  onBack(): void
+  onBack(isDirty: boolean): void
 }
 
-const SettingsForm = ({
-  userInfo,
-  onSubmit,
-  onChange,
-  onBack
-}: SettingsFormProps) => {
+const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
-  const { control, handleSubmit, register } = useForm({
+  const {
+    control,
+    handleSubmit,
+    register,
+    reset,
+    formState: { isValid, isDirty, errors, isSubmitSuccessful }
+  } = useForm({
+    mode: 'onChange',
     defaultValues: {
       user_name: userInfo.user_name,
       file: null,
@@ -28,9 +29,18 @@ const SettingsForm = ({
     }
   })
 
+  useEffect(() => {
+    if (!isSubmitSuccessful) return
+    reset({
+      user_name: userInfo.user_name,
+      is_collection_public: userInfo.is_collection_public,
+      file: null
+    })
+  }, [reset, isSubmitSuccessful, userInfo])
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <SettingsHeader onBack={onBack} />
+      <SettingsHeader onBack={() => onBack(isDirty)} isValid={isValid} />
       <Box
         display="flex"
         alignItems="center"
@@ -60,16 +70,18 @@ const SettingsForm = ({
         <Controller
           name="user_name"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            maxLength: 20,
+            pattern: /^[a-zA-Z0-9_.]+$/
+          }}
           render={({ field }) => (
             <TextField
               fullWidth
               label="用戶名稱"
+              inputProps={{ maxLength: 20 }}
+              error={!!errors.user_name}
               {...field}
-              onChange={e => {
-                onChange()
-                return field.onChange(e.target.value)
-              }}
             />
           )}
         />
@@ -84,10 +96,7 @@ const SettingsForm = ({
             control={control}
             render={({ field }) => (
               <Switch
-                onChange={e => {
-                  onChange()
-                  return field.onChange(e.target.checked)
-                }}
+                onChange={e => field.onChange(e.target.checked)}
                 checked={field.value}
               />
             )}

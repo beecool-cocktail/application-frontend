@@ -3,15 +3,16 @@ import SubmitButton from 'components/common/button/submitButton'
 import Header from 'components/layout/header'
 
 interface SettingsHeaderProps {
+  isValid: boolean
   onBack?(): void
 }
 
-const SettingsHeader = ({ onBack }: SettingsHeaderProps) => {
+const SettingsHeader = ({ isValid, onBack }: SettingsHeaderProps) => {
   return (
     <Header
       title="設定"
       leftButton={<BackButton onClick={onBack} />}
-      rightButton={<SubmitButton />}
+      rightButton={<SubmitButton disabled={!isValid} />}
     />
   )
 }
