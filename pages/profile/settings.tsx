@@ -32,6 +32,7 @@ const Settings = () => {
     confirmDialogApi.destroy()
     router.push(paths.profile)
   }
+
   const handleGoBack = async () => {
     if (isFormDirty)
       confirmDialogApi.open({
