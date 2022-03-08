@@ -9,16 +9,19 @@ export interface Route {
   inNavigationBar?: boolean
 }
 
+export const getUrlById = (path: string, id: string | number) => ({
+  pathname: path,
+  query: { id }
+})
+
 export const paths = {
   index: '/',
   search: '/search',
   profile: '/profile',
   settings: '/profile/settings',
-  draft: '/profile/draft',
-  cocktails: (id: number) => ({
-    pathname: '/cocktails/[id]',
-    query: { id }
-  }),
+  drafts: '/profile/drafts',
+  draftById: '/profile/drafts/[id]',
+  cocktailById: '/cocktails/[id]',
   creatPost: '/create-post'
 }
 
@@ -43,9 +46,9 @@ const routes: Route[] = [
     inNavigationBar: true
   },
   {
-    path: paths.draft,
+    path: paths.drafts,
     label: 'Draft',
-    requireAuth: true
+    requireAuth: false
   },
   {
     path: paths.settings,

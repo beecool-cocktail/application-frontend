@@ -40,6 +40,11 @@ export interface CocktailPostWithId extends CocktailPost {
   id: number
 }
 
+export interface CocktailPostDraft extends CocktailPostBase {
+  id: string
+  photos: string[]
+}
+
 export interface CocktailList {
   total: number
   popular_cocktail_list: Cocktail[]

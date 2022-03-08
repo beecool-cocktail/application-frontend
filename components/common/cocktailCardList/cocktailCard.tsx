@@ -13,7 +13,7 @@ import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { paths } from 'lib/configs/routes'
+import { getUrlById, paths } from 'lib/configs/routes'
 import { Cocktail } from 'lib/types/cocktail'
 import { FALLBACK_URL } from 'lib/constants/image'
 
@@ -36,7 +36,8 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
     if (new URL(p).pathname === '/') return FALLBACK_URL
     return p
   })
-  const gotoCocktailDetails = () => router.push(paths.cocktails(id))
+  const gotoCocktailDetails = () =>
+    router.push(getUrlById(paths.cocktailById, id))
 
   const getIngredientsDisplay = () => {
     let result = ''

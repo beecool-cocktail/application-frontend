@@ -15,7 +15,7 @@ import CollectionTabPanel from './collectionTabPanel'
 import PostTabPanel from './postTabPanel'
 
 const ProfileDetail = () => {
-  const { gotoIndex, gotoDraft, gotoSettings } = useGoto()
+  const { gotoIndex, gotoDrafts: gotoDraft, gotoSettings } = useGoto()
   const [value, setValue] = useState(0)
   const { userInfo, loading, error } = useUserInfo()
 
