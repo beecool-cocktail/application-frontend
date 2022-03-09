@@ -50,7 +50,6 @@ const PostEditor = ({ draft }: PostEditorProps) => {
   const { api: snackbar } = useContext(SnackbarContext)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
-
   const { control, handleSubmit, getValues } = useForm<CocktailPostForm>({
     defaultValues: getDefaultValues(draft)
   })
@@ -104,7 +103,7 @@ const PostEditor = ({ draft }: PostEditorProps) => {
     if (activeStep === 2) {
       type = 'submit'
       onClick = handleSubmit(onSubmit)
-      label = '發布'
+      label = draft ? '重新發佈' : '發布'
     }
     return (
       <Button

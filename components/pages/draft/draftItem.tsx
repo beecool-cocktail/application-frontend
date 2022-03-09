@@ -1,27 +1,36 @@
 import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { IconButton, Stack, Typography } from '@mui/material'
+import { IconButton, Checkbox, Stack, Typography } from '@mui/material'
 import { ArrowForwardIos } from '@mui/icons-material'
 import { CocktailPostDraft } from 'lib/types/cocktail'
 import { paths, getUrlById } from 'lib/configs/routes'
 import { FALLBACK_URL } from 'lib/constants/image'
 
 export interface DraftItemProps {
+  isDeleteMode: boolean
+  selected: boolean
   draft: CocktailPostDraft
+  onCheck(checked: boolean): void
 }
 
 const WIDTH = 75
 const RATIO = 3 / 4
 const HEIGHT = WIDTH * RATIO
 
-const DraftItem = ({ draft }: DraftItemProps) => {
+const DraftItem = ({
+  draft,
+  selected,
+  isDeleteMode,
+  onCheck
+}: DraftItemProps) => {
   const router = useRouter()
   const { title, photos } = draft
   const coverPhotoUrl = photos[0] || ''
 
   const handleClick = () => {
-    router.push(getUrlById(paths.draftById, draft.id))
+    if (!isDeleteMode) return router.push(getUrlById(paths.draftById, draft.id))
+    onCheck(!selected)
   }
 
   return (
@@ -40,8 +49,9 @@ const DraftItem = ({ draft }: DraftItemProps) => {
         direction="row"
         alignItems="center"
         justifyContent="flex-start"
-        spacing={2}
+        columnGap={2}
       >
+        {isDeleteMode && <Checkbox checked={selected} />}
         <Image
           layout="fixed"
           width={WIDTH}
