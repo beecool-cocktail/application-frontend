@@ -35,7 +35,7 @@ const cocktailPostHandler = rest.get('/api/cocktails/:id', (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(body))
 })
 
-const draftHandler = rest.get('/api/drafts', (_req, res, ctx) => {
+const draftListHandler = rest.get('/api/drafts', (_req, res, ctx) => {
   const body: ApiResponse<CocktailPostDraft[]> = {
     error_code: responseCode.SUCCESS,
     error_message: '',
@@ -44,15 +44,27 @@ const draftHandler = rest.get('/api/drafts', (_req, res, ctx) => {
   return res(ctx.status(200), ctx.json(body))
 })
 
+const draftHandler = rest.get('/api/draft/:id', (_req, res, ctx) => {
+  const body: ApiResponse<CocktailPostDraft> = {
+    error_code: responseCode.SUCCESS,
+    error_message: '',
+    data: mockDrafts[0]
+  }
+  return res(ctx.status(200), ctx.json(body))
+})
+
 export const appHandlers = [
   configHandler,
   cocktailListHandler,
   cocktailPostHandler,
+  draftListHandler,
   draftHandler
 ]
+
 export const storybookHandlers = [
   configHandler,
   cocktailListHandler,
   cocktailPostHandler,
+  draftListHandler,
   draftHandler
 ]

@@ -1,6 +1,6 @@
 import type { UserInfo } from 'lib/types/user'
 
-const userInfo: UserInfo = {
+const mockUserInfo: UserInfo = {
   user_id: '1',
   user_name: 'Raven',
   email: 'raven@gmail.com',
@@ -10,4 +10,4 @@ const userInfo: UserInfo = {
   is_collection_public: false
 }
 
-export default userInfo
+export default mockUserInfo

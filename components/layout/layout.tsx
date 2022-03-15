@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material'
 import React, { ReactNode, useState } from 'react'
 import useGoto from 'lib/hooks/useGoto'
+import { paths } from 'lib/configs/routes'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import FloatingPostButton from 'components/common/button/floatingPostButton'
 import NavigationBar from './navigationBar'
@@ -28,7 +29,7 @@ const Layout = ({ header, children }: LayoutProps) => {
       {header}
       {children}
       <FloatingPostButton onClick={gotoCreatePost} />
-      <NavigationBar value={router.asPath} onChange={goto} />
+      <NavigationBar value={router.asPath as paths} onChange={goto} />
       <LoginDialog
         open={loginDialogOpen}
         onClose={() => setLoginDialogOpen(false)}

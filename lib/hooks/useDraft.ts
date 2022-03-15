@@ -1,14 +1,12 @@
 import useCornerSWR from 'lib/hooks/useCornerSWR'
 import { CocktailPostDraft } from 'lib/types/cocktail'
 
-const useDrafts = () => {
-  const { data, error } = useCornerSWR<CocktailPostDraft[]>('/drafts', {
-    auth: false
-  })
-  const setDrafts = (handler: (drafts: CocktailPostDraft[]) => void) => {
-    console.warn(handler)
-  }
-  return { drafts: data, error, loading: false, setDrafts }
+const useDraft = (id: string) => {
+  const { data, error } = useCornerSWR<CocktailPostDraft>(
+    id ? `/draft/${id}` : null,
+    { auth: false }
+  )
+  return { draft: data, error, loading: !data && !error }
 }
 
-export default useDrafts
+export default useDraft

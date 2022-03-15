@@ -5,13 +5,13 @@ import Header from 'components/layout/header'
 import BackButton from 'components/common/button/backButton'
 import DeleteButton from 'components/common/button/deleteButton'
 import DraftList from 'components/pages/draft/draftList'
-import useDrafts from 'lib/hooks/useDraft'
+import useDraftList from 'lib/hooks/useDraftList'
 import Spinner from 'components/common/status/spinner'
 
 const Drafts = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
-  const { drafts, setDrafts, loading } = useDrafts()
+  const { drafts, setDrafts, loading } = useDraftList()
 
   const toggleDeleteMode = () => {
     setBatchDeleteMode(mode => !mode)

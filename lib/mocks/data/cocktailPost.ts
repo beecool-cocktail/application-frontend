@@ -1,13 +1,13 @@
-import userInfo from './userInfo'
-import ingredients from './ingredients'
+import mockUserInfo from './userInfo'
+import mockIngredients from './ingredients'
 import type { Cocktail } from '../../types/cocktail'
 
 const sharedProps = {
   photos: ['/cocktail.jpg'],
   tags: [],
-  ingredients: ingredients,
-  created_date: '',
-  userInfo: userInfo
+  ingredients: mockIngredients,
+  userInfo: mockUserInfo,
+  created_date: ''
 }
 
 const mockCocktails: Cocktail[] = [

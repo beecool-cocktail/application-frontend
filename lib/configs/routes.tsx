@@ -14,15 +14,15 @@ export const getUrlById = (path: string, id: string | number) => ({
   query: { id }
 })
 
-export const paths = {
-  index: '/',
-  search: '/search',
-  profile: '/profile',
-  settings: '/profile/settings',
-  drafts: '/profile/drafts',
-  draftById: '/profile/drafts/[id]',
-  cocktailById: '/cocktails/[id]',
-  creatPost: '/create-post'
+export enum paths {
+  index = '/',
+  search = '/search',
+  profile = '/profile',
+  settings = '/profile/settings',
+  drafts = '/profile/drafts',
+  draftById = '/profile/drafts/[id]',
+  cocktailById = '/cocktails/[id]',
+  creatPost = '/create-post'
 }
 
 const routes: Route[] = [
