@@ -1,22 +1,17 @@
 import { useState } from 'react'
 import { Button, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
-import mockDrafts from 'lib/mock/mockDrafts'
 import Header from 'components/layout/header'
 import BackButton from 'components/common/button/backButton'
 import DeleteButton from 'components/common/button/deleteButton'
 import DraftList from 'components/pages/draft/draftList'
-// import Spinner from 'components/common/status/spinner'
-
-const useDrafts = () => {
-  const [drafts, setDrafts] = useState(mockDrafts)
-  return { drafts, setDrafts, loading: false }
-}
+import useDrafts from 'lib/hooks/useDraft'
+import Spinner from 'components/common/status/spinner'
 
 const Drafts = () => {
   const [selectedIds, setSelectedIds] = useState<string[]>([])
   const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
-  const { drafts, setDrafts } = useDrafts()
+  const { drafts, setDrafts, loading } = useDrafts()
 
   const toggleDeleteMode = () => {
     setBatchDeleteMode(mode => !mode)
@@ -34,6 +29,8 @@ const Drafts = () => {
     setSelectedIds(ids => [...ids, targetId])
   }
 
+  if (loading) return <Spinner />
+
   return (
     <Stack width={1}>
       <Header
@@ -46,7 +43,7 @@ const Drafts = () => {
           />
         }
       />
-      {drafts.length ? (
+      {drafts?.length ? (
         <DraftList
           drafts={drafts}
           isDeleteMode={isBatchDeleteMode}

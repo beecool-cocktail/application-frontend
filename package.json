@@ -8,7 +8,7 @@
     "start": "next start -p 3000",
     "lint": "next lint",
     "format": "prettier --write \"{pages,components}/**/*.{js,jsx,ts,tsx,json}\"",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic --project-token=8d9fee7b3790",
     "prebuild": "next lint",
@@ -59,10 +59,15 @@
     "husky": "^7.0.4",
     "lodash-move": "^1.1.1",
     "lodash.clamp": "^4.0.3",
+    "msw": "^0.39.1",
+    "msw-storybook-addon": "^1.6.1",
     "prettier": "^2.5.1",
     "storybook-addon-next": "^1.4.4",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "^4.5.5",
     "webpack": "5"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

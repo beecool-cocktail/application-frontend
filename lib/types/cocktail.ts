@@ -1,3 +1,4 @@
+import { PaginationResponse } from './api/responseBase'
 import { UserInfo } from './user'
 
 export interface Step {
@@ -14,7 +15,6 @@ export type Cocktail = {
   cocktail_id: number
   title: string
   tags?: string[]
-  photo?: string
   photos: string[]
   created_date: string
   ingredients: Ingredient[]
@@ -34,6 +34,7 @@ export interface CocktailPostForm extends CocktailPostBase {
 
 export interface CocktailPost extends CocktailPostBase {
   photos: string[]
+  userInfo: UserInfo
 }
 
 export interface CocktailPostWithId extends CocktailPost {
@@ -45,7 +46,4 @@ export interface CocktailPostDraft extends CocktailPostBase {
   photos: string[]
 }
 
-export interface CocktailList {
-  total: number
-  popular_cocktail_list: Cocktail[]
-}
+export type CocktailList = PaginationResponse<Cocktail>

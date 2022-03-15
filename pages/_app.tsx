@@ -9,6 +9,10 @@ import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
 import 'lib/styles/swiper.css'
 
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  require('../lib/mocks')
+}
+
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 }

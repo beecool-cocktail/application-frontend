@@ -1,10 +1,9 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-// import useSWR from 'swr'
 import Spinner from 'components/common/status/spinner'
 import PostEditor from 'components/common/postEditor/postEditor'
 import { CocktailPostDraft } from 'lib/types/cocktail'
-import mockDrafts from 'lib/mock/mockDrafts'
+import mockDrafts from 'lib/mocks/data/drafts'
 
 export interface useDraftProps {
   draft: CocktailPostDraft

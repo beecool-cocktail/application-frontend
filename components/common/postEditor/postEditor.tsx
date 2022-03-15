@@ -8,6 +8,7 @@ import { paths } from 'lib/configs/routes'
 import SnackbarContext from 'lib/context/snackbarContext'
 import storage from 'lib/helper/storage'
 import { CocktailPostDraft } from 'lib/types/cocktail'
+import useUserInfo from 'lib/hooks/useUserInfo'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
 import CreatePostHeader from './createPostHeader'
@@ -47,6 +48,7 @@ interface PostEditorProps {
 
 const PostEditor = ({ draft }: PostEditorProps) => {
   const router = useRouter()
+  const { userInfo } = useUserInfo()
   const { api: snackbar } = useContext(SnackbarContext)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
@@ -117,6 +119,8 @@ const PostEditor = ({ draft }: PostEditorProps) => {
     )
   }
 
+  if (!userInfo) return null
+
   return (
     <Stack alignItems="stretch" minHeight="100vh">
       <CreatePostHeader
@@ -149,7 +153,8 @@ const PostEditor = ({ draft }: PostEditorProps) => {
                 description: values.description,
                 photos: previewUrls,
                 steps: values.steps,
-                ingredients: values.ingredients
+                ingredients: values.ingredients,
+                userInfo
               }
             })()}
           />

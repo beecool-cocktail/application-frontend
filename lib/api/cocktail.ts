@@ -1,18 +1,18 @@
-import axios from 'axios'
 import { toBase64 } from 'lib/helper/image'
 import { CocktailList } from '../types/cocktail'
 import { ApiResponse } from '../types/api/responseBase'
 import { CocktailPostForm } from '../types/cocktail'
+import cornerApi from './cornerApi'
 
 const getCocktails = async (page = 1, page_size = 10) => {
-  const res = await axios.get<ApiResponse<CocktailList>>('/api/cocktails', {
+  const res = await cornerApi.get<ApiResponse<CocktailList>>('/cocktails', {
     params: { page, page_size }
   })
   return res.data.data
 }
 
 const getCocktailById = async (id: string) => {
-  const res = await axios.get<ApiResponse<CocktailList>>(`/api/cocktails/${id}`)
+  const res = await cornerApi.get<ApiResponse<CocktailList>>(`/cocktails/${id}`)
   return res.data.data.popular_cocktail_list[0]
 }
 
@@ -31,7 +31,7 @@ const createCocktailPost = async (form: CocktailPostForm, token: string) => {
     description: form.description,
     files
   }
-  const res = await axios.post<ApiResponse<null>>('api/cocktails', req, {
+  const res = await cornerApi.post<ApiResponse<null>>('/cocktails', req, {
     headers: { Authorization: `Bearer ${token}` }
   })
   return res.data.data
