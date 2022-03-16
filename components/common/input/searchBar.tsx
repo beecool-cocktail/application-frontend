@@ -1,4 +1,6 @@
-import { Paper, InputBase } from '@mui/material'
+import { Box, InputBase } from '@mui/material'
+import { Search } from '@mui/icons-material'
+import { IconButton } from '@mui/material'
 import { useRouter } from 'next/router'
 import { MouseEventHandler, useCallback } from 'react'
 import { paths } from 'lib/configs/routes'
@@ -15,17 +17,37 @@ const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
   }, [router])
 
   return (
-    <Paper
+    <Box
       component="form"
-      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center' }}
+      sx={{
+        px: '12px',
+        display: 'flex',
+        alignItems: 'center',
+        borderRadius: '10px',
+        height: '40px',
+        backgroundColor: '#292929'
+      }}
       onClick={handleClick}
     >
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
+        sx={{
+          ml: 1,
+          flex: 1,
+          p: 0,
+          height: '22px',
+          color: '#ebebeb',
+          fontSize: '16px',
+          '&::placeholder': {
+            color: '#7b7b7b'
+          }
+        }}
         placeholder={placeHolder}
         onClick={onClick}
       />
-    </Paper>
+      <IconButton sx={{ p: 0, color: '#7B7B7B' }}>
+        <Search />
+      </IconButton>
+    </Box>
   )
 }
 

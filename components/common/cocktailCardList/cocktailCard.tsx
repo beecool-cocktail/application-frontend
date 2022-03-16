@@ -1,14 +1,7 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import {
-  Box,
-  Card,
-  CardContent,
-  IconButton,
-  Stack,
-  Typography
-} from '@mui/material'
-import { FavoriteBorder, ChevronRight } from '@mui/icons-material'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { FavoriteBorder } from '@mui/icons-material'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
@@ -49,34 +42,36 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   }
 
   return (
-    <Card sx={{ backgroundColor: 'transparent', borderRadius: '10px' }}>
+    <Box sx={{ backgroundColor: 'transparent' }} onClick={gotoCocktailDetails}>
       <Box
         width={1}
         position="relative"
         overflow="hidden"
         style={{ cursor: 'grab' }}
       >
-        <Swiper
-          modules={[Pagination]}
-          pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
-        >
-          {images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <Image
-                layout="responsive"
-                src={image}
-                alt={name}
-                width={400}
-                height={300}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <Box borderRadius="10px" overflow="hidden">
+          <Swiper
+            modules={[Pagination]}
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+          >
+            {images.map((image, index) => (
+              <SwiperSlide key={index}>
+                <Image
+                  layout="responsive"
+                  src={image}
+                  alt={name}
+                  width={400}
+                  height={300}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Box>
         <Box
           position="absolute"
-          right="30px"
-          bottom="30px"
+          right="15px"
+          bottom="15px"
           onClick={() => onCollect(id)}
         >
           <IconButton
@@ -85,21 +80,32 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
               width: 20,
               height: 20,
               fontSize: 16,
-              color: 'white'
+              color: '#EBEBEB'
             }}
           >
             <FavoriteBorder />
           </IconButton>
         </Box>
       </Box>
-      <CardContent>
+      <Box
+        sx={{
+          p: '4px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          lineHeight: 1.4
+        }}
+      >
         <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
+          spacing="4px"
         >
-          <Typography variant="h4">{name}</Typography>
-          <IconButton
+          <Typography variant="h4" sx={{ color: '#EBEBEB', fontSize: '18px' }}>
+            {name}
+          </Typography>
+          {/* <IconButton
             onClick={gotoCocktailDetails}
             sx={{
               border: '1px solid black',
@@ -112,18 +118,37 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
             }}
           >
             <ChevronRight sx={{ width: '100%', height: '100%' }} />
-          </IconButton>
+          </IconButton> */}
         </Stack>
-        <Typography gutterBottom variant="body2" component="div" color="#888">
-          {`@${userInfo.user_name}#${userInfo.user_id}`}
-        </Typography>
         <Stack direction="row">
-          <Typography gutterBottom variant="body2" component="div" color="#888">
+          <Typography
+            gutterBottom
+            variant="body2"
+            component="div"
+            color="#ccc"
+            sx={{
+              opacity: 0.9,
+              fontSize: '12px'
+            }}
+          >
             {getIngredientsDisplay()}
           </Typography>
         </Stack>
-      </CardContent>
-    </Card>
+        <Typography
+          gutterBottom
+          variant="body2"
+          component="div"
+          color="#ebebeb"
+          sx={{
+            opacity: 0.6,
+            alignSelf: 'flex-end',
+            fontSize: '11px'
+          }}
+        >
+          {`@${userInfo.user_name}#${userInfo.user_id}`}
+        </Typography>
+      </Box>
+    </Box>
   )
 }
 

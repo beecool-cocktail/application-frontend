@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Stack } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import Head from 'next/head'
 import Layout from 'components/layout/layout'
 import SearchBar from 'components/common/input/searchBar'
@@ -29,7 +29,15 @@ const Search = () => {
 }
 
 Search.getLayout = (page: ReactElement) => (
-  <Layout header={<SearchBar placeHolder="Search Wines" />}>{page}</Layout>
+  <Layout
+    header={
+      <Box p="24px">
+        <SearchBar placeHolder="找調酒..." />
+      </Box>
+    }
+  >
+    {page}
+  </Layout>
 )
 
 export default Search

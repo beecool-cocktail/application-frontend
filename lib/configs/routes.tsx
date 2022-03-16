@@ -1,5 +1,5 @@
 import React from 'react'
-import { Home, Search, Person } from '@mui/icons-material'
+import { Add, Home, Search, Person } from '@mui/icons-material'
 
 export interface Route {
   path: string
@@ -39,6 +39,13 @@ const routes: Route[] = [
     inNavigationBar: true
   },
   {
+    path: paths.creatPost,
+    label: 'Create Post',
+    icon: <Add />,
+    requireAuth: false,
+    inNavigationBar: true
+  },
+  {
     path: paths.profile,
     label: 'Profile',
     icon: <Person />,
@@ -54,11 +61,6 @@ const routes: Route[] = [
     path: paths.settings,
     label: 'Settings',
     requireAuth: true
-  },
-  {
-    path: paths.creatPost,
-    label: 'Create Post',
-    requireAuth: false
   }
 ]
 

@@ -1,3 +1,17 @@
 :root {
-  --swiper-theme-color: #faf4e6;
+  --swiper-theme-color: #faf4e6 !important;
+}
+
+.swiper-pagination-bullet {
+  width: 4px !important;
+  height: 4px !important;
+  background: #7b7b7b !important;
+  opacity: 0.5 !important;
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #ebebeb !important;
+  opacity: 1 !important;
 }

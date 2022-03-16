@@ -55,7 +55,18 @@ const Home = () => {
 }
 
 Home.getLayout = (page: ReactElement) => (
-  <Layout header={<SearchBar placeHolder="Search Wines" />}>{page}</Layout>
+  <Layout
+    header={
+      <Box p="24px" display="flex" flexDirection="column" alignItems="stretch">
+        <Box>
+          <img src="logo.svg" alt="logo" width={'100%'} />
+        </Box>
+        <SearchBar placeHolder="找調酒..." />
+      </Box>
+    }
+  >
+    {page}
+  </Layout>
 )
 
 export default Home

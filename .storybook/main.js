@@ -11,6 +11,9 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-addon-next'
   ],
+  features: {
+    emotionAlias: false
+  },
   framework: '@storybook/react',
   webpackFinal: async config => {
     config.resolve.plugins = [

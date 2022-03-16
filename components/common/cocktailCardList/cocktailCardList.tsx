@@ -12,7 +12,14 @@ const CocktailCardList = ({ cocktails: data }: CocktailCardListProps) => {
     console.log('collect')
   }
   return (
-    <Stack spacing={2}>
+    <Stack
+      spacing="24px"
+      sx={{
+        pt: '24px',
+        px: '32px',
+        backgroundColor: '#0D0D0D'
+      }}
+    >
       {data.map(cocktail => (
         <CocktailCard
           key={cocktail.cocktail_id}

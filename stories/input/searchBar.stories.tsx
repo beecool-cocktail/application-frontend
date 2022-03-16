@@ -16,5 +16,5 @@ const Template: ComponentStory<typeof SearchBar> = args => {
 
 export const Normal = Template.bind({})
 Normal.args = {
-  placeHolder: 'Search Wines'
+  placeHolder: '找調酒...'
 }
