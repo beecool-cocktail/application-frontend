@@ -31,7 +31,7 @@ const Search = () => {
 Search.getLayout = (page: ReactElement) => (
   <Layout
     header={
-      <Box p="24px">
+      <Box px="24px">
         <SearchBar placeHolder="找調酒..." />
       </Box>
     }

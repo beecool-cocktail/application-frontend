@@ -57,7 +57,7 @@ const Home = () => {
 Home.getLayout = (page: ReactElement) => (
   <Layout
     header={
-      <Box p="24px" display="flex" flexDirection="column" alignItems="stretch">
+      <Box px="24px" display="flex" flexDirection="column" alignItems="stretch">
         <Box>
           <img src="logo.svg" alt="logo" width={'100%'} />
         </Box>

@@ -53,13 +53,7 @@ const draftHandler = rest.get('/api/draft/:id', (_req, res, ctx) => {
   return res(ctx.status(200), ctx.json(body))
 })
 
-export const appHandlers = [
-  configHandler,
-  cocktailListHandler,
-  cocktailPostHandler,
-  draftListHandler,
-  draftHandler
-]
+export const appHandlers = [cocktailPostHandler, draftListHandler, draftHandler]
 
 export const storybookHandlers = [
   configHandler,
