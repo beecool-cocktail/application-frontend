@@ -9,7 +9,8 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    'storybook-addon-next'
+    'storybook-addon-next',
+    'storybook-addon-designs'
   ],
   features: {
     emotionAlias: false

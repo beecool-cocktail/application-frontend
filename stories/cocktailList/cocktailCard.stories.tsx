@@ -9,6 +9,12 @@ export default {
   argTypes: {
     cocktail: { control: { type: 'object' } },
     onCollect: { action: 'onCollect' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2560%3A5124'
+    }
   }
 } as ComponentMeta<typeof CocktailCard>
 

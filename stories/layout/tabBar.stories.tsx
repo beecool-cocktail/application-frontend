@@ -9,6 +9,12 @@ export default {
   argTypes: {
     value: { type: 'string' },
     onChange: { action: 'change' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2560%3A5139'
+    }
   }
 } as ComponentMeta<typeof TabBar>
 

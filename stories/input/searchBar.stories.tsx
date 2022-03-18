@@ -7,6 +7,12 @@ export default {
   argTypes: {
     placeHolder: { type: 'string' },
     onClick: { action: 'click' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2544%3A5478'
+    }
   }
 } as ComponentMeta<typeof SearchBar>
 

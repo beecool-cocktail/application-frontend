@@ -8,6 +8,12 @@ export default {
   component: CocktailList,
   argTypes: {
     cocktails: { control: { type: 'object' } }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2560%3A5124'
+    }
   }
 } as ComponentMeta<typeof CocktailList>
 
