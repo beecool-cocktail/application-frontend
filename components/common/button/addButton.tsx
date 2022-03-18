@@ -7,7 +7,7 @@ export interface AddButtonProps {
 }
 
 const AddButton = ({
-  color = 'black',
+  color = 'white',
   onClick: handleClick
 }: AddButtonProps) => {
   return (

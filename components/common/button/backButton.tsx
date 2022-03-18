@@ -8,7 +8,7 @@ export interface BackButtonProps {
   onClick?(): void
 }
 
-const BackButton = ({ color = 'black', onClick }: BackButtonProps) => {
+const BackButton = ({ color = 'white', onClick }: BackButtonProps) => {
   const router = useRouter()
   const handleClick = useCallback(async () => {
     if (onClick) return onClick()
