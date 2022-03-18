@@ -1,6 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
 import { ThemeProvider } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 import theme from 'lib/configs/theme'
 import SnackbarWrapper from 'components/app/snackbarWrapper'
 import ConfirmDialogWrapper from 'components/app/confirmDialogWrapper'
@@ -26,6 +27,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <SnackbarWrapper>
         <ConfirmDialogWrapper>
           <SWRConfigWrapper>
