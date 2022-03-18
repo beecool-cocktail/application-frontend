@@ -42,7 +42,7 @@ const routes: Route[] = [
     path: paths.creatPost,
     label: 'Create Post',
     icon: <Add />,
-    requireAuth: false,
+    requireAuth: true,
     inNavigationBar: true
   },
   {
