@@ -25,7 +25,10 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
     <Stack>
       <ImageSwiper title={cocktailPost.title} photos={photos} />
       <Stack p={2}>
-        <PostHeader title={cocktailPost.title} />
+        <PostHeader
+          title={cocktailPost.title}
+          userName={cocktailPost.user_name}
+        />
         <Box py={2}>
           <Typography>{cocktailPost.description}</Typography>
         </Box>

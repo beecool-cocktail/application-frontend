@@ -4,16 +4,18 @@ import { Box, Grid, Popper } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import usePermission from 'lib/hooks/usePermission'
-import useUserInfo from 'lib/hooks/useUserInfo'
 
 const POPPER_TIMEOUT = 1000
 
 export type CocktailDetailsHeaderProps = {
   title: string
+  userName: string
 }
 
-const CocktailDetailsHeader = ({ title }: CocktailDetailsHeaderProps) => {
-  const { userInfo } = useUserInfo()
+const CocktailDetailsHeader = ({
+  title,
+  userName
+}: CocktailDetailsHeaderProps) => {
   const hasPermission = usePermission()
   const [loginDialogOpen, setLoginDialogOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -71,7 +73,7 @@ const CocktailDetailsHeader = ({ title }: CocktailDetailsHeaderProps) => {
           </IconButton>
         </Grid>
       </Grid>
-      <Typography>{userInfo?.user_name}</Typography>
+      <Typography>{userName}</Typography>
       <LoginDialog
         open={loginDialogOpen}
         onClose={() => setLoginDialogOpen(false)}
