@@ -6,8 +6,7 @@ import type { CocktailPost } from 'lib/types/cocktail'
 const useCocktail = (id: string | undefined) => {
   const { config, loading: configLoading } = useConfig()
   const { data, error } = useCornerSWR<CocktailPost>(
-    id && config ? `/cocktails/${id}` : null,
-    { auth: false }
+    id && config ? `/cocktails/${id}` : null
   )
 
   let cocktail = data

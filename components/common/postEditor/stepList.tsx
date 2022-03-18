@@ -38,7 +38,10 @@ interface StepListProps {
 }
 
 const StepList = ({ control }: StepListProps) => {
-  const { fields, append, remove } = useFieldArray({ name: 'steps', control })
+  const { fields, append, remove } = useFieldArray({
+    name: 'step_list',
+    control
+  })
   const order = useRef(fields.map((_, index) => index))
   const [springs, api] = useSprings(fields.length, fn(order.current))
   const bind = useDrag(({ args: [originalIndex], active, movement: [, y] }) => {
@@ -87,7 +90,7 @@ const StepList = ({ control }: StepListProps) => {
             }}
           >
             <StepInput
-              name={`steps.${index}.description`}
+              name={`step_list.${index}.description`}
               control={control}
               onRemove={handleRemove(index)}
               bind={bind(index)}

@@ -7,7 +7,6 @@ import {
   FormControlLabel,
   Checkbox
 } from '@mui/material'
-import { grey } from '@mui/material/colors'
 import { Box } from '@mui/system'
 import { CocktailPost } from 'lib/types/cocktail'
 import { FALLBACK_URL } from 'lib/constants/image'
@@ -33,10 +32,10 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
         <Divider variant="middle" />
         <Box py={2}>
           <Typography variant="h6">備料清單：</Typography>
-          <Paper sx={{ borderRadius: 4, bgcolor: grey[300], mt: 2 }}>
+          <Paper sx={{ borderRadius: 4, mt: 2 }}>
             <Box p={2}>
               <FormGroup>
-                {cocktailPost.ingredients.map((ingredient, index) => (
+                {cocktailPost.ingredient_list?.map((ingredient, index) => (
                   <FormControlLabel
                     key={index}
                     control={<Checkbox />}
@@ -51,9 +50,9 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
         </Box>
         <Box py={2}>
           <Typography variant="h6">製作過程：</Typography>
-          <Paper sx={{ borderRadius: 4, bgcolor: grey[300], mt: 2 }}>
+          <Paper sx={{ borderRadius: 4, mt: 2 }}>
             <Box p={2}>
-              {cocktailPost.steps.map((step, index) => (
+              {cocktailPost.step_list?.map((step, index) => (
                 <Typography key={index} variant="subtitle1">
                   {`${index + 1}. ${step.description}`}
                 </Typography>

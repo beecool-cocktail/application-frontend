@@ -21,7 +21,7 @@ const useAuth = () => {
     }
   }
 
-  const logout = async (userId: string) => {
+  const logout = async (userId: number) => {
     try {
       await userApi.logout(userId)
       storage.removeToken()

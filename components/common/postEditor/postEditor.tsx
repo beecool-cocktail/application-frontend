@@ -29,10 +29,10 @@ const createModeDefaultValues = {
 
 const getDefaultValues = (draft?: CocktailPostDraft) => {
   if (!draft) return createModeDefaultValues
-  const ingredients = draft.ingredients.length
-    ? draft.ingredients
+  const ingredients = draft.ingredient_list?.length
+    ? draft.ingredient_list
     : defaultIngredients
-  const steps = draft.steps.length ? draft.steps : defaultSteps
+  const steps = draft.step_list?.length ? draft.step_list : defaultSteps
   return {
     title: draft.title,
     description: draft.description,
@@ -149,12 +149,13 @@ const PostEditor = ({ draft }: PostEditorProps) => {
             cocktailPost={(() => {
               const values = getValues()
               return {
+                user_id: userInfo.user_id,
+                user_name: userInfo.user_name,
                 title: values.title,
                 description: values.description,
                 photos: previewUrls,
-                steps: values.steps,
-                ingredients: values.ingredients,
-                userInfo
+                step_list: values.step_list,
+                ingredient_list: values.ingredient_list
               }
             })()}
           />

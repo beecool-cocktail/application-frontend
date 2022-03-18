@@ -6,8 +6,8 @@ const mockCocktailPostDraft: CocktailPostDraft = {
   id: '1',
   title: 'Gin Tonic',
   description: 'description',
-  ingredients: mockIngredients,
-  steps: mockSteps,
+  ingredient_list: mockIngredients,
+  step_list: mockSteps,
   photos: []
 }
 

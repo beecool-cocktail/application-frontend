@@ -20,7 +20,7 @@ const googleAuth = async (code: string) => {
   return res.data.data.token
 }
 
-const logout = async (user_id: string) => {
+const logout = async (user_id: number) => {
   await cornerApi.post('/user/logout', { user_id })
 }
 

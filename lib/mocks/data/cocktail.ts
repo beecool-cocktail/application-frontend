@@ -1,16 +1,16 @@
 import mockUserInfo from './userInfo'
-import mockSteps from './steps'
 import mockIngredients from './ingredients'
-import type { CocktailPost } from 'lib/types/cocktail'
+import mockPhotos from './photos'
+import type { Cocktail } from 'lib/types/cocktail'
 
-const mockCocktailPost: CocktailPost = {
+const mockCocktail: Cocktail = {
+  cocktail_id: 98078024211279,
   title: 'Gin Tonic',
-  description:
-    'this is side car this is side car this is side carcar this is side carcar this is side carcar this is side carcar this is side car',
-  photos: ['/cocktail.jpg'],
-  steps: mockSteps,
-  ingredients: mockIngredients,
-  userInfo: mockUserInfo
+  photos: mockPhotos,
+  created_date: '2022-02-17 11:41:18',
+  ingredient_list: mockIngredients,
+  user_id: mockUserInfo.user_id,
+  user_name: mockUserInfo.user_name
 }
 
-export default mockCocktailPost
+export default mockCocktail

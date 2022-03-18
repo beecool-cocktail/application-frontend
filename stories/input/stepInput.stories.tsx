@@ -17,7 +17,9 @@ export default {
 
 const Template: ComponentStory<typeof StepInput> = args => {
   const { control } = useForm<CocktailPostForm>()
-  return <StepInput {...args} name="steps.1.description" control={control} />
+  return (
+    <StepInput {...args} name="step_list.1.description" control={control} />
+  )
 }
 
 export const Normal = Template.bind({})

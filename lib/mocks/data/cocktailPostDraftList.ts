@@ -6,40 +6,40 @@ const mockDrafts: CocktailPostDraft[] = [
     title: '我是標題 1',
     description: '',
     photos: [],
-    ingredients: [],
-    steps: []
+    ingredient_list: [],
+    step_list: []
   },
   {
     id: '2',
     title: '我是標題 2',
     description: '',
     photos: [],
-    ingredients: [],
-    steps: []
+    ingredient_list: [],
+    step_list: []
   },
   {
     id: '3',
     title: '我是標題 3',
     description: '',
     photos: [],
-    ingredients: [],
-    steps: []
+    ingredient_list: [],
+    step_list: []
   },
   {
     id: '4',
     title: '我是標題 4',
     description: '',
     photos: [],
-    ingredients: [],
-    steps: []
+    ingredient_list: [],
+    step_list: []
   },
   {
     id: '5',
     title: '我是標題 5',
     description: '',
     photos: [],
-    ingredients: [],
-    steps: []
+    ingredient_list: [],
+    step_list: []
   }
 ]
 

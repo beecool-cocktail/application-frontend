@@ -18,8 +18,8 @@ const Template: ComponentStory<typeof IngredientInput> = args => {
   return (
     <IngredientInput
       {...args}
-      ingredientName="ingredients.1.name"
-      amountName="ingredients.1.amount"
+      ingredientName="ingredient_list.1.name"
+      amountName="ingredient_list.1.amount"
       control={control}
     />
   )

@@ -1,60 +1,41 @@
-import { rest } from 'msw'
-import { Cocktail, CocktailPost, CocktailPostDraft } from 'lib/types/cocktail'
-import Config from 'lib/types/config'
-import { ApiResponse, PaginationResponse } from 'lib/types/api/responseBase'
+import { ResponseComposition, rest, RestContext } from 'msw'
+import { ApiResponse } from 'lib/types/api/responseBase'
 import responseCode from 'lib/constants/responseCode'
 import mockConfig from './data/config'
-import mockDrafts from './data/drafts'
-import mockCocktailPost from './data/cocktail'
+import mockDrafts from './data/cocktailPostDraftList'
+import mockCocktailPost from './data/cocktailPost'
 import mockCocktailList from './data/cocktailList'
 
-const configHandler = rest.get('/api/config', (req, res, ctx) => {
-  const body: ApiResponse<Config> = {
+const responseJson = <T>(
+  res: ResponseComposition,
+  ctx: RestContext,
+  data: T
+) => {
+  const body: ApiResponse<T> = {
     error_code: responseCode.SUCCESS,
     error_message: '',
-    data: mockConfig
+    data
   }
   return res(ctx.status(200), ctx.json(body))
-})
+}
 
-const cocktailListHandler = rest.get('/api/cocktails', (req, res, ctx) => {
-  const body: ApiResponse<PaginationResponse<Cocktail>> = {
-    error_code: responseCode.SUCCESS,
-    error_message: '',
-    data: mockCocktailList
-  }
-  return res(ctx.status(200), ctx.json(body))
-})
+const configHandler = rest.get('/api/config', (req, res, ctx) =>
+  responseJson(res, ctx, mockConfig)
+)
+const cocktailListHandler = rest.get('/api/cocktails', (req, res, ctx) =>
+  responseJson(res, ctx, mockCocktailList)
+)
+const cocktailPostHandler = rest.get('/api/cocktails/:id', (req, res, ctx) =>
+  responseJson(res, ctx, mockCocktailPost)
+)
+const draftListHandler = rest.get('/api/drafts', (_req, res, ctx) =>
+  responseJson(res, ctx, mockDrafts)
+)
+const draftHandler = rest.get('/api/draft/:id', (_req, res, ctx) =>
+  responseJson(res, ctx, mockDrafts[0])
+)
 
-const cocktailPostHandler = rest.get('/api/cocktails/:id', (req, res, ctx) => {
-  const body: ApiResponse<CocktailPost> = {
-    error_code: responseCode.SUCCESS,
-    error_message: '',
-    data: mockCocktailPost
-  }
-  return res(ctx.status(200), ctx.json(body))
-})
-
-const draftListHandler = rest.get('/api/drafts', (_req, res, ctx) => {
-  const body: ApiResponse<CocktailPostDraft[]> = {
-    error_code: responseCode.SUCCESS,
-    error_message: '',
-    data: mockDrafts
-  }
-  return res(ctx.status(200), ctx.json(body))
-})
-
-const draftHandler = rest.get('/api/draft/:id', (_req, res, ctx) => {
-  const body: ApiResponse<CocktailPostDraft> = {
-    error_code: responseCode.SUCCESS,
-    error_message: '',
-    data: mockDrafts[0]
-  }
-  return res(ctx.status(200), ctx.json(body))
-})
-
-export const appHandlers = [cocktailPostHandler, draftListHandler, draftHandler]
-
+export const appHandlers = [draftListHandler, draftHandler]
 export const storybookHandlers = [
   configHandler,
   cocktailListHandler,

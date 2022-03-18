@@ -1,5 +1,5 @@
 import { PaginationResponse } from './api/responseBase'
-import { UserInfo } from './user'
+import { UserInfoBase } from './user'
 
 export interface Step {
   description: string
@@ -17,24 +17,24 @@ export type Cocktail = {
   tags?: string[]
   photos: string[]
   created_date: string
-  ingredients: Ingredient[]
-  userInfo: UserInfo
+  ingredient_list: Ingredient[]
+  user_id: number
+  user_name: string
 }
 
 export interface CocktailPostBase {
   title: string
   description: string
-  ingredients: Ingredient[]
-  steps: Step[]
+  ingredient_list?: Ingredient[]
+  step_list?: Step[]
 }
 
 export interface CocktailPostForm extends CocktailPostBase {
   photos: FileList | null
 }
 
-export interface CocktailPost extends CocktailPostBase {
+export interface CocktailPost extends CocktailPostBase, UserInfoBase {
   photos: string[]
-  userInfo: UserInfo
 }
 
 export interface CocktailPostWithId extends CocktailPost {

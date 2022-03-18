@@ -17,25 +17,20 @@ export interface CocktailCardProps {
 
 const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   const router = useRouter()
-  const {
-    cocktail_id: id,
-    photos,
-    title: name,
-    ingredients,
-    userInfo
-  } = cocktail
+  const { cocktail_id, photos, title, ingredient_list, user_id, user_name } =
+    cocktail
 
   const images = photos.map(p => {
     if (new URL(p).pathname === '/') return FALLBACK_URL
     return p
   })
   const gotoCocktailDetails = () =>
-    router.push(getUrlById(paths.cocktailById, id))
+    router.push(getUrlById(paths.cocktailById, cocktail_id))
 
   const getIngredientsDisplay = () => {
     let result = ''
-    ingredients.forEach((ingredient, index) => {
-      if (index === ingredients.length - 1) result += ingredient.name
+    ingredient_list.forEach((ingredient, index) => {
+      if (index === ingredient_list.length - 1) result += ingredient.name
       else result += `${ingredient.name} / `
     })
     return result
@@ -60,7 +55,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
                 <Image
                   layout="responsive"
                   src={image}
-                  alt={name}
+                  alt={title}
                   width={400}
                   height={300}
                 />
@@ -72,7 +67,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           position="absolute"
           right="15px"
           bottom="15px"
-          onClick={() => onCollect(id)}
+          onClick={() => onCollect(cocktail_id)}
         >
           <IconButton
             sx={{
@@ -103,7 +98,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           spacing="4px"
         >
           <Typography variant="h4" sx={{ color: '#EBEBEB', fontSize: '18px' }}>
-            {name}
+            {title}
           </Typography>
           {/* <IconButton
             onClick={gotoCocktailDetails}
@@ -145,7 +140,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
             fontSize: '11px'
           }}
         >
-          {`@${userInfo.user_name}#${userInfo.user_id}`}
+          {`@${user_name}#${user_id}`}
         </Typography>
       </Box>
     </Box>

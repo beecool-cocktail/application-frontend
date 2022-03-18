@@ -24,10 +24,10 @@ const createCocktailPost = async (form: CocktailPostForm, token: string) => {
   }
   const req = {
     name: form.title,
-    ingredient_list: form.ingredients.map(({ amount, ...props }) => {
+    ingredient_list: form.ingredient_list?.map(({ amount, ...props }) => {
       return { ...props, amount: Number(amount) }
     }),
-    step_list: form.steps,
+    step_list: form.step_list,
     description: form.description,
     files
   }
