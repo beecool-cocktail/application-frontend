@@ -75,7 +75,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
               width: 20,
               height: 20,
               fontSize: 16,
-              color: '#EBEBEB'
+              color: 'light1.main'
             }}
           >
             <FavoriteBorder />
@@ -97,34 +97,20 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           justifyContent="space-between"
           spacing="4px"
         >
-          <Typography variant="h4" sx={{ color: '#EBEBEB', fontSize: '18px' }}>
+          <Typography
+            variant="h4"
+            sx={{ color: 'light1.main', fontSize: '18px' }}
+          >
             {title}
           </Typography>
-          {/* <IconButton
-            onClick={gotoCocktailDetails}
-            sx={{
-              border: '1px solid black',
-              borderRadius: '50%',
-              width: 24,
-              height: 24,
-              fontSize: 16,
-              color: 'black',
-              padding: 0
-            }}
-          >
-            <ChevronRight sx={{ width: '100%', height: '100%' }} />
-          </IconButton> */}
         </Stack>
         <Stack direction="row">
           <Typography
             gutterBottom
             variant="body2"
             component="div"
-            color="#ccc"
-            sx={{
-              opacity: 0.9,
-              fontSize: '12px'
-            }}
+            color="light2.main"
+            sx={{ fontSize: '12px' }}
           >
             {getIngredientsDisplay()}
           </Typography>
@@ -133,9 +119,8 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           gutterBottom
           variant="body2"
           component="div"
-          color="#ebebeb"
+          color="light3.main"
           sx={{
-            opacity: 0.6,
             alignSelf: 'flex-end',
             fontSize: '11px'
           }}

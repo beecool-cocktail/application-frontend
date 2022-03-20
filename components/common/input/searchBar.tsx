@@ -25,7 +25,7 @@ const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
         alignItems: 'center',
         borderRadius: '10px',
         height: '40px',
-        backgroundColor: '#292929'
+        backgroundColor: 'dark6.main'
       }}
       onClick={handleClick}
     >
@@ -35,16 +35,16 @@ const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
           flex: 1,
           p: 0,
           height: '22px',
-          color: '#ebebeb',
+          color: 'light1.main',
           fontSize: '16px',
           '&::placeholder': {
-            color: '#7b7b7b'
+            color: 'light4'
           }
         }}
         placeholder={placeHolder}
         onClick={onClick}
       />
-      <IconButton sx={{ p: 0, color: '#7B7B7B' }}>
+      <IconButton sx={{ p: 0, color: 'light4.main' }}>
         <Search />
       </IconButton>
     </Box>

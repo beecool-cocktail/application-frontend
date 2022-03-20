@@ -17,7 +17,7 @@ const CocktailCardList = ({ cocktails: data }: CocktailCardListProps) => {
       sx={{
         pt: '24px',
         px: '32px',
-        backgroundColor: '#0D0D0D'
+        backgroundColor: 'dark2.main'
       }}
     >
       {data.map(cocktail => (

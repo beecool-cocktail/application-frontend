@@ -48,15 +48,15 @@ export const TabBar = ({ value, onChange }: TabBarProps) => {
               minWidth: '32px',
               width: '32px',
               height: '32px',
-              color: '#7B7B7B',
+              color: 'light4.main',
               '&.Mui-selected': {
-                color: '#DBE0EC',
+                color: 'white.main',
                 paddingTop: 0
               },
               '&.Mui-selected::before': {
                 content: '""',
                 position: 'absolute',
-                backgroundColor: '#DBE0EC',
+                backgroundColor: 'white.main',
                 height: '24px',
                 width: '24px',
                 filter: 'blur(12px)'
