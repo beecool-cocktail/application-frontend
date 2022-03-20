@@ -2,7 +2,7 @@ import { CocktailPostDraft } from 'lib/types/cocktail'
 
 const mockDrafts: CocktailPostDraft[] = [
   {
-    id: '1',
+    cocktail_id: 1,
     title: '我是標題 1',
     description: '',
     photos: [],
@@ -10,7 +10,7 @@ const mockDrafts: CocktailPostDraft[] = [
     step_list: []
   },
   {
-    id: '2',
+    cocktail_id: 2,
     title: '我是標題 2',
     description: '',
     photos: [],
@@ -18,7 +18,7 @@ const mockDrafts: CocktailPostDraft[] = [
     step_list: []
   },
   {
-    id: '3',
+    cocktail_id: 3,
     title: '我是標題 3',
     description: '',
     photos: [],
@@ -26,7 +26,7 @@ const mockDrafts: CocktailPostDraft[] = [
     step_list: []
   },
   {
-    id: '4',
+    cocktail_id: 4,
     title: '我是標題 4',
     description: '',
     photos: [],
@@ -34,7 +34,7 @@ const mockDrafts: CocktailPostDraft[] = [
     step_list: []
   },
   {
-    id: '5',
+    cocktail_id: 5,
     title: '我是標題 5',
     description: '',
     photos: [],

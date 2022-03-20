@@ -23,22 +23,22 @@ const createModeDefaultValues = {
   title: '',
   description: '',
   photos: null,
-  ingredients: defaultIngredients,
-  steps: defaultSteps
+  ingredient_list: defaultIngredients,
+  step_list: defaultSteps
 }
 
 const getDefaultValues = (draft?: CocktailPostDraft) => {
   if (!draft) return createModeDefaultValues
-  const ingredients = draft.ingredient_list?.length
+  const ingredient_list = draft.ingredient_list.length
     ? draft.ingredient_list
     : defaultIngredients
-  const steps = draft.step_list?.length ? draft.step_list : defaultSteps
+  const step_list = draft.step_list.length ? draft.step_list : defaultSteps
   return {
     title: draft.title,
     description: draft.description,
     photos: null,
-    ingredients,
-    steps
+    ingredient_list,
+    step_list
   }
 }
 
@@ -52,7 +52,12 @@ const PostEditor = ({ draft }: PostEditorProps) => {
   const { api: snackbar } = useContext(SnackbarContext)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [previewUrls, setPreviewUrls] = useState<string[]>([])
-  const { control, handleSubmit, getValues } = useForm<CocktailPostForm>({
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState: { isDirty }
+  } = useForm<CocktailPostForm>({
     defaultValues: getDefaultValues(draft)
   })
 
@@ -73,8 +78,12 @@ const PostEditor = ({ draft }: PostEditorProps) => {
     })
   }
 
-  const handleSaveDraft = () => {
-    // TODO
+  const onSaveDraft = async (form: CocktailPostForm) => {
+    const token = storage.getToken()
+    if (!token) return
+    await cocktailApi.createCocktailPostDraft(form, token)
+    router.push(paths.profile)
+    snackbar.success({ message: 'saved!' })
   }
 
   const handlePreviewUrlsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,8 +135,9 @@ const PostEditor = ({ draft }: PostEditorProps) => {
       <CreatePostHeader
         steps={steps}
         activeStep={activeStep}
+        savable={isDirty}
         onBack={handleBack}
-        onSaveDraft={handleSaveDraft}
+        onSaveDraft={handleSubmit(onSaveDraft)}
       />
       <Stack
         alignItems="center"
@@ -149,6 +159,7 @@ const PostEditor = ({ draft }: PostEditorProps) => {
             cocktailPost={(() => {
               const values = getValues()
               return {
+                cocktail_id: 0,
                 user_id: userInfo.user_id,
                 user_name: userInfo.user_name,
                 title: values.title,

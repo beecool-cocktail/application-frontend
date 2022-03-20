@@ -25,11 +25,12 @@ const DraftItem = ({
   onCheck
 }: DraftItemProps) => {
   const router = useRouter()
-  const { title, photos } = draft
-  const coverPhotoUrl = photos[0] || ''
+  const { title = 'Untitled', photos } = draft
+  const coverPhotoUrl = photos?.[0] || ''
 
   const handleClick = () => {
-    if (!isDeleteMode) return router.push(getUrlById(paths.draftById, draft.id))
+    if (!isDeleteMode)
+      return router.push(getUrlById(paths.draftById, draft.cocktail_id))
     onCheck(!selected)
   }
 

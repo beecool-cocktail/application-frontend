@@ -5,9 +5,9 @@ import DraftItem from './draftItem'
 
 export interface DraftListProps {
   isDeleteMode: boolean
-  selectedIds: string[]
+  selectedIds: number[]
   drafts: CocktailPostDraft[]
-  onCheck(id: string, checked: boolean): void
+  onCheck(id: number, checked: boolean): void
 }
 
 const DraftList = ({
@@ -20,11 +20,11 @@ const DraftList = ({
     <Stack width={1}>
       {drafts.map(draft => (
         <DraftItem
-          key={draft.id}
+          key={draft.cocktail_id}
           isDeleteMode={isDeleteMode}
           draft={draft}
-          selected={selectedIds.includes(draft.id)}
-          onCheck={checked => onCheck(draft.id, checked)}
+          selected={selectedIds.includes(draft.cocktail_id)}
+          onCheck={checked => onCheck(draft.cocktail_id, checked)}
         />
       ))}
     </Stack>

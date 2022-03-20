@@ -28,14 +28,14 @@ const cocktailListHandler = rest.get('/api/cocktails', (req, res, ctx) =>
 const cocktailPostHandler = rest.get('/api/cocktails/:id', (req, res, ctx) =>
   responseJson(res, ctx, mockCocktailPost)
 )
-const draftListHandler = rest.get('/api/drafts', (_req, res, ctx) =>
+const draftListHandler = rest.get('/api/cocktail-drafts', (_req, res, ctx) =>
   responseJson(res, ctx, mockDrafts)
 )
-const draftHandler = rest.get('/api/draft/:id', (_req, res, ctx) =>
+const draftHandler = rest.get('/api/cocktail-draft/:id', (_req, res, ctx) =>
   responseJson(res, ctx, mockDrafts[0])
 )
 
-export const appHandlers = [draftListHandler, draftHandler]
+export const appHandlers = [draftHandler]
 export const storybookHandlers = [
   configHandler,
   cocktailListHandler,

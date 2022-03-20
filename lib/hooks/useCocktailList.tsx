@@ -15,7 +15,9 @@ const useCocktailList = () => {
       return produce(cocktail, draft => {
         const getAbsoluteUrl = (photo: string) =>
           join(config.staticBaseUrl, photo ? photo : FALLBACK_URL)
-        draft.photos = draft.photos.map(getAbsoluteUrl)
+        draft.photos = draft.photos?.map(getAbsoluteUrl) || [
+          getAbsoluteUrl(FALLBACK_URL)
+        ]
       })
     })
   }

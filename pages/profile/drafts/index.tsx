@@ -9,7 +9,7 @@ import useDraftList from 'lib/hooks/useDraftList'
 import Spinner from 'components/common/status/spinner'
 
 const Drafts = () => {
-  const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
   const { drafts, setDrafts, loading } = useDraftList()
 
@@ -18,11 +18,13 @@ const Drafts = () => {
     setSelectedIds([])
   }
   const handleConfirmDelete = () => {
-    setDrafts(drafts => drafts.filter(draft => !selectedIds.includes(draft.id)))
+    setDrafts(drafts =>
+      drafts.filter(draft => !selectedIds.includes(draft.cocktail_id))
+    )
     setBatchDeleteMode(false)
     setSelectedIds([])
   }
-  const handleCheck = (targetId: string, checked: boolean) => {
+  const handleCheck = (targetId: number, checked: boolean) => {
     if (!checked)
       return setSelectedIds(ids => ids.filter(id => id !== targetId))
     if (selectedIds.includes(targetId)) return

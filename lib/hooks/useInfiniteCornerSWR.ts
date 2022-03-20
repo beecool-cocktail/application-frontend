@@ -10,7 +10,8 @@ import type { PaginationResponse } from 'lib/types/api/responseBase'
 
 const useCornerSWRInfinite = <T>(
   path: string | null,
-  cornerConfig: CornerSWROption = defaultCornerConfig
+  cornerConfig: CornerSWROption = defaultCornerConfig,
+  pageSize: number = PAGE_SIZE
 ) => {
   const {
     data: pageData,
@@ -26,7 +27,7 @@ const useCornerSWRInfinite = <T>(
         return null
       const pagination: Pagination = {
         pageIndex: index + 1,
-        pageSize: PAGE_SIZE
+        pageSize: pageSize
       }
       const key = [path, pagination]
       if (cornerConfig.auth) {
@@ -48,7 +49,7 @@ const useCornerSWRInfinite = <T>(
     (size > 0 && data && typeof data[size - 1] === 'undefined')
   const isEmpty = data?.[0]?.length === 0
   const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE)
+    isEmpty || (data && data[data.length - 1]?.length < pageSize)
   const isRefreshing = isValidating && data && data.length === size
   const loadMore = () => setSize(s => s + 1)
 

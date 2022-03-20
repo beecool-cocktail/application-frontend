@@ -6,6 +6,7 @@ import BackButton from 'components/common/button/backButton'
 interface CreatePostHeaderProps {
   steps: string[]
   activeStep: number
+  savable: boolean
   onBack(): void
   onSaveDraft(): void
 }
@@ -13,6 +14,7 @@ interface CreatePostHeaderProps {
 const CreatePostHeader = ({
   steps,
   activeStep,
+  savable,
   onBack,
   onSaveDraft
 }: CreatePostHeaderProps) => {
@@ -21,7 +23,11 @@ const CreatePostHeader = ({
       <Header
         title="發文"
         leftButton={<BackButton onClick={onBack} />}
-        rightButton={<Button onClick={onSaveDraft}>存成草稿</Button>}
+        rightButton={
+          <Button disabled={!savable} onClick={onSaveDraft}>
+            存成草稿
+          </Button>
+        }
       />
       <Stepper activeStep={activeStep}>
         {steps.map(label => (

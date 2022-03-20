@@ -3,7 +3,7 @@ import mockSteps from './steps'
 import type { CocktailPostDraft } from 'lib/types/cocktail'
 
 const mockCocktailPostDraft: CocktailPostDraft = {
-  id: '1',
+  cocktail_id: 1,
   title: 'Gin Tonic',
   description: 'description',
   ingredient_list: mockIngredients,

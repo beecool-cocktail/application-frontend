@@ -25,8 +25,8 @@ export type Cocktail = {
 export interface CocktailPostBase {
   title: string
   description: string
-  ingredient_list?: Ingredient[]
-  step_list?: Step[]
+  ingredient_list: Ingredient[]
+  step_list: Step[]
 }
 
 export interface CocktailPostForm extends CocktailPostBase {
@@ -34,6 +34,7 @@ export interface CocktailPostForm extends CocktailPostBase {
 }
 
 export interface CocktailPost extends CocktailPostBase, UserInfoBase {
+  cocktail_id: number
   photos: string[]
 }
 
@@ -42,8 +43,13 @@ export interface CocktailPostWithId extends CocktailPost {
 }
 
 export interface CocktailPostDraft extends CocktailPostBase {
-  id: string
+  cocktail_id: number
   photos: string[]
 }
 
 export type CocktailList = PaginationResponse<Cocktail>
+
+export type CocktailDraftList = {
+  draft_cocktail_list: CocktailPostDraft[]
+  total: number
+}

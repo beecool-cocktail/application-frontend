@@ -38,7 +38,7 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
           <Paper sx={{ borderRadius: 4, mt: 2 }}>
             <Box p={2}>
               <FormGroup>
-                {cocktailPost.ingredient_list?.map((ingredient, index) => (
+                {cocktailPost.ingredient_list.map((ingredient, index) => (
                   <FormControlLabel
                     key={index}
                     control={<Checkbox />}
@@ -55,7 +55,7 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
           <Typography variant="h6">製作過程：</Typography>
           <Paper sx={{ borderRadius: 4, mt: 2 }}>
             <Box p={2}>
-              {cocktailPost.step_list?.map((step, index) => (
+              {cocktailPost.step_list.map((step, index) => (
                 <Typography key={index} variant="subtitle1">
                   {`${index + 1}. ${step.description}`}
                 </Typography>

@@ -5,6 +5,7 @@ import mockPhotos from './photos'
 import type { CocktailPost } from 'lib/types/cocktail'
 
 const mockCocktailPost: CocktailPost = {
+  cocktail_id: 1,
   title: 'Gin Tonic',
   description: 'Gin Tonic Gin Tonic Gin Tonic Gin Tonic Gin Tonic Gin Tonic',
   photos: mockPhotos,
