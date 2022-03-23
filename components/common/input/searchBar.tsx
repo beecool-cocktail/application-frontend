@@ -1,9 +1,9 @@
-import { Box, InputBase } from '@mui/material'
-import { Search } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
+import { MouseEventHandler, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { MouseEventHandler, useCallback } from 'react'
+import { Box, IconButton, InputBase } from '@mui/material'
+import { Search } from '@mui/icons-material'
 import { paths } from 'lib/configs/routes'
+import useStore from 'lib/hooks/useStore'
 
 type SearchBarProps = {
   placeHolder: string
@@ -12,9 +12,16 @@ type SearchBarProps = {
 
 const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
   const router = useRouter()
+  const searchBarInput = useStore(state => state.searchBarInput)
+  const setSearchBarInput = useStore(state => state.setSearchBarInput)
   const handleClick = useCallback(() => {
     router.push(paths.search)
   }, [router])
+
+  useEffect(() => {
+    setSearchBarInput('')
+    return () => setSearchBarInput('')
+  }, [setSearchBarInput])
 
   return (
     <Box
@@ -25,7 +32,7 @@ const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
         alignItems: 'center',
         borderRadius: '10px',
         height: '40px',
-        backgroundColor: 'dark6.main'
+        backgroundColor: theme => theme.palette.dark6.main
       }}
       onClick={handleClick}
     >
@@ -38,11 +45,13 @@ const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
           color: 'light1.main',
           fontSize: '16px',
           '&::placeholder': {
-            color: 'light4'
+            color: 'light4.main'
           }
         }}
+        value={searchBarInput}
         placeholder={placeHolder}
         onClick={onClick}
+        onChange={e => setSearchBarInput(e.target.value)}
       />
       <IconButton sx={{ p: 0, color: 'light4.main' }}>
         <Search />

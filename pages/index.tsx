@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { useInView } from 'react-intersection-observer'
 import { Box, Stack, Typography } from '@mui/material'
 import Layout from 'components/layout/layout'
-import SearchBar from 'components/common/input/searchBar'
 import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
 import Spinner from 'components/common/status/spinner'
 import useCocktailList from 'lib/hooks/useCocktailList'
@@ -55,16 +54,7 @@ const Home = () => {
 }
 
 Home.getLayout = (page: ReactElement) => (
-  <Layout
-    header={
-      <Box px="24px" display="flex" flexDirection="column" alignItems="stretch">
-        <Box>
-          <img src="logo.svg" alt="logo" width={'100%'} />
-        </Box>
-        <SearchBar placeHolder="找調酒..." />
-      </Box>
-    }
-  >
+  <Layout useLogo useSearchBar>
     {page}
   </Layout>
 )

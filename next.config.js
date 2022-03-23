@@ -5,7 +5,7 @@ if (process.env.IMAGE_DOMAIN) imageDomains.push(process.env.IMAGE_DOMAIN)
 
 module.exports = {
   reactStrictMode: true,
-  swcMinify: true,
+  swcMinify: false,
   serverRuntimeConfig: {
     apiBaseUrl: process.env.API_BASE_URL,
     staticBaseUrl: process.env.API_BASE_URL
