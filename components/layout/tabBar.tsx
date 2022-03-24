@@ -22,7 +22,7 @@ export const TabBar = ({ value, onChange }: TabBarProps) => {
         position: 'fixed',
         zIndex: 1,
         px: '24px',
-        bottom: 36,
+        bottom: 20,
         left: 0,
         mx: `${mx}px`,
         width: `calc(100% - ${mx * 2}px)`,
