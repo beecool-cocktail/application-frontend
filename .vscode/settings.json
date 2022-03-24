@@ -4,10 +4,15 @@
     "cloudbuild",
     "cloudsdktool",
     "entrypoint",
+    "fontsource",
     "gcloud",
     "immer",
     "kaniko",
+    "Neue",
+    "Noto",
     "prebuild",
+    "preconnect",
+    "Roboto",
     "swiper",
     "zustand"
   ]

@@ -1354,6 +1354,16 @@
   dependencies:
     "@figspec/components" "^1.0.0"
 
+"@fontsource/montserrat@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@fontsource/montserrat/-/montserrat-4.5.7.tgz#5fa342958655d3309eeae552a409f75a5453173f"
+  integrity sha512-eROpR2P7faJpXtjPx7XGESSNJXT6zUKUnLuUalR8YRpAi7Z4Hg+++LSTRX2GItQDaQliScGapTW10cYunhQDiw==
+
+"@fontsource/noto-sans-tc@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@fontsource/noto-sans-tc/-/noto-sans-tc-4.5.7.tgz#99803200762045a3a30813e4040376e3e5abbf3f"
+  integrity sha512-R0CDVkDOWT5rOSLGjeOtzqfB0KwVHBscpm1aBzpmnl0OxzJ8OXIT8rmPaOh6OsUiko2l4dTKKpQxK0mfe0Ilyg==
+
 "@galtz-library/eslint-config@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@galtz-library/eslint-config/-/eslint-config-0.2.0.tgz#41505dcf2f6fd4f53d1128ec199650205af82bf0"

@@ -74,6 +74,11 @@ const theme = createTheme({
     light4: { main: '#7B7B7B' },
     white: { main: '#DBE0EC' },
     black: { main: '#131924' }
+  },
+  typography: {
+    fontFamily: ['Noto Sans TC', 'Helvetica Neue', 'Arial', 'sans-serif'].join(
+      ','
+    )
   }
 })
 
