@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import { Box, Typography } from '@mui/material'
+import { useRef } from 'react'
 
-const isEasterEggTriggered = () => {
-  return Math.random() < 0.1
-}
+const isEasterEggTriggered = () => Math.random() < 0.1
 
 const NotFound = () => {
-  if (isEasterEggTriggered()) {
+  const isEasterEggTriggeredRef = useRef(isEasterEggTriggered())
+
+  if (isEasterEggTriggeredRef.current) {
     return (
       <Box width="100%">
         <Image
