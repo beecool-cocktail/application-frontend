@@ -35,7 +35,7 @@ const draftHandler = rest.get('/api/cocktail-draft/:id', (_req, res, ctx) =>
   responseJson(res, ctx, mockDrafts[0])
 )
 
-export const appHandlers = [draftHandler]
+export const appHandlers = []
 export const storybookHandlers = [
   configHandler,
   cocktailListHandler,
