@@ -1,5 +1,6 @@
 import { initialize, mswDecorator } from 'msw-storybook-addon'
 import { ThemeProvider } from '@mui/system'
+import { CssBaseline } from '@mui/material'
 import '@fontsource/noto-sans-tc/400.css'
 import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
@@ -12,6 +13,7 @@ initialize()
 
 const themeDecorator = Story => (
   <ThemeProvider theme={theme}>
+    <CssBaseline />
     <Story />
   </ThemeProvider>
 )
