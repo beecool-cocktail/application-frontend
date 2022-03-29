@@ -16,14 +16,14 @@ export const PlayOnceByPath = Template.bind({})
 PlayOnceByPath.args = {
   loop: false,
   autoplay: true,
-  path: '/lazydoge-wine.json'
+  path: 'https://assets2.lottiefiles.com/packages/lf20_ux73oxwe.json'
 }
 
 export const LoopByPath = Template.bind({})
 LoopByPath.args = {
   loop: true,
   autoplay: true,
-  path: '/lazydoge-wine.json'
+  path: 'https://assets2.lottiefiles.com/packages/lf20_ux73oxwe.json'
 }
 
 export const PlayOnceByAnimationData = Template.bind({})
