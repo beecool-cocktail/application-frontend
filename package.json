@@ -24,6 +24,7 @@
     "@use-gesture/react": "^10.2.5",
     "axios": "^0.25.0",
     "immer": "^9.0.12",
+    "lottie-web": "^5.9.1",
     "next": "12.1.0",
     "next-http-proxy-middleware": "^1.2.4",
     "ramda": "^0.28.0",
