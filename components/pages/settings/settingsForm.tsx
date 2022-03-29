@@ -73,7 +73,9 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
           rules={{
             required: true,
             maxLength: 20,
-            pattern: /^[a-zA-Z0-9_.]+$/
+            // Unicode u+4E00..u+9FFF: CJK Unified Ideographs
+            // reference: https://en.wikipedia.org/wiki/CJK_Unified_Ideographs_(Unicode_block)
+            pattern: /^[\u4E00-\u9FFF\w_.]+$/
           }}
           render={({ field }) => (
             <TextField
