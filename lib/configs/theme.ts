@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material'
+import React from 'react'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -47,7 +48,32 @@ declare module '@mui/material/styles' {
     darker?: string
     subtle?: string
   }
+  interface TypographyVariants {
+    logoL: React.CSSProperties
+    logoS: React.CSSProperties
+    body3: React.CSSProperties
+    body4: React.CSSProperties
+  }
+  interface TypographyVariantsOptions {
+    logoL?: React.CSSProperties
+    logoS?: React.CSSProperties
+    body3?: React.CSSProperties
+    body4?: React.CSSProperties
+  }
 }
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    logoL: true
+    logoS: true
+    body3: true
+    body4: true
+  }
+}
+
+const fallbackFonts = ['Helvetica Neue', 'Arial', 'sans-serif']
+const normalFontFamily = ['Noto Sans TC', ...fallbackFonts].join(',')
+const logoFontFamily = ['Montserrat', ...fallbackFonts].join(',')
 
 const theme = createTheme({
   palette: {
@@ -76,9 +102,69 @@ const theme = createTheme({
     black: { main: '#131924' }
   },
   typography: {
-    fontFamily: ['Noto Sans TC', 'Helvetica Neue', 'Arial', 'sans-serif'].join(
-      ','
-    )
+    fontFamily: normalFontFamily,
+    logoL: {
+      fontFamily: logoFontFamily,
+      fontWeight: 800,
+      fontSize: 28,
+      lineHeight: 1.25
+    },
+    logoS: {
+      fontFamily: logoFontFamily,
+      fontWeight: 700,
+      fontSize: 24,
+      lineHeight: 1.25
+    },
+    h1: {
+      fontWeight: 500,
+      fontSize: 32,
+      lineHeight: 1.25
+    },
+    h2: {
+      fontWeight: 500,
+      fontSize: 28,
+      lineHeight: 1.25
+    },
+    h3: {
+      fontWeight: 500,
+      fontSize: 24,
+      lineHeight: 1.25
+    },
+    h4: {
+      fontWeight: 500,
+      fontSize: 20,
+      lineHeight: 1.25
+    },
+    subtitle1: {
+      fontWeight: 500,
+      fontSize: 18,
+      lineHeight: 1.4
+    },
+    subtitle2: {
+      fontWeight: 400,
+      fontSize: 18,
+      lineHeight: 1.4
+    },
+    body1: {
+      fontWeight: 400,
+      fontSize: 16,
+      lineHeight: 1.4
+    },
+    body2: {
+      fontWeight: 400,
+      fontSize: 14,
+      lineHeight: 1.4
+    },
+    body3: {
+      fontWeight: 400,
+      fontSize: 12,
+      lineHeight: 1.4
+    },
+    body4: {
+      fontWeight: 400,
+      fontSize: 11,
+      lineHeight: 1.4
+    }
   }
 })
 
