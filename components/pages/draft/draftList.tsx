@@ -1,12 +1,12 @@
 import React from 'react'
 import { Stack } from '@mui/material'
-import { CocktailPostDraft } from 'lib/types/cocktail'
+import { CocktailPostDraftItem } from 'lib/types/cocktail'
 import DraftItem from './draftItem'
 
 export interface DraftListProps {
   isDeleteMode: boolean
   selectedIds: number[]
-  drafts: CocktailPostDraft[]
+  drafts: CocktailPostDraftItem[]
   onCheck(id: number, checked: boolean): void
 }
 

@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Stack } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/types/cocktail'
+import { CocktailPostForm, Ingredient, Step } from 'lib/types/cocktail'
 import cocktailApi from 'lib/api/cocktail'
 import { paths } from 'lib/configs/routes'
 import SnackbarContext from 'lib/context/snackbarContext'
@@ -16,8 +16,8 @@ import PostTutorial from './postTutorial'
 
 const steps = ['step 1', 'step 2', 'step 3']
 
-const defaultIngredients = [{ unit: '', amount: 0, name: '' }]
-const defaultSteps = [{ description: '' }]
+const defaultIngredients: Ingredient[] = [{ name: '', amount: '' }]
+const defaultSteps: Step[] = [{ description: '' }]
 
 const createModeDefaultValues = {
   title: '',
@@ -51,7 +51,9 @@ const PostEditor = ({ draft }: PostEditorProps) => {
   const { userInfo } = useUserInfo()
   const { api: snackbar } = useContext(SnackbarContext)
   const [activeStep, setActiveStep] = useState<number>(0)
-  const [previewUrls, setPreviewUrls] = useState<string[]>([])
+  const [previewUrls, setPreviewUrls] = useState<string[]>(
+    draft?.photos.map(p => p.path) || []
+  )
   const {
     control,
     handleSubmit,
@@ -78,10 +80,11 @@ const PostEditor = ({ draft }: PostEditorProps) => {
     })
   }
 
-  const onSaveDraft = async (form: CocktailPostForm) => {
+  const handleSaveDraft = async () => {
     const token = storage.getToken()
     if (!token) return
-    await cocktailApi.createCocktailPostDraft(form, token)
+    const values = getValues()
+    await cocktailApi.createCocktailPostDraft(values, token)
     router.push(paths.profile)
     snackbar.success({ message: 'saved!' })
   }
@@ -137,7 +140,7 @@ const PostEditor = ({ draft }: PostEditorProps) => {
         activeStep={activeStep}
         savable={isDirty}
         onBack={handleBack}
-        onSaveDraft={handleSubmit(onSaveDraft)}
+        onSaveDraft={handleSaveDraft}
       />
       <Stack
         alignItems="center"
@@ -159,12 +162,12 @@ const PostEditor = ({ draft }: PostEditorProps) => {
             cocktailPost={(() => {
               const values = getValues()
               return {
-                cocktail_id: 0,
+                cocktail_id: draft ? draft.cocktail_id : 0,
                 user_id: userInfo.user_id,
                 user_name: userInfo.user_name,
                 title: values.title,
                 description: values.description,
-                photos: previewUrls,
+                photos: previewUrls.map(preview => ({ id: 0, path: preview })),
                 step_list: values.step_list,
                 ingredient_list: values.ingredient_list
               }

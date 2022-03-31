@@ -9,17 +9,19 @@ const useCocktailList = () => {
   const { config, loading: configLoading } = useConfig()
   const result = useCornerSWRInfinite<Cocktail>('/cocktails')
 
-  let cocktails = result.data ? result.data.flatMap(c => c) : []
+  let cocktails: Cocktail[] | undefined = result.data
+    ? result.data.flatMap(c => c)
+    : []
   if (cocktails && config) {
     cocktails = cocktails.map(cocktail => {
       return produce(cocktail, draft => {
         const getAbsoluteUrl = (photo: string) =>
-          join(config.staticBaseUrl, photo ? photo : FALLBACK_URL)
-        draft.photos = draft.photos?.map(getAbsoluteUrl) || [
-          getAbsoluteUrl(FALLBACK_URL)
-        ]
+          photo ? join(config.staticBaseUrl, photo) : FALLBACK_URL
+        draft.photos = draft.photos.map(getAbsoluteUrl)
       })
     })
+  } else {
+    cocktails = undefined
   }
 
   return {

@@ -1,3 +1,4 @@
+import produce from 'immer'
 import { join } from 'lib/helper/url'
 import useConfig from './useConfig'
 import useCornerSWR from './useCornerSWR'
@@ -11,10 +12,12 @@ const useCocktail = (id: string | undefined) => {
 
   let cocktail = data
   if (cocktail && config) {
-    cocktail = {
-      ...cocktail,
-      photos: cocktail.photos.map(photo => join(config.staticBaseUrl, photo))
-    }
+    cocktail = produce(cocktail, draft => {
+      draft.photos = draft.photos.map(p => ({
+        ...p,
+        path: join(config.staticBaseUrl, p.path)
+      }))
+    })
   } else {
     cocktail = undefined
   }

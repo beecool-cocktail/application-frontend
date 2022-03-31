@@ -19,7 +19,7 @@ export type CocktailDetailsProps = {
 
 const Post = ({ cocktailPost }: CocktailDetailsProps) => {
   const photos = cocktailPost.photos.length
-    ? cocktailPost.photos
+    ? cocktailPost.photos.map(p => p.path)
     : [FALLBACK_URL]
   return (
     <Stack>
@@ -44,7 +44,7 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
                     control={<Checkbox />}
                     label={`${index + 1}. ${ingredient.name} ${
                       ingredient.amount
-                    } ${ingredient.unit}`}
+                    }`}
                   />
                 ))}
               </FormGroup>

@@ -12,9 +12,7 @@ const getReqPayload = async (form: CocktailPostForm) => {
   }
   const req = {
     name: form.title,
-    ingredient_list: form.ingredient_list.map(({ amount, ...props }) => {
-      return { ...props, amount: Number(amount) }
-    }),
+    ingredient_list: form.ingredient_list,
     step_list: form.step_list,
     description: form.description,
     files

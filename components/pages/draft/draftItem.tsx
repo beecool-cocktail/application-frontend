@@ -3,14 +3,13 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { IconButton, Checkbox, Stack, Typography } from '@mui/material'
 import { ArrowForwardIos } from '@mui/icons-material'
-import { CocktailPostDraft } from 'lib/types/cocktail'
+import { CocktailPostDraftItem } from 'lib/types/cocktail'
 import { paths, getUrlById } from 'lib/configs/routes'
-import { FALLBACK_URL } from 'lib/constants/image'
 
 export interface DraftItemProps {
   isDeleteMode: boolean
   selected: boolean
-  draft: CocktailPostDraft
+  draft: CocktailPostDraftItem
   onCheck(checked: boolean): void
 }
 
@@ -25,8 +24,6 @@ const DraftItem = ({
   onCheck
 }: DraftItemProps) => {
   const router = useRouter()
-  const { title = 'Untitled', photos } = draft
-  const coverPhotoUrl = photos?.[0] || ''
 
   const handleClick = () => {
     if (!isDeleteMode)
@@ -57,10 +54,10 @@ const DraftItem = ({
           layout="fixed"
           width={WIDTH}
           height={HEIGHT}
-          src={coverPhotoUrl || FALLBACK_URL}
-          alt={title}
+          src={draft.photo}
+          alt={draft.title}
         />
-        <Typography>{title}</Typography>
+        <Typography>{draft.title}</Typography>
       </Stack>
       <IconButton>
         <ArrowForwardIos />

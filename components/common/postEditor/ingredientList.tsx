@@ -15,7 +15,7 @@ const IngredientList = ({ control }: IngredientListProps) => {
     name: 'ingredient_list',
     control
   })
-  const handleAdd = () => append({ amount: 0, name: '', unit: '' })
+  const handleAdd = () => append({ name: '', amount: '' })
 
   return (
     <Stack>
