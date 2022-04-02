@@ -1,5 +1,6 @@
 import { toBase64 } from 'lib/helper/image'
 import { ApiResponse } from 'lib/types/api/responseBase'
+import { Configuration, UpdateUserInfoRequest, UserApi } from 'sdk'
 import cornerApi from './cornerApi'
 
 export interface TokenInfo {
@@ -8,7 +9,7 @@ export interface TokenInfo {
 
 export interface EditSettingsData {
   user_name: string
-  file: FileList | null
+  file?: FileList
   is_collection_public: boolean
 }
 
@@ -26,16 +27,16 @@ const logout = async (user_id: number) => {
 
 const editInfo = async (userData: EditSettingsData, token: string) => {
   const file = userData.file && (await toBase64(userData.file[0]))
-  const req = {
+  const req: UpdateUserInfoRequest = {
     file,
     name: userData.user_name,
     is_collection_public: userData.is_collection_public
   }
-  await cornerApi.post('/user/edit-info', req, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
+  const config = new Configuration()
+  config.apiKey = `Bearer ${token}`
+  new UserApi(config).updateUserInfoRequest(req)
 }
 
-const userApi = { googleAuth, logout, editInfo }
+const userService = { googleAuth, logout, editInfo }
 
-export default userApi
+export default userService

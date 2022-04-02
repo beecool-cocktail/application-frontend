@@ -24,7 +24,7 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
     mode: 'onChange',
     defaultValues: {
       user_name: userInfo.user_name,
-      file: null,
+      file: undefined,
       is_collection_public: userInfo.is_collection_public
     }
   })
@@ -34,7 +34,7 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
     reset({
       user_name: userInfo.user_name,
       is_collection_public: userInfo.is_collection_public,
-      file: null
+      file: undefined
     })
   }, [reset, isSubmitSuccessful, userInfo])
 
