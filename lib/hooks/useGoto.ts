@@ -2,7 +2,7 @@ import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
 import { paths, getUrlById } from 'lib/configs/routes'
 import routes from 'lib/configs/routes'
-import storage from 'lib/helper/storage'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 
 export interface useGotoProps {
   onBlock?: () => void
@@ -10,6 +10,7 @@ export interface useGotoProps {
 
 const useGoto = (props?: useGotoProps) => {
   const router = useRouter()
+  const storage = useLocalStorage()
 
   const goto = (url: string | UrlObject) => {
     const route = routes.find(r => {

@@ -5,7 +5,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import Layout from 'components/layout/layout'
 import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
 import Spinner from 'components/common/status/spinner'
-import useCocktailList from 'lib/hooks/useCocktailList'
+import useCocktailList from 'lib/application/useCocktailList'
 
 const Home = () => {
   const {

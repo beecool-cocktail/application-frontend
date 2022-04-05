@@ -1,7 +1,7 @@
-import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import { paths } from '../configs/routes'
-import storage from '../helper/storage'
 
 interface usePermissionProps {
   guard?: boolean
@@ -9,12 +9,13 @@ interface usePermissionProps {
 
 const usePermission = ({ guard }: usePermissionProps = { guard: false }) => {
   const router = useRouter()
+  const storage = useLocalStorage()
   const [hasPermission, setHasPermission] = useState(false)
 
   useEffect(() => {
     if (storage.getToken()) return setHasPermission(true)
     if (guard) router.push(paths.index)
-  }, [guard, router])
+  }, [guard, router, storage])
 
   return hasPermission
 }

@@ -8,8 +8,8 @@ import {
   Checkbox
 } from '@mui/material'
 import { Box } from '@mui/system'
-import { CocktailPost } from 'lib/types/cocktail'
 import { FALLBACK_URL } from 'lib/constants/image'
+import { CocktailPost } from 'lib/domain/cocktail'
 import ImageSwiper from './ImageSwiper'
 import PostHeader from './postHeader'
 
@@ -27,7 +27,7 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
       <Stack p={2}>
         <PostHeader
           title={cocktailPost.title}
-          userName={cocktailPost.user_name}
+          userName={cocktailPost.userName}
         />
         <Box py={2}>
           <Typography>{cocktailPost.description}</Typography>
@@ -38,7 +38,7 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
           <Paper sx={{ borderRadius: 4, mt: 2 }}>
             <Box p={2}>
               <FormGroup>
-                {cocktailPost.ingredient_list.map((ingredient, index) => (
+                {cocktailPost.ingredients.map((ingredient, index) => (
                   <FormControlLabel
                     key={index}
                     control={<Checkbox />}
@@ -55,7 +55,7 @@ const Post = ({ cocktailPost }: CocktailDetailsProps) => {
           <Typography variant="h6">製作過程：</Typography>
           <Paper sx={{ borderRadius: 4, mt: 2 }}>
             <Box p={2}>
-              {cocktailPost.step_list.map((step, index) => (
+              {cocktailPost.steps.map((step, index) => (
                 <Typography key={index} variant="subtitle1">
                   {`${index + 1}. ${step.description}`}
                 </Typography>

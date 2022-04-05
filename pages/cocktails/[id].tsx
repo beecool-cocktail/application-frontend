@@ -5,11 +5,11 @@ import { Box, Stack } from '@mui/material'
 import BackButton from 'components/common/button/backButton'
 import Spinner from 'components/common/status/spinner'
 import Post from 'components/common/post/post'
-import useCocktail from 'lib/hooks/useCocktail'
+import useCocktail from 'lib/application/useCocktail'
 
 const CocktailPage: NextPage = () => {
   const router = useRouter()
-  const id = router.query.id as string
+  const id = Number(router.query.id as string)
   const { cocktail, loading } = useCocktail(id)
 
   return (

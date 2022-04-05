@@ -1,3 +1,4 @@
+import { CocktailPostItem } from 'lib/domain/cocktail'
 import mockUserInfo from './userInfo'
 import mockIngredients from './ingredients'
 import mockPhotos from './photos'
@@ -11,6 +12,15 @@ const mockCocktail: Cocktail = {
   ingredient_list: mockIngredients,
   user_id: mockUserInfo.user_id,
   user_name: mockUserInfo.user_name
+}
+
+export const mockCocktailPostItem: CocktailPostItem = {
+  id: 98078024211279,
+  title: 'Gin Tonic',
+  photoUrls: mockPhotos.map(p => p.path),
+  ingredients: mockIngredients,
+  userId: mockUserInfo.user_id,
+  userName: mockUserInfo.user_name
 }
 
 export default mockCocktail

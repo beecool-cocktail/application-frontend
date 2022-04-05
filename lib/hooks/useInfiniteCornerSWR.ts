@@ -1,9 +1,10 @@
 import useSWRInfinite from 'swr/infinite'
 import { last } from 'ramda'
-import storage from 'lib/helper/storage'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import fetcher from 'lib/helper/fetcher'
 import defaultCornerConfig from 'lib/constants/cornerConfig'
+import { InfiniteFetchResponse } from 'lib/domain/cocktail'
 import type Pagination from 'lib/types/pagination'
 import type CornerSWROption from 'lib/types/cornerSWROption'
 import type { PaginationResponse } from 'lib/types/api/responseBase'
@@ -12,14 +13,14 @@ const useCornerSWRInfinite = <T>(
   path: string | null,
   cornerConfig: CornerSWROption = defaultCornerConfig,
   pageSize: number = PAGE_SIZE
-) => {
+): InfiniteFetchResponse<T> => {
+  const storage = useLocalStorage()
   const {
     data: pageData,
     error,
     size,
     setSize,
-    isValidating,
-    mutate
+    isValidating
   } = useSWRInfinite<PaginationResponse<T>>(
     (index, previousPageData: PaginationResponse<T>) => {
       if (!path) return null
@@ -40,7 +41,14 @@ const useCornerSWRInfinite = <T>(
     fetcher
   )
 
-  const total = pageData ? last(pageData) : 0
+  const getTotal = () => {
+    if (!pageData) return 0
+    const lastPage = last(pageData)
+    if (!lastPage) return 0
+    return lastPage.total
+  }
+
+  const total = getTotal()
   const data = pageData ? pageData.map(p => p.popular_cocktail_list) : []
 
   const isLoadingInitialData = !data && !error
@@ -62,8 +70,7 @@ const useCornerSWRInfinite = <T>(
     isEmpty,
     isReachingEnd,
     isRefreshing,
-    loadMore,
-    mutate
+    loadMore
   }
 }
 

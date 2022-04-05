@@ -2,12 +2,12 @@ import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { Button, Stack } from '@mui/material'
 import { useForm } from 'react-hook-form'
+import { CocktailPost, CocktailPostDraft } from 'lib/domain/cocktail'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import { CocktailPostForm, Ingredient, Step } from 'lib/types/cocktail'
 import cocktailApi from 'lib/api/cocktail'
 import { paths } from 'lib/configs/routes'
 import SnackbarContext from 'lib/context/snackbarContext'
-import storage from 'lib/helper/storage'
-import { CocktailPostDraft } from 'lib/types/cocktail'
 import useUserInfo from 'lib/hooks/useUserInfo'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
@@ -29,10 +29,10 @@ const createModeDefaultValues = {
 
 const getDefaultValues = (draft?: CocktailPostDraft) => {
   if (!draft) return createModeDefaultValues
-  const ingredient_list = draft.ingredient_list.length
-    ? draft.ingredient_list
+  const ingredient_list = draft.ingredients.length
+    ? draft.ingredients
     : defaultIngredients
-  const step_list = draft.step_list.length ? draft.step_list : defaultSteps
+  const step_list = draft.steps.length ? draft.steps : defaultSteps
   return {
     title: draft.title,
     description: draft.description,
@@ -49,6 +49,7 @@ interface PostEditorProps {
 const PostEditor = ({ draft }: PostEditorProps) => {
   const router = useRouter()
   const { userInfo } = useUserInfo()
+  const storage = useLocalStorage()
   const { api: snackbar } = useContext(SnackbarContext)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [previewUrls, setPreviewUrls] = useState<string[]>(
@@ -161,16 +162,17 @@ const PostEditor = ({ draft }: PostEditorProps) => {
           <PostPreview
             cocktailPost={(() => {
               const values = getValues()
-              return {
-                cocktail_id: draft ? draft.cocktail_id : 0,
-                user_id: userInfo.user_id,
-                user_name: userInfo.user_name,
+              const cocktailPost: CocktailPost = {
+                id: draft ? draft.id : 0,
+                userId: userInfo.user_id,
+                userName: userInfo.user_name,
                 title: values.title,
                 description: values.description,
-                photos: previewUrls.map(preview => ({ id: 0, path: preview })),
-                step_list: values.step_list,
-                ingredient_list: values.ingredient_list
+                photos: previewUrls.map(url => ({ id: 0, path: url })),
+                steps: values.step_list,
+                ingredients: values.ingredient_list
               }
+              return cocktailPost
             })()}
           />
         )}

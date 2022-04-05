@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import userApi from '../api/user'
-import storage from '../helper/storage'
 import { paths } from '../configs/routes'
 
 const useAuth = () => {
   const router = useRouter()
+  const storage = useLocalStorage()
 
   const askUserPermission = () => {
     location.href = '/api/google-login'

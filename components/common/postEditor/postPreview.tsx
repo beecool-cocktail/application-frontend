@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack } from '@mui/material'
+import { CocktailPost } from 'lib/domain/cocktail'
 import Post from 'components/common/post/post'
-import { CocktailPost } from 'lib/types/cocktail'
 
 interface PostPreviewProps {
   cocktailPost: CocktailPost

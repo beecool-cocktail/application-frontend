@@ -1,25 +1,26 @@
 import produce from 'immer'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import useCornerSWRInfinite from './useInfiniteCornerSWR'
-import useConfig from './useConfig'
-import type { Cocktail } from 'lib/types/cocktail'
+import useCocktailListService from 'lib/services/cocktailListAdapter'
+import { CocktailPostItem } from 'lib/domain/cocktail'
+import useConfig from '../hooks/useConfig'
 
 const useCocktailList = () => {
   const { config, loading: configLoading } = useConfig()
-  const result = useCornerSWRInfinite<Cocktail>('/cocktails')
+  const { getList } = useCocktailListService()
 
-  let cocktails: Cocktail[] | undefined = result.data
+  const result = getList()
+  let cocktails: CocktailPostItem[] | undefined = result.data
     ? result.data.flatMap(c => c)
     : []
   if (cocktails && config) {
-    cocktails = cocktails.map(cocktail => {
-      return produce(cocktail, draft => {
+    cocktails = cocktails.map(cocktail =>
+      produce(cocktail, draft => {
         const getAbsoluteUrl = (photo: string) =>
           photo ? join(config.staticBaseUrl, photo) : FALLBACK_URL
-        draft.photos = draft.photos.map(getAbsoluteUrl)
+        draft.photoUrls = draft.photoUrls.map(getAbsoluteUrl)
       })
-    })
+    )
   } else {
     cocktails = undefined
   }

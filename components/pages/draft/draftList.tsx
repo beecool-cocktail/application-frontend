@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack } from '@mui/material'
-import { CocktailPostDraftItem } from 'lib/types/cocktail'
+import { CocktailPostDraftItem } from 'lib/domain/cocktail'
 import DraftItem from './draftItem'
 
 export interface DraftListProps {
@@ -20,11 +20,11 @@ const DraftList = ({
     <Stack width={1}>
       {drafts.map(draft => (
         <DraftItem
-          key={draft.cocktail_id}
+          key={draft.id}
           isDeleteMode={isDeleteMode}
           draft={draft}
-          selected={selectedIds.includes(draft.cocktail_id)}
-          onCheck={checked => onCheck(draft.cocktail_id, checked)}
+          selected={selectedIds.includes(draft.id)}
+          onCheck={checked => onCheck(draft.id, checked)}
         />
       ))}
     </Stack>

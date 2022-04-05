@@ -1,16 +1,15 @@
 import produce from 'immer'
 import { join } from 'lib/helper/url'
-import useConfig from './useConfig'
-import useCornerSWR from './useCornerSWR'
-import type { CocktailPost } from 'lib/types/cocktail'
+import useCocktailService from 'lib/services/cocktailAdapter'
+import useConfig from '../hooks/useConfig'
 
-const useCocktail = (id: string | undefined) => {
+const useCocktail = (id: number | undefined) => {
   const { config, loading: configLoading } = useConfig()
-  const { data, error } = useCornerSWR<CocktailPost>(
-    id && config ? `/cocktails/${id}` : null
-  )
+  const { getById } = useCocktailService(id)
+  const result = getById()
+  const error = result.error
+  let cocktail = result.data
 
-  let cocktail = data
   if (cocktail && config) {
     cocktail = produce(cocktail, draft => {
       draft.photos = draft.photos.map(p => ({
@@ -24,7 +23,7 @@ const useCocktail = (id: string | undefined) => {
 
   return {
     cocktail,
-    loading: (!data && !error) || configLoading,
+    loading: (!cocktail && !error) || configLoading,
     error
   }
 }

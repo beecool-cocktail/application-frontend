@@ -6,7 +6,7 @@ import Spinner from 'components/common/status/spinner'
 import NotFound from 'components/common/status/notFound'
 import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
 import useStore from 'lib/hooks/useStore'
-import useCocktailList from 'lib/hooks/useCocktailList'
+import useCocktailList from 'lib/application/useCocktailList'
 
 const Search = () => {
   const searchBarInput = useStore(state => state.searchBarInput)

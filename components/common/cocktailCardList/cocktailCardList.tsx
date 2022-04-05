@@ -1,9 +1,9 @@
 import { Stack } from '@mui/material'
-import { Cocktail } from '../../../lib/types/cocktail'
+import { CocktailPostItem } from 'lib/domain/cocktail'
 import CocktailCard from './cocktailCard'
 
 type CocktailCardListProps = {
-  cocktails: Cocktail[]
+  cocktails: CocktailPostItem[]
 }
 
 const CocktailCardList = ({ cocktails: data }: CocktailCardListProps) => {
@@ -22,7 +22,7 @@ const CocktailCardList = ({ cocktails: data }: CocktailCardListProps) => {
     >
       {data.map(cocktail => (
         <CocktailCard
-          key={cocktail.cocktail_id}
+          key={cocktail.id}
           cocktail={cocktail}
           onCollect={handleCollect}
         />

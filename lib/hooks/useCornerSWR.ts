@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import storage from 'lib/helper/storage'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import fetcher from 'lib/helper/fetcher'
 import defaultCornerConfig from 'lib/constants/cornerConfig'
 import type CornerSWROption from 'lib/types/cornerSWROption'
@@ -8,6 +8,7 @@ const useCornerSWR = <T>(
   path: string | null,
   cornerConfig: CornerSWROption = defaultCornerConfig
 ) => {
+  const storage = useLocalStorage()
   const getKey = () => {
     if (!path) return null
     if (!cornerConfig.auth) return path

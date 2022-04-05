@@ -6,8 +6,8 @@ import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'
 import SettingsForm from 'components/pages/settings/settingsForm'
 import LogoutButton from 'components/common/button/logoutButton'
-import storage from 'lib/helper/storage'
 import userApi, { EditSettingsData } from 'lib/api/user'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import SnackbarContext from 'lib/context/snackbarContext'
 import { paths } from 'lib/configs/routes'
 import { ConfirmDialogContext } from 'components/app/confirmDialogWrapper'
@@ -17,6 +17,7 @@ const Settings = () => {
   const { api: confirmDialogApi } = useContext(ConfirmDialogContext)
   const { api: snackbar } = useContext(SnackbarContext)
   const { userInfo, loading, error, mutate } = useUserInfo()
+  const storage = useLocalStorage()
 
   const handleSubmit = async (formData: EditSettingsData) => {
     const token = storage.getToken()

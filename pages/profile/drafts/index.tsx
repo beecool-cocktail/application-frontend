@@ -1,35 +1,22 @@
-import { useState } from 'react'
 import { Button, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import Header from 'components/layout/header'
 import BackButton from 'components/common/button/backButton'
 import DeleteButton from 'components/common/button/deleteButton'
 import DraftList from 'components/pages/draft/draftList'
-import useDraftList from 'lib/hooks/useDraftList'
+import useDraftList from 'lib/application/useDraftList'
 import Spinner from 'components/common/status/spinner'
 
 const Drafts = () => {
-  const [selectedIds, setSelectedIds] = useState<number[]>([])
-  const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
-  const { drafts, setDrafts, loading } = useDraftList()
-
-  const toggleDeleteMode = () => {
-    setBatchDeleteMode(mode => !mode)
-    setSelectedIds([])
-  }
-  const handleConfirmDelete = () => {
-    setDrafts(drafts =>
-      drafts.filter(draft => !selectedIds.includes(draft.cocktail_id))
-    )
-    setBatchDeleteMode(false)
-    setSelectedIds([])
-  }
-  const handleCheck = (targetId: number, checked: boolean) => {
-    if (!checked)
-      return setSelectedIds(ids => ids.filter(id => id !== targetId))
-    if (selectedIds.includes(targetId)) return
-    setSelectedIds(ids => [...ids, targetId])
-  }
+  const {
+    drafts,
+    loading,
+    isBatchDeleteMode,
+    selectedIds,
+    toggleDeleteMode,
+    select,
+    deleteSelected
+  } = useDraftList()
 
   if (loading) return <Spinner />
 
@@ -50,7 +37,7 @@ const Drafts = () => {
           drafts={drafts}
           isDeleteMode={isBatchDeleteMode}
           selectedIds={selectedIds}
-          onCheck={handleCheck}
+          onCheck={select}
         />
       ) : (
         <Stack
@@ -65,7 +52,7 @@ const Drafts = () => {
       )}
       {isBatchDeleteMode && (
         <Button
-          onClick={handleConfirmDelete}
+          onClick={deleteSelected}
         >{`確認刪除(${selectedIds.length})`}</Button>
       )}
     </Stack>

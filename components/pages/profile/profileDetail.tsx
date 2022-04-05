@@ -9,12 +9,13 @@ import Avatar from 'components/common/image/avatar'
 import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'
 import useUserInfo from 'lib/hooks/useUserInfo'
-import storage from 'lib/helper/storage'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import ProfileDetailRow from './profileDetailRow'
 import CollectionTabPanel from './collectionTabPanel'
 import PostTabPanel from './postTabPanel'
 
 const ProfileDetail = () => {
+  const storage = useLocalStorage()
   const { gotoIndex, gotoDrafts: gotoDraft, gotoSettings } = useGoto()
   const [value, setValue] = useState(0)
   const { userInfo, loading, error } = useUserInfo()

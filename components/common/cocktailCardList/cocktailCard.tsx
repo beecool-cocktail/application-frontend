@@ -7,30 +7,29 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { getUrlById, paths } from 'lib/configs/routes'
-import { Cocktail } from 'lib/types/cocktail'
+import { CocktailPostItem } from 'lib/domain/cocktail'
 import { FALLBACK_URL } from 'lib/constants/image'
 
 export interface CocktailCardProps {
-  cocktail: Cocktail
+  cocktail: CocktailPostItem
   onCollect(id: number): void
 }
 
 const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   const router = useRouter()
-  const { cocktail_id, photos, title, ingredient_list, user_id, user_name } =
-    cocktail
+  const { id, photoUrls, title, ingredients, userId, userName } = cocktail
 
-  const images = photos.map(p => {
+  const images = photoUrls.map(p => {
     if (new URL(p).pathname === '/') return FALLBACK_URL
     return p
   })
   const gotoCocktailDetails = () =>
-    router.push(getUrlById(paths.cocktailById, cocktail_id))
+    router.push(getUrlById(paths.cocktailById, id))
 
   const getIngredientsDisplay = () => {
     let result = ''
-    ingredient_list.forEach((ingredient, index) => {
-      if (index === ingredient_list.length - 1) result += ingredient.name
+    ingredients.forEach((ingredient, index) => {
+      if (index === ingredients.length - 1) result += ingredient.name
       else result += `${ingredient.name} / `
     })
     return result
@@ -67,7 +66,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           position="absolute"
           right="15px"
           bottom="15px"
-          onClick={() => onCollect(cocktail_id)}
+          onClick={() => onCollect(id)}
         >
           <IconButton
             sx={{
@@ -125,7 +124,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
             fontSize: '11px'
           }}
         >
-          {`@${user_name}#${user_id}`}
+          {`@${userName}#${userId}`}
         </Typography>
       </Box>
     </Box>

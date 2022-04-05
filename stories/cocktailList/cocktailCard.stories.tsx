@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import CocktailCard from 'components/common/cocktailCardList/cocktailCard'
-import mockCocktail from 'lib/mocks/data/cocktail'
+import { mockCocktailPostItem } from 'lib/mocks/data/cocktail'
 
 export default {
   title: 'cocktailCardList/Cocktail Card',
@@ -30,8 +30,8 @@ const Template: ComponentStory<typeof CocktailCard> = args => {
 export const Normal = Template.bind({})
 Normal.args = {
   cocktail: {
-    ...mockCocktail,
-    photos: [
+    ...mockCocktailPostItem,
+    photoUrls: [
       'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505',
       'https://www.eatthis.com/wp-content/uploads/sites/4/2019/03/old-fashioned-cocktail.jpg?fit=1200%2C879&ssl=1',
       'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg'
