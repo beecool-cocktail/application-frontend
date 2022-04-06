@@ -4,9 +4,12 @@ import useCornerSWR from 'lib/hooks/useCornerSWR'
 import { CocktailPost } from 'lib/domain/cocktail'
 
 const useCocktailService = (id?: number): CocktailService => {
-  const { data: resData, error } = useCornerSWR<GetCocktailByIDResponse>(
-    id ? `/cocktails/${id}` : null
-  )
+  const {
+    data: resData,
+    error,
+    isValidating,
+    mutate
+  } = useCornerSWR<GetCocktailByIDResponse>(id ? `/cocktails/${id}` : null)
 
   const getById = () => {
     let data: CocktailPost | undefined
@@ -32,7 +35,7 @@ const useCocktailService = (id?: number): CocktailService => {
           []
       }
     }
-    return { data, error }
+    return { data, error, mutate, isValidating }
   }
 
   return { getById }

@@ -12,7 +12,7 @@ interface IngredientListProps {
 
 const IngredientList = ({ control }: IngredientListProps) => {
   const { fields, append, remove } = useFieldArray({
-    name: 'ingredient_list',
+    name: 'ingredients',
     control
   })
   const handleAdd = () => append({ name: '', amount: '' })
@@ -25,8 +25,8 @@ const IngredientList = ({ control }: IngredientListProps) => {
           <IngredientInput
             key={field.id}
             control={control}
-            ingredientName={`ingredient_list.${index}.name`}
-            amountName={`ingredient_list.${index}.amount`}
+            ingredientName={`ingredients.${index}.name`}
+            amountName={`ingredients.${index}.amount`}
             removeDisabled={fields.length <= 1}
             onRemove={() => remove(index)}
           />

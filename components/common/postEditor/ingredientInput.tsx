@@ -6,8 +6,8 @@ import RemoveButton from 'components/common/button/removeButton'
 import { CocktailPostForm } from 'lib/types/cocktail'
 
 interface IngredientInputProps {
-  ingredientName: `ingredient_list.${number}.name`
-  amountName: `ingredient_list.${number}.amount`
+  ingredientName: `ingredients.${number}.name`
+  amountName: `ingredients.${number}.amount`
   control: Control<CocktailPostForm>
   removeDisabled?: boolean
   onRemove(): void

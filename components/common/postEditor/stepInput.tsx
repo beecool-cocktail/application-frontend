@@ -6,7 +6,7 @@ import { CocktailPostForm } from 'lib/types/cocktail'
 import RemoveButton from 'components/common/button/removeButton'
 
 interface StepInputProps {
-  name: `step_list.${number}.description`
+  name: `steps.${number}.description`
   control: Control<CocktailPostForm>
   bind: React.DOMAttributes<HTMLElement>
   height: number

@@ -13,10 +13,10 @@ const useDrafts = () => {
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
 
-  const getListResult = getList()
+  const listResult = getList()
 
-  let resData = getListResult.data
-  const error = getListResult.error
+  let resData = listResult.data
+  const error = listResult.error
   if (resData && config) {
     resData = produce(resData, base => {
       base.data = base.data.map(d => ({
@@ -39,6 +39,7 @@ const useDrafts = () => {
     if (token) await deleteByIds(selectedIds, token)
     setBatchDeleteMode(false)
     setSelectedIds([])
+    listResult.mutate()
   }
 
   const select = (targetId: number, checked: boolean) => {

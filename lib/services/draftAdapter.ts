@@ -1,11 +1,15 @@
-import { GetCocktailDraftByIDResponse, UpdateDraftArticleRequest } from 'sdk'
+import { GetCocktailDraftByIDResponse } from 'sdk'
 import { DraftService } from 'lib/application/ports'
 import { CocktailPostDraft, FetchResponse } from 'lib/domain/cocktail'
 import useCornerSWR from '../hooks/useCornerSWR'
-import { cocktailApi } from './api'
 
 const useDraftService = (id: number): DraftService => {
-  const { data: resData, error } = useCornerSWR<GetCocktailDraftByIDResponse>(
+  const {
+    data: resData,
+    error,
+    mutate,
+    isValidating
+  } = useCornerSWR<GetCocktailDraftByIDResponse>(
     id ? `/cocktail-drafts/${id}` : null,
     { auth: true }
   )
@@ -35,27 +39,14 @@ const useDraftService = (id: number): DraftService => {
 
     const fetchResponse: FetchResponse<CocktailPostDraft> = {
       data,
-      error
+      error,
+      mutate,
+      isValidating
     }
     return fetchResponse
   }
 
-  const update = async (draft: CocktailPostDraft) => {
-    const req: UpdateDraftArticleRequest = {
-      name: draft.title,
-      description: draft.description,
-      photos: draft.photos.map(p => ({ id: p.id, path: p.path })),
-      ingredient_list: draft.ingredients,
-      step_list: draft.steps
-    }
-    await cocktailApi.updateCocktailDraft(id, req)
-  }
-
-  const toFormal = async () => {
-    await cocktailApi.makeCocktailDraftToFormal(id)
-  }
-
-  return { getById, update, toFormal }
+  return { getById }
 }
 
 export default useDraftService

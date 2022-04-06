@@ -60,6 +60,8 @@ export interface CocktailPostDraftList {
 export interface FetchResponse<T> {
   data: T | undefined
   error: Error
+  isValidating: boolean
+  mutate: () => void
 }
 
 export interface InfiniteFetchResponse<T> {

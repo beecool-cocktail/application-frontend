@@ -5,10 +5,14 @@ import useCornerSWR from '../hooks/useCornerSWR'
 import { cocktailApi } from './api'
 
 const useDraftList = (): DraftListService => {
-  const { data: resData, error } = useCornerSWR<GetDraftCocktailListResponse>(
-    '/cocktail-drafts',
-    { auth: true }
-  )
+  const {
+    data: resData,
+    error,
+    isValidating,
+    mutate
+  } = useCornerSWR<GetDraftCocktailListResponse>('/cocktail-drafts', {
+    auth: true
+  })
 
   const getList = () => {
     let data: CocktailPostDraftList | undefined = undefined
@@ -26,7 +30,9 @@ const useDraftList = (): DraftListService => {
 
     const fetchResponse: FetchResponse<CocktailPostDraftList> = {
       data,
-      error
+      error,
+      isValidating,
+      mutate
     }
     return fetchResponse
   }

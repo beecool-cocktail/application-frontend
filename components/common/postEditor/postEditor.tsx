@@ -1,14 +1,7 @@
-import { useState, useContext } from 'react'
-import { useRouter } from 'next/router'
 import { Button, Stack } from '@mui/material'
-import { useForm } from 'react-hook-form'
 import { CocktailPost, CocktailPostDraft } from 'lib/domain/cocktail'
-import useLocalStorage from 'lib/services/localStorageAdapter'
-import { CocktailPostForm, Ingredient, Step } from 'lib/types/cocktail'
-import cocktailApi from 'lib/api/cocktail'
-import { paths } from 'lib/configs/routes'
-import SnackbarContext from 'lib/context/snackbarContext'
 import useUserInfo from 'lib/hooks/useUserInfo'
+import usePostEditor from 'lib/application/usePostEditor'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
 import CreatePostHeader from './createPostHeader'
@@ -16,108 +9,32 @@ import PostTutorial from './postTutorial'
 
 const steps = ['step 1', 'step 2', 'step 3']
 
-const defaultIngredients: Ingredient[] = [{ name: '', amount: '' }]
-const defaultSteps: Step[] = [{ description: '' }]
-
-const createModeDefaultValues = {
-  title: '',
-  description: '',
-  photos: null,
-  ingredient_list: defaultIngredients,
-  step_list: defaultSteps
-}
-
-const getDefaultValues = (draft?: CocktailPostDraft) => {
-  if (!draft) return createModeDefaultValues
-  const ingredient_list = draft.ingredients.length
-    ? draft.ingredients
-    : defaultIngredients
-  const step_list = draft.steps.length ? draft.steps : defaultSteps
-  return {
-    title: draft.title,
-    description: draft.description,
-    photos: null,
-    ingredient_list,
-    step_list
-  }
-}
-
-interface PostEditorProps {
+export interface PostEditorProps {
   draft?: CocktailPostDraft
 }
 
 const PostEditor = ({ draft }: PostEditorProps) => {
-  const router = useRouter()
   const { userInfo } = useUserInfo()
-  const storage = useLocalStorage()
-  const { api: snackbar } = useContext(SnackbarContext)
-  const [activeStep, setActiveStep] = useState<number>(0)
-  const [previewUrls, setPreviewUrls] = useState<string[]>(
-    draft?.photos.map(p => p.path) || []
-  )
   const {
-    control,
-    handleSubmit,
-    getValues,
-    formState: { isDirty }
-  } = useForm<CocktailPostForm>({
-    defaultValues: getDefaultValues(draft)
-  })
-
-  const handleBack = () => {
-    setActiveStep(prevStep => {
-      if (prevStep <= 0) {
-        router.back()
-        return prevStep
-      }
-      return prevStep - 1
-    })
-  }
-
-  const handleNext = () => {
-    setActiveStep(prevStep => {
-      if (prevStep >= steps.length - 1) return prevStep
-      return prevStep + 1
-    })
-  }
-
-  const handleSaveDraft = async () => {
-    const token = storage.getToken()
-    if (!token) return
-    const values = getValues()
-    await cocktailApi.createCocktailPostDraft(values, token)
-    router.push(paths.profile)
-    snackbar.success({ message: 'saved!' })
-  }
-
-  const handlePreviewUrlsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return setPreviewUrls([])
-    let previewUrls = Array.from(e.target.files).map(file =>
-      URL.createObjectURL(file)
-    )
-    if (previewUrls.length >= 5) {
-      previewUrls = previewUrls.slice(0, 5)
-    }
-    setPreviewUrls(previewUrls)
-  }
-
-  const onSubmit = async (form: CocktailPostForm) => {
-    const token = storage.getToken()
-    if (!token) return
-    await cocktailApi.createCocktailPost(form, token)
-    router.push(paths.profile)
-    snackbar.success({ message: 'saved!' })
-  }
+    form: { control, getValues, isDirty },
+    activeStep,
+    previewUrls,
+    goBack,
+    goNext,
+    saveDraft,
+    submit,
+    handlePreviewUrlsChange
+  } = usePostEditor(draft)
 
   const renderButton = () => {
     let type: 'button' | 'submit' = 'button'
-    let onClick = handleNext
+    let onClick = goNext
     let label
     if (activeStep === 0) label = '下一步'
     if (activeStep === 1) label = '預覽'
     if (activeStep === 2) {
       type = 'submit'
-      onClick = handleSubmit(onSubmit)
+      onClick = submit
       label = draft ? '重新發佈' : '發布'
     }
     return (
@@ -140,8 +57,8 @@ const PostEditor = ({ draft }: PostEditorProps) => {
         steps={steps}
         activeStep={activeStep}
         savable={isDirty}
-        onBack={handleBack}
-        onSaveDraft={handleSaveDraft}
+        onBack={goBack}
+        onSaveDraft={saveDraft}
       />
       <Stack
         alignItems="center"
@@ -169,8 +86,8 @@ const PostEditor = ({ draft }: PostEditorProps) => {
                 title: values.title,
                 description: values.description,
                 photos: previewUrls.map(url => ({ id: 0, path: url })),
-                steps: values.step_list,
-                ingredients: values.ingredient_list
+                steps: values.steps,
+                ingredients: values.ingredients
               }
               return cocktailPost
             })()}

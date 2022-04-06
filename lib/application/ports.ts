@@ -6,6 +6,15 @@ import {
   InfiniteFetchResponse,
   CocktailPostItem
 } from 'lib/domain/cocktail'
+import { Ingredient, Step } from 'lib/domain/cocktail'
+
+export interface CocktailPostForm {
+  title: string
+  description: string
+  ingredients: Ingredient[]
+  steps: Step[]
+  photos: FileList | null
+}
 
 export interface LocalStorageService {
   setToken(token: string): void
@@ -38,6 +47,11 @@ export interface DraftListService {
 
 export interface DraftService {
   getById(): FetchResponse<CocktailPostDraft>
-  update(draft: CocktailPostDraft): Promise<void>
-  toFormal(): Promise<void>
+}
+
+export interface PostEditorService {
+  createPost(draft: CocktailPostForm, token: string): Promise<void>
+  createDraft(draft: CocktailPostForm, token: string): Promise<void>
+  updateDraft(id: number, draft: CocktailPostForm, token: string): Promise<void>
+  toFormal(id: number, token: string): Promise<void>
 }

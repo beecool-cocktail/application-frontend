@@ -1,6 +1,14 @@
 import { PaginationResponse } from './api/responseBase'
 import { UserInfoBase } from './user'
 
+export interface CocktailPostForm {
+  title: string
+  description: string
+  ingredients: Ingredient[]
+  steps: Step[]
+  photos: FileList | null
+}
+
 export interface Step {
   description: string
 }
@@ -31,10 +39,6 @@ export interface CocktailPostBase {
   description: string
   ingredient_list: Ingredient[]
   step_list: Step[]
-}
-
-export interface CocktailPostForm extends CocktailPostBase {
-  photos: FileList | null
 }
 
 export interface CocktailPost extends CocktailPostBase, UserInfoBase {

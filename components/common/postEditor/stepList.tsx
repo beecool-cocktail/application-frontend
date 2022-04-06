@@ -39,7 +39,7 @@ interface StepListProps {
 
 const StepList = ({ control }: StepListProps) => {
   const { fields, append, remove } = useFieldArray({
-    name: 'step_list',
+    name: 'steps',
     control
   })
   const order = useRef(fields.map((_, index) => index))
@@ -90,7 +90,7 @@ const StepList = ({ control }: StepListProps) => {
             }}
           >
             <StepInput
-              name={`step_list.${index}.description`}
+              name={`steps.${index}.description`}
               control={control}
               onRemove={handleRemove(index)}
               bind={bind(index)}

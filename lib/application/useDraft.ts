@@ -4,11 +4,11 @@ import useConfig from 'lib/hooks/useConfig'
 
 const useDraft = (id: number) => {
   const { config, loading: configLoading } = useConfig()
-  const { getById, update, toFormal } = useDraftService(id)
+  const { getById } = useDraftService(id)
 
   const getByIdResult = getById()
   let draft = getByIdResult.data
-  const error = getByIdResult.error
+  const { isValidating, error } = getByIdResult
   if (draft && config) {
     draft = {
       ...draft,
@@ -25,8 +25,7 @@ const useDraft = (id: number) => {
     draft,
     error,
     loading: (!draft && !error) || configLoading,
-    update,
-    toFormal
+    isValidating
   }
 }
 

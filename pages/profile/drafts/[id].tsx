@@ -13,9 +13,9 @@ export interface useDraftProps {
 const DraftById = () => {
   const router = useRouter()
   const id = Number(router.query.id as string)
-  const { draft, loading } = useDraft(id)
+  const { draft, loading, isValidating } = useDraft(id)
 
-  if (loading || !draft) return <Spinner />
+  if (loading || isValidating || !draft) return <Spinner />
   return <PostEditor draft={draft} />
 }
 
