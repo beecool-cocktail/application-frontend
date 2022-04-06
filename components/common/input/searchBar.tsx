@@ -1,8 +1,7 @@
-import { MouseEventHandler, useCallback, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { MouseEventHandler, useEffect, useState } from 'react'
 import { Box, IconButton, InputBase } from '@mui/material'
-import { Search } from '@mui/icons-material'
-import { paths } from 'lib/configs/routes'
+import Search from 'lib/assets/search/default.svg'
+import Close from 'lib/assets/cancelClose/default.svg'
 import useStore from 'lib/hooks/useStore'
 
 type SearchBarProps = {
@@ -11,12 +10,13 @@ type SearchBarProps = {
 }
 
 const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
-  const router = useRouter()
+  const [isFocused, setIsFocused] = useState<boolean>(false)
   const searchBarInput = useStore(state => state.searchBarInput)
   const setSearchBarInput = useStore(state => state.setSearchBarInput)
-  const handleClick = useCallback(() => {
-    router.push(paths.search)
-  }, [router])
+
+  const handleBlur = () => setIsFocused(false)
+  const handleFocus = () => setIsFocused(true)
+  const handleCancel = () => setSearchBarInput('')
 
   useEffect(() => {
     setSearchBarInput('')
@@ -34,28 +34,45 @@ const SearchBar = ({ placeHolder, onClick }: SearchBarProps) => {
         height: '40px',
         backgroundColor: theme => theme.palette.dark6.main
       }}
-      onClick={handleClick}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
     >
+      <IconButton
+        sx={{
+          p: 0,
+          color: theme => {
+            if (isFocused) return theme.palette.light1.main
+            return theme.palette.light4.main
+          }
+        }}
+      >
+        <Search viewBox="0 0 48 48 " width={24} height={24} />
+      </IconButton>
       <InputBase
         sx={{
           ml: 1,
           flex: 1,
           p: 0,
           height: '22px',
-          color: 'light1.main',
+          color: theme => theme.palette.light1.main,
           fontSize: '16px',
           '&::placeholder': {
-            color: 'light4.main'
+            color: theme => theme.palette.light4.main
           }
         }}
         value={searchBarInput}
-        placeholder={placeHolder}
+        placeholder={isFocused ? '' : placeHolder}
         onClick={onClick}
         onChange={e => setSearchBarInput(e.target.value)}
       />
-      <IconButton sx={{ p: 0, color: 'light4.main' }}>
-        <Search />
-      </IconButton>
+      {searchBarInput && (
+        <IconButton
+          sx={{ p: 0, color: theme => theme.palette.light1.main }}
+          onClick={handleCancel}
+        >
+          <Close viewBox="0 0 48 48 " width={24} height={24} />
+        </IconButton>
+      )}
     </Box>
   )
 }

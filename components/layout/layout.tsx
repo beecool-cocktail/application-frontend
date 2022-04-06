@@ -41,7 +41,7 @@ const Layout = ({
           alignItems="stretch"
         >
           {useLogo && (
-            <Box position="relative" height={150} width="100%">
+            <Box position="relative" height={120} width="100%">
               <Image src="/logo.svg" alt="logo" layout="fill" />
             </Box>
           )}

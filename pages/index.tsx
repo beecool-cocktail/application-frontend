@@ -53,10 +53,6 @@ const Home = () => {
   )
 }
 
-Home.getLayout = (page: ReactElement) => (
-  <Layout useLogo useSearchBar>
-    {page}
-  </Layout>
-)
+Home.getLayout = (page: ReactElement) => <Layout useLogo>{page}</Layout>
 
 export default Home
