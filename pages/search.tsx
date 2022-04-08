@@ -5,7 +5,7 @@ import Layout from 'components/layout/layout'
 import Spinner from 'components/common/status/spinner'
 import NotFound from 'components/common/status/notFound'
 import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
-import useStore from 'lib/hooks/useStore'
+import useStore from 'lib/services/storeAdapter'
 import useCocktailList from 'lib/application/useCocktailList'
 
 const Search = () => {
