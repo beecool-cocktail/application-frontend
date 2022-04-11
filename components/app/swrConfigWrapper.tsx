@@ -1,12 +1,11 @@
-import { useContext } from 'react'
 import { SWRConfig } from 'swr'
-import SnackbarContext from 'lib/context/snackbarContext'
+import useSnackbar from 'lib/application/useSnackbar'
 
 const SWRConfigWrapper = ({ children }: { children: React.ReactNode }) => {
-  const { api: snackbarApi } = useContext(SnackbarContext)
+  const snackbar = useSnackbar()
 
   const handleError = (error: Error) => {
-    snackbarApi.error({ message: error.message })
+    snackbar.error(error.message)
     console.error(error)
   }
 

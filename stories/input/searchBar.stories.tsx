@@ -1,4 +1,5 @@
-import React from 'react'
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useEffect } from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import SearchBar from 'components/common/input/searchBar'
 import useStore from 'lib/services/storeAdapter'
@@ -14,14 +15,7 @@ export default {
       type: 'figma',
       url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2544%3A5478'
     }
-  },
-  decorators: [
-    story => {
-      const toInitialState = useStore(state => state.toInitialState)
-      toInitialState()
-      return story()
-    }
-  ]
+  }
 } as ComponentMeta<typeof SearchBar>
 
 const Template: ComponentStory<typeof SearchBar> = args => {
@@ -35,31 +29,27 @@ Default.args = {
 
 export const Selected = Template.bind({})
 Selected.args = {
-  autoFocus: true,
-  placeHolder: '找調酒...'
+  ...Default.args,
+  autoFocus: true
 }
-
-export const Typing = Template.bind({})
-Typing.args = {
-  autoFocus: true,
-  placeHolder: '找調酒...'
-}
-Typing.decorators = [
-  story => {
-    const setSearchBarInput = useStore(state => state.setSearchBarInput)
-    setSearchBarInput('淡萊姆')
-    return story()
-  }
-]
 
 export const Filled = Template.bind({})
 Filled.args = {
-  placeHolder: '找調酒...'
+  ...Default.args
 }
 Filled.decorators = [
   story => {
     const setSearchBarInput = useStore(state => state.setSearchBarInput)
-    setSearchBarInput('淡萊姆')
+    useEffect(() => {
+      setSearchBarInput('淡萊姆')
+    }, [setSearchBarInput])
     return story()
   }
 ]
+
+export const Typing = Template.bind({})
+Typing.args = {
+  ...Default.args,
+  autoFocus: true
+}
+Typing.decorators = [...Filled.decorators]

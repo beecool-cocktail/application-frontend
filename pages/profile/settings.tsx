@@ -1,5 +1,4 @@
 import { Stack } from '@mui/material'
-import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import useUserInfo from 'lib/hooks/useUserInfo'
 import Spinner from 'components/common/status/spinner'
@@ -8,14 +7,14 @@ import SettingsForm from 'components/pages/settings/settingsForm'
 import LogoutButton from 'components/common/button/logoutButton'
 import userApi, { EditSettingsData } from 'lib/api/user'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import SnackbarContext from 'lib/context/snackbarContext'
 import { paths } from 'lib/configs/routes'
-import { ConfirmDialogContext } from 'components/app/confirmDialogWrapper'
+import useConfirmDialog from 'lib/application/useConfirmDialog'
+import useSnackbar from 'lib/application/useSnackbar'
 
 const Settings = () => {
   const router = useRouter()
-  const { api: confirmDialogApi } = useContext(ConfirmDialogContext)
-  const { api: snackbar } = useContext(SnackbarContext)
+  const confirmDialog = useConfirmDialog()
+  const snackbar = useSnackbar()
   const { userInfo, loading, error, mutate } = useUserInfo()
   const storage = useLocalStorage()
 
@@ -24,21 +23,21 @@ const Settings = () => {
     if (!token) return
     await userApi.editInfo(formData, token)
     await mutate()
-    snackbar.success({ message: 'success' })
+    snackbar.success('success')
   }
 
   const handleConfirmDialog = () => {
-    confirmDialogApi.destroy()
+    confirmDialog.destroy()
     router.push(paths.profile)
   }
 
   const handleGoBack = async (isDirty: boolean) => {
     if (isDirty)
-      confirmDialogApi.open({
+      confirmDialog.open({
         title: '尚未儲存',
         content: '修改內容還沒儲存，是否要放棄編輯的內容？',
         onConfirm: handleConfirmDialog,
-        onCancel: () => confirmDialogApi.destroy()
+        onCancel: () => confirmDialog.destroy()
       })
     else router.push(paths.profile)
   }

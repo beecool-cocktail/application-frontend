@@ -4,7 +4,7 @@ import {
   FeedOutlined as FeedIcon,
   SettingsOutlined as SettingsIcon
 } from '@mui/icons-material'
-import useGoto from 'lib/hooks/useGoto'
+import useCornerRouter from 'lib/hooks/useCornerRouter'
 import Avatar from 'components/common/image/avatar'
 import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'
@@ -16,7 +16,7 @@ import PostTabPanel from './postTabPanel'
 
 const ProfileDetail = () => {
   const storage = useLocalStorage()
-  const { gotoIndex, gotoDrafts: gotoDraft, gotoSettings } = useGoto()
+  const { gotoIndex, gotoDrafts: gotoDraft, gotoSettings } = useCornerRouter()
   const [value, setValue] = useState(0)
   const { userInfo, loading, error } = useUserInfo()
 

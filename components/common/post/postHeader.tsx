@@ -2,8 +2,8 @@ import { BookmarkOutlined, ShareOutlined } from '@mui/icons-material'
 import { Avatar, IconButton, Stack, Typography } from '@mui/material'
 import { Box, Grid, Popper } from '@mui/material'
 import React, { useRef, useState } from 'react'
-import LoginDialog from 'components/common/dialog/loginDialog'
 import usePermission from 'lib/hooks/usePermission'
+import useLoginDialog from 'lib/application/useLoginDialog'
 
 const POPPER_TIMEOUT = 1000
 
@@ -17,7 +17,7 @@ const CocktailDetailsHeader = ({
   userName
 }: CocktailDetailsHeaderProps) => {
   const hasPermission = usePermission()
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false)
+  const { setOpen: setLoginDialogOpen } = useLoginDialog()
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const PopperTimeoutIdRef = useRef<number | null>(null)
 
@@ -74,10 +74,6 @@ const CocktailDetailsHeader = ({
         </Grid>
       </Grid>
       <Typography>{userName}</Typography>
-      <LoginDialog
-        open={loginDialogOpen}
-        onClose={() => setLoginDialogOpen(false)}
-      />
     </Stack>
   )
 }

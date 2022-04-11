@@ -5,6 +5,7 @@ import mockConfig from './data/config'
 import mockDrafts from './data/cocktailPostDraftList'
 import mockCocktailPost from './data/cocktailPost'
 import mockCocktailList from './data/cocktailList'
+import mockUserInfo from './data/userInfo'
 
 const responseJson = <T>(
   res: ResponseComposition,
@@ -18,6 +19,10 @@ const responseJson = <T>(
   }
   return res(ctx.status(200), ctx.json(body))
 }
+
+const userInfoHandler = rest.get('/api/user/info', (req, res, ctx) =>
+  responseJson(res, ctx, mockUserInfo)
+)
 
 const configHandler = rest.get('/api/config', (req, res, ctx) =>
   responseJson(res, ctx, mockConfig)
@@ -38,6 +43,7 @@ const draftHandler = rest.get('/api/cocktail-draft/:id', (_req, res, ctx) =>
 export const appHandlers = []
 export const storybookHandlers = [
   configHandler,
+  userInfoHandler,
   cocktailListHandler,
   cocktailPostHandler,
   draftListHandler,

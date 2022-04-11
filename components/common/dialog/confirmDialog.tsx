@@ -6,24 +6,12 @@ import {
   DialogContent,
   DialogActions
 } from '@mui/material'
+import useConfirmDialog from 'lib/application/useConfirmDialog'
 
-interface ConfirmDialogProps {
-  open: boolean
-  title: string
-  content: string
-  onConfirm(): void
-  onCancel(): void
-}
-
-const ConfirmDialog = ({
-  open,
-  title,
-  content,
-  onConfirm,
-  onCancel
-}: ConfirmDialogProps) => {
+const ConfirmDialog = () => {
+  const { isOpen, title, content, onConfirm, onCancel } = useConfirmDialog()
   return (
-    <Dialog open={open} onClose={onCancel}>
+    <Dialog open={isOpen} onClose={onCancel}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{content}</DialogContent>
       <DialogActions>

@@ -1,13 +1,13 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSWRConfig } from 'swr'
 import { useForm } from 'react-hook-form'
 import { paths } from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import SnackbarContext from 'lib/context/snackbarContext'
 import usePostEditorService from 'lib/services/postEditorAdapter'
 import { CocktailPostDraft, Ingredient, Step } from 'lib/domain/cocktail'
 import { CocktailPostForm } from './ports'
+import useSnackbar from './useSnackbar'
 
 const steps = ['step 1', 'step 2', 'step 3']
 
@@ -43,7 +43,7 @@ const usePostEditor = (draft?: CocktailPostDraft) => {
     usePostEditorService()
   const { mutate } = useSWRConfig()
   const storage = useLocalStorage()
-  const { api: snackbar } = useContext(SnackbarContext)
+  const snackbar = useSnackbar()
   const [activeStep, setActiveStep] = useState<number>(0)
   const [previewUrls, setPreviewUrls] = useState<string[]>(
     draft?.photos.map(p => p.path) || []
@@ -86,7 +86,7 @@ const usePostEditor = (draft?: CocktailPostDraft) => {
     }
     mutate('/cocktail-drafts')
     router.push(paths.profile)
-    snackbar.success({ message: 'saved!' })
+    snackbar.success('saved!')
   }
 
   const handlePreviewUrlsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,7 +111,7 @@ const usePostEditor = (draft?: CocktailPostDraft) => {
     }
     mutate('/cocktail-drafts')
     router.push(paths.profile)
-    snackbar.success({ message: 'saved!' })
+    snackbar.success('saved!')
   }
 
   const submit = handleSubmit(onSubmit)

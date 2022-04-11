@@ -1,8 +1,8 @@
-import { MouseEventHandler, useState, forwardRef } from 'react'
+import { MouseEventHandler, forwardRef } from 'react'
 import { Box, IconButton, InputBase } from '@mui/material'
+import useSearchBar from 'lib/application/useSearchBar'
 import Search from 'lib/assets/search/default.svg'
 import Close from 'lib/assets/cancelClose/default.svg'
-import useStore from 'lib/services/storeAdapter'
 
 type SearchBarProps = {
   placeHolder: string
@@ -12,13 +12,8 @@ type SearchBarProps = {
 
 const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
   ({ placeHolder, autoFocus = false, onClick }, ref) => {
-    const [isFocused, setIsFocused] = useState<boolean>(false)
-    const searchBarInput = useStore(state => state.searchBarInput)
-    const setSearchBarInput = useStore(state => state.setSearchBarInput)
-
-    const handleBlur = () => setIsFocused(false)
-    const handleFocus = () => setIsFocused(true)
-    const handleCancel = () => setSearchBarInput('')
+    const { focused, input, setInput, handleBlur, handleFocus, handleCancel } =
+      useSearchBar()
 
     return (
       <Box
@@ -38,7 +33,7 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
           sx={{
             p: 0,
             color: theme => {
-              if (isFocused) return theme.palette.light1.main
+              if (focused) return theme.palette.light1.main
               return theme.palette.light4.main
             }
           }}
@@ -59,12 +54,12 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
               color: theme => theme.palette.light4.main
             }
           }}
-          value={searchBarInput}
-          placeholder={isFocused ? '' : placeHolder}
+          value={input}
+          placeholder={focused ? '' : placeHolder}
           onClick={onClick}
-          onChange={e => setSearchBarInput(e.target.value)}
+          onChange={e => setInput(e.target.value)}
         />
-        {searchBarInput && (
+        {input && (
           <IconButton
             sx={{ p: 0, color: theme => theme.palette.light1.main }}
             onClick={handleCancel}

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import Spinner from 'components/common/status/spinner'
-import useAuth from 'lib/hooks/useAuth'
+import useAuth from 'lib/application/useAuth'
 
 const GoogleAuthenticate = () => {
   const router = useRouter()

@@ -1,10 +1,11 @@
 import type { UserInfo } from 'lib/types/user'
+// import type { GetUserInfoResponse } from 'sdk'
 
 const mockUserInfo: UserInfo = {
   user_id: 1,
   user_name: 'Raven',
   email: 'raven@gmail.com',
-  photo: '/cocktail.png',
+  photo: 'cocktail.jpg',
   number_of_collection: 0,
   number_of_post: 0,
   is_collection_public: false

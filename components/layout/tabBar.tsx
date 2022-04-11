@@ -1,18 +1,38 @@
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 import routes, { paths } from 'lib/configs/routes'
-
-export interface TabBarProps {
-  value: paths
-  onChange(value: string): void
-}
+import useCornerRouter from 'lib/hooks/useCornerRouter'
+import useLoginDialog from 'lib/application/useLoginDialog'
+import Avatar from 'components/common/image/avatar'
+import useUserInfo from 'lib/hooks/useUserInfo'
 
 const mx = 64
 
-export const TabBar = ({ value, onChange }: TabBarProps) => {
+const useTabBar = () => {
+  const loginDialog = useLoginDialog()
+  const router = useCornerRouter({
+    onError: () => loginDialog.setOpen(true)
+  })
+  let tabBarRoutes = routes.filter(r => r.inNavigationBar)
+  const { userInfo } = useUserInfo()
+
+  if (userInfo) {
+    tabBarRoutes = tabBarRoutes.map(r => {
+      if (r.path === paths.profile)
+        return { ...r, icon: <Avatar src={userInfo.photo} size={24} /> }
+      return r
+    })
+  }
+
+  return { router, routes: tabBarRoutes }
+}
+
+export const TabBar = () => {
+  const { router, routes } = useTabBar()
+
   return (
     <BottomNavigation
-      value={value}
-      onChange={(_event, value) => onChange(value)}
+      value={router.asPath}
+      onChange={(_event, value) => router.push(value)}
       sx={{
         background:
           'linear-gradient(0deg, rgba(32, 103, 245, 0.05), rgba(32, 103, 245, 0.05)), rgba(32, 32, 32, 0.9)',
@@ -33,40 +53,38 @@ export const TabBar = ({ value, onChange }: TabBarProps) => {
         justifyContent: 'space-between'
       }}
     >
-      {routes
-        .filter(r => r.inNavigationBar)
-        .map(route => (
-          <BottomNavigationAction
-            key={route.path}
-            value={route.path}
-            icon={route.icon}
-            disableRipple
-            onClick={() => onChange(route.path)}
-            sx={{
-              margin: 0,
-              padding: 0,
-              minWidth: '32px',
-              width: '32px',
-              height: '32px',
-              color: 'light4.main',
-              '&.Mui-selected': {
-                color: 'white.main',
-                paddingTop: 0
-              },
-              '&.Mui-selected::before': {
-                content: '""',
-                position: 'absolute',
-                backgroundColor: 'white.main',
-                height: '24px',
-                width: '24px',
-                filter: 'blur(12px)'
-              },
-              '& .MuiSvgIcon-root': {
-                fontSize: '32px'
-              }
-            }}
-          />
-        ))}
+      {routes.map(route => (
+        <BottomNavigationAction
+          key={route.path}
+          value={route.path}
+          icon={route.icon}
+          disableRipple
+          onClick={() => router.push(route.path)}
+          sx={{
+            margin: 0,
+            padding: 0,
+            minWidth: '32px',
+            width: '32px',
+            height: '32px',
+            color: theme => theme.palette.light4.main,
+            '&.Mui-selected': {
+              color: theme => theme.palette.white.main,
+              paddingTop: 0
+            },
+            '&.Mui-selected::before': {
+              content: '""',
+              position: 'absolute',
+              backgroundColor: theme => theme.palette.white.main,
+              height: '24px',
+              width: '24px',
+              filter: 'blur(12px)'
+            },
+            '& .MuiSvgIcon-root': {
+              fontSize: '32px'
+            }
+          }}
+        />
+      ))}
     </BottomNavigation>
   )
 }

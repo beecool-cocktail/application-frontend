@@ -1,9 +1,6 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode } from 'react'
 import Image from 'next/image'
 import { Box, Stack } from '@mui/material'
-import useGoto from 'lib/hooks/useGoto'
-import { paths } from 'lib/configs/routes'
-import LoginDialog from 'components/common/dialog/loginDialog'
 import SearchBar from 'components/common/input/searchBar'
 import TabBar from './tabBar'
 
@@ -18,11 +15,6 @@ const Layout = ({
   useSearchBar = false,
   children
 }: LayoutProps) => {
-  const [loginDialogOpen, setLoginDialogOpen] = useState(false)
-  const { router, goto } = useGoto({
-    onBlock: () => setLoginDialogOpen(true)
-  })
-
   return (
     <>
       <Stack
@@ -48,12 +40,8 @@ const Layout = ({
           {useSearchBar && <SearchBar placeHolder="找調酒..." />}
         </Box>
         {children}
-        <LoginDialog
-          open={loginDialogOpen}
-          onClose={() => setLoginDialogOpen(false)}
-        />
       </Stack>
-      <TabBar value={router.asPath as paths} onChange={goto} />
+      <TabBar />
     </>
   )
 }

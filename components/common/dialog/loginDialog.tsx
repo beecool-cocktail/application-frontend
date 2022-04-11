@@ -1,16 +1,17 @@
 import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material'
-import useAuth from 'lib/hooks/useAuth'
+import useAuth from 'lib/application/useAuth'
+import useLoginDialog from 'lib/application/useLoginDialog'
 
-export interface LoginDialogProps {
-  open: boolean
-  onClose: () => void
-}
-
-const LoginDialog = ({ open, onClose }: LoginDialogProps) => {
+const LoginDialog = () => {
+  const { open, setOpen } = useLoginDialog()
   const { askUserPermission } = useAuth()
 
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Sign in with Google</DialogTitle>
       <DialogContent>
         <Button onClick={askUserPermission}>Login</Button>

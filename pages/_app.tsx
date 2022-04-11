@@ -7,9 +7,10 @@ import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
 import '@fontsource/montserrat/800.css'
 import theme from 'lib/configs/theme'
-import SnackbarWrapper from 'components/app/snackbarWrapper'
-import ConfirmDialogWrapper from 'components/app/confirmDialogWrapper'
 import SWRConfigWrapper from 'components/app/swrConfigWrapper'
+import LoginDialog from 'components/common/dialog/loginDialog'
+import ConfirmDialog from 'components/common/dialog/confirmDialog'
+import Snackbar from 'components/common/snackbar/snackbar'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
 import 'lib/styles/swiper.css'
@@ -32,13 +33,12 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SnackbarWrapper>
-        <ConfirmDialogWrapper>
-          <SWRConfigWrapper>
-            {getLayout(<Component {...pageProps} />)}
-          </SWRConfigWrapper>
-        </ConfirmDialogWrapper>
-      </SnackbarWrapper>
+      <SWRConfigWrapper>
+        <>{getLayout(<Component {...pageProps} />)}</>
+        <LoginDialog />
+        <ConfirmDialog />
+        <Snackbar />
+      </SWRConfigWrapper>
     </ThemeProvider>
   )
 }
