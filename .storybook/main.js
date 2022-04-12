@@ -12,7 +12,8 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     'storybook-addon-next',
-    'storybook-addon-designs'
+    'storybook-addon-designs',
+    'storybook-dark-mode'
   ],
   features: {
     emotionAlias: false
