@@ -8,7 +8,7 @@
     "start": "next start -p 3000",
     "lint": "next lint",
     "format": "prettier --write \"{pages,components}/**/*.{js,jsx,ts,tsx,json}\"",
-    "storybook": "start-storybook -p 6006 -s ./public",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic --project-token=8d9fee7b3790",
     "prebuild": "next lint",

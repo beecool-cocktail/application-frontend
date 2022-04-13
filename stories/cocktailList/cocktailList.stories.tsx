@@ -58,3 +58,9 @@ Normal.args = {
     }
   ]
 }
+
+export const Skeleton = Template.bind({})
+Skeleton.args = {
+  ...Normal.args,
+  isLoadingInitialData: true
+}
