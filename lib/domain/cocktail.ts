@@ -21,6 +21,7 @@ export interface CocktailPost {
   photos: Photo[]
   ingredients: Ingredient[]
   steps: Step[]
+  isCollected: boolean
 }
 
 export interface CocktailPostItem {
@@ -30,6 +31,7 @@ export interface CocktailPostItem {
   title: string
   photoUrls: string[]
   ingredients: Ingredient[]
+  isCollected: boolean
 }
 
 export interface CocktailPostList {

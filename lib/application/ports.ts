@@ -7,6 +7,7 @@ import {
   CocktailPostItem
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
+import { User } from 'lib/domain/user'
 
 export interface CocktailPostForm {
   title: string
@@ -16,6 +17,12 @@ export interface CocktailPostForm {
   photos: FileList | null
 }
 
+export interface UpdateUserForm {
+  username: string
+  file?: FileList
+  isCollectionPublic: boolean
+}
+
 export interface LocalStorageService {
   setToken(token: string): void
   getToken(): string | null
@@ -23,8 +30,8 @@ export interface LocalStorageService {
 }
 
 export interface UserService {
-  getUserInfo(): void
-  updateUserInfo(): void
+  getUserInfo(): FetchResponse<User>
+  updateUserInfo(form: UpdateUserForm): Promise<void>
 }
 
 export interface AuthService {

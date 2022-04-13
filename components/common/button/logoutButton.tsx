@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import useAuth from 'lib/application/useAuth'
-import useUserInfo from 'lib/hooks/useUserInfo'
+import useUser from 'lib/application/useUser'
 
 const LogoutButton = () => {
   const { logout } = useAuth()
-  const { userInfo } = useUserInfo()
+  const { user } = useUser()
 
-  if (!userInfo) return null
-  return <Button onClick={() => logout(userInfo.user_id)}>Logout</Button>
+  if (!user) return null
+  return <Button onClick={() => logout(user.id)}>Logout</Button>
 }
 
 export default LogoutButton

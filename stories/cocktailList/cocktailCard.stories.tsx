@@ -2,7 +2,6 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import CocktailCard from 'components/common/cocktailCardList/cocktailCard'
-import { mockCocktailPostItem } from 'lib/mocks/data/cocktail'
 
 export default {
   title: 'cocktailCardList/Cocktail Card',
@@ -19,22 +18,44 @@ export default {
   }
 } as ComponentMeta<typeof CocktailCard>
 
-const Template: ComponentStory<typeof CocktailCard> = args => {
-  return (
-    <Box width={400} margin="0 auto">
-      <CocktailCard {...args} />
-    </Box>
-  )
+const Template: ComponentStory<typeof CocktailCard> = args => (
+  <Box width={400} margin="0 auto">
+    <CocktailCard {...args} />
+  </Box>
+)
+
+const defaultCocktail = {
+  id: 98078024211279,
+  title: 'Gin Tonic',
+  ingredients: [
+    { name: '波本或裸麥威士忌', amount: '3L' },
+    { name: '方糖', amount: '3L' },
+    { name: '安格氏苦精', amount: '3L' }
+  ],
+  userId: 1,
+  userName: 'Raven',
+  isCollected: false,
+  photoUrls: [
+    'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505',
+    'https://www.eatthis.com/wp-content/uploads/sites/4/2019/03/old-fashioned-cocktail.jpg?fit=1200%2C879&ssl=1',
+    'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg'
+  ]
 }
 
-export const Normal = Template.bind({})
-Normal.args = {
+export const Default = Template.bind({})
+Default.args = {
+  cocktail: defaultCocktail
+}
+
+export const Saved = Template.bind({})
+Saved.args = {
   cocktail: {
-    ...mockCocktailPostItem,
-    photoUrls: [
-      'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505',
-      'https://www.eatthis.com/wp-content/uploads/sites/4/2019/03/old-fashioned-cocktail.jpg?fit=1200%2C879&ssl=1',
-      'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg'
-    ]
+    ...defaultCocktail,
+    isCollected: true
   }
+}
+
+export const Skeleton = Template.bind({})
+Skeleton.args = {
+  cocktail: undefined
 }

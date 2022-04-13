@@ -8,7 +8,7 @@ import 'lib/styles/swiper.css'
 import themeDecorator from 'stories/decorators/themeDecorator'
 import storeDecorator from 'stories/decorators/storeDecorator'
 
-initialize()
+initialize({ onUnhandledRequest: 'bypass' })
 
 export const decorators = [mswDecorator, themeDecorator, storeDecorator]
 export const parameters = {

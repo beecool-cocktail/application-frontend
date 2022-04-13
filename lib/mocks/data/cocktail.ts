@@ -20,7 +20,8 @@ export const mockCocktailPostItem: CocktailPostItem = {
   photoUrls: mockPhotos.map(p => p.path),
   ingredients: mockIngredients,
   userId: mockUserInfo.user_id,
-  userName: mockUserInfo.user_name
+  userName: mockUserInfo.user_name,
+  isCollected: true
 }
 
 export default mockCocktail

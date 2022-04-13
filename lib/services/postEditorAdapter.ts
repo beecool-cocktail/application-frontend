@@ -1,6 +1,5 @@
 import { UpdateDraftArticleRequest } from 'sdk'
-import { PostEditorService } from 'lib/application/ports'
-import { CocktailPostForm } from 'lib/application/ports'
+import { PostEditorService, CocktailPostForm } from 'lib/application/ports'
 import { toBase64 } from 'lib/helper/image'
 import { cocktailApi } from './api'
 

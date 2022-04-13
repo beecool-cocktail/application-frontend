@@ -1,28 +1,23 @@
 import { Stack } from '@mui/material'
 import { useRouter } from 'next/router'
-import useUserInfo from 'lib/hooks/useUserInfo'
+import useUser from 'lib/application/useUser'
 import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'
 import SettingsForm from 'components/pages/settings/settingsForm'
 import LogoutButton from 'components/common/button/logoutButton'
-import userApi, { EditSettingsData } from 'lib/api/user'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import { paths } from 'lib/configs/routes'
 import useConfirmDialog from 'lib/application/useConfirmDialog'
 import useSnackbar from 'lib/application/useSnackbar'
+import { UpdateUserForm } from 'lib/application/ports'
 
 const Settings = () => {
   const router = useRouter()
   const confirmDialog = useConfirmDialog()
   const snackbar = useSnackbar()
-  const { userInfo, loading, error, mutate } = useUserInfo()
-  const storage = useLocalStorage()
+  const { user, loading, error, updateUserInfo } = useUser()
 
-  const handleSubmit = async (formData: EditSettingsData) => {
-    const token = storage.getToken()
-    if (!token) return
-    await userApi.editInfo(formData, token)
-    await mutate()
+  const handleSubmit = async (formData: UpdateUserForm) => {
+    await updateUserInfo(formData)
     snackbar.success('success')
   }
 
@@ -43,15 +38,11 @@ const Settings = () => {
   }
 
   if (loading) return <Spinner />
-  if (!userInfo || error) return <Error />
+  if (!user || error) return <Error />
 
   return (
     <Stack alignItems="stretch" spacing={2}>
-      <SettingsForm
-        userInfo={userInfo}
-        onSubmit={handleSubmit}
-        onBack={handleGoBack}
-      />
+      <SettingsForm user={user} onSubmit={handleSubmit} onBack={handleGoBack} />
       <LogoutButton />
     </Stack>
   )

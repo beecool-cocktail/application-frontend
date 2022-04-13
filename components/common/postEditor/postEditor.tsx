@@ -1,6 +1,6 @@
 import { Button, Stack } from '@mui/material'
 import { CocktailPost, CocktailPostDraft } from 'lib/domain/cocktail'
-import useUserInfo from 'lib/hooks/useUserInfo'
+import useUser from 'lib/application/useUser'
 import usePostEditor from 'lib/application/usePostEditor'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
@@ -14,7 +14,7 @@ export interface PostEditorProps {
 }
 
 const PostEditor = ({ draft }: PostEditorProps) => {
-  const { userInfo } = useUserInfo()
+  const { user } = useUser()
   const {
     form: { control, getValues, isDirty },
     activeStep,
@@ -49,7 +49,7 @@ const PostEditor = ({ draft }: PostEditorProps) => {
     )
   }
 
-  if (!userInfo) return null
+  if (!user) return null
 
   return (
     <Stack alignItems="stretch" minHeight="100vh">
@@ -81,13 +81,14 @@ const PostEditor = ({ draft }: PostEditorProps) => {
               const values = getValues()
               const cocktailPost: CocktailPost = {
                 id: draft ? draft.id : 0,
-                userId: userInfo.user_id,
-                userName: userInfo.user_name,
+                userId: user.id,
+                userName: user.username,
                 title: values.title,
                 description: values.description,
                 photos: previewUrls.map(url => ({ id: 0, path: url })),
                 steps: values.steps,
-                ingredients: values.ingredients
+                ingredients: values.ingredients,
+                isCollected: false
               }
               return cocktailPost
             })()}

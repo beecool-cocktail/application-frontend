@@ -8,19 +8,20 @@ const useCocktailListService = (): CocktailListService => {
 
   const getList = () => ({
     ...result,
-    data: result.data.map(a =>
-      a.map(b => {
+    data: result.data.map(cocktailArray =>
+      cocktailArray.map(cocktail => {
         const cocktailPost: CocktailPostItem = {
-          id: b.cocktail_id || 0,
-          userId: b.user_id || 0,
-          userName: b.user_name || '',
-          title: b.title || '',
-          photoUrls: b.photos || [],
+          id: cocktail.cocktail_id || 0,
+          userId: cocktail.user_id || 0,
+          userName: cocktail.user_name || '',
+          title: cocktail.title || '',
+          photoUrls: cocktail.photos || [],
           ingredients:
-            b.ingredient_list?.map(i => ({
+            cocktail.ingredient_list?.map(i => ({
               name: i.name || '',
               amount: i.amount || ''
-            })) || []
+            })) || [],
+          isCollected: cocktail.is_collected || false
         }
         return cocktailPost
       })

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Stack, Switch, Typography, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
-import { UserInfo } from 'lib/types/user'
-import { EditSettingsData } from 'lib/api/user'
+import { User } from 'lib/domain/user'
+import { UpdateUserForm } from 'lib/application/ports'
 import SettingsHeader from 'components/pages/settings/settingsHeader'
 import Avatar from 'components/common/image/avatar'
 
 interface SettingsFormProps {
-  userInfo: UserInfo
-  onSubmit(formData: EditSettingsData): void
+  user: User
+  onSubmit(formData: UpdateUserForm): void
   onBack(isDirty: boolean): void
 }
 
-const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
+const SettingsForm = ({ user, onSubmit, onBack }: SettingsFormProps) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const {
     control,
@@ -23,24 +23,24 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      user_name: userInfo.user_name,
+      username: user.username,
       file: undefined,
-      is_collection_public: userInfo.is_collection_public
+      isCollectionPublic: user.isCollectionPublic
     }
   })
 
   useEffect(() => {
     if (!isSubmitSuccessful) return
     reset({
-      user_name: userInfo.user_name,
-      is_collection_public: userInfo.is_collection_public,
+      username: user.username,
+      isCollectionPublic: user.isCollectionPublic,
       file: undefined
     })
-  }, [reset, isSubmitSuccessful, userInfo])
+  }, [reset, isSubmitSuccessful, user])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <SettingsHeader onBack={() => onBack(isDirty)} isValid={isValid} />
+      <SettingsHeader isDirty={isDirty} isValid={isValid} onBack={onBack} />
       <Box
         display="flex"
         alignItems="center"
@@ -49,7 +49,7 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
         component="label"
         style={{ cursor: 'pointer' }}
       >
-        <Avatar src={previewUrl || userInfo.photo} size={100} />
+        <Avatar src={previewUrl || user.photo} size={100} />
         <input
           id="upload"
           {...register('file', {
@@ -64,11 +64,11 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
         />
       </Box>
       <Typography variant="h6" textAlign="center">
-        {userInfo.email}
+        {user.email}
       </Typography>
       <Stack component="form" mt={2} px={2} spacing={2}>
         <Controller
-          name="user_name"
+          name="username"
           control={control}
           rules={{
             required: true,
@@ -82,7 +82,7 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
               fullWidth
               label="用戶名稱"
               inputProps={{ maxLength: 20 }}
-              error={!!errors.user_name}
+              error={!!errors.username}
               {...field}
             />
           )}
@@ -94,7 +94,7 @@ const SettingsForm = ({ userInfo, onSubmit, onBack }: SettingsFormProps) => {
         >
           <Typography variant="body1">公開我的收藏</Typography>
           <Controller
-            name="is_collection_public"
+            name="isCollectionPublic"
             control={control}
             render={({ field }) => (
               <Switch

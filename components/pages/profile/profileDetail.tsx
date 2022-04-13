@@ -8,7 +8,7 @@ import useCornerRouter from 'lib/hooks/useCornerRouter'
 import Avatar from 'components/common/image/avatar'
 import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'
-import useUserInfo from 'lib/hooks/useUserInfo'
+import useUser from 'lib/application/useUser'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import ProfileDetailRow from './profileDetailRow'
 import CollectionTabPanel from './collectionTabPanel'
@@ -18,7 +18,7 @@ const ProfileDetail = () => {
   const storage = useLocalStorage()
   const { gotoIndex, gotoDrafts: gotoDraft, gotoSettings } = useCornerRouter()
   const [value, setValue] = useState(0)
-  const { userInfo, loading, error } = useUserInfo()
+  const { user, loading, error } = useUser()
 
   const handleChange = (_e: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -30,7 +30,7 @@ const ProfileDetail = () => {
   }
 
   if (loading) return <Spinner />
-  if (!userInfo || error) return <Error />
+  if (!user || error) return <Error />
 
   return (
     <Stack flex={1}>
@@ -47,7 +47,7 @@ const ProfileDetail = () => {
         </Stack>
       </Stack>
       <Box mt={2}>
-        <Avatar src={userInfo.photo} size={80} />
+        <Avatar src={user.photo} size={80} />
       </Box>
       <Box mt={2}>
         <ProfileDetailRow />

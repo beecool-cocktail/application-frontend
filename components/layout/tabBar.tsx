@@ -3,7 +3,7 @@ import routes, { paths } from 'lib/configs/routes'
 import useCornerRouter from 'lib/hooks/useCornerRouter'
 import useLoginDialog from 'lib/application/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
-import useUserInfo from 'lib/hooks/useUserInfo'
+import useUser from 'lib/application/useUser'
 
 const mx = 64
 
@@ -13,12 +13,12 @@ const useTabBar = () => {
     onError: () => loginDialog.setOpen(true)
   })
   let tabBarRoutes = routes.filter(r => r.inNavigationBar)
-  const { userInfo } = useUserInfo()
+  const { user } = useUser()
 
-  if (userInfo) {
+  if (user) {
     tabBarRoutes = tabBarRoutes.map(r => {
       if (r.path === paths.profile)
-        return { ...r, icon: <Avatar src={userInfo.photo} size={24} /> }
+        return { ...r, icon: <Avatar src={user.photo} size={24} /> }
       return r
     })
   }

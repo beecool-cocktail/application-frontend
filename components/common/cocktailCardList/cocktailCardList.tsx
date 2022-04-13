@@ -7,10 +7,6 @@ type CocktailCardListProps = {
 }
 
 const CocktailCardList = ({ cocktails: data }: CocktailCardListProps) => {
-  const handleCollect = () => {
-    // eslint-disable-next-line no-console
-    console.log('collect')
-  }
   return (
     <Stack
       spacing="24px"
@@ -21,11 +17,7 @@ const CocktailCardList = ({ cocktails: data }: CocktailCardListProps) => {
       }}
     >
       {data.map(cocktail => (
-        <CocktailCard
-          key={cocktail.id}
-          cocktail={cocktail}
-          onCollect={handleCollect}
-        />
+        <CocktailCard key={cocktail.id} cocktail={cocktail} />
       ))}
     </Stack>
   )

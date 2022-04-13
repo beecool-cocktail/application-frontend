@@ -32,7 +32,8 @@ const useCocktailService = (id?: number): CocktailService => {
           })) || [],
         steps:
           resData.step_list?.map(s => ({ description: s.description || '' })) ||
-          []
+          [],
+        isCollected: resData.is_collected || false
       }
     }
     return { data, error, mutate, isValidating }

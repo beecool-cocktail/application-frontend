@@ -1,39 +1,56 @@
-import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { Box, IconButton, Stack, Typography, Skeleton } from '@mui/material'
 import { FavoriteBorder } from '@mui/icons-material'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { CocktailPostItem } from 'lib/domain/cocktail'
+import useCocktailCard from 'lib/application/useCocktailCard'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import { getUrlById, paths } from 'lib/configs/routes'
-import { CocktailPostItem } from 'lib/domain/cocktail'
-import { FALLBACK_URL } from 'lib/constants/image'
+
+export interface CocktailCardWithSkeletonProps {
+  cocktail?: CocktailPostItem
+}
+
+const CocktailCardWithSkeleton = ({
+  cocktail
+}: CocktailCardWithSkeletonProps) => {
+  if (!cocktail) {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        rowGap="4px"
+      >
+        <Skeleton height={234} />
+        <Skeleton height={25} />
+        <Skeleton height={20} width={247} />
+      </Box>
+    )
+  }
+  return <CocktailCard cocktail={cocktail} />
+}
 
 export interface CocktailCardProps {
   cocktail: CocktailPostItem
-  onCollect(id: number): void
 }
 
-const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
-  const router = useRouter()
-  const { id, photoUrls, title, ingredients, userId, userName } = cocktail
+const CocktailCard = ({ cocktail }: CocktailCardProps) => {
+  const {
+    firstImageLoaded,
+    title,
+    images,
+    userDisplay,
+    ingredientsDisplay,
+    isCollected,
+    gotoCocktailDetails,
+    collect,
+    firstImageLoadingComplete
+  } = useCocktailCard(cocktail)
 
-  const images = photoUrls.map(p => {
-    if (new URL(p).pathname === '/') return FALLBACK_URL
-    return p
-  })
-  const gotoCocktailDetails = () =>
-    router.push(getUrlById(paths.cocktailById, id))
-
-  const getIngredientsDisplay = () => {
-    let result = ''
-    ingredients.forEach((ingredient, index) => {
-      if (index === ingredients.length - 1) result += ingredient.name
-      else result += `${ingredient.name} / `
-    })
-    return result
-  }
+  if (!firstImageLoaded) return <Skeleton />
 
   return (
     <Box sx={{ backgroundColor: 'transparent' }} onClick={gotoCocktailDetails}>
@@ -57,24 +74,23 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
                   alt={title}
                   width={400}
                   height={300}
+                  onLoadingComplete={firstImageLoadingComplete}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
         </Box>
-        <Box
-          position="absolute"
-          right="15px"
-          bottom="15px"
-          onClick={() => onCollect(id)}
-        >
+        <Box position="absolute" right="15px" bottom="15px" onClick={collect}>
           <IconButton
             sx={{
               zIndex: 1,
               width: 20,
               height: 20,
               fontSize: 16,
-              color: 'light1.main'
+              color: theme => {
+                if (isCollected) return theme.palette.blue.main
+                return theme.palette.light1.main
+              }
             }}
           >
             <FavoriteBorder />
@@ -98,7 +114,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
         >
           <Typography
             variant="h4"
-            sx={{ color: 'light1.main', fontSize: '18px' }}
+            sx={{ color: theme => theme.palette.light1.main, fontSize: '18px' }}
           >
             {title}
           </Typography>
@@ -108,27 +124,27 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
             gutterBottom
             variant="body2"
             component="div"
-            color="light2.main"
+            color={theme => theme.palette.light2.main}
             sx={{ fontSize: '12px' }}
           >
-            {getIngredientsDisplay()}
+            {ingredientsDisplay}
           </Typography>
         </Stack>
         <Typography
           gutterBottom
           variant="body2"
           component="div"
-          color="light3.main"
+          color={theme => theme.palette.light3.main}
           sx={{
             alignSelf: 'flex-end',
             fontSize: '11px'
           }}
         >
-          {`@${userName}#${userId}`}
+          {userDisplay}
         </Typography>
       </Box>
     </Box>
   )
 }
 
-export default CocktailCard
+export default CocktailCardWithSkeleton
