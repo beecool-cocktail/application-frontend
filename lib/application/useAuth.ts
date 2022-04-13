@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import userApi from '../api/user'
+import useAuthService from '../services/authAdapter'
 import { paths } from '../configs/routes'
 import useSnackbar from './useSnackbar'
 
@@ -8,15 +8,14 @@ const useAuth = () => {
   const router = useRouter()
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
-
-  const askUserPermission = () => {
-    location.href = '/api/google-login'
-  }
+  const authService = useAuthService()
 
   const login = async (code: string) => {
     try {
       if (!code) return
-      const token = await userApi.googleAuth(code)
+      const token = await authService.login(code)
+      if (!token) return snackbar.error('login failed.')
+
       storage.setToken(token)
       snackbar.success('login success.')
       router.push(paths.index)
@@ -27,7 +26,7 @@ const useAuth = () => {
 
   const logout = async (userId: number) => {
     try {
-      await userApi.logout(userId)
+      await authService.logout(userId)
       storage.removeToken()
       snackbar.success('logout success.')
       router.push(paths.index)
@@ -36,7 +35,11 @@ const useAuth = () => {
     }
   }
 
-  return { askUserPermission, logout, login }
+  return {
+    logout,
+    login,
+    askUserPermission: authService.askUserPermission
+  }
 }
 
 export default useAuth

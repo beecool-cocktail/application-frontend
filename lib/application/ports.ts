@@ -29,14 +29,15 @@ export interface LocalStorageService {
   removeToken(): void
 }
 
+export interface AuthService {
+  login(code: string): Promise<string | undefined>
+  logout(userId: number): Promise<void>
+  askUserPermission(): void
+}
+
 export interface UserService {
   getUserInfo(): FetchResponse<User>
   updateUserInfo(form: UpdateUserForm): Promise<void>
-}
-
-export interface AuthService {
-  login(): void
-  logout(): void
 }
 
 export interface CocktailListService {

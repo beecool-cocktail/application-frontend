@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios'
-import cornerApi from 'lib/api/cornerApi'
+import cornerApi from 'lib/services/cornerApi'
 import type Pagination from 'lib/types/pagination'
 import type { ApiResponse } from 'lib/types/api/responseBase'
 
