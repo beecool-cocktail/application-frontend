@@ -63,3 +63,8 @@ export interface PostEditorService {
   updateDraft(id: number, draft: CocktailPostForm, token: string): Promise<void>
   toFormal(id: number, token: string): Promise<void>
 }
+
+export interface FavoriteCocktailUpdateService {
+  collect(cocktailId: number, token: string): Promise<void>
+  remove(cocktailId: number, token: string): Promise<void>
+}

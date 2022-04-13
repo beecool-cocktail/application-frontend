@@ -10,7 +10,7 @@ import useCocktailList from 'lib/application/useCocktailList'
 
 const Search = () => {
   const searchBarInput = useStore(state => state.searchBarInput)
-  const { cocktails = [], isLoadingInitialData } = useCocktailList()
+  const { cocktails = [], isLoadingInitialData, collect } = useCocktailList()
 
   return (
     <>
@@ -33,7 +33,11 @@ const Search = () => {
             <NotFound />
           </Box>
         ) : (
-          <CocktailCardList cocktails={cocktails} />
+          <CocktailCardList
+            cocktails={cocktails}
+            isLoadingInitialData={isLoadingInitialData}
+            onCollect={collect}
+          />
         )}
       </Box>
     </>

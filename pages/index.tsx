@@ -16,7 +16,8 @@ const Home = () => {
     isEmpty,
     isReachingEnd,
     isRefreshing,
-    loadMore
+    loadMore,
+    collect
   } = useCocktailList()
   const { ref, inView } = useInView()
 
@@ -32,14 +33,16 @@ const Home = () => {
         <meta name="description" content="Whispering Corner" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {isLoadingInitialData ? (
-        <Spinner />
-      ) : (
+      {
         <Stack justifyContent="flex-start" alignItems="stretch">
-          <CocktailCardList cocktails={cocktails} />
+          <CocktailCardList
+            cocktails={cocktails}
+            onCollect={collect}
+            isLoadingInitialData={isLoadingInitialData}
+          />
           {isEmpty && <Typography>Empty</Typography>}
           <Box height={100}>
-            {isLoadingMore ? (
+            {isLoadingMore && !isLoadingInitialData ? (
               <Spinner />
             ) : isReachingEnd ? (
               <Typography textAlign="center">No more cocktails</Typography>
@@ -48,7 +51,7 @@ const Home = () => {
             )}
           </Box>
         </Stack>
-      )}
+      }
     </>
   )
 }

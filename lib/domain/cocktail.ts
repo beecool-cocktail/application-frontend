@@ -76,4 +76,5 @@ export interface InfiniteFetchResponse<T> {
   isReachingEnd: boolean
   isRefreshing: boolean
   loadMore(): void
+  mutate: () => void
 }

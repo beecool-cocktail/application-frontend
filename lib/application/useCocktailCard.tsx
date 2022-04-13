@@ -4,10 +4,14 @@ import { getUrlById, paths } from 'lib/configs/routes'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 import { FALLBACK_URL } from 'lib/constants/image'
 
-const useCocktailCard = (cocktail: CocktailPostItem) => {
+const useCocktailCard = (
+  cocktail: CocktailPostItem,
+  onCollect: (id: number, isCollected: boolean) => void
+) => {
   const router = useRouter()
   const [firstImageLoaded, setFirstImageLoaded] = useState<boolean>(true)
-  const { id, photoUrls, title, ingredients, userId, userName } = cocktail
+  const { id, photoUrls, title, ingredients, userId, userName, isCollected } =
+    cocktail
 
   const images = photoUrls.map(p => {
     if (new URL(p).pathname === '/') return FALLBACK_URL
@@ -28,9 +32,8 @@ const useCocktailCard = (cocktail: CocktailPostItem) => {
   const gotoCocktailDetails = () =>
     router.push(getUrlById(paths.cocktailById, id))
 
-  const collect = () => {
-    // eslint-disable-next-line no-console
-    console.log('collect')
+  const collect = async () => {
+    onCollect(id, isCollected)
   }
 
   const firstImageLoadingComplete = () => setFirstImageLoaded(true)

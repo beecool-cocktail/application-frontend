@@ -10,10 +10,12 @@ import 'swiper/css/pagination'
 
 export interface CocktailCardWithSkeletonProps {
   cocktail?: CocktailPostItem
+  onCollect: (id: number, isCollected: boolean) => void
 }
 
 const CocktailCardWithSkeleton = ({
-  cocktail
+  cocktail,
+  onCollect
 }: CocktailCardWithSkeletonProps) => {
   if (!cocktail) {
     return (
@@ -24,20 +26,21 @@ const CocktailCardWithSkeleton = ({
         alignItems="flex-start"
         rowGap="4px"
       >
-        <Skeleton height={234} />
-        <Skeleton height={25} />
+        <Skeleton height={234} width="100%" />
+        <Skeleton height={25} width="100%" />
         <Skeleton height={20} width={247} />
       </Box>
     )
   }
-  return <CocktailCard cocktail={cocktail} />
+  return <CocktailCard cocktail={cocktail} onCollect={onCollect} />
 }
 
 export interface CocktailCardProps {
   cocktail: CocktailPostItem
+  onCollect: (id: number, isCollected: boolean) => void
 }
 
-const CocktailCard = ({ cocktail }: CocktailCardProps) => {
+const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   const {
     firstImageLoaded,
     title,
@@ -48,7 +51,7 @@ const CocktailCard = ({ cocktail }: CocktailCardProps) => {
     gotoCocktailDetails,
     collect,
     firstImageLoadingComplete
-  } = useCocktailCard(cocktail)
+  } = useCocktailCard(cocktail, onCollect)
 
   if (!firstImageLoaded) return <Skeleton />
 
@@ -80,7 +83,16 @@ const CocktailCard = ({ cocktail }: CocktailCardProps) => {
             ))}
           </Swiper>
         </Box>
-        <Box position="absolute" right="15px" bottom="15px" onClick={collect}>
+        <Box
+          position="absolute"
+          right="15px"
+          bottom="15px"
+          onClick={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            collect()
+          }}
+        >
           <IconButton
             sx={{
               zIndex: 1,

@@ -3,8 +3,8 @@ import { CocktailListService } from 'lib/application/ports'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 import useCornerSWRInfinite from '../hooks/useInfiniteCornerSWR'
 
-const useCocktailListService = (): CocktailListService => {
-  const result = useCornerSWRInfinite<PopularCocktailList>('/cocktails')
+const useCocktailListService = (token: string | null): CocktailListService => {
+  const result = useCornerSWRInfinite<PopularCocktailList>('/cocktails', token)
 
   const getList = () => ({
     ...result,
