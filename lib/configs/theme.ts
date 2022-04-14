@@ -148,22 +148,22 @@ const theme = createTheme({
     body1: {
       fontWeight: 400,
       fontSize: 16,
-      lineHeight: 1.4
+      lineHeight: 1.5
     },
     body2: {
       fontWeight: 400,
       fontSize: 14,
-      lineHeight: 1.4
+      lineHeight: 1.5
     },
     body3: {
       fontWeight: 400,
       fontSize: 12,
-      lineHeight: 1.4
+      lineHeight: 1.5
     },
     body4: {
       fontWeight: 400,
       fontSize: 11,
-      lineHeight: 1.4
+      lineHeight: 1.5
     }
   }
 })
