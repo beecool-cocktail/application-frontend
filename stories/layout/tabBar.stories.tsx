@@ -6,6 +6,7 @@ import { paths } from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useOnce from 'lib/hooks/useOnce'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
+import loggedInDecorator from 'stories/decorators/loggedInDecorator'
 
 export default {
   title: 'layout/Tab Bar',
@@ -13,12 +14,12 @@ export default {
   parameters: {
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2560%3A5139'
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2883%3A4410'
     },
     msw: {
       handlers: [
         configHandler,
-        rest.get('/api/user/info', (req, res, ctx) =>
+        rest.get('/api/users/current', (req, res, ctx) =>
           responseJson(res, ctx, {
             user_id: 1,
             user_name: 'Raven',
@@ -36,16 +37,16 @@ export default {
 
 const Template: ComponentStory<typeof TabBar> = () => <TabBar />
 
-export const LoggedOut = Template.bind({})
+export const Home = Template.bind({})
 
-LoggedOut.parameters = {
+Home.parameters = {
   nextRouter: {
     path: paths.index,
     asPath: paths.index
   }
 }
 
-LoggedOut.decorators = [
+Home.decorators = [
   story => {
     const storage = useLocalStorage()
     useOnce(() => storage.removeToken())
@@ -53,19 +54,48 @@ LoggedOut.decorators = [
   }
 ]
 
-export const LoggedIn = Template.bind({})
+export const Search = Template.bind({})
 
-LoggedIn.parameters = {
+Search.parameters = {
   nextRouter: {
-    path: paths.index,
-    asPath: paths.index
+    path: paths.search,
+    asPath: paths.search
   }
 }
 
-LoggedIn.decorators = [
+export const AddPost = Template.bind({})
+
+AddPost.parameters = {
+  nextRouter: {
+    path: paths.creatPost,
+    asPath: paths.creatPost
+  }
+}
+
+export const ProfileTourist = Template.bind({})
+
+ProfileTourist.parameters = {
+  nextRouter: {
+    path: paths.profile,
+    asPath: paths.profile
+  }
+}
+
+export const ProfileMember = Template.bind({})
+
+ProfileMember.parameters = {
+  nextRouter: {
+    path: paths.profile,
+    asPath: paths.profile
+  }
+}
+
+ProfileMember.decorators = [
   story => {
     const storage = useLocalStorage()
     useOnce(() => storage.setToken('mock login token'))
     return story()
-  }
+  },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  loggedInDecorator as any
 ]

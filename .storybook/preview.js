@@ -7,6 +7,7 @@ import 'lib/styles/globals.css'
 import 'lib/styles/swiper.css'
 import themeDecorator from 'stories/decorators/themeDecorator'
 import storeDecorator from 'stories/decorators/storeDecorator'
+import loggedOutDecorator from 'stories/decorators/loggedOutDecorator'
 import SWRConfigDecorator from 'stories/decorators/SWRConfigDecorator'
 
 initialize({ onUnhandledRequest: 'bypass' })
@@ -15,6 +16,7 @@ export const decorators = [
   mswDecorator,
   themeDecorator,
   storeDecorator,
+  loggedOutDecorator,
   SWRConfigDecorator
 ]
 export const parameters = {

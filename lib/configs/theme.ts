@@ -17,8 +17,8 @@ declare module '@mui/material/styles' {
     light2: Palette['primary']
     light3: Palette['primary']
     light4: Palette['primary']
-    white: Palette['primary']
-    black: Palette['primary']
+    brandWhite: Palette['primary']
+    brandBlack: Palette['primary']
   }
   interface PaletteOptions {
     red: PaletteOptions['primary']
@@ -35,8 +35,8 @@ declare module '@mui/material/styles' {
     light2: PaletteOptions['primary']
     light3: PaletteOptions['primary']
     light4: PaletteOptions['primary']
-    white: PaletteOptions['primary']
-    black: PaletteOptions['primary']
+    brandWhite: PaletteOptions['primary']
+    brandBlack: PaletteOptions['primary']
   }
   interface PaletteColor {
     lighter?: string
@@ -92,14 +92,14 @@ const theme = createTheme({
     dark2: { main: '#0D0D0D' },
     dark3: { main: '#141414' },
     dark4: { main: '#1C1C1C' },
-    dark5: { main: '#262626' },
+    dark5: { main: '#212121' },
     dark6: { main: '#292929' },
     light1: { main: '#EBEBEB' },
     light2: { main: '#CCCCCC' },
     light3: { main: '#A0A0A0' },
     light4: { main: '#7B7B7B' },
-    white: { main: '#DBE0EC' },
-    black: { main: '#131924' }
+    brandWhite: { main: '#DBE0EC' },
+    brandBlack: { main: '#131924' }
   },
   typography: {
     fontFamily: normalFontFamily,

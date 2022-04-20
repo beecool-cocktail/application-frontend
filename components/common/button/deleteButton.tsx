@@ -9,7 +9,7 @@ export interface DeleteButtonProps {
 }
 
 const DeleteButton = ({
-  color = 'white.main',
+  color = 'brandWhite.main',
   batchMode = false,
   onClick: handleClick
 }: DeleteButtonProps) => {
