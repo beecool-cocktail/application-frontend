@@ -4,7 +4,7 @@ import {
   FeedOutlined as FeedIcon,
   SettingsOutlined as SettingsIcon
 } from '@mui/icons-material'
-import useCornerRouter from 'lib/hooks/useCornerRouter'
+import useCornerRouter from 'lib/application/useCornerRouter'
 import Avatar from 'components/common/image/avatar'
 import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'

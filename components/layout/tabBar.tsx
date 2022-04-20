@@ -1,6 +1,6 @@
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 import routes, { paths } from 'lib/configs/routes'
-import useCornerRouter from 'lib/hooks/useCornerRouter'
+import useCornerRouter from 'lib/application/useCornerRouter'
 import useLoginDialog from 'lib/application/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
 import useUser from 'lib/application/useUser'

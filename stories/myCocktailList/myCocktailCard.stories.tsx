@@ -1,11 +1,11 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import FavoriteCocktailCard from 'components/common/favoriteCocktailList/favoriteCocktailCard'
+import MyCocktailCard from 'components/common/myCocktailList/myCocktailCard'
 
 export default {
-  title: 'favorite cocktail list/Favorite Cocktail Card',
-  component: FavoriteCocktailCard,
+  title: 'my cocktail list/My Cocktail Card',
+  component: MyCocktailCard,
   argTypes: {
     cocktail: { control: { type: 'object' } },
     onRemove: { action: 'remove' }
@@ -16,11 +16,11 @@ export default {
       url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2560%3A5124'
     }
   }
-} as ComponentMeta<typeof FavoriteCocktailCard>
+} as ComponentMeta<typeof MyCocktailCard>
 
-const Template: ComponentStory<typeof FavoriteCocktailCard> = args => (
+const Template: ComponentStory<typeof MyCocktailCard> = args => (
   <Box width={400} margin="0 auto">
-    <FavoriteCocktailCard {...args} />
+    <MyCocktailCard {...args} />
   </Box>
 )
 

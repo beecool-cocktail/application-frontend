@@ -74,3 +74,8 @@ export interface FavoriteCocktailUpdateService {
   collect(cocktailId: number, token: string): Promise<void>
   remove(cocktailId: number, token: string): Promise<void>
 }
+
+export interface MyCocktailListService {
+  getList(): FetchResponse<FavoriteCocktailItem[]>
+  deleteById(cocktailId: number, token: string): Promise<void>
+}

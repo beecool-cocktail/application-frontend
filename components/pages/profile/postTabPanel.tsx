@@ -1,5 +1,4 @@
-import { Box } from '@mui/material'
-import Image from 'next/dist/client/image'
+import MyCocktailList from 'components/common/myCocktailList/myCocktailList'
 import TabPanel from './tabPanel'
 
 export interface PostTabPanelProps {
@@ -10,9 +9,7 @@ export interface PostTabPanelProps {
 const PostTabPanel = ({ index, value }: PostTabPanelProps) => {
   return (
     <TabPanel index={index} value={value}>
-      <Box>
-        <Image src="/post.png" alt="post" width={512} height={392} />
-      </Box>
+      <MyCocktailList />
     </TabPanel>
   )
 }

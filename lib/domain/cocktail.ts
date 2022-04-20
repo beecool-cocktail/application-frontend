@@ -66,6 +66,13 @@ export interface FavoriteCocktailItem {
   photoUrl: string
 }
 
+export interface MyCocktailItem {
+  id: number
+  userName: string
+  title: string
+  photoUrl: string
+}
+
 export interface FetchResponse<T> {
   data: T | undefined
   error: Error
