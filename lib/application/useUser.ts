@@ -1,7 +1,7 @@
 import { FALLBACK_URL } from 'lib/constants/image'
 import useUserService from 'lib/services/userAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import useConfig from '../hooks/useConfig'
+import useConfig from './useConfig'
 
 const useUser = () => {
   const storage = useLocalStorage()

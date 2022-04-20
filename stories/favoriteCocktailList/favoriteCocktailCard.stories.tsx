@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import FavoriteCocktailCard from 'components/common/favoriteCocktailCardList/favoriteCocktailCard'
+import FavoriteCocktailCard from 'components/common/favoriteCocktailList/favoriteCocktailCard'
 
 export default {
   title: 'favorite cocktail list/Cocktail Card',

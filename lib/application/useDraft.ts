@@ -1,6 +1,6 @@
 import useDraftService from 'lib/services/draftAdapter'
 import { join } from 'lib/helper/url'
-import useConfig from 'lib/hooks/useConfig'
+import useConfig from './useConfig'
 
 const useDraft = (id: number) => {
   const { config, loading: configLoading } = useConfig()

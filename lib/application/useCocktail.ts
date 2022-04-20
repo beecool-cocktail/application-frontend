@@ -1,7 +1,7 @@
 import produce from 'immer'
 import { join } from 'lib/helper/url'
 import useCocktailService from 'lib/services/cocktailAdapter'
-import useConfig from '../hooks/useConfig'
+import useConfig from './useConfig'
 
 const useCocktail = (id: number | undefined) => {
   const { config, loading: configLoading } = useConfig()

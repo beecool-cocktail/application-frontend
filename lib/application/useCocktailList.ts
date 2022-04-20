@@ -5,7 +5,7 @@ import useCocktailListService from 'lib/services/cocktailListAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdateAdapter'
-import useConfig from '../hooks/useConfig'
+import useConfig from './useConfig'
 import useSnackbar from './useSnackbar'
 import useLoginDialog from './useLoginDialog'
 

@@ -1,4 +1,4 @@
-import FavoriteCocktailCardList from 'components/common/favoriteCocktailCardList/favoriteCocktailCardList'
+import FavoriteCocktailCardList from 'components/common/favoriteCocktailList/favoriteCocktailList'
 import TabPanel from './tabPanel'
 
 export interface CollectionTabPanelProps {
