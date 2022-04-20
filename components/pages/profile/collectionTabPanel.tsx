@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import FavoriteCocktailCardList from 'components/common/favoriteCocktailCardList/favoriteCocktailCardList'
 import TabPanel from './tabPanel'
 
 export interface CollectionTabPanelProps {
@@ -9,7 +9,7 @@ export interface CollectionTabPanelProps {
 const CollectionTabPanel = ({ index, value }: CollectionTabPanelProps) => {
   return (
     <TabPanel index={index} value={value}>
-      <Typography variant="h4">沒有收藏 QQ</Typography>
+      <FavoriteCocktailCardList />
     </TabPanel>
   )
 }

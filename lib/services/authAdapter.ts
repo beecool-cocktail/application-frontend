@@ -6,9 +6,7 @@ const useAuthService = (): AuthService => {
   const login = async (code: string) => {
     const req: GoogleAuthenticateRequest = { code }
     const res = await loginApi.googleAuthenticateRequest(req)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return res.data.data.token
+    return res.data.data?.token
   }
 
   const logout = async (userId: number) => {
@@ -17,7 +15,7 @@ const useAuthService = (): AuthService => {
   }
 
   const askUserPermission = () => {
-    location.href = '/api/google-login'
+    location.href = '/api/auth/google-login'
   }
 
   return {

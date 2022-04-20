@@ -58,6 +58,14 @@ const routes: Route[] = [
     requireAuth: false
   },
   {
+    path: paths.draftById,
+    label: 'draft'
+  },
+  {
+    path: paths.cocktailById,
+    label: 'cocktail by id'
+  },
+  {
     path: paths.settings,
     label: 'Settings',
     requireAuth: true

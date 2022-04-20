@@ -19,7 +19,6 @@ const useCornerRouter = (props?: useGotoProps) => {
     })
     if (!route) return
     if (route.requireAuth && !storage.getToken()) return props?.onError?.()
-
     nextRouter.push(url)
   }
 

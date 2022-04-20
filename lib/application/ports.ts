@@ -4,7 +4,8 @@ import {
   CocktailPostDraft,
   CocktailPostDraftList,
   InfiniteFetchResponse,
-  CocktailPostItem
+  CocktailPostItem,
+  FavoriteCocktailItem
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User } from 'lib/domain/user'
@@ -62,6 +63,11 @@ export interface PostEditorService {
   createDraft(draft: CocktailPostForm, token: string): Promise<void>
   updateDraft(id: number, draft: CocktailPostForm, token: string): Promise<void>
   toFormal(id: number, token: string): Promise<void>
+}
+
+export interface FavoriteCocktailListService {
+  getList(): FetchResponse<FavoriteCocktailItem[]>
+  remove(cocktailId: number, token: string): Promise<void>
 }
 
 export interface FavoriteCocktailUpdateService {

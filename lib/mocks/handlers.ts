@@ -9,14 +9,15 @@ import mockCocktailList from './data/cocktailList'
 export const responseJson = <T>(
   res: ResponseComposition,
   ctx: RestContext,
-  data: T
+  data: T,
+  delay = 1000
 ) => {
   const body: ApiResponse<T> = {
     error_code: responseCode.SUCCESS,
     error_message: '',
     data
   }
-  return res(ctx.status(200), ctx.json(body))
+  return res(ctx.status(200), ctx.delay(delay), ctx.json(body))
 }
 
 export const configHandler = rest.get('/api/config', (req, res, ctx) =>

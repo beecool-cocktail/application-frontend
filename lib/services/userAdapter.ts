@@ -11,7 +11,7 @@ const useUserService = (token: string | null): UserService => {
     error,
     isValidating,
     mutate
-  } = useSWR<GetUserInfoResponse>(token ? ['/user/info', null, token] : null)
+  } = useSWR<GetUserInfoResponse>(token ? ['/users/current', null, token] : null)
 
   const getUserInfo = () => {
     let data: User | undefined

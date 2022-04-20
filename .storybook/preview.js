@@ -7,7 +7,7 @@ import 'lib/styles/globals.css'
 import 'lib/styles/swiper.css'
 import themeDecorator from 'stories/decorators/themeDecorator'
 import storeDecorator from 'stories/decorators/storeDecorator'
-import SWRConfigWrapper from 'components/app/swrConfigWrapper'
+import SWRConfigDecorator from 'stories/decorators/SWRConfigDecorator'
 
 initialize({ onUnhandledRequest: 'bypass' })
 
@@ -15,7 +15,7 @@ export const decorators = [
   mswDecorator,
   themeDecorator,
   storeDecorator,
-  story => <SWRConfigWrapper>{story()}</SWRConfigWrapper>
+  SWRConfigDecorator
 ]
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

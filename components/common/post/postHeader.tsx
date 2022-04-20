@@ -1,11 +1,10 @@
 import { BookmarkOutlined, ShareOutlined } from '@mui/icons-material'
 import { Avatar, IconButton, Stack, Typography } from '@mui/material'
-import { Box, Grid, Popper } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import { Grid } from '@mui/material'
+import React from 'react'
 import usePermission from 'lib/hooks/usePermission'
 import useLoginDialog from 'lib/application/useLoginDialog'
-
-const POPPER_TIMEOUT = 1000
+import useShare from 'lib/application/useShare'
 
 export type CocktailDetailsHeaderProps = {
   title: string
@@ -18,30 +17,7 @@ const CocktailDetailsHeader = ({
 }: CocktailDetailsHeaderProps) => {
   const hasPermission = usePermission()
   const { setOpen: setLoginDialogOpen } = useLoginDialog()
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
-  const PopperTimeoutIdRef = useRef<number | null>(null)
-
-  const handleShare = async (e: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : e.currentTarget)
-
-    if (PopperTimeoutIdRef.current) clearTimeout(PopperTimeoutIdRef.current)
-    if (!navigator.share) {
-      navigator.clipboard.writeText(window.location.href)
-      PopperTimeoutIdRef.current = window.setTimeout(() => {
-        setAnchorEl(null)
-      }, POPPER_TIMEOUT)
-      return
-    }
-    try {
-      await navigator.share({
-        url: window.location.href,
-        title: document.title,
-        text: title
-      })
-    } catch (err) {
-      console.error('share failed:', err)
-    }
-  }
+  const share = useShare()
 
   const handleCollect = () => {
     if (hasPermission) return
@@ -58,14 +34,9 @@ const CocktailDetailsHeader = ({
           <Typography variant="h5">{title}</Typography>
         </Grid>
         <Grid item xs="auto">
-          <IconButton onClick={handleShare}>
+          <IconButton onClick={() => share(title)}>
             <ShareOutlined />
           </IconButton>
-          <Popper open={Boolean(anchorEl)} anchorEl={anchorEl}>
-            <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
-              Content Copied
-            </Box>
-          </Popper>
         </Grid>
         <Grid item xs="auto">
           <IconButton onClick={handleCollect}>

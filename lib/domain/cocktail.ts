@@ -59,6 +59,13 @@ export interface CocktailPostDraftList {
   totalCount: number
 }
 
+export interface FavoriteCocktailItem {
+  id: number
+  userName: string
+  title: string
+  photoUrl: string
+}
+
 export interface FetchResponse<T> {
   data: T | undefined
   error: Error

@@ -1,19 +1,14 @@
 import React from 'react'
-import { Stack } from '@mui/material'
 
 export interface TabPanelProps {
   value: number
   index: number
-  children: React.ReactChild
+  children: React.ReactElement
 }
 
 const TabPanel = ({ index, value, children }: TabPanelProps) => {
   if (index !== value) return null
-  return (
-    <Stack flex={1} alignItems="center" justifyContent="center">
-      {children}
-    </Stack>
-  )
+  return children
 }
 
 export default TabPanel
