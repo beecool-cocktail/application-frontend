@@ -15,13 +15,12 @@ const useMyCocktailListService = (): MyCocktailListService => {
   const getList = () => {
     let data: MyCocktailItem[] | undefined = undefined
     if (resData) {
-      data =
-        resData.cocktail_list?.map(cocktailItem => ({
-          id: cocktailItem.cocktail_id || 0,
-          title: cocktailItem.title || '',
-          photoUrl: cocktailItem.photo || '',
-          userName: cocktailItem.user_name || ''
-        })) || []
+      data = resData.cocktail_list.map(cocktailItem => ({
+        id: cocktailItem.cocktail_id,
+        title: cocktailItem.title,
+        photoUrl: cocktailItem.photo,
+        userName: cocktailItem.user_name
+      }))
     }
     return {
       data,

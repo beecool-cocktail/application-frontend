@@ -15,25 +15,21 @@ const useCocktailService = (id?: number): CocktailService => {
     let data: CocktailPost | undefined
     if (resData) {
       data = {
-        id: resData.cocktail_id || 0,
-        userId: resData.user_id || 0,
-        userName: resData.user_name || '',
-        title: resData.title || '',
-        description: resData.description || '',
-        photos:
-          resData.photos?.map(p => ({
-            id: p.id || 0,
-            path: p.path || ''
-          })) || [],
-        ingredients:
-          resData.ingredient_list?.map(i => ({
-            name: i.name || '',
-            amount: i.amount || ''
-          })) || [],
-        steps:
-          resData.step_list?.map(s => ({ description: s.description || '' })) ||
-          [],
-        isCollected: resData.is_collected || false
+        id: resData.cocktail_id,
+        userId: resData.user_id,
+        userName: resData.user_name,
+        title: resData.title,
+        description: resData.description,
+        photos: resData.photos.map(p => ({
+          id: p.id,
+          path: p.path
+        })),
+        ingredients: resData.ingredient_list.map(i => ({
+          name: i.name,
+          amount: i.amount
+        })),
+        steps: resData.step_list.map(s => ({ description: s.description })),
+        isCollected: resData.is_collected
       }
     }
     return { data, error, mutate, isValidating }

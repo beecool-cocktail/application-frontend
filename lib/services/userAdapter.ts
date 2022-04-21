@@ -11,19 +11,21 @@ const useUserService = (token: string | null): UserService => {
     error,
     isValidating,
     mutate
-  } = useSWR<GetUserInfoResponse>(token ? ['/users/current', null, token] : null)
+  } = useSWR<GetUserInfoResponse>(
+    token ? ['/users/current', null, token] : null
+  )
 
   const getUserInfo = () => {
     let data: User | undefined
     if (resData) {
       data = {
-        id: resData.user_id || 0,
-        username: resData.user_name || '',
-        email: resData.email || '',
-        photo: resData.photo || '',
-        collectionCount: resData.number_of_collection || 0,
-        postCount: resData.number_of_post || 0,
-        isCollectionPublic: resData.is_collection_public || false
+        id: resData.user_id,
+        username: resData.user_name,
+        email: resData.email,
+        photo: resData.photo,
+        collectionCount: resData.number_of_collection,
+        postCount: resData.number_of_post,
+        isCollectionPublic: resData.is_collection_public
       }
     }
     return { data, error, mutate, isValidating }

@@ -11,17 +11,16 @@ const useCocktailListService = (token: string | null): CocktailListService => {
     data: result.data.map(cocktailArray =>
       cocktailArray.map(cocktail => {
         const cocktailPost: CocktailPostItem = {
-          id: cocktail.cocktail_id || 0,
-          userId: cocktail.user_id || 0,
-          userName: cocktail.user_name || '',
-          title: cocktail.title || '',
-          photoUrls: cocktail.photos || [],
-          ingredients:
-            cocktail.ingredient_list?.map(i => ({
-              name: i.name || '',
-              amount: i.amount || ''
-            })) || [],
-          isCollected: cocktail.is_collected || false
+          id: cocktail.cocktail_id,
+          userId: cocktail.user_id,
+          userName: cocktail.user_name,
+          title: cocktail.title,
+          photoUrls: cocktail.photos,
+          ingredients: cocktail.ingredient_list.map(i => ({
+            name: i.name,
+            amount: i.amount
+          })),
+          isCollected: cocktail.is_collected
         }
         return cocktailPost
       })

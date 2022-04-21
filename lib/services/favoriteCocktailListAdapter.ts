@@ -18,11 +18,11 @@ const useFavoriteCocktailListService = (): FavoriteCocktailListService => {
     let data: FavoriteCocktailItem[] | undefined = undefined
     if (resData) {
       data =
-        resData.favorite_cocktail_list?.map(cocktailItem => ({
-          id: cocktailItem.cocktail_id || 0,
-          title: cocktailItem.title || '',
-          photoUrl: cocktailItem.photo || '',
-          userName: cocktailItem.user_name || ''
+        resData.favorite_cocktail_list.map(cocktailItem => ({
+          id: cocktailItem.cocktail_id,
+          title: cocktailItem.title,
+          photoUrl: cocktailItem.photo,
+          userName: cocktailItem.user_name
         })) || []
     }
     return {

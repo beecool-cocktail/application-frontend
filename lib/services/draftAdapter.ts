@@ -18,22 +18,18 @@ const useDraftService = (id: number): DraftService => {
     let data: CocktailPostDraft | undefined = undefined
     if (resData) {
       data = {
-        id: resData.cocktail_id || 0,
-        title: resData.title || '',
-        description: resData.description || '',
-        photos:
-          resData.photos?.map(p => ({
-            id: p.id || 0,
-            path: p.path || ''
-          })) || [],
-        ingredients:
-          resData.ingredient_list?.map(i => ({
-            name: i.name || '',
-            amount: i.amount || ''
-          })) || [],
-        steps:
-          resData.step_list?.map(s => ({ description: s.description || '' })) ||
-          []
+        id: resData.cocktail_id,
+        title: resData.title,
+        description: resData.description,
+        photos: resData.photos.map(p => ({
+          id: p.id,
+          path: p.path
+        })),
+        ingredients: resData.ingredient_list.map(i => ({
+          name: i.name,
+          amount: i.amount
+        })),
+        steps: resData.step_list.map(s => ({ description: s.description }))
       }
     }
 

@@ -18,13 +18,12 @@ const useDraftList = (): DraftListService => {
     let data: CocktailPostDraftList | undefined = undefined
     if (resData) {
       data = {
-        totalCount: resData.total || 0,
-        data:
-          resData.draft_cocktail_list?.map(item => ({
-            id: item.cocktail_id || 0,
-            title: item.title || '',
-            coverPhotoUrl: item.photo || ''
-          })) || []
+        totalCount: resData.total,
+        data: resData.draft_cocktail_list.map(item => ({
+          id: item.cocktail_id,
+          title: item.title,
+          coverPhotoUrl: item.photo
+        }))
       }
     }
 
