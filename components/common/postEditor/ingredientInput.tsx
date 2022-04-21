@@ -2,8 +2,8 @@ import React from 'react'
 import { OutlinedInput, Stack } from '@mui/material'
 import { Box } from '@mui/system'
 import { Controller, Control } from 'react-hook-form'
-import RemoveButton from 'components/common/button/removeButton'
 import { CocktailPostForm } from 'lib/types/cocktail'
+import RemoveButton from 'components/common/button/removeButton'
 
 interface IngredientInputProps {
   ingredientName: `ingredients.${number}.name`

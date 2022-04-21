@@ -1,9 +1,9 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import Spinner from 'components/common/status/spinner'
-import PostEditor from 'components/common/postEditor/postEditor'
 import { CocktailPostDraft } from 'lib/types/cocktail'
 import useDraft from 'lib/application/useDraft'
+import Spinner from 'components/common/status/spinner'
+import PostEditor from 'components/common/postEditor/postEditor'
 
 export interface useDraftProps {
   draft: CocktailPostDraft
