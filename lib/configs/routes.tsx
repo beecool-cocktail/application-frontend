@@ -1,5 +1,8 @@
 import React from 'react'
-import { Add, Home, Search, Person } from '@mui/icons-material'
+import Home from 'lib/assets/home/default.svg'
+import Search from 'lib/assets/search/default.svg'
+import PlusAdd from 'lib/assets/plusAdd/default.svg'
+import Profile from 'lib/assets/profile/default.svg'
 
 export interface Route {
   path: string
@@ -29,26 +32,26 @@ const routes: Route[] = [
   {
     path: paths.index,
     label: 'Home',
-    icon: <Home />,
+    icon: <Home viewBox="0 0 48 48 " width={24} height={24} />,
     inNavigationBar: true
   },
   {
     path: paths.search,
     label: 'Search',
-    icon: <Search />,
+    icon: <Search viewBox="0 0 48 48 " width={24} height={24} />,
     inNavigationBar: true
   },
   {
     path: paths.creatPost,
     label: 'Create Post',
-    icon: <Add />,
+    icon: <PlusAdd viewBox="0 0 48 48 " width={24} height={24} />,
     requireAuth: true,
     inNavigationBar: true
   },
   {
     path: paths.profile,
     label: 'Profile',
-    icon: <Person />,
+    icon: <Profile viewBox="0 0 48 48 " width={24} height={24} />,
     requireAuth: true,
     inNavigationBar: true
   },

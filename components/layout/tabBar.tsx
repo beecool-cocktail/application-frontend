@@ -38,9 +38,19 @@ export const TabBar = () => {
             minWidth: '56px',
             height: 1,
             color: theme => theme.palette.light4.main,
+            '& circle': { stroke: theme => theme.palette.light4.main },
+            '& path': { stroke: theme => theme.palette.light4.main },
             '&.Mui-selected': {
               pt: 0,
-              color: theme => theme.palette.brandWhite.main
+              color: theme => theme.palette.light1.main,
+              '& circle': {
+                stroke: theme => theme.palette.light1.main,
+                fill: theme => theme.palette.light4.main
+              },
+              '& path': {
+                stroke: theme => theme.palette.light1.main,
+                fill: theme => theme.palette.light4.main
+              }
             },
             '&.Mui-selected::before': {
               content: '""',
