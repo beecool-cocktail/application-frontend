@@ -1,8 +1,7 @@
 import mockCocktail from './cocktail'
-import type { Cocktail } from 'lib/types/cocktail'
-import type { PaginationResponse } from 'lib/types/api/responseBase'
+import type { GetPopularCocktailListResponse } from 'sdk'
 
-const mockCocktailList: PaginationResponse<Cocktail> = {
+const mockCocktailList: GetPopularCocktailListResponse = {
   total: 18,
   popular_cocktail_list: [
     { ...mockCocktail, cocktail_id: 98078024211279 },

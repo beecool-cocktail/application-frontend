@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { ApiResponse } from 'lib/types/api/responseBase'
+import { ApiResponse } from 'lib/types/responseBase'
 
 const cornerApi = axios.create({
   baseURL: '/api',

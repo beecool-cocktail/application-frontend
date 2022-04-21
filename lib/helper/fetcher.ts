@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios'
 import cornerApi from 'lib/services/cornerApi'
 import type Pagination from 'lib/types/pagination'
-import type { ApiResponse } from 'lib/types/api/responseBase'
+import type { ApiResponse } from 'lib/types/responseBase'
 
 const fetcher = async (
   path: string,

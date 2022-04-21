@@ -2,7 +2,7 @@ import { BookmarkOutlined, ShareOutlined } from '@mui/icons-material'
 import { Avatar, IconButton, Stack, Typography } from '@mui/material'
 import { Grid } from '@mui/material'
 import React from 'react'
-import usePermission from 'lib/hooks/usePermission'
+import usePermission from 'lib/application/usePermission'
 import useLoginDialog from 'lib/application/useLoginDialog'
 import useShare from 'lib/application/useShare'
 

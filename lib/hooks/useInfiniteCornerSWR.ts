@@ -4,7 +4,7 @@ import { PAGE_SIZE } from 'lib/constants/pagination'
 import fetcher from 'lib/helper/fetcher'
 import { InfiniteFetchResponse } from 'lib/domain/cocktail'
 import type Pagination from 'lib/types/pagination'
-import type { PaginationResponse } from 'lib/types/api/responseBase'
+import type { PaginationResponse } from 'lib/types/responseBase'
 
 const useCornerSWRInfinite = <T>(
   path: string | null,
