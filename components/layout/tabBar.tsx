@@ -37,23 +37,16 @@ export const TabBar = () => {
             p: 0,
             minWidth: '56px',
             height: 1,
+            fontSize: 24,
             color: theme => theme.palette.light4.main,
-            '& circle': {
-              stroke: theme => theme.palette.light4.main,
-              fill: 'transparent'
-            },
-            '& path': {
+            '& *': {
               stroke: theme => theme.palette.light4.main,
               fill: 'transparent'
             },
             '&.Mui-selected': {
               pt: 0,
               color: theme => theme.palette.light1.main,
-              '& circle': {
-                stroke: theme => theme.palette.light1.main,
-                fill: theme => theme.palette.light4.main
-              },
-              '& path': {
+              '& *': {
                 stroke: theme => theme.palette.light1.main,
                 fill: theme => theme.palette.light4.main
               }
@@ -66,9 +59,6 @@ export const TabBar = () => {
               width: '4px',
               borderRadius: '50%',
               backgroundColor: theme => theme.palette.brandWhite.main
-            },
-            '& .MuiSvgIcon-root': {
-              fontSize: '24px'
             }
           }}
         />

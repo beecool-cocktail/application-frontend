@@ -32,26 +32,26 @@ const routes: Route[] = [
   {
     path: paths.index,
     label: 'Home',
-    icon: <Home viewBox="0 0 48 48 " width={24} height={24} />,
+    icon: <Home />,
     inNavigationBar: true
   },
   {
     path: paths.search,
     label: 'Search',
-    icon: <Search viewBox="0 0 48 48 " width={24} height={24} />,
+    icon: <Search />,
     inNavigationBar: true
   },
   {
     path: paths.creatPost,
     label: 'Create Post',
-    icon: <PlusAdd viewBox="0 0 48 48 " width={24} height={24} />,
+    icon: <PlusAdd />,
     requireAuth: true,
     inNavigationBar: true
   },
   {
     path: paths.profile,
     label: 'Profile',
-    icon: <Profile viewBox="0 0 48 48 " width={24} height={24} />,
+    icon: <Profile />,
     requireAuth: true,
     inNavigationBar: true
   },

@@ -47,11 +47,11 @@ const SearchBar = ({
         sx={{
           p: 0,
           color: getIconColor,
-          '& circle': { stroke: getIconColor },
-          '& path': { stroke: getIconColor }
+          fontSize: '24px',
+          '& *': { stroke: getIconColor }
         }}
       >
-        <Search viewBox="0 0 48 48 " width={24} height={24} />
+        <Search />
       </IconButton>
       <InputBase
         inputRef={ref}
@@ -74,10 +74,14 @@ const SearchBar = ({
       />
       {input && (
         <IconButton
-          sx={{ p: 0, color: theme => theme.palette.light1.main }}
+          sx={{
+            p: 0,
+            fontSize: '24px',
+            color: theme => theme.palette.light1.main
+          }}
           onClick={handleCancel}
         >
-          <Close viewBox="0 0 48 48 " width={24} height={24} />
+          <Close />
         </IconButton>
       )}
     </Box>
