@@ -8,7 +8,7 @@ export interface Ingredient {
 }
 
 export interface Photo {
-  id: number
+  id?: number
   path: string
 }
 

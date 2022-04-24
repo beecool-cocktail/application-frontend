@@ -24,51 +24,102 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface CocktailIngredientWithoutID
+ * @interface CocktailIngredientWithoutIDInRequest
  */
-export interface CocktailIngredientWithoutID {
+export interface CocktailIngredientWithoutIDInRequest {
     /**
      * 
      * @type {string}
-     * @memberof CocktailIngredientWithoutID
+     * @memberof CocktailIngredientWithoutIDInRequest
      */
     'amount': string;
     /**
      * 
      * @type {string}
-     * @memberof CocktailIngredientWithoutID
+     * @memberof CocktailIngredientWithoutIDInRequest
      */
     'name': string;
 }
 /**
  * 
  * @export
- * @interface CocktailPhotoWithID
+ * @interface CocktailIngredientWithoutIDInResponse
  */
-export interface CocktailPhotoWithID {
-    /**
-     * 
-     * @type {number}
-     * @memberof CocktailPhotoWithID
-     */
-    'id': number;
+export interface CocktailIngredientWithoutIDInResponse {
     /**
      * 
      * @type {string}
-     * @memberof CocktailPhotoWithID
+     * @memberof CocktailIngredientWithoutIDInResponse
+     */
+    'amount': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CocktailIngredientWithoutIDInResponse
+     */
+    'name': string;
+}
+/**
+ * 
+ * @export
+ * @interface CocktailPhotoWithIDInRequest
+ */
+export interface CocktailPhotoWithIDInRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof CocktailPhotoWithIDInRequest
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CocktailPhotoWithIDInRequest
      */
     'path': string;
 }
 /**
  * 
  * @export
- * @interface CocktailStepWithoutID
+ * @interface CocktailPhotoWithIDInResponse
  */
-export interface CocktailStepWithoutID {
+export interface CocktailPhotoWithIDInResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CocktailPhotoWithIDInResponse
+     */
+    'id': number;
     /**
      * 
      * @type {string}
-     * @memberof CocktailStepWithoutID
+     * @memberof CocktailPhotoWithIDInResponse
+     */
+    'path': string;
+}
+/**
+ * 
+ * @export
+ * @interface CocktailStepWithoutIDInRequest
+ */
+export interface CocktailStepWithoutIDInRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CocktailStepWithoutIDInRequest
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface CocktailStepWithoutIDInResponse
+ */
+export interface CocktailStepWithoutIDInResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CocktailStepWithoutIDInResponse
      */
     'description': string;
 }
@@ -95,6 +146,19 @@ export interface DeleteDraftArticleRequest {
      * 
      * @type {Array<number>}
      * @memberof DeleteDraftArticleRequest
+     */
+    'deleted_ids'?: Array<number>;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteFormalArticleRequest
+ */
+export interface DeleteFormalArticleRequest {
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof DeleteFormalArticleRequest
      */
     'deleted_ids'?: Array<number>;
 }
@@ -199,10 +263,10 @@ export interface GetCocktailByIDResponse {
     'description': string;
     /**
      * 
-     * @type {Array<CocktailIngredientWithoutID>}
+     * @type {Array<CocktailIngredientWithoutIDInResponse>}
      * @memberof GetCocktailByIDResponse
      */
-    'ingredient_list': Array<CocktailIngredientWithoutID>;
+    'ingredient_list': Array<CocktailIngredientWithoutIDInResponse>;
     /**
      * 
      * @type {boolean}
@@ -211,16 +275,16 @@ export interface GetCocktailByIDResponse {
     'is_collected': boolean;
     /**
      * 
-     * @type {Array<CocktailPhotoWithID>}
+     * @type {Array<CocktailPhotoWithIDInResponse>}
      * @memberof GetCocktailByIDResponse
      */
-    'photos': Array<CocktailPhotoWithID>;
+    'photos': Array<CocktailPhotoWithIDInResponse>;
     /**
      * 
-     * @type {Array<CocktailStepWithoutID>}
+     * @type {Array<CocktailStepWithoutIDInResponse>}
      * @memberof GetCocktailByIDResponse
      */
-    'step_list': Array<CocktailStepWithoutID>;
+    'step_list': Array<CocktailStepWithoutIDInResponse>;
     /**
      * 
      * @type {string}
@@ -279,22 +343,22 @@ export interface GetCocktailDraftByIDResponse {
     'description': string;
     /**
      * 
-     * @type {Array<CocktailIngredientWithoutID>}
+     * @type {Array<CocktailIngredientWithoutIDInResponse>}
      * @memberof GetCocktailDraftByIDResponse
      */
-    'ingredient_list': Array<CocktailIngredientWithoutID>;
+    'ingredient_list': Array<CocktailIngredientWithoutIDInResponse>;
     /**
      * 
-     * @type {Array<CocktailPhotoWithID>}
+     * @type {Array<CocktailPhotoWithIDInResponse>}
      * @memberof GetCocktailDraftByIDResponse
      */
-    'photos': Array<CocktailPhotoWithID>;
+    'photos': Array<CocktailPhotoWithIDInResponse>;
     /**
      * 
-     * @type {Array<CocktailStepWithoutID>}
+     * @type {Array<CocktailStepWithoutIDInResponse>}
      * @memberof GetCocktailDraftByIDResponse
      */
-    'step_list': Array<CocktailStepWithoutID>;
+    'step_list': Array<CocktailStepWithoutIDInResponse>;
     /**
      * 
      * @type {string}
@@ -593,10 +657,10 @@ export interface InlineResponse2003 {
 export interface InlineResponse2004 {
     /**
      * 
-     * @type {GetUserInfoResponse}
+     * @type {GetUserFavoriteCocktailListResponse}
      * @memberof InlineResponse2004
      */
-    'data': GetUserInfoResponse;
+    'data': GetUserFavoriteCocktailListResponse;
     /**
      * 
      * @type {string}
@@ -618,10 +682,10 @@ export interface InlineResponse2004 {
 export interface InlineResponse2005 {
     /**
      * 
-     * @type {UpdateUserInfoResponse}
+     * @type {GetUserInfoResponse}
      * @memberof InlineResponse2005
      */
-    'data': UpdateUserInfoResponse;
+    'data': GetUserInfoResponse;
     /**
      * 
      * @type {string}
@@ -643,10 +707,10 @@ export interface InlineResponse2005 {
 export interface InlineResponse2006 {
     /**
      * 
-     * @type {GetSelfCocktailListResponse}
+     * @type {UpdateUserInfoResponse}
      * @memberof InlineResponse2006
      */
-    'data': GetSelfCocktailListResponse;
+    'data': UpdateUserInfoResponse;
     /**
      * 
      * @type {string}
@@ -668,10 +732,10 @@ export interface InlineResponse2006 {
 export interface InlineResponse2007 {
     /**
      * 
-     * @type {GetUserFavoriteCocktailListResponse}
+     * @type {GetSelfCocktailListResponse}
      * @memberof InlineResponse2007
      */
-    'data': GetUserFavoriteCocktailListResponse;
+    'data': GetSelfCocktailListResponse;
     /**
      * 
      * @type {string}
@@ -743,10 +807,10 @@ export interface PopularCocktailList {
     'created_date': string;
     /**
      * 
-     * @type {Array<CocktailIngredientWithoutID>}
+     * @type {Array<CocktailIngredientWithoutIDInResponse>}
      * @memberof PopularCocktailList
      */
-    'ingredient_list': Array<CocktailIngredientWithoutID>;
+    'ingredient_list': Array<CocktailIngredientWithoutIDInResponse>;
     /**
      * 
      * @type {boolean}
@@ -798,10 +862,10 @@ export interface PostArticleRequest {
     'files'?: Array<string>;
     /**
      * 
-     * @type {Array<CocktailIngredientWithoutID>}
+     * @type {Array<CocktailIngredientWithoutIDInRequest>}
      * @memberof PostArticleRequest
      */
-    'ingredient_list'?: Array<CocktailIngredientWithoutID>;
+    'ingredient_list'?: Array<CocktailIngredientWithoutIDInRequest>;
     /**
      * 
      * @type {string}
@@ -810,10 +874,10 @@ export interface PostArticleRequest {
     'name': string;
     /**
      * 
-     * @type {Array<CocktailStepWithoutID>}
+     * @type {Array<CocktailStepWithoutIDInRequest>}
      * @memberof PostArticleRequest
      */
-    'step_list'?: Array<CocktailStepWithoutID>;
+    'step_list'?: Array<CocktailStepWithoutIDInRequest>;
 }
 /**
  * 
@@ -835,10 +899,10 @@ export interface PostDraftArticleRequest {
     'files'?: Array<string>;
     /**
      * 
-     * @type {Array<CocktailIngredientWithoutID>}
+     * @type {Array<CocktailIngredientWithoutIDInRequest>}
      * @memberof PostDraftArticleRequest
      */
-    'ingredient_list'?: Array<CocktailIngredientWithoutID>;
+    'ingredient_list'?: Array<CocktailIngredientWithoutIDInRequest>;
     /**
      * 
      * @type {string}
@@ -847,10 +911,10 @@ export interface PostDraftArticleRequest {
     'name'?: string;
     /**
      * 
-     * @type {Array<CocktailStepWithoutID>}
+     * @type {Array<CocktailStepWithoutIDInRequest>}
      * @memberof PostDraftArticleRequest
      */
-    'step_list'?: Array<CocktailStepWithoutID>;
+    'step_list'?: Array<CocktailStepWithoutIDInRequest>;
 }
 /**
  * 
@@ -922,10 +986,10 @@ export interface UpdateDraftArticleRequest {
     'description'?: string;
     /**
      * 
-     * @type {Array<CocktailIngredientWithoutID>}
+     * @type {Array<CocktailIngredientWithoutIDInRequest>}
      * @memberof UpdateDraftArticleRequest
      */
-    'ingredient_list': Array<CocktailIngredientWithoutID>;
+    'ingredient_list': Array<CocktailIngredientWithoutIDInRequest>;
     /**
      * 
      * @type {string}
@@ -934,16 +998,53 @@ export interface UpdateDraftArticleRequest {
     'name'?: string;
     /**
      * 
-     * @type {Array<CocktailPhotoWithID>}
+     * @type {Array<CocktailPhotoWithIDInRequest>}
      * @memberof UpdateDraftArticleRequest
      */
-    'photos'?: Array<CocktailPhotoWithID>;
+    'photos'?: Array<CocktailPhotoWithIDInRequest>;
     /**
      * 
-     * @type {Array<CocktailStepWithoutID>}
+     * @type {Array<CocktailStepWithoutIDInRequest>}
      * @memberof UpdateDraftArticleRequest
      */
-    'step_list': Array<CocktailStepWithoutID>;
+    'step_list': Array<CocktailStepWithoutIDInRequest>;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateFormalArticleRequest
+ */
+export interface UpdateFormalArticleRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateFormalArticleRequest
+     */
+    'description': string;
+    /**
+     * 
+     * @type {Array<CocktailIngredientWithoutIDInRequest>}
+     * @memberof UpdateFormalArticleRequest
+     */
+    'ingredient_list': Array<CocktailIngredientWithoutIDInRequest>;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateFormalArticleRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {Array<CocktailPhotoWithIDInRequest>}
+     * @memberof UpdateFormalArticleRequest
+     */
+    'photos'?: Array<CocktailPhotoWithIDInRequest>;
+    /**
+     * 
+     * @type {Array<CocktailStepWithoutIDInRequest>}
+     * @memberof UpdateFormalArticleRequest
+     */
+    'step_list': Array<CocktailStepWithoutIDInRequest>;
 }
 /**
  * 
@@ -999,6 +1100,43 @@ export const CocktailApiAxiosParamCreator = function (configuration?: Configurat
          */
         deleteDraftArticleRequest: async (body?: DeleteDraftArticleRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/cocktail-drafts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * DELETE cocktail formal article.
+         * @summary DELETE cocktail formal article.
+         * @param {DeleteFormalArticleRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFormalArticleRequest: async (body?: DeleteFormalArticleRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/cocktails`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1327,6 +1465,47 @@ export const CocktailApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Edit cocktail formal article.
+         * @summary Edit cocktail formal article.
+         * @param {number} id 
+         * @param {UpdateFormalArticleRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateFormalArticle: async (id: number, body?: UpdateFormalArticleRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateFormalArticle', 'id', id)
+            const localVarPath = `/cocktails/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1346,6 +1525,17 @@ export const CocktailApiFp = function(configuration?: Configuration) {
          */
         async deleteDraftArticleRequest(body?: DeleteDraftArticleRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDraftArticleRequest(body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * DELETE cocktail formal article.
+         * @summary DELETE cocktail formal article.
+         * @param {DeleteFormalArticleRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteFormalArticleRequest(body?: DeleteFormalArticleRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFormalArticleRequest(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1437,6 +1627,18 @@ export const CocktailApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateCocktailDraft(id, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * Edit cocktail formal article.
+         * @summary Edit cocktail formal article.
+         * @param {number} id 
+         * @param {UpdateFormalArticleRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateFormalArticle(id: number, body?: UpdateFormalArticleRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateFormalArticle(id, body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -1456,6 +1658,16 @@ export const CocktailApiFactory = function (configuration?: Configuration, baseP
          */
         deleteDraftArticleRequest(body?: DeleteDraftArticleRequest, options?: any): AxiosPromise<void> {
             return localVarFp.deleteDraftArticleRequest(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * DELETE cocktail formal article.
+         * @summary DELETE cocktail formal article.
+         * @param {DeleteFormalArticleRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteFormalArticleRequest(body?: DeleteFormalArticleRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.deleteFormalArticleRequest(body, options).then((request) => request(axios, basePath));
         },
         /**
          * Get popular cocktail list order by create date.
@@ -1538,6 +1750,17 @@ export const CocktailApiFactory = function (configuration?: Configuration, baseP
         updateCocktailDraft(id: number, body?: UpdateDraftArticleRequest, options?: any): AxiosPromise<void> {
             return localVarFp.updateCocktailDraft(id, body, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Edit cocktail formal article.
+         * @summary Edit cocktail formal article.
+         * @param {number} id 
+         * @param {UpdateFormalArticleRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateFormalArticle(id: number, body?: UpdateFormalArticleRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.updateFormalArticle(id, body, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1558,6 +1781,18 @@ export class CocktailApi extends BaseAPI {
      */
     public deleteDraftArticleRequest(body?: DeleteDraftArticleRequest, options?: AxiosRequestConfig) {
         return CocktailApiFp(this.configuration).deleteDraftArticleRequest(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * DELETE cocktail formal article.
+     * @summary DELETE cocktail formal article.
+     * @param {DeleteFormalArticleRequest} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CocktailApi
+     */
+    public deleteFormalArticleRequest(body?: DeleteFormalArticleRequest, options?: AxiosRequestConfig) {
+        return CocktailApiFp(this.configuration).deleteFormalArticleRequest(body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1655,6 +1890,19 @@ export class CocktailApi extends BaseAPI {
      */
     public updateCocktailDraft(id: number, body?: UpdateDraftArticleRequest, options?: AxiosRequestConfig) {
         return CocktailApiFp(this.configuration).updateCocktailDraft(id, body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Edit cocktail formal article.
+     * @summary Edit cocktail formal article.
+     * @param {number} id 
+     * @param {UpdateFormalArticleRequest} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CocktailApi
+     */
+    public updateFormalArticle(id: number, body?: UpdateFormalArticleRequest, options?: AxiosRequestConfig) {
+        return CocktailApiFp(this.configuration).updateFormalArticle(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1935,8 +2183,45 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get user favorite cocktail article list.
-         * @summary Get user favorite cocktail article list.
+         * Get other user favorite cocktail article list.
+         * @summary Get other user favorite cocktail article list.
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOtherUserFavoriteList: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getOtherUserFavoriteList', 'id', id)
+            const localVarPath = `/users/{id}/favorite-cocktails`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get current user favorite cocktail article list.
+         * @summary Get current user favorite cocktail article list.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2129,12 +2414,23 @@ export const UserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get user favorite cocktail article list.
-         * @summary Get user favorite cocktail article list.
+         * Get other user favorite cocktail article list.
+         * @summary Get other user favorite cocktail article list.
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserFavoriteList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
+        async getOtherUserFavoriteList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOtherUserFavoriteList(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get current user favorite cocktail article list.
+         * @summary Get current user favorite cocktail article list.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserFavoriteList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUserFavoriteList(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2144,7 +2440,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async info(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async info(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.info(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2165,7 +2461,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async selfCocktailList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async selfCocktailList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.selfCocktailList(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2176,7 +2472,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserInfoRequest(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2201,12 +2497,22 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.collectArticleRequest(body, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get user favorite cocktail article list.
-         * @summary Get user favorite cocktail article list.
+         * Get other user favorite cocktail article list.
+         * @summary Get other user favorite cocktail article list.
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserFavoriteList(options?: any): AxiosPromise<InlineResponse2007> {
+        getOtherUserFavoriteList(id: number, options?: any): AxiosPromise<InlineResponse2004> {
+            return localVarFp.getOtherUserFavoriteList(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get current user favorite cocktail article list.
+         * @summary Get current user favorite cocktail article list.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserFavoriteList(options?: any): AxiosPromise<InlineResponse2004> {
             return localVarFp.getUserFavoriteList(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2215,7 +2521,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        info(options?: any): AxiosPromise<InlineResponse2004> {
+        info(options?: any): AxiosPromise<InlineResponse2005> {
             return localVarFp.info(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2234,7 +2540,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        selfCocktailList(options?: any): AxiosPromise<InlineResponse2006> {
+        selfCocktailList(options?: any): AxiosPromise<InlineResponse2007> {
             return localVarFp.selfCocktailList(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2244,7 +2550,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: any): AxiosPromise<InlineResponse2005> {
+        updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.updateUserInfoRequest(body, options).then((request) => request(axios, basePath));
         },
     };
@@ -2270,8 +2576,20 @@ export class UserApi extends BaseAPI {
     }
 
     /**
-     * Get user favorite cocktail article list.
-     * @summary Get user favorite cocktail article list.
+     * Get other user favorite cocktail article list.
+     * @summary Get other user favorite cocktail article list.
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public getOtherUserFavoriteList(id: number, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).getOtherUserFavoriteList(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get current user favorite cocktail article list.
+     * @summary Get current user favorite cocktail article list.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi

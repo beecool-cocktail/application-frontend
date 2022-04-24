@@ -49,7 +49,7 @@ const usePostEditorService = (): PostEditorService => {
     const req: UpdateDraftArticleRequest = {
       name: form.title,
       description: form.description,
-      photos: base64Photos.map(p => ({ path: p, id: 0 })),
+      photos: base64Photos.map(path => ({ path })),
       ingredient_list: form.ingredients,
       step_list: form.steps
     }

@@ -85,7 +85,7 @@ const PostEditor = ({ draft }: PostEditorProps) => {
                 userName: user.username,
                 title: values.title,
                 description: values.description,
-                photos: previewUrls.map(url => ({ id: 0, path: url })),
+                photos: previewUrls.map(url => ({ path: url })),
                 steps: values.steps,
                 ingredients: values.ingredients,
                 isCollected: false

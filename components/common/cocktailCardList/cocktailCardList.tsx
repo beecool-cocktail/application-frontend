@@ -20,7 +20,7 @@ const CocktailCardList = ({
       sx={{
         pt: '24px',
         px: '32px',
-        backgroundColor: 'dark2.main'
+        backgroundColor: theme => theme.palette.dark2.main
       }}
     >
       {isLoadingInitialData
