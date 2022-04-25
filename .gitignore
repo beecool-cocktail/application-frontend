@@ -34,3 +34,4 @@ build/.env
 *.log
 storybook-static
 /.yarn
+tsconfig.tsbuildinfo
