@@ -3,7 +3,7 @@ import { Box } from '@mui/system'
 import { Navigation, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-// import 'swiper/css/pagination'
+import 'swiper/css/pagination'
 
 export interface ImageSwiperProps {
   title: string

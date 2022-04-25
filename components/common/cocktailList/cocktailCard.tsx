@@ -26,9 +26,26 @@ const CocktailCardWithSkeleton = ({
         alignItems="flex-start"
         rowGap="4px"
       >
-        <Skeleton height={234} width="100%" />
-        <Skeleton height={25} width="100%" />
-        <Skeleton height={20} width={247} />
+        <Skeleton
+          variant="rectangular"
+          height="unset"
+          width="100%"
+          sx={{ borderRadius: '10px', aspectRatio: '4/3' }}
+        />
+        <Stack width={1} spacing="4px" px="2px" py="4px">
+          <Skeleton
+            variant="rectangular"
+            height={25}
+            width="100%"
+            sx={{ borderRadius: '4px' }}
+          />
+          <Skeleton
+            variant="rectangular"
+            height={20}
+            width={247}
+            sx={{ borderRadius: '4px' }}
+          />
+        </Stack>
       </Box>
     )
   }
@@ -46,7 +63,6 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
     title,
     images,
     userDisplay,
-    ingredientsDisplay,
     isCollected,
     gotoCocktailDetails,
     collect,
@@ -56,7 +72,13 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   if (!firstImageLoaded) return <Skeleton />
 
   return (
-    <Box sx={{ backgroundColor: 'transparent' }} onClick={gotoCocktailDetails}>
+    <Stack
+      alignItems="flex-start"
+      justifyContent="space-between"
+      spacing="4px"
+      sx={{ backgroundColor: 'transparent' }}
+      onClick={gotoCocktailDetails}
+    >
       <Box
         width={1}
         position="relative"
@@ -132,52 +154,66 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           </IconButton>
         </Box>
       </Box>
-      <Box
-        sx={{
-          p: '4px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch'
-        }}
+      <Stack
+        width={1}
+        alignItems="flex-start"
+        justifyContent="space-between"
+        spacing="4px"
+        px="4px"
+        pb="4px"
       >
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-          spacing="4px"
+        <Typography
+          variant="subtitle1"
+          sx={{
+            pr: '32px',
+            color: theme => theme.palette.light1.main,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            '-webkit-line-clamp': '2',
+            '-webkit-box-orient': 'vertical'
+          }}
         >
-          <Typography
-            variant="h4"
-            sx={{ color: theme => theme.palette.light1.main, fontSize: '18px' }}
-          >
-            {title}
-          </Typography>
-        </Stack>
-        <Stack direction="row">
-          <Typography
-            gutterBottom
-            variant="body2"
-            component="div"
-            color={theme => theme.palette.light2.main}
-            sx={{ fontSize: '12px' }}
-          >
-            {ingredientsDisplay}
-          </Typography>
+          {title}
+        </Typography>
+        <Stack
+          component="ul"
+          direction="column"
+          width={1}
+          p={0}
+          m={0}
+          sx={{ listStylePosition: 'inside' }}
+        >
+          {cocktail.ingredients.map((ingredient, index) => (
+            <Typography
+              key={index}
+              variant="body3"
+              component="li"
+              color={theme => theme.palette.light2.main}
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                '&::marker': {
+                  content: '"·"',
+                  textAlign: 'center !important'
+                }
+              }}
+            >
+              {ingredient.name}
+            </Typography>
+          ))}
         </Stack>
         <Typography
-          gutterBottom
-          variant="body2"
+          variant="body4"
           component="div"
-          color={theme => theme.palette.light3.main}
-          sx={{
-            alignSelf: 'flex-end',
-            fontSize: '11px'
-          }}
+          alignSelf="flex-end"
+          color={theme => theme.palette.light4.main}
         >
           {userDisplay}
         </Typography>
-      </Box>
-    </Box>
+      </Stack>
+    </Stack>
   )
 }
 

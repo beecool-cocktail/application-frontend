@@ -39,8 +39,10 @@ const useCocktailList = () => {
     cocktails = cocktails.map(cocktail =>
       produce(cocktail, draft => {
         const getAbsoluteUrl = (photo: string) =>
-          photo ? join(config.staticBaseUrl, photo) : FALLBACK_URL
-        draft.photoUrls = draft.photoUrls.map(getAbsoluteUrl)
+          join(config.staticBaseUrl, photo)
+        draft.photoUrls = draft.photoUrls.length
+          ? draft.photoUrls.map(getAbsoluteUrl)
+          : [FALLBACK_URL]
       })
     )
   } else {

@@ -10,22 +10,12 @@ const useCocktailCard = (
 ) => {
   const router = useRouter()
   const [firstImageLoaded, setFirstImageLoaded] = useState<boolean>(true)
-  const { id, photoUrls, title, ingredients, userId, userName, isCollected } =
-    cocktail
+  const { id, photoUrls, title, userId, userName, isCollected } = cocktail
 
   const images = photoUrls.map(p => {
     if (new URL(p).pathname === '/') return FALLBACK_URL
     return p
   })
-
-  const getIngredientsDisplay = () => {
-    let result = ''
-    ingredients.forEach((ingredient, index) => {
-      if (index === ingredients.length - 1) result += ingredient.name
-      else result += `${ingredient.name} / `
-    })
-    return result
-  }
 
   const userDisplay = `@${userName}#${userId}`
 
@@ -42,7 +32,6 @@ const useCocktailCard = (
     firstImageLoaded,
     title,
     images,
-    ingredientsDisplay: getIngredientsDisplay(),
     userDisplay,
     isCollected: cocktail.isCollected,
     gotoCocktailDetails,

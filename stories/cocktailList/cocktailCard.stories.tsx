@@ -26,11 +26,19 @@ const Template: ComponentStory<typeof CocktailCard> = args => (
 
 const defaultCocktail = {
   id: 98078024211279,
-  title: 'Gin Tonic',
+  title:
+    '最大值30字標題，最大值30字標題，超過30字最後顯示這最大值30字標題，最大值30字標題超過30字最後顯示這',
   ingredients: [
-    { name: '波本或裸麥威士忌', amount: '3L' },
-    { name: '方糖', amount: '3L' },
-    { name: '安格氏苦精', amount: '3L' }
+    {
+      name: '只要換行都要只要換行都要只要換行都要只只要換行都要只要換行都要只',
+      amount: '3L'
+    },
+    {
+      name: '白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白白砂糖白砂糖白砂糖白砂糖白砂白',
+      amount: '3L'
+    },
+    { name: '安格氏苦精', amount: '3L' },
+    { name: '橙皮', amount: '3L' }
   ],
   userId: 1,
   userName: 'Raven',
