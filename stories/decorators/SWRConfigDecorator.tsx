@@ -1,8 +1,8 @@
 import { DecoratorFn } from '@storybook/react'
-import SWRConfigWrapper from 'components/app/swrConfigWrapper'
+import SWRConfigWrapper from 'components/app/SWRConfigWrapper'
 
 const SWRConfigDecorator: DecoratorFn = story => (
-  <SWRConfigWrapper>{story()}</SWRConfigWrapper>
+  <SWRConfigWrapper provider={() => new Map()}>{story()}</SWRConfigWrapper>
 )
 
 export default SWRConfigDecorator
