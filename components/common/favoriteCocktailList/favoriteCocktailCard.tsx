@@ -30,6 +30,7 @@ const FavoriteCocktailCard = ({
     handleShare,
     handleRemove
   } = useFavoriteCocktailCard(cocktail, onRemove)
+
   return (
     <Stack p={1} onClick={handleClick}>
       <Box position="relative">

@@ -2,15 +2,12 @@ import React, { ReactElement } from 'react'
 import { Box } from '@mui/material'
 import Head from 'next/head'
 import Layout from 'components/layout/layout'
-import Spinner from 'components/common/status/spinner'
 import NotFound from 'components/common/status/notFound'
-import CocktailCardList from 'components/common/cocktailCardList/cocktailCardList'
+import CocktailList from 'components/common/cocktailList/cocktailList'
 import useStore from 'lib/services/storeAdapter'
-import useCocktailList from 'lib/application/useCocktailList'
 
 const Search = () => {
   const searchBarInput = useStore(state => state.searchBarInput)
-  const { cocktails = [], isLoadingInitialData, collect } = useCocktailList()
 
   return (
     <>
@@ -26,18 +23,12 @@ const Search = () => {
         alignItems="stretch"
         justifyContent="center"
       >
-        {isLoadingInitialData ? (
-          <Spinner />
-        ) : searchBarInput ? (
+        {searchBarInput ? (
           <Box display="flex" alignItems="center" justifyContent="center">
             <NotFound />
           </Box>
         ) : (
-          <CocktailCardList
-            cocktails={cocktails}
-            isLoadingInitialData={isLoadingInitialData}
-            onCollect={collect}
-          />
+          <CocktailList />
         )}
       </Box>
     </>

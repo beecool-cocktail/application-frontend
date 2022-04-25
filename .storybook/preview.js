@@ -4,7 +4,6 @@ import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
 import '@fontsource/montserrat/800.css'
 import 'lib/styles/globals.css'
-import 'lib/styles/swiper.css'
 import themeDecorator from 'stories/decorators/themeDecorator'
 import storeDecorator from 'stories/decorators/storeDecorator'
 import loggedOutDecorator from 'stories/decorators/loggedOutDecorator'
@@ -19,6 +18,7 @@ export const decorators = [
   loggedOutDecorator,
   SWRConfigDecorator
 ]
+
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {

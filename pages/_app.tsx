@@ -7,13 +7,12 @@ import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
 import '@fontsource/montserrat/800.css'
 import theme from 'lib/configs/theme'
-import SWRConfigWrapper from 'components/app/swrConfigWrapper'
+import SWRConfigWrapper from 'components/app/SWRConfigWrapper'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
 import Snackbar from 'components/common/snackbar/snackbar'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
-import 'lib/styles/swiper.css'
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   require('../lib/mocks')

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 import produce from 'immer'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
@@ -16,10 +18,22 @@ const useCocktailList = () => {
   const { config, loading: configLoading } = useConfig()
   const { getList } = useCocktailListService(storage.getToken())
   const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
+  const { ref: bottomRef, inView } = useInView()
 
   const result = getList()
-  let cocktails: CocktailPostItem[] | undefined = result.data
-    ? result.data.flatMap(c => c)
+  const {
+    data,
+    error,
+    isLoadingInitialData,
+    isLoadingMore,
+    isReachingEnd,
+    isRefreshing,
+    loadMore,
+    mutate
+  } = result
+
+  let cocktails: CocktailPostItem[] | undefined = data
+    ? data.flatMap(c => c)
     : []
   if (cocktails && config) {
     cocktails = cocktails.map(cocktail =>
@@ -43,13 +57,19 @@ const useCocktailList = () => {
       await favoriteCocktailUpdateService.collect(id, token)
       snackbar.success('collect success')
     }
-    result.mutate()
+    mutate()
   }
+
+  useEffect(() => {
+    if (inView && !error && !isLoadingMore && !isReachingEnd && !isRefreshing)
+      loadMore()
+  }, [error, inView, isLoadingMore, isReachingEnd, isRefreshing, loadMore])
 
   return {
     ...result,
+    bottomRef,
     cocktails,
-    loading: result.isLoadingInitialData || configLoading,
+    loading: isLoadingInitialData || configLoading,
     collect
   }
 }

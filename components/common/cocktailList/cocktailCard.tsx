@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { Box, IconButton, Stack, Typography, Skeleton } from '@mui/material'
-import { FavoriteBorder } from '@mui/icons-material'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import Favorite from 'lib/assets/like/default.svg'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 import useCocktailCard from 'lib/application/useCocktailCard'
 import 'swiper/css'
@@ -63,7 +63,28 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
         overflow="hidden"
         style={{ cursor: 'grab' }}
       >
-        <Box borderRadius="10px" overflow="hidden">
+        <Box
+          borderRadius="10px"
+          overflow="hidden"
+          sx={{
+            '& .swiper-pagination': {
+              bottom: '8px',
+              lineHeight: 0
+            },
+            '& .swiper-pagination-bullet': {
+              width: '4px',
+              height: '4px',
+              background: theme => theme.palette.light4.main,
+              opacity: 1,
+              marginLeft: '2px !important',
+              marginRight: '2px !important'
+            },
+            '& .swiper-pagination-bullet-active': {
+              backgroundColor: theme => theme.palette.light1.main,
+              opacity: 1
+            }
+          }}
+        >
           <Swiper
             modules={[Pagination]}
             pagination={{ clickable: true }}
@@ -85,8 +106,8 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
         </Box>
         <Box
           position="absolute"
-          right="15px"
-          bottom="15px"
+          right="12px"
+          bottom="12px"
           onClick={e => {
             e.preventDefault()
             e.stopPropagation()
@@ -95,17 +116,19 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
         >
           <IconButton
             sx={{
+              p: 0,
               zIndex: 1,
-              width: 20,
-              height: 20,
-              fontSize: 16,
-              color: theme => {
-                if (isCollected) return theme.palette.blue.main
-                return theme.palette.light1.main
+              fontSize: '24px',
+              '& *': {
+                stroke: theme => theme.palette.light4.main,
+                fill: theme => {
+                  if (isCollected) return theme.palette.blue.main
+                  return theme.palette.light1.main
+                }
               }
             }}
           >
-            <FavoriteBorder />
+            <Favorite />
           </IconButton>
         </Box>
       </Box>
@@ -114,8 +137,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           p: '4px',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'stretch',
-          lineHeight: 1.4
+          alignItems: 'stretch'
         }}
       >
         <Stack

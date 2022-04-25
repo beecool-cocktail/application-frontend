@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import CocktailCard from 'components/common/cocktailCardList/cocktailCard'
+import CocktailCard from 'components/common/cocktailList/cocktailCard'
 
 export default {
-  title: 'cocktailCardList/Cocktail Card',
+  title: 'cocktailList/Cocktail Card',
   component: CocktailCard,
   argTypes: {
     cocktail: { control: { type: 'object' } },
