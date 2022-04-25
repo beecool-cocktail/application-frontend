@@ -46,8 +46,9 @@ const useCornerSWRInfinite = <T>(
 
   const isLoadingInitialData = !pageData && !error
   const isLoadingMore =
-    isLoadingInitialData ||
-    (size > 0 && data && typeof data[size - 1] === 'undefined')
+    (isLoadingInitialData ||
+      (size > 0 && data && typeof data[size - 1] === 'undefined')) &&
+    !error
   const isEmpty = data?.[0]?.length === 0
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.length < pageSize)
