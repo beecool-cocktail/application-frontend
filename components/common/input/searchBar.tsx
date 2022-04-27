@@ -2,7 +2,7 @@ import { MouseEventHandler } from 'react'
 import { Box, IconButton, InputBase, Theme } from '@mui/material'
 import useSearchBar from 'lib/application/useSearchBar'
 import Search from 'lib/assets/search/default.svg'
-import Close from 'lib/assets/cancelClose/default.svg'
+import Close from 'lib/assets/cancelClose.svg'
 
 type SearchBarProps = {
   placeHolder: string

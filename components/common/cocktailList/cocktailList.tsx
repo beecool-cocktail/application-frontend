@@ -5,6 +5,7 @@ import Spinner from 'components/common/status/spinner'
 import Error from 'components/common/status/error'
 import Empty from 'components/common/status/empty'
 import CocktailCard from './cocktailCard'
+import CocktailSkeleton from './cocktailSkeleton'
 
 const CocktailList = () => {
   const {
@@ -22,7 +23,7 @@ const CocktailList = () => {
     if (error) return <Error />
     if (isLoadingInitialData) {
       return Array.from(new Array(PAGE_SIZE)).map((item, index) => (
-        <CocktailCard key={index} cocktail={item} onCollect={collect} />
+        <CocktailSkeleton key={index} />
       ))
     }
     if (cocktails.length === 0) return <Empty />

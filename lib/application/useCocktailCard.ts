@@ -9,7 +9,7 @@ const useCocktailCard = (
   onCollect: (id: number, isCollected: boolean) => void
 ) => {
   const router = useRouter()
-  const [firstImageLoaded, setFirstImageLoaded] = useState<boolean>(true)
+  const [firstImageLoaded, setFirstImageLoaded] = useState<boolean>(false)
   const { id, photoUrls, title, userId, userName, isCollected } = cocktail
 
   const images = photoUrls.map(p => {

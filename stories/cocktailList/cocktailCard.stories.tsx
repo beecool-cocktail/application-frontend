@@ -2,6 +2,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import CocktailCard from 'components/common/cocktailList/cocktailCard'
+import CocktailSkeleton from 'components/common/cocktailList/cocktailSkeleton'
 
 export default {
   title: 'cocktailList/Cocktail Card',
@@ -18,9 +19,17 @@ export default {
   }
 } as ComponentMeta<typeof CocktailCard>
 
-const Template: ComponentStory<typeof CocktailCard> = args => (
+const CocktailCardTemplate: ComponentStory<typeof CocktailCard> = args => (
   <Box width={400} margin="0 auto">
     <CocktailCard {...args} />
+  </Box>
+)
+
+const CocktailSkeletonTemplate: ComponentStory<
+  typeof CocktailSkeleton
+> = () => (
+  <Box width={400} margin="0 auto">
+    <CocktailSkeleton />
   </Box>
 )
 
@@ -50,12 +59,12 @@ const defaultCocktail = {
   ]
 }
 
-export const Default = Template.bind({})
+export const Default = CocktailCardTemplate.bind({})
 Default.args = {
   cocktail: defaultCocktail
 }
 
-export const Saved = Template.bind({})
+export const Saved = CocktailCardTemplate.bind({})
 Saved.args = {
   cocktail: {
     ...defaultCocktail,
@@ -63,7 +72,4 @@ Saved.args = {
   }
 }
 
-export const Skeleton = Template.bind({})
-Skeleton.args = {
-  cocktail: undefined
-}
+export const Skeleton = CocktailSkeletonTemplate.bind({})
