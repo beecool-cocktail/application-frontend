@@ -1,5 +1,5 @@
 ########## deps ##########
-FROM node:17.4-alpine AS deps
+FROM node:17.9-alpine AS deps
 
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -8,7 +8,7 @@ RUN yarn install --frozen-lockfile
 
 
 ########## builder ##########
-FROM node:17.4-alpine AS builder
+FROM node:17.9-alpine AS builder
 
 WORKDIR /app
 COPY . .
@@ -17,7 +17,7 @@ RUN yarn build
 
 
 ########## runner ##########
-FROM node:17.4-alpine AS runner
+FROM node:17.9-alpine AS runner
 
 ARG REVISION_ID
 LABEL revision_id=${REVISION_ID}
