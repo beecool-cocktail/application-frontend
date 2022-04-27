@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { getUrlById, paths } from 'lib/configs/routes'
 import { CocktailPostItem } from 'lib/domain/cocktail'
-import { FALLBACK_URL } from 'lib/constants/image'
 
 const useCocktailCard = (
   cocktail: CocktailPostItem,
@@ -10,12 +9,7 @@ const useCocktailCard = (
 ) => {
   const router = useRouter()
   const [firstImageLoaded, setFirstImageLoaded] = useState<boolean>(false)
-  const { id, photoUrls, title, userId, userName, isCollected } = cocktail
-
-  const images = photoUrls.map(p => {
-    if (new URL(p).pathname === '/') return FALLBACK_URL
-    return p
-  })
+  const { id, title, userId, userName, isCollected } = cocktail
 
   const userDisplay = `@${userName}#${userId}`
 
@@ -31,7 +25,6 @@ const useCocktailCard = (
   return {
     firstImageLoaded,
     title,
-    images,
     userDisplay,
     isCollected: cocktail.isCollected,
     gotoCocktailDetails,

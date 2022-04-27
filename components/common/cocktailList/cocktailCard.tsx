@@ -13,7 +13,6 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   const {
     firstImageLoaded,
     title,
-    images,
     userDisplay,
     isCollected,
     gotoCocktailDetails,
@@ -34,7 +33,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
       >
         <CocktailSwiper
           title={title}
-          images={images}
+          images={cocktail.photoUrls}
           isCollected={isCollected}
           onCollect={collect}
           onFirstImageLoadingComplete={firstImageLoadingComplete}

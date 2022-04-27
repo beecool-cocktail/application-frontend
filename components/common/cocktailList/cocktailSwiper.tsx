@@ -73,7 +73,6 @@ const CocktailSwiper = ({
                   layout="responsive"
                   src={image}
                   alt={title}
-                  placeholder="blur"
                   width={400}
                   height={300}
                   onLoadingComplete={handleLoadingComplete(index)}
