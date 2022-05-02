@@ -1,4 +1,4 @@
-import useSWR from 'swr'
+import useSWR, { SWRConfiguration } from 'swr'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import fetcher from 'lib/helper/fetcher'
 import defaultCornerConfig from 'lib/constants/cornerConfig'
@@ -6,7 +6,8 @@ import type CornerSWROption from 'lib/types/cornerSWROption'
 
 const useCornerSWR = <T>(
   path: string | null,
-  cornerConfig: CornerSWROption = defaultCornerConfig
+  cornerConfig: CornerSWROption = defaultCornerConfig,
+  SWRConfig?: SWRConfiguration
 ) => {
   const storage = useLocalStorage()
   const getKey = () => {
@@ -23,7 +24,8 @@ const useCornerSWR = <T>(
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false
-    })
+    }),
+    ...SWRConfig
   })
   if (cornerConfig.auth && result.error) storage.removeToken()
 

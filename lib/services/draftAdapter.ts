@@ -11,7 +11,8 @@ const useDraftService = (id: number): DraftService => {
     isValidating
   } = useCornerSWR<GetCocktailDraftByIDResponse>(
     id ? `/cocktail-drafts/${id}` : null,
-    { auth: true }
+    { auth: true },
+    { revalidateOnFocus: false }
   )
 
   const getById = () => {

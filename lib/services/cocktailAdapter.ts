@@ -9,7 +9,11 @@ const useCocktailService = (id?: number): CocktailService => {
     error,
     isValidating,
     mutate
-  } = useCornerSWR<GetCocktailByIDResponse>(id ? `/cocktails/${id}` : null)
+  } = useCornerSWR<GetCocktailByIDResponse>(
+    id ? `/cocktails/${id}` : null,
+    undefined,
+    { revalidateOnFocus: false }
+  )
 
   const getById = () => {
     let data: CocktailPost | undefined
