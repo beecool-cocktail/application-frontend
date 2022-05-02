@@ -11,9 +11,10 @@ const steps = ['step 1', 'step 2', 'step 3']
 
 export interface PostEditorProps {
   draft?: CocktailPostDraft
+  isDraft?: boolean
 }
 
-const PostEditor = ({ draft }: PostEditorProps) => {
+const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   const { user } = useUser()
   const {
     form: { control, getValues, isDirty },
@@ -24,7 +25,7 @@ const PostEditor = ({ draft }: PostEditorProps) => {
     saveDraft,
     submit,
     handlePreviewUrlsChange
-  } = usePostEditor(draft)
+  } = usePostEditor(isDraft, draft)
 
   const renderButton = () => {
     let type: 'button' | 'submit' = 'button'
@@ -54,6 +55,7 @@ const PostEditor = ({ draft }: PostEditorProps) => {
   return (
     <Stack alignItems="stretch" minHeight="100vh">
       <CreatePostHeader
+        isDraft={isDraft}
         steps={steps}
         activeStep={activeStep}
         savable={isDirty}

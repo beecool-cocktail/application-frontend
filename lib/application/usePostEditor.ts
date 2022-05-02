@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import { useSWRConfig } from 'swr'
 import { useForm } from 'react-hook-form'
 import { paths } from 'lib/configs/routes'
@@ -8,6 +7,7 @@ import usePostEditorService from 'lib/services/postEditorAdapter'
 import { CocktailPostDraft, Ingredient, Step } from 'lib/domain/cocktail'
 import { CocktailPostForm } from './ports'
 import useSnackbar from './useSnackbar'
+import useCornerRouter from './useCornerRouter'
 
 const steps = ['step 1', 'step 2', 'step 3']
 
@@ -37,9 +37,9 @@ const getDefaultValues = (draft?: CocktailPostDraft): CocktailPostForm => {
   }
 }
 
-const usePostEditor = (draft?: CocktailPostDraft) => {
-  const router = useRouter()
-  const { createPost, createDraft, updateDraft, toFormal } =
+const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
+  const router = useCornerRouter()
+  const { createPost, updatePost, createDraft, updateDraft, toFormal } =
     usePostEditorService()
   const { mutate } = useSWRConfig()
   const storage = useLocalStorage()
@@ -103,13 +103,23 @@ const usePostEditor = (draft?: CocktailPostDraft) => {
   const onSubmit = async (form: CocktailPostForm) => {
     const token = storage.getToken()
     if (!token) return
-    if (draft) {
-      await updateDraft(draft.id, form, token)
-      await toFormal(draft.id, token)
+    if (isDraft) {
+      if (draft) {
+        await updateDraft(draft.id, form, token)
+        await toFormal(draft.id, token)
+        mutate(`/cocktails-drafts/${draft.id}`)
+      } else {
+        await createPost(form, token)
+      }
+      mutate('/cocktail-drafts')
     } else {
-      await createPost(form, token)
+      if (draft) {
+        await updatePost(draft.id, form, token)
+        mutate('/cocktails')
+        mutate(`/cocktails/${draft.id}`)
+      }
     }
-    mutate('/cocktail-drafts')
+
     router.push(paths.profile)
     snackbar.success('saved!')
   }

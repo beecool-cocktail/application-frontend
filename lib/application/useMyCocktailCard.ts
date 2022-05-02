@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useConfirmDialog from 'lib/application/useConfirmDialog'
-import useShare from 'lib/application/useShare'
 import { MyCocktailItem } from 'lib/domain/cocktail'
 
 const useMyCocktailCard = (
@@ -9,7 +8,6 @@ const useMyCocktailCard = (
   onDelete: (id: number) => void
 ) => {
   const router = useCornerRouter()
-  const share = useShare()
   const confirmDialog = useConfirmDialog()
   const [moreActionMenuAnchorEl, setMoreActionMenuAnchorEl] =
     useState<HTMLButtonElement | null>(null)
@@ -45,10 +43,7 @@ const useMyCocktailCard = (
 
   const handleEdit = (e: React.MouseEvent) => {
     handleClose(e)
-    share(
-      cocktail.title,
-      new URL(`/cocktails/${cocktail.id}`, window.location.origin).href
-    )
+    router.gotoEditPost(cocktail.id)
   }
   const moreActionMenuOpen = Boolean(moreActionMenuAnchorEl)
 

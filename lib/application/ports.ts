@@ -60,6 +60,7 @@ export interface DraftService {
 
 export interface PostEditorService {
   createPost(draft: CocktailPostForm, token: string): Promise<void>
+  updatePost(id: number, post: CocktailPostForm, token: string): Promise<void>
   createDraft(draft: CocktailPostForm, token: string): Promise<void>
   updateDraft(id: number, draft: CocktailPostForm, token: string): Promise<void>
   toFormal(id: number, token: string): Promise<void>

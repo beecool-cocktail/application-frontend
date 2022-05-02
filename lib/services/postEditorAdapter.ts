@@ -1,4 +1,4 @@
-import { UpdateDraftArticleRequest } from 'sdk'
+import { UpdateDraftArticleRequest, UpdateFormalArticleRequest } from 'sdk'
 import { PostEditorService, CocktailPostForm } from 'lib/application/ports'
 import { toBase64 } from 'lib/helper/image'
 import { cocktailApi } from './api'
@@ -29,6 +29,24 @@ const usePostEditorService = (): PostEditorService => {
   const createPost = async (form: CocktailPostForm, token: string) => {
     const req = await getReqPayload(form)
     await cocktailApi.postArticleRequest(req, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+  }
+
+  const updatePost = async (
+    id: number,
+    form: CocktailPostForm,
+    token: string
+  ) => {
+    const base64Photos = await getBase64Photos(form.photos)
+    const req: UpdateFormalArticleRequest = {
+      name: form.title,
+      description: form.description,
+      photos: base64Photos.map(path => ({ path })),
+      ingredient_list: form.ingredients,
+      step_list: form.steps
+    }
+    await cocktailApi.updateFormalArticle(id, req, {
       headers: { Authorization: `Bearer ${token}` }
     })
   }
@@ -64,7 +82,7 @@ const usePostEditorService = (): PostEditorService => {
     })
   }
 
-  return { createPost, createDraft, updateDraft, toFormal }
+  return { createPost, updatePost, createDraft, updateDraft, toFormal }
 }
 
 export default usePostEditorService

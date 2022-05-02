@@ -4,6 +4,7 @@ import Header from 'components/layout/header'
 import BackButton from 'components/common/button/backButton'
 
 interface CreatePostHeaderProps {
+  isDraft: boolean
   steps: string[]
   activeStep: number
   savable: boolean
@@ -12,22 +13,32 @@ interface CreatePostHeaderProps {
 }
 
 const CreatePostHeader = ({
+  isDraft,
   steps,
   activeStep,
   savable,
   onBack,
   onSaveDraft
 }: CreatePostHeaderProps) => {
+  const renderTitle = () => {
+    if (isDraft) return '發文'
+    return '編輯貼文'
+  }
+  const renderRightButton = () => {
+    if (!isDraft) return null
+    return (
+      <Button disabled={!savable} onClick={onSaveDraft}>
+        存成草稿
+      </Button>
+    )
+  }
+
   return (
     <Stack>
       <Header
-        title="發文"
+        title={renderTitle()}
         leftButton={<BackButton onClick={onBack} />}
-        rightButton={
-          <Button disabled={!savable} onClick={onSaveDraft}>
-            存成草稿
-          </Button>
-        }
+        rightButton={renderRightButton()}
       />
       <Stepper activeStep={activeStep}>
         {steps.map(label => (
