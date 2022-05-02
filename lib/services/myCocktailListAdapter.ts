@@ -1,7 +1,8 @@
 import { MyCocktailListService } from 'lib/application/ports'
 import { MyCocktailItem } from 'lib/domain/cocktail'
 import useCornerSWR from 'lib/hooks/useCornerSWR'
-import { GetSelfCocktailListResponse } from 'sdk'
+import { DeleteFormalArticleRequest, GetSelfCocktailListResponse } from 'sdk'
+import { cocktailApi } from './api'
 
 const useMyCocktailListService = (): MyCocktailListService => {
   const {
@@ -30,12 +31,12 @@ const useMyCocktailListService = (): MyCocktailListService => {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const deleteById = async (cocktailId: number, token: string) => {
-    // TODO
-    // await userApi.removeCollectionArticle(cocktailId, {
-    //   headers: { Authorization: `Bearer ${token}` }
-    // })
+    const req: DeleteFormalArticleRequest = { deleted_ids: [cocktailId] }
+    const res = await cocktailApi.deleteFormalArticleRequest(req, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    return res.data
   }
 
   return { getList, deleteById }
