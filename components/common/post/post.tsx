@@ -10,20 +10,26 @@ import {
 import { Box } from '@mui/system'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { CocktailPost } from 'lib/domain/cocktail'
-import ImageSwiper from './ImageSwiper'
+import CocktailSwiper from '../cocktailList/cocktailSwiper'
 import PostHeader from './postHeader'
 
 export type CocktailDetailsProps = {
   cocktailPost: CocktailPost
+  onCollect?(): void
 }
 
-const Post = ({ cocktailPost }: CocktailDetailsProps) => {
+const Post = ({ cocktailPost, onCollect }: CocktailDetailsProps) => {
   const photos = cocktailPost.photos.length
     ? cocktailPost.photos.map(p => p.path)
     : [FALLBACK_URL]
   return (
     <Stack>
-      <ImageSwiper title={cocktailPost.title} photos={photos} />
+      <CocktailSwiper
+        title={cocktailPost.title}
+        images={photos}
+        isCollected={cocktailPost.isCollected}
+        onCollect={() => onCollect?.()}
+      />
       <Stack p={2}>
         <PostHeader
           title={cocktailPost.title}

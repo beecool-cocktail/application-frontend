@@ -1,6 +1,6 @@
 import { MyCocktailListService } from 'lib/application/ports'
 import { MyCocktailItem } from 'lib/domain/cocktail'
-import useCornerSWR from 'lib/hooks/useCornerSWR'
+import useCornerSWR from 'lib/application/useCornerSWR'
 import { DeleteFormalArticleRequest, GetSelfCocktailListResponse } from 'sdk'
 import { cocktailApi } from './api'
 

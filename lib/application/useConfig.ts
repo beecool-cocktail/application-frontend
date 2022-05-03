@@ -1,5 +1,5 @@
 import Config from 'lib/types/config'
-import useCornerSWR from '../hooks/useCornerSWR'
+import useCornerSWR from './useCornerSWR'
 
 const useConfig = () => {
   const { data, error } = useCornerSWR<Config>('/config', { immutable: true })

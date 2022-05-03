@@ -10,7 +10,7 @@ import useCocktail from 'lib/application/useCocktail'
 const CocktailPage: NextPage = () => {
   const router = useRouter()
   const id = Number(router.query.id as string)
-  const { cocktail, loading } = useCocktail(id)
+  const { cocktail, loading, collect } = useCocktail(id)
 
   return (
     <Stack
@@ -19,7 +19,11 @@ const CocktailPage: NextPage = () => {
       position="relative"
       sx={{ minHeight: '100vh', width: '100%' }}
     >
-      {loading || !cocktail ? <Spinner /> : <Post cocktailPost={cocktail} />}
+      {loading || !cocktail ? (
+        <Spinner />
+      ) : (
+        <Post cocktailPost={cocktail} onCollect={collect} />
+      )}
       <Box position="absolute" left={1} top={1} zIndex={1}>
         <BackButton color="white" />
       </Box>

@@ -1,9 +1,7 @@
-import { BookmarkOutlined, ShareOutlined } from '@mui/icons-material'
+import { ShareOutlined } from '@mui/icons-material'
 import { Avatar, IconButton, Stack, Typography } from '@mui/material'
 import { Grid } from '@mui/material'
 import React from 'react'
-import usePermission from 'lib/application/usePermission'
-import useLoginDialog from 'lib/application/useLoginDialog'
 import useShare from 'lib/application/useShare'
 
 export type CocktailDetailsHeaderProps = {
@@ -15,14 +13,7 @@ const CocktailDetailsHeader = ({
   title,
   userName
 }: CocktailDetailsHeaderProps) => {
-  const hasPermission = usePermission()
-  const { setOpen: setLoginDialogOpen } = useLoginDialog()
   const share = useShare()
-
-  const handleCollect = () => {
-    if (hasPermission) return
-    setLoginDialogOpen(true)
-  }
 
   return (
     <Stack>
@@ -36,11 +27,6 @@ const CocktailDetailsHeader = ({
         <Grid item xs="auto">
           <IconButton onClick={() => share(title)}>
             <ShareOutlined />
-          </IconButton>
-        </Grid>
-        <Grid item xs="auto">
-          <IconButton onClick={handleCollect}>
-            <BookmarkOutlined />
           </IconButton>
         </Grid>
       </Grid>

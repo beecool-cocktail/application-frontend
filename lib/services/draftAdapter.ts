@@ -1,7 +1,7 @@
 import { GetCocktailDraftByIDResponse } from 'sdk'
 import { DraftService } from 'lib/application/ports'
 import { CocktailPostDraft, FetchResponse } from 'lib/domain/cocktail'
-import useCornerSWR from '../hooks/useCornerSWR'
+import useCornerSWR from '../application/useCornerSWR'
 
 const useDraftService = (id: number): DraftService => {
   const {

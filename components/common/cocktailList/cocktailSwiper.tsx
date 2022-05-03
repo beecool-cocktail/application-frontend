@@ -13,7 +13,7 @@ export interface CocktailSwiperProps {
   isCollected: boolean
   preloadAmount?: number
   onCollect(): void
-  onFirstImageLoadingComplete(): void
+  onFirstImageLoadingComplete?(): void
 }
 
 const CocktailSwiper = ({
@@ -27,7 +27,7 @@ const CocktailSwiper = ({
   const [preloadIndex, setPreloadIndex] = useState(preloadAmount)
   const handleLoadingComplete = (index: number) => () => {
     if (index !== 0) return
-    onFirstImageLoadingComplete()
+    onFirstImageLoadingComplete?.()
   }
 
   return (

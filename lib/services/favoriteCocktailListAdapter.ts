@@ -1,6 +1,6 @@
 import { FavoriteCocktailListService } from 'lib/application/ports'
 import { FavoriteCocktailItem } from 'lib/domain/cocktail'
-import useCornerSWR from 'lib/hooks/useCornerSWR'
+import useCornerSWR from 'lib/application/useCornerSWR'
 import { GetUserFavoriteCocktailListResponse } from 'sdk'
 import { userApi } from './api'
 

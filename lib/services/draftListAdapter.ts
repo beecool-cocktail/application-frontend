@@ -1,7 +1,7 @@
 import { GetDraftCocktailListResponse } from 'sdk'
 import { DraftListService } from 'lib/application/ports'
 import { CocktailPostDraftList, FetchResponse } from 'lib/domain/cocktail'
-import useCornerSWR from '../hooks/useCornerSWR'
+import useCornerSWR from '../application/useCornerSWR'
 import { cocktailApi } from './api'
 
 const useDraftList = (): DraftListService => {

@@ -1,6 +1,6 @@
 import { GetCocktailByIDResponse } from 'sdk'
+import useCornerSWR from 'lib/application/useCornerSWR'
 import { CocktailService } from 'lib/application/ports'
-import useCornerSWR from 'lib/hooks/useCornerSWR'
 import { CocktailPost } from 'lib/domain/cocktail'
 
 const useCocktailService = (id?: number): CocktailService => {
@@ -11,7 +11,7 @@ const useCocktailService = (id?: number): CocktailService => {
     mutate
   } = useCornerSWR<GetCocktailByIDResponse>(
     id ? `/cocktails/${id}` : null,
-    undefined,
+    { auth: true },
     { revalidateOnFocus: false }
   )
 
