@@ -90,7 +90,9 @@ Retry.parameters = {
   msw: {
     handlers: [
       configHandler,
-      rest.get('/api/cocktails', (req, res, ctx) => res(ctx.status(500)))
+      rest.get('/api/cocktails', (req, res, ctx) =>
+        res(ctx.status(500), ctx.delay(1000))
+      )
     ]
   }
 }

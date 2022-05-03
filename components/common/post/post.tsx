@@ -33,6 +33,7 @@ const Post = ({ cocktailPost, onCollect }: CocktailDetailsProps) => {
       <Stack p={2}>
         <PostHeader
           title={cocktailPost.title}
+          userId={cocktailPost.userId}
           userName={cocktailPost.userName}
         />
         <Box py={2}>

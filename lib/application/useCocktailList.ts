@@ -16,7 +16,7 @@ const useCocktailList = () => {
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading } = useConfig()
-  const { getList } = useCocktailListService(storage.getToken())
+  const { getList, retry } = useCocktailListService(storage.getToken())
   const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
   const { ref: bottomRef, inView } = useInView()
 
@@ -72,7 +72,8 @@ const useCocktailList = () => {
     bottomRef,
     cocktails,
     loading: isLoadingInitialData || configLoading,
-    collect
+    collect,
+    retry
   }
 }
 

@@ -31,7 +31,8 @@ const useCornerSWRInfinite = <T>(
       if (token) key.push(token)
       return key
     },
-    fetcher
+    fetcher,
+    { shouldRetryOnError: false, revalidateOnFocus: false }
   )
 
   const getTotal = () => {

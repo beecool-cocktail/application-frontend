@@ -5,14 +5,14 @@ import { toBase64 } from 'lib/helper/image'
 import { User } from 'lib/domain/user'
 import { userApi } from './api'
 
-const useUserService = (token: string | null): UserService => {
+const useUserService = (token: string | null, id?: number): UserService => {
   const {
     data: resData,
     error,
     isValidating,
     mutate
   } = useSWR<GetUserInfoResponse>(
-    token ? ['/users/current', null, token] : null
+    token ? [id ? `/users/${id}` : '/users/current', null, token] : null
   )
 
   const getUserInfo = () => {
@@ -32,6 +32,7 @@ const useUserService = (token: string | null): UserService => {
   }
 
   const updateUserInfo = async (form: UpdateUserForm) => {
+    if (id) return
     const file = form.file?.[0] && (await toBase64(form.file[0]))
     const req: UpdateUserInfoRequest = {
       file,

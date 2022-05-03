@@ -33,7 +33,8 @@ const useCornerRouter = (props?: useGotoProps) => {
     gotoCocktailDetails: (id: number) =>
       push(getUrlById(paths.cocktailById, id)),
     gotoCreatePost: () => push(paths.creatPost),
-    gotoEditPost: (id: number) => push(getUrlById(paths.editPost, id))
+    gotoEditPost: (id: number) => push(getUrlById(paths.editPost, id)),
+    gotoUserById: (id: number) => push(getUrlById(paths.userById, id))
   }
 }
 

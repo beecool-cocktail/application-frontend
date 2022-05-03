@@ -43,6 +43,7 @@ export interface UserService {
 
 export interface CocktailListService {
   getList(): InfiniteFetchResponse<CocktailPostItem>
+  retry(): void
 }
 
 export interface CocktailService {

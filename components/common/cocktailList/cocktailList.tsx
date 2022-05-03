@@ -2,10 +2,10 @@ import { Box, Stack, Typography } from '@mui/material'
 import useCocktailList from 'lib/application/useCocktailList'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import Spinner from 'components/common/status/spinner'
-import Error from 'components/common/status/error'
 import Empty from 'components/common/status/empty'
 import CocktailCard from './cocktailCard'
 import CocktailSkeleton from './cocktailSkeleton'
+import ErrorRetry from './errorRetry'
 
 const CocktailList = () => {
   const {
@@ -16,11 +16,12 @@ const CocktailList = () => {
     isLoadingMore,
     isEmpty,
     isReachingEnd,
-    collect
+    collect,
+    retry
   } = useCocktailList()
 
   const renderContent = () => {
-    if (error) return <Error />
+    if (error) return <ErrorRetry onRetry={retry} />
     if (isLoadingInitialData) {
       return Array.from(new Array(PAGE_SIZE)).map((item, index) => (
         <CocktailSkeleton key={index} />

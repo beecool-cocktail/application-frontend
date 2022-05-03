@@ -26,7 +26,8 @@ export enum paths {
   draftById = '/profile/drafts/[id]',
   cocktailById = '/cocktails/[id]',
   creatPost = '/create-post',
-  editPost = '/profile/cocktails/[id]'
+  editPost = '/profile/cocktails/[id]',
+  userById = '/users/[id]'
 }
 
 const routes: Route[] = [
@@ -77,6 +78,10 @@ const routes: Route[] = [
   {
     path: paths.editPost,
     label: 'Edit Post'
+  },
+  {
+    path: paths.userById,
+    label: 'User'
   }
 ]
 

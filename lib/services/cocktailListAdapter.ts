@@ -1,10 +1,18 @@
+import { useSWRConfig } from 'swr'
 import { PopularCocktailList } from 'sdk'
 import { CocktailListService } from 'lib/application/ports'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 import useCornerSWRInfinite from '../application/useInfiniteCornerSWR'
 
+declare module 'swr' {
+  export interface Cache {
+    clear(): void
+  }
+}
+
 const useCocktailListService = (token: string | null): CocktailListService => {
   const result = useCornerSWRInfinite<PopularCocktailList>('/cocktails', token)
+  const { cache } = useSWRConfig()
 
   const getList = () => ({
     ...result,
@@ -27,7 +35,12 @@ const useCocktailListService = (token: string | null): CocktailListService => {
     )
   })
 
-  return { getList }
+  const retry = () => {
+    cache.clear()
+    result.mutate()
+  }
+
+  return { getList, retry }
 }
 
 export default useCocktailListService

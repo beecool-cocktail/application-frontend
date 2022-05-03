@@ -81,7 +81,7 @@ const theme = createTheme({
     primary: {
       main: '#2067F5',
       darker: '#053FB0',
-      lighter: '0D85FF',
+      lighter: '#0D85FF',
       subtle: '#21DAFF'
     },
     red: { main: '#FF3B30' },

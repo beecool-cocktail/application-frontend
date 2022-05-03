@@ -3,10 +3,10 @@ import useUserService from 'lib/services/userAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from './useConfig'
 
-const useUser = () => {
+const useUser = (id?: number) => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getUserInfo, updateUserInfo } = useUserService(storage.getToken())
+  const { getUserInfo, updateUserInfo } = useUserService(storage.getToken(), id)
   const { data, error, mutate } = getUserInfo()
 
   let user = data
