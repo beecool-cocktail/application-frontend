@@ -5,6 +5,7 @@ import BackButton from 'components/common/button/backButton'
 
 interface CreatePostHeaderProps {
   isDraft: boolean
+  isEdit: boolean
   steps: string[]
   activeStep: number
   savable: boolean
@@ -12,8 +13,9 @@ interface CreatePostHeaderProps {
   onSaveDraft(): void
 }
 
-const CreatePostHeader = ({
+const PostEditorHeader = ({
   isDraft,
+  isEdit,
   steps,
   activeStep,
   savable,
@@ -21,7 +23,7 @@ const CreatePostHeader = ({
   onSaveDraft
 }: CreatePostHeaderProps) => {
   const renderTitle = () => {
-    if (isDraft) return '發文'
+    if (isDraft || !isEdit) return '發文'
     return '編輯貼文'
   }
   const renderRightButton = () => {
@@ -51,4 +53,4 @@ const CreatePostHeader = ({
   )
 }
 
-export default CreatePostHeader
+export default PostEditorHeader

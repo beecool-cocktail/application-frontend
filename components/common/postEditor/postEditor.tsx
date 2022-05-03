@@ -4,7 +4,7 @@ import useUser from 'lib/application/useUser'
 import usePostEditor from 'lib/application/usePostEditor'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
-import CreatePostHeader from './createPostHeader'
+import PostEditorHeader from './postEditorHeader'
 import PostTutorial from './postTutorial'
 
 const steps = ['step 1', 'step 2', 'step 3']
@@ -54,8 +54,9 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
 
   return (
     <Stack alignItems="stretch" minHeight="100vh">
-      <CreatePostHeader
+      <PostEditorHeader
         isDraft={isDraft}
+        isEdit={Boolean(draft)}
         steps={steps}
         activeStep={activeStep}
         savable={isDirty}
