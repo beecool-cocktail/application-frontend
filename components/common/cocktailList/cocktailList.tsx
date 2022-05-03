@@ -6,6 +6,7 @@ import Empty from 'components/common/status/empty'
 import CocktailCard from './cocktailCard'
 import CocktailSkeleton from './cocktailSkeleton'
 import ErrorRetry from './errorRetry'
+import NoMoreHint from './noMoreHint'
 
 const CocktailList = () => {
   const {
@@ -50,7 +51,7 @@ const CocktailList = () => {
           {isLoadingMore && !isLoadingInitialData ? (
             <Spinner />
           ) : isReachingEnd ? (
-            <Typography textAlign="center">No more cocktails</Typography>
+            <NoMoreHint />
           ) : (
             <Box ref={bottomRef} />
           )}
