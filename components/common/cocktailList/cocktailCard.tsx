@@ -1,7 +1,6 @@
 import { Stack, Typography } from '@mui/material'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 import useCocktailCard from 'lib/application/useCocktailCard'
-import CocktailSkeleton from './cocktailSkeleton'
 import CocktailSwiper from './cocktailSwiper'
 
 export interface CocktailCardProps {
@@ -11,7 +10,6 @@ export interface CocktailCardProps {
 
 const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   const {
-    firstImageLoaded,
     title,
     userDisplay,
     isCollected,
@@ -21,84 +19,80 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   } = useCocktailCard(cocktail, onCollect)
 
   return (
-    <>
-      {!firstImageLoaded && <CocktailSkeleton />}
+    <Stack
+      alignItems="flex-start"
+      justifyContent="space-between"
+      spacing="4px"
+      sx={{ backgroundColor: 'transparent' }}
+      onClick={gotoCocktailDetails}
+    >
+      <CocktailSwiper
+        title={title}
+        images={cocktail.photoUrls}
+        isCollected={isCollected}
+        onCollect={collect}
+        onFirstImageLoadingComplete={firstImageLoadingComplete}
+      />
       <Stack
-        visibility={firstImageLoaded ? 'visible' : 'hidden'}
+        width={1}
         alignItems="flex-start"
         justifyContent="space-between"
         spacing="4px"
-        sx={{ backgroundColor: 'transparent' }}
-        onClick={gotoCocktailDetails}
+        px="4px"
+        pb="4px"
       >
-        <CocktailSwiper
-          title={title}
-          images={cocktail.photoUrls}
-          isCollected={isCollected}
-          onCollect={collect}
-          onFirstImageLoadingComplete={firstImageLoadingComplete}
-        />
-        <Stack
-          width={1}
-          alignItems="flex-start"
-          justifyContent="space-between"
-          spacing="4px"
-          px="4px"
-          pb="4px"
+        <Typography
+          variant="subtitle1"
+          sx={{
+            pr: '32px',
+            color: theme => theme.palette.light1.main,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: '-webkit-box',
+            WebkitLineClamp: '2',
+            WebkitBoxOrient: 'vertical'
+          }}
         >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              pr: '32px',
-              color: theme => theme.palette.light1.main,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: '2',
-              WebkitBoxOrient: 'vertical'
-            }}
-          >
-            {title}
-          </Typography>
-          <Stack
-            component="ul"
-            direction="column"
-            width={1}
-            p={0}
-            m={0}
-            sx={{ listStylePosition: 'inside' }}
-          >
-            {cocktail.ingredients.map((ingredient, index) => (
-              <Typography
-                key={index}
-                variant="body3"
-                component="li"
-                color={theme => theme.palette.light2.main}
-                sx={{
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  '&::marker': {
-                    content: '"·"',
-                    textAlign: 'center !important'
-                  }
-                }}
-              >
-                {ingredient.name}
-              </Typography>
-            ))}
-          </Stack>
-          <Typography
-            variant="body4"
-            component="div"
-            alignSelf="flex-end"
-            color={theme => theme.palette.light4.main}
-          >
-            {userDisplay}
-          </Typography>
+          {title}
+        </Typography>
+        <Stack
+          component="ul"
+          direction="column"
+          width={1}
+          p={0}
+          m={0}
+          sx={{ listStylePosition: 'inside' }}
+        >
+          {cocktail.ingredients.map((ingredient, index) => (
+            <Typography
+              key={index}
+              variant="body3"
+              component="li"
+              color={theme => theme.palette.light2.main}
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                '&::marker': {
+                  content: '"·"',
+                  textAlign: 'center !important'
+                }
+              }}
+            >
+              {ingredient.name}
+            </Typography>
+          ))}
         </Stack>
+        <Typography
+          variant="body4"
+          component="div"
+          alignSelf="flex-end"
+          color={theme => theme.palette.light4.main}
+        >
+          {userDisplay}
+        </Typography>
       </Stack>
-    </>
+    </Stack>
   )
 }
 

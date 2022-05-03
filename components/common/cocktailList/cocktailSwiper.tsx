@@ -11,6 +11,7 @@ export interface CocktailSwiperProps {
   title: string
   images: string[]
   isCollected: boolean
+  preloadAmount?: number
   onCollect(): void
   onFirstImageLoadingComplete(): void
 }
@@ -19,10 +20,11 @@ const CocktailSwiper = ({
   title,
   images,
   isCollected,
+  preloadAmount = 1,
   onCollect,
   onFirstImageLoadingComplete
 }: CocktailSwiperProps) => {
-  const [preloadIndex, setPreloadIndex] = useState(0)
+  const [preloadIndex, setPreloadIndex] = useState(preloadAmount)
   const handleLoadingComplete = (index: number) => () => {
     if (index !== 0) return
     onFirstImageLoadingComplete()
@@ -62,8 +64,8 @@ const CocktailSwiper = ({
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
           onSlideChange={swiper => {
-            if (swiper.activeIndex <= preloadIndex) return
-            setPreloadIndex(swiper.activeIndex)
+            if (swiper.activeIndex <= preloadIndex - preloadAmount) return
+            setPreloadIndex(swiper.activeIndex + preloadAmount)
           }}
         >
           {images.map((image, index) => (
