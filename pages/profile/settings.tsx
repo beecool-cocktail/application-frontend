@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material'
 import { useRouter } from 'next/router'
 import useUser from 'lib/application/useUser'
-import Spinner from 'components/common/status/spinner'
+import Loading from 'components/common/status/loading'
 import Error from 'components/common/status/error'
 import SettingsForm from 'components/pages/settings/settingsForm'
 import LogoutButton from 'components/common/button/logoutButton'
@@ -37,7 +37,7 @@ const Settings = () => {
     else router.push(paths.profile)
   }
 
-  if (loading) return <Spinner />
+  if (loading) return <Loading />
   if (!user || error) return <Error />
 
   return (

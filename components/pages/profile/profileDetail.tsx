@@ -6,7 +6,7 @@ import {
 } from '@mui/icons-material'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import Avatar from 'components/common/image/avatar'
-import Spinner from 'components/common/status/spinner'
+import Loading from 'components/common/status/loading'
 import Error from 'components/common/status/error'
 import useUser from 'lib/application/useUser'
 import useLocalStorage from 'lib/services/localStorageAdapter'
@@ -33,22 +33,24 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
     return null
   }
 
-  if (loading) return <Spinner />
+  if (loading) return <Loading />
   if (!user || error) return <Error />
 
   return (
     <Stack flex={1}>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography variant="h6">Profile</Typography>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="flex-end"
-          spacing={1}
-        >
-          <FeedIcon fontSize="large" onClick={gotoDraft} />
-          <SettingsIcon fontSize="large" onClick={gotoSettings} />
-        </Stack>
+        {!userId && (
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-end"
+            spacing={1}
+          >
+            <FeedIcon fontSize="large" onClick={gotoDraft} />
+            <SettingsIcon fontSize="large" onClick={gotoSettings} />
+          </Stack>
+        )}
       </Stack>
       <Box mt={2}>
         <Avatar src={user.photo} size={80} />
@@ -57,7 +59,7 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
         <ProfileDetailRow />
       </Box>
       <Tabs value={value} onChange={handleChange}>
-        <Tab label="我的發文" />
+        <Tab label={userId ? '發文' : '我的發文'} />
         <Tab label="收藏" />
       </Tabs>
       <PostTabPanel value={value} index={0} />

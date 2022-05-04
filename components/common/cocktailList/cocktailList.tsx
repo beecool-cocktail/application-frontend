@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material'
 import useCocktailList from 'lib/application/useCocktailList'
 import { PAGE_SIZE } from 'lib/constants/pagination'
-import Spinner from 'components/common/status/spinner'
+import Loading from 'components/common/status/loading'
 import Empty from 'components/common/status/empty'
 import CocktailCard from './cocktailCard'
 import CocktailSkeleton from './cocktailSkeleton'
@@ -49,7 +49,7 @@ const CocktailList = () => {
         {isEmpty && <Typography>Empty</Typography>}
         <Box height={100}>
           {isLoadingMore && !isLoadingInitialData ? (
-            <Spinner />
+            <Loading />
           ) : isReachingEnd ? (
             <NoMoreHint />
           ) : (

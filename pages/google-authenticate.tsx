@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Spinner from 'components/common/status/spinner'
+import Loading from 'components/common/status/loading'
 import useAuth from 'lib/application/useAuth'
 
 const GoogleAuthenticate = () => {
@@ -15,7 +15,7 @@ const GoogleAuthenticate = () => {
     login(router.query.code as string)
     setLoading(true)
   }, [loading, login, router])
-  return <Spinner />
+  return <Loading />
 }
 
 export default GoogleAuthenticate

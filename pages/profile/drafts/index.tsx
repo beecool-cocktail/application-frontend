@@ -5,7 +5,7 @@ import BackButton from 'components/common/button/backButton'
 import DeleteButton from 'components/common/button/deleteButton'
 import DraftList from 'components/pages/draft/draftList'
 import useDraftList from 'lib/application/useDraftList'
-import Spinner from 'components/common/status/spinner'
+import Loading from 'components/common/status/loading'
 
 const Drafts = () => {
   const {
@@ -18,7 +18,7 @@ const Drafts = () => {
     deleteSelected
   } = useDraftList()
 
-  if (loading) return <Spinner />
+  if (loading) return <Loading />
 
   return (
     <Stack width={1}>

@@ -1,6 +1,6 @@
 import React from 'react'
 import useCornerRouter from 'lib/application/useCornerRouter'
-import Spinner from 'components/common/status/spinner'
+import Loading from 'components/common/status/loading'
 import PostEditor from 'components/common/postEditor/postEditor'
 import { join } from 'lib/helper/url'
 import useConfig from 'lib/application/useConfig'
@@ -38,7 +38,7 @@ const CocktailEditPage = () => {
   const id = Number(router.query.id as string)
   const { cocktailPost, loading, isValidating } = useEditCocktail(id)
 
-  if (loading || isValidating || !cocktailPost) return <Spinner />
+  if (loading || isValidating || !cocktailPost) return <Loading />
   return <PostEditor draft={cocktailPost} />
 }
 

@@ -3,13 +3,13 @@ import Image from 'next/image'
 import { Grid } from '@mui/material'
 import useMyCocktailList from 'lib/application/useMyCocktailList'
 import Error from '../status/error'
-import Spinner from '../status/spinner'
+import Loading from '../status/loading'
 import MyCocktailCard from './myCocktailCard'
 
 const MyCocktailList = () => {
   const { data, loading, error, deleteById } = useMyCocktailList()
   if (error) return <Error />
-  if (!data || loading) return <Spinner />
+  if (!data || loading) return <Loading />
   if (data.length === 0)
     return <Image src="/post.png" alt="post" width={512} height={392} />
 

@@ -1,11 +1,15 @@
 import { CircularProgress, Stack } from '@mui/material'
 
-const Spinner = () => {
+const Loading = () => {
   return (
     <Stack justifyContent="center" alignItems="center" width={1} height={1}>
-      <CircularProgress />
+      <CircularProgress
+        sx={{
+          color: theme => theme.palette.primary.darker
+        }}
+      />
     </Stack>
   )
 }
 
-export default Spinner
+export default Loading

@@ -3,7 +3,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Box, Stack } from '@mui/material'
 import BackButton from 'components/common/button/backButton'
-import Spinner from 'components/common/status/spinner'
+import Loading from 'components/common/status/loading'
 import Post from 'components/common/post/post'
 import useCocktail from 'lib/application/useCocktail'
 
@@ -20,7 +20,7 @@ const CocktailPage: NextPage = () => {
       sx={{ minHeight: '100vh', width: '100%' }}
     >
       {loading || !cocktail ? (
-        <Spinner />
+        <Loading />
       ) : (
         <Post cocktailPost={cocktail} onCollect={collect} />
       )}

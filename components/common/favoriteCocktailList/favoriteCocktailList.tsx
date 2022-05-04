@@ -2,13 +2,13 @@ import React from 'react'
 import { Grid, Typography } from '@mui/material'
 import useFavoriteCocktailList from 'lib/application/useFavoriteCocktailList'
 import Error from '../status/error'
-import Spinner from '../status/spinner'
+import Loading from '../status/loading'
 import FavoriteCocktailCard from './favoriteCocktailCard'
 
 const FavoriteCocktailCardList = () => {
   const { data, loading, error, remove } = useFavoriteCocktailList()
   if (error) return <Error />
-  if (!data || loading) return <Spinner />
+  if (!data || loading) return <Loading />
   if (data.length === 0)
     return <Typography variant="h4">沒有收藏 QQ</Typography>
 
