@@ -40,6 +40,7 @@ const CocktailSwiper = ({
       <Box
         borderRadius="10px"
         overflow="hidden"
+        position="relative"
         sx={{
           '& .swiper-pagination': {
             bottom: '8px',
@@ -60,6 +61,7 @@ const CocktailSwiper = ({
         }}
       >
         <Swiper
+          style={{ borderRadius: 10 }}
           modules={[Pagination]}
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
@@ -72,6 +74,7 @@ const CocktailSwiper = ({
             <SwiperSlide key={index}>
               {index <= preloadIndex && (
                 <Image
+                  style={{ borderRadius: 10 }}
                   layout="responsive"
                   src={image}
                   alt={title}
