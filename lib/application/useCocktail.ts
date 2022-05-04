@@ -7,7 +7,7 @@ import useConfig from './useConfig'
 import useLoginDialog from './useLoginDialog'
 import useSnackbar from './useSnackbar'
 
-const useCocktail = (id: number | undefined) => {
+const useCocktail = (id?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
