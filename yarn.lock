@@ -11597,6 +11597,11 @@ storybook-addon-next@^1.6.2:
     sass-loader "^12.4.0"
     semver "^7.3.5"
 
+storybook-addon-pseudo-states@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/storybook-addon-pseudo-states/-/storybook-addon-pseudo-states-1.9.0.tgz#523683ebf06e9e426a5050a0b6908995f5cdaf15"
+  integrity sha512-2zhpAsmXUv1P8z9z+WOp4er9IxM0RCQZDu18lwkXf3yafrf5aLv1fzqK8EAPNNdYOeNHQPfjJZpMlDigUjDuOg==
+
 storybook-dark-mode@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/storybook-dark-mode/-/storybook-dark-mode-1.1.0.tgz#4aca307a9c09f1b95743da2db6b07c8eea99ed24"

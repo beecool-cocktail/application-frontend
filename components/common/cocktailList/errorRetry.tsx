@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Box, Stack, Typography } from '@mui/material'
-import { Button } from '@mui/material'
+import Button from 'components/common/button/button'
 
 interface ErrorRetryProps {
   onRetry?(): void
@@ -33,21 +33,11 @@ const ErrorRetry = ({ onRetry }: ErrorRetryProps) => {
           讀取資料出錯
         </Typography>
       </Stack>
-      <Button
-        onClick={onRetry}
-        sx={{
-          mt: '51px',
-          width: 311,
-          height: 52,
-          color: 'white',
-          backgroundColor: theme => theme.palette.primary.main,
-          ':hover': {
-            backgroundColor: theme => theme.palette.primary.lighter
-          }
-        }}
-      >
-        <Typography variant="subtitle2">重新整理</Typography>
-      </Button>
+      <Box mt="51px">
+        <Button size="large" onClick={onRetry}>
+          重新整理
+        </Button>
+      </Box>
     </Stack>
   )
 }

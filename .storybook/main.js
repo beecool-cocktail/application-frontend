@@ -13,6 +13,7 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-addon-next',
     'storybook-addon-designs',
+    'storybook-addon-pseudo-states',
     'storybook-dark-mode'
   ],
   features: {
