@@ -10,8 +10,9 @@ export interface CocktailCardProps {
 
 const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
   const {
-    title,
+    titleDisplay,
     userDisplay,
+    ingredientsDisplay,
     isCollected,
     gotoCocktailDetails,
     collect,
@@ -27,7 +28,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
       onClick={gotoCocktailDetails}
     >
       <CocktailSwiper
-        title={title}
+        title={titleDisplay}
         images={cocktail.photoUrls}
         isCollected={isCollected}
         onCollect={collect}
@@ -43,17 +44,9 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
       >
         <Typography
           variant="subtitle1"
-          sx={{
-            pr: '32px',
-            color: theme => theme.palette.light1.main,
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            display: '-webkit-box',
-            WebkitLineClamp: '2',
-            WebkitBoxOrient: 'vertical'
-          }}
+          sx={{ pr: '32px', color: theme => theme.palette.light1.main }}
         >
-          {title}
+          {titleDisplay}
         </Typography>
         <Stack
           component="ul"
@@ -63,7 +56,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
           m={0}
           sx={{ listStylePosition: 'inside' }}
         >
-          {cocktail.ingredients.map((ingredient, index) => (
+          {ingredientsDisplay.map((ingredient, index) => (
             <Typography
               key={index}
               variant="body3"

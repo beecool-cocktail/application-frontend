@@ -9,9 +9,15 @@ const useCocktailCard = (
 ) => {
   const router = useRouter()
   const [firstImageLoaded, setFirstImageLoaded] = useState<boolean>(false)
-  const { id, title, userId, userName, isCollected } = cocktail
+  const { id, title, userId, userName, ingredients, isCollected } = cocktail
 
   const userDisplay = `@${userName}#${userId}`
+  const getTitleDisplay = () => {
+    if (title.length <= 30) return title
+    return title.substring(0, 30) + '....'
+  }
+  const titleDisplay = getTitleDisplay()
+  const ingredientsDisplay = ingredients.slice(0, 4)
 
   const gotoCocktailDetails = () =>
     router.push(getUrlById(paths.cocktailById, id))
@@ -24,8 +30,9 @@ const useCocktailCard = (
 
   return {
     firstImageLoaded,
-    title,
+    titleDisplay,
     userDisplay,
+    ingredientsDisplay,
     isCollected: cocktail.isCollected,
     gotoCocktailDetails,
     collect,

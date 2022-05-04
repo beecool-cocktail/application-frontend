@@ -35,18 +35,9 @@ const CocktailSkeletonTemplate: ComponentStory<
 
 const defaultCocktail = {
   id: 98078024211279,
-  title:
-    '最大值30字標題，最大值30字標題，超過30字最後顯示這最大值30字標題，最大值30字標題超過30字最後顯示這',
+  title: 'Old Fashioned',
   ingredients: [
-    {
-      name: '只要換行都要只要換行都要只要換行都要只只要換行都要只要換行都要只',
-      amount: '3L'
-    },
-    {
-      name: '白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白白砂糖白砂糖白砂糖白砂糖白砂白',
-      amount: '3L'
-    },
-    { name: '安格氏苦精', amount: '3L' },
+    { name: '安格士苦精', amount: '3L' },
     { name: '橙皮', amount: '3L' }
   ],
   userId: 1,
@@ -59,9 +50,56 @@ const defaultCocktail = {
   ]
 }
 
+const onePhotoCocktail = {
+  ...defaultCocktail,
+  photoUrls: [
+    'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505'
+  ]
+}
+
+const ellipsisCocktail = {
+  ...defaultCocktail,
+  title:
+    '最大值30字標題，最大值30字標題，超過30字最後顯示這最大值30字標題，最大值30字標題超過30字最後顯示這',
+  ingredients: [
+    {
+      name: '只要換行都要只要換行都要只要換行都要只只要換行都要只要換行都要只',
+      amount: '3L'
+    },
+    {
+      name: '白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白白砂糖白砂糖白砂糖白砂糖白砂白',
+      amount: '3L'
+    },
+    {
+      name: '只要換行都要只要換行都要只要換行都要只只要換行都要只要換行都要只',
+      amount: '3L'
+    },
+    {
+      name: '白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白白砂糖白砂糖白砂糖白砂糖白砂白',
+      amount: '3L'
+    },
+    {
+      name: '只要換行都要只要換行都要只要換行都要只只要換行都要只要換行都要只',
+      amount: '3L'
+    },
+    {
+      name: '白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白砂糖白白砂糖白砂糖白砂糖白砂糖白砂白',
+      amount: '3L'
+    }
+  ],
+  photoUrls: [
+    'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505',
+    'https://www.eatthis.com/wp-content/uploads/sites/4/2019/03/old-fashioned-cocktail.jpg?fit=1200%2C879&ssl=1',
+    'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg'
+  ]
+}
+
 export const Default = CocktailCardTemplate.bind({})
 Default.args = {
-  cocktail: defaultCocktail
+  cocktail: {
+    ...defaultCocktail,
+    isCollected: true
+  }
 }
 
 export const Saved = CocktailCardTemplate.bind({})
@@ -70,6 +108,16 @@ Saved.args = {
     ...defaultCocktail,
     isCollected: true
   }
+}
+
+export const Ellipsis = CocktailCardTemplate.bind({})
+Ellipsis.args = {
+  cocktail: ellipsisCocktail
+}
+
+export const OnePhoto = CocktailCardTemplate.bind({})
+OnePhoto.args = {
+  cocktail: onePhotoCocktail
 }
 
 export const Skeleton = CocktailSkeletonTemplate.bind({})
