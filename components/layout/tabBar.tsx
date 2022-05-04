@@ -14,7 +14,7 @@ export const TabBar = () => {
         px: '12px',
         position: 'fixed',
         zIndex: 1,
-        bottom: '20px',
+        bottom: '24px',
         left: 'calc(50% - 247px/2)',
         borderRadius: '8px',
         background: theme => theme.palette.dark5.main,
