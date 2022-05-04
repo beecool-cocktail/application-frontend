@@ -12,7 +12,7 @@ const useCocktail = (id?: number) => {
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading } = useConfig()
-  const { getById } = useCocktailService(id)
+  const { getById } = useCocktailService(id, storage.getToken())
   const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
   const result = getById()
   const error = result.error

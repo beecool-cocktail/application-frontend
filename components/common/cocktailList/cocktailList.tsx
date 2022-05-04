@@ -40,7 +40,7 @@ const CocktailList = () => {
       <Stack
         spacing="24px"
         sx={{
-          pt: '12px',
+          pt: '8px',
           px: '32px',
           backgroundColor: theme => theme.palette.dark3.main
         }}

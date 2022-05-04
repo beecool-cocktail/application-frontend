@@ -25,13 +25,17 @@ const Layout = ({
         sx={{ backgroundColor: theme => theme.palette.dark3.main }}
       >
         <Box
-          px="24px"
+          px="32px"
           display="flex"
           flexDirection="column"
           alignItems="stretch"
         >
           {useLogo && <Logo />}
-          {useSearchBar && <SearchBar placeHolder="找調酒..." />}
+          {useSearchBar && (
+            <Box pt="12px">
+              <SearchBar placeHolder="找調酒..." autoFocus />
+            </Box>
+          )}
         </Box>
         {children}
       </Stack>

@@ -1,10 +1,12 @@
 import useDraftService from 'lib/services/draftAdapter'
 import { join } from 'lib/helper/url'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from './useConfig'
 
 const useDraft = (id: number) => {
+  const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getById } = useDraftService(id)
+  const { getById } = useDraftService(id, storage.getToken())
 
   const getByIdResult = getById()
   let draft = getByIdResult.data

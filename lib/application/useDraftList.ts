@@ -7,9 +7,9 @@ import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from './useConfig'
 
 const useDrafts = () => {
-  const { getToken } = useLocalStorage()
+  const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getList, deleteByIds } = useDraftListService()
+  const { getList, deleteByIds } = useDraftListService(storage.getToken())
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
 
@@ -35,7 +35,7 @@ const useDrafts = () => {
   }
 
   const deleteSelected = async () => {
-    const token = getToken()
+    const token = storage.getToken()
     if (token) await deleteByIds(selectedIds, token)
     setBatchDeleteMode(false)
     setSelectedIds([])

@@ -5,16 +5,22 @@ import { toBase64 } from 'lib/helper/image'
 import { User } from 'lib/domain/user'
 import { userApi } from './api'
 
-const useUserService = (token: string | null, id?: number): UserService => {
+const useUserService = (
+  id: number | undefined,
+  token: string | null
+): UserService => {
+  const getKey = () => {
+    const path = id ? `/users/${id}` : '/users/current'
+    if (id) return path
+    return token ? [path, token] : null
+  }
+
   const {
     data: resData,
     error,
     isValidating,
     mutate
-  } = useSWR<GetUserInfoResponse>(
-    token ? [id ? `/users/${id}` : '/users/current', null, token] : null
-  )
-
+  } = useSWR<GetUserInfoResponse>(getKey)
   const getUserInfo = () => {
     let data: User | undefined
     if (resData) {

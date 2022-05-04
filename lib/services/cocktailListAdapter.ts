@@ -10,8 +10,10 @@ declare module 'swr' {
   }
 }
 
+const path = '/cocktails'
+
 const useCocktailListService = (token: string | null): CocktailListService => {
-  const result = useCornerSWRInfinite<PopularCocktailList>('/cocktails', token)
+  const result = useCornerSWRInfinite<PopularCocktailList>(path, token)
   const { cache } = useSWRConfig()
 
   const getList = () => ({

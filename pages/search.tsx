@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Head from 'next/head'
 import Layout from 'components/layout/layout'
 import NotFound from 'components/common/status/notFound'
-import CocktailList from 'components/common/cocktailList/cocktailList'
 import useStore from 'lib/services/storeAdapter'
 
 const Search = () => {
@@ -19,16 +18,18 @@ const Search = () => {
       <Box
         display="flex"
         flexDirection="column"
-        px={2}
         alignItems="stretch"
         justifyContent="center"
+        mt="115px"
       >
         {searchBarInput ? (
           <Box display="flex" alignItems="center" justifyContent="center">
             <NotFound />
           </Box>
         ) : (
-          <CocktailList />
+          <Typography variant="h1" textAlign="center" sx={{ color: 'white' }}>
+            快來搜尋(･8･)
+          </Typography>
         )}
       </Box>
     </>

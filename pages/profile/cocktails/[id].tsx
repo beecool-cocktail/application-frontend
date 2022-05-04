@@ -5,10 +5,12 @@ import PostEditor from 'components/common/postEditor/postEditor'
 import { join } from 'lib/helper/url'
 import useConfig from 'lib/application/useConfig'
 import useCocktailService from 'lib/services/cocktailAdapter'
+import useLocalStorage from 'lib/services/localStorageAdapter'
 
 const useEditCocktail = (id: number) => {
+  const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getById } = useCocktailService(id)
+  const { getById } = useCocktailService(id, storage.getToken())
 
   const getByIdResult = getById()
   let cocktailPost = getByIdResult.data

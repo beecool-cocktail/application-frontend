@@ -1,18 +1,26 @@
+import useSWR from 'swr'
 import { MyCocktailListService } from 'lib/application/ports'
 import { MyCocktailItem } from 'lib/domain/cocktail'
-import useCornerSWR from 'lib/application/useCornerSWR'
 import { DeleteFormalArticleRequest, GetSelfCocktailListResponse } from 'sdk'
 import { cocktailApi } from './api'
 
-const useMyCocktailListService = (): MyCocktailListService => {
+const path = '/users/current/cocktails'
+
+const useMyCocktailListService = (
+  token: string | null
+): MyCocktailListService => {
+  const getKey = () => {
+    if (!token) return null
+    return [path, token]
+  }
+
   const {
     data: resData,
     error,
     mutate,
     isValidating
-  } = useCornerSWR<GetSelfCocktailListResponse>('/users/current/cocktails', {
-    auth: true
-  })
+  } = useSWR<GetSelfCocktailListResponse>(getKey)
+
   const getList = () => {
     let data: MyCocktailItem[] | undefined = undefined
     if (resData) {

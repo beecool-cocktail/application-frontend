@@ -11,7 +11,9 @@ const useFavoriteCocktailList = () => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
-  const favoriteCocktailListService = useFavoriteCocktailListService()
+  const favoriteCocktailListService = useFavoriteCocktailListService(
+    storage.getToken()
+  )
   const result = favoriteCocktailListService.getList()
 
   let cocktails: FavoriteCocktailItem[] | undefined

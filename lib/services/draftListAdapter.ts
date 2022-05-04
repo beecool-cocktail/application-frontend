@@ -1,18 +1,22 @@
+import useSWR from 'swr'
 import { GetDraftCocktailListResponse } from 'sdk'
 import { DraftListService } from 'lib/application/ports'
 import { CocktailPostDraftList, FetchResponse } from 'lib/domain/cocktail'
-import useCornerSWR from '../application/useCornerSWR'
 import { cocktailApi } from './api'
 
-const useDraftList = (): DraftListService => {
+const useDraftList = (token: string | null): DraftListService => {
+  const getKey = () => {
+    if (!token) return null
+    const path = '/cocktail-drafts'
+    return [path, token]
+  }
+
   const {
     data: resData,
     error,
     isValidating,
     mutate
-  } = useCornerSWR<GetDraftCocktailListResponse>('/cocktail-drafts', {
-    auth: true
-  })
+  } = useSWR<GetDraftCocktailListResponse>(getKey)
 
   const getList = () => {
     let data: CocktailPostDraftList | undefined = undefined

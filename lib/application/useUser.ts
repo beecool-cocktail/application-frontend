@@ -6,7 +6,7 @@ import useConfig from './useConfig'
 const useUser = (id?: number) => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getUserInfo, updateUserInfo } = useUserService(storage.getToken(), id)
+  const { getUserInfo, updateUserInfo } = useUserService(id, storage.getToken())
   const { data, error, mutate } = getUserInfo()
 
   let user = data

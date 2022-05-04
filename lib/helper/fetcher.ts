@@ -5,8 +5,8 @@ import type { ApiResponse } from 'lib/types/responseBase'
 
 const fetcher = async (
   path: string,
-  pagination?: Pagination,
-  token?: string
+  token?: string,
+  pagination?: Pagination
 ) => {
   const config: AxiosRequestConfig = {}
   config.headers = { ...(token && { Authorization: `Bearer ${token}` }) }

@@ -1,19 +1,24 @@
+import useSWR from 'swr'
 import { GetCocktailDraftByIDResponse } from 'sdk'
 import { DraftService } from 'lib/application/ports'
 import { CocktailPostDraft, FetchResponse } from 'lib/domain/cocktail'
-import useCornerSWR from '../application/useCornerSWR'
 
-const useDraftService = (id: number): DraftService => {
+const useDraftService = (
+  id: number | undefined,
+  token: string | null
+): DraftService => {
+  const getKey = () => {
+    if (!token || !id) return null
+    const path = `/cocktail-drafts/${id}`
+    return [path, token]
+  }
+
   const {
     data: resData,
     error,
     mutate,
     isValidating
-  } = useCornerSWR<GetCocktailDraftByIDResponse>(
-    id ? `/cocktail-drafts/${id}` : null,
-    { auth: true },
-    { revalidateOnFocus: false }
-  )
+  } = useSWR<GetCocktailDraftByIDResponse>(getKey, { revalidateOnFocus: false })
 
   const getById = () => {
     let data: CocktailPostDraft | undefined = undefined

@@ -21,8 +21,8 @@ const NotFound = () => {
     )
   }
   return (
-    <Typography variant="body1" display="inline">
-      查無結果，換個形容方式吧：）
+    <Typography variant="h1" display="inline">
+      我不知道！
     </Typography>
   )
 }

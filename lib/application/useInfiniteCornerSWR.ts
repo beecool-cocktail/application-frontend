@@ -27,9 +27,7 @@ const useCornerSWRInfinite = <T>(
         pageIndex: index + 1,
         pageSize: pageSize
       }
-      const key = [path, pagination]
-      if (token) key.push(token)
-      return key
+      return [path, token, pagination]
     },
     fetcher,
     { shouldRetryOnError: false, revalidateOnFocus: false }
