@@ -1,4 +1,3 @@
-import { useSWRConfig } from 'swr'
 import { PopularCocktailList } from 'sdk'
 import { CocktailListService } from 'lib/application/ports'
 import { CocktailPostItem } from 'lib/domain/cocktail'
@@ -14,7 +13,6 @@ const path = '/cocktails'
 
 const useCocktailListService = (token: string | null): CocktailListService => {
   const result = useCornerSWRInfinite<PopularCocktailList>(path, token)
-  const { cache } = useSWRConfig()
 
   const getList = () => ({
     ...result,
@@ -37,12 +35,7 @@ const useCocktailListService = (token: string | null): CocktailListService => {
     )
   })
 
-  const retry = () => {
-    cache.clear()
-    result.mutate()
-  }
-
-  return { getList, retry }
+  return { getList }
 }
 
 export default useCocktailListService

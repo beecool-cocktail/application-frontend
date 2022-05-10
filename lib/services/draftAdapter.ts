@@ -1,7 +1,8 @@
 import useSWR from 'swr'
 import { GetCocktailDraftByIDResponse } from 'sdk'
 import { DraftService } from 'lib/application/ports'
-import { CocktailPostDraft, FetchResponse } from 'lib/domain/cocktail'
+import { CocktailPostDraft } from 'lib/domain/cocktail'
+import { FetchResponse } from 'lib/application/ports'
 
 const useDraftService = (
   id: number | undefined,

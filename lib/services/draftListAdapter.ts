@@ -1,7 +1,8 @@
 import useSWR from 'swr'
 import { GetDraftCocktailListResponse } from 'sdk'
 import { DraftListService } from 'lib/application/ports'
-import { CocktailPostDraftList, FetchResponse } from 'lib/domain/cocktail'
+import { CocktailPostDraftList } from 'lib/domain/cocktail'
+import { FetchResponse } from 'lib/application/ports'
 import { cocktailApi } from './api'
 
 const useDraftList = (token: string | null): DraftListService => {

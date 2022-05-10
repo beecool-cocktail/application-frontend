@@ -16,7 +16,7 @@ const useCocktailList = () => {
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading } = useConfig()
-  const { getList, retry } = useCocktailListService(storage.getToken())
+  const { getList } = useCocktailListService(storage.getToken())
   const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
   const { ref: bottomRef, inView } = useInView()
 
@@ -63,17 +63,32 @@ const useCocktailList = () => {
   }
 
   useEffect(() => {
-    if (inView && !error && !isLoadingMore && !isReachingEnd && !isRefreshing)
+    if (
+      inView &&
+      !error &&
+      !isLoadingMore &&
+      !isLoadingInitialData &&
+      !isReachingEnd &&
+      !isRefreshing
+    ) {
       loadMore()
-  }, [error, inView, isLoadingMore, isReachingEnd, isRefreshing, loadMore])
+    }
+  }, [
+    error,
+    inView,
+    isLoadingInitialData,
+    isLoadingMore,
+    isReachingEnd,
+    isRefreshing,
+    loadMore
+  ])
 
   return {
     ...result,
     bottomRef,
     cocktails,
     loading: isLoadingInitialData || configLoading,
-    collect,
-    retry
+    collect
   }
 }
 

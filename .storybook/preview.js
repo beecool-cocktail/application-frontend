@@ -4,6 +4,7 @@ import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
 import '@fontsource/montserrat/800.css'
 import 'lib/styles/globals.css'
+import strictModeDecorator from 'stories/decorators/strictModeDecorator'
 import themeDecorator from 'stories/decorators/themeDecorator'
 import storeDecorator from 'stories/decorators/storeDecorator'
 import loggedOutDecorator from 'stories/decorators/loggedOutDecorator'
@@ -12,6 +13,7 @@ import SWRConfigDecorator from 'stories/decorators/SWRConfigDecorator'
 initialize({ onUnhandledRequest: 'bypass' })
 
 export const decorators = [
+  strictModeDecorator,
   mswDecorator,
   themeDecorator,
   storeDecorator,

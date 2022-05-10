@@ -1,14 +1,33 @@
 import {
-  FetchResponse,
   CocktailPost,
   CocktailPostDraft,
   CocktailPostDraftList,
-  InfiniteFetchResponse,
   CocktailPostItem,
   FavoriteCocktailItem
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User } from 'lib/domain/user'
+
+export interface FetchResponse<T> {
+  data: T | undefined
+  error: Error
+  isValidating: boolean
+  mutate: () => void
+}
+
+export interface InfiniteFetchResponse<T> {
+  data: T[][]
+  total: number
+  error: Error
+  isLoadingInitialData: boolean
+  isLoadingMore: boolean
+  isEmpty: boolean
+  isReachingEnd: boolean
+  isRefreshing: boolean
+  loadMore(): void
+  mutate: () => Promise<unknown>
+  retry: () => Promise<unknown>
+}
 
 export interface CocktailPostForm {
   title: string
@@ -43,7 +62,6 @@ export interface UserService {
 
 export interface CocktailListService {
   getList(): InfiniteFetchResponse<CocktailPostItem>
-  retry(): void
 }
 
 export interface CocktailService {

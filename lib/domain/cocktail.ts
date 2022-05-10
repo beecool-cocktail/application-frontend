@@ -72,23 +72,3 @@ export interface MyCocktailItem {
   title: string
   photoUrl: string
 }
-
-export interface FetchResponse<T> {
-  data: T | undefined
-  error: Error
-  isValidating: boolean
-  mutate: () => void
-}
-
-export interface InfiniteFetchResponse<T> {
-  data: T[][]
-  total: number
-  error: Error
-  isLoadingInitialData: boolean
-  isLoadingMore: boolean
-  isEmpty: boolean
-  isReachingEnd: boolean
-  isRefreshing: boolean
-  loadMore(): void
-  mutate: () => void
-}
