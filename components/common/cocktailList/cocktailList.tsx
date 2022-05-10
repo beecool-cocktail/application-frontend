@@ -50,6 +50,8 @@ const CocktailList = () => {
       isPullable={!(isRefreshing || isLoadingInitialData || isLoadingMore)}
       pullingContent=""
       refreshingContent={<Loading />}
+      maxPullDownDistance={95}
+      pullDownThreshold={44}
       onRefresh={retry}
     >
       <Stack justifyContent="flex-start" alignItems="stretch">

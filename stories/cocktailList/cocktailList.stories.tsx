@@ -79,9 +79,6 @@ FirstVisit.parameters = {
   }
 }
 
-export const LoadingMoreDataOnScroll = Template.bind({})
-export const PullToRefresh = Template.bind({})
-export const LinearIndicator = Template.bind({})
 export const NoMoreData = Template.bind({})
 NoMoreData.parameters = {
   msw: {
