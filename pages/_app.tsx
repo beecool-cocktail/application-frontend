@@ -10,9 +10,11 @@ import SWRConfigWrapper from 'components/app/SWRConfigWrapper'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
 import Snackbar from 'components/common/snackbar/snackbar'
+import NProgress from 'components/layout/nprogress'
 import theme from 'lib/configs/theme'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
+import 'nprogress/nprogress.css'
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   require('../lib/mocks')
@@ -32,8 +34,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <NProgress />
       <SWRConfigWrapper>
-        <>{getLayout(<Component {...pageProps} />)}</>
+        {getLayout(<Component {...pageProps} />)}
         <LoginDialog />
         <ConfirmDialog />
         <Snackbar />
