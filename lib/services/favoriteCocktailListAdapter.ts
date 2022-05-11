@@ -1,16 +1,17 @@
 import useSWR from 'swr'
 import { FavoriteCocktailListService } from 'lib/application/ports'
-import { FavoriteCocktailItem } from 'lib/domain/cocktail'
+import { FavoriteCocktailList } from 'lib/domain/cocktail'
 import { GetUserFavoriteCocktailListResponse } from 'sdk'
 import { userApi } from './api'
 
-const path = '/users/current/favorite-cocktails'
-
 const useFavoriteCocktailListService = (
-  token: string | null
+  token: string | null,
+  id?: number
 ): FavoriteCocktailListService => {
   const getKey = () => {
     if (!token) return null
+    const user = id ? id : 'current'
+    const path = `/users/${user}/favorite-cocktails`
     return [path, token]
   }
   const {
@@ -21,15 +22,18 @@ const useFavoriteCocktailListService = (
   } = useSWR<GetUserFavoriteCocktailListResponse>(getKey)
 
   const getList = () => {
-    let data: FavoriteCocktailItem[] | undefined = undefined
+    let data: FavoriteCocktailList | undefined = undefined
     if (resData) {
-      data =
-        resData.favorite_cocktail_list.map(cocktailItem => ({
-          id: cocktailItem.cocktail_id,
-          title: cocktailItem.title,
-          photoUrl: cocktailItem.photo,
-          userName: cocktailItem.user_name
-        })) || []
+      data = {
+        data:
+          resData.favorite_cocktail_list.map(cocktailItem => ({
+            id: cocktailItem.cocktail_id,
+            title: cocktailItem.title,
+            photoUrl: cocktailItem.photo,
+            userName: cocktailItem.user_name
+          })) || [],
+        isPublic: resData.is_public
+      }
     }
     return {
       data,

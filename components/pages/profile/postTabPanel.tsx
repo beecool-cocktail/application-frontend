@@ -4,12 +4,13 @@ import TabPanel from './tabPanel'
 export interface PostTabPanelProps {
   value: number
   index: number
+  userId?: number
 }
 
-const PostTabPanel = ({ index, value }: PostTabPanelProps) => {
+const PostTabPanel = ({ index, value, userId }: PostTabPanelProps) => {
   return (
     <TabPanel index={index} value={value}>
-      <MyCocktailList />
+      <MyCocktailList userId={userId} />
     </TabPanel>
   )
 }

@@ -5,18 +5,30 @@ import Error from '../status/error'
 import Loading from '../status/loading'
 import FavoriteCocktailCard from './favoriteCocktailCard'
 
-const FavoriteCocktailCardList = () => {
-  const { data, loading, error, remove } = useFavoriteCocktailList()
+export interface FavoriteCocktailCardListProps {
+  userId?: number
+}
+
+const FavoriteCocktailCardList = ({
+  userId
+}: FavoriteCocktailCardListProps) => {
+  const { data: list, loading, error, remove } = useFavoriteCocktailList(userId)
   if (error) return <Error />
-  if (!data || loading) return <Loading />
-  if (data.length === 0)
+  if (!list || loading) return <Loading />
+  if (!list.isPublic && userId)
+    return <Typography variant="h4">收藏不公開</Typography>
+  if (list.data.length === 0)
     return <Typography variant="h4">沒有收藏 QQ</Typography>
 
   return (
     <Grid container alignItems="flex-start" rowSpacing={1} columnSpacing={1}>
-      {data.map(cocktail => (
+      {list.data.map(cocktail => (
         <Grid item xs={6} key={cocktail.id}>
-          <FavoriteCocktailCard cocktail={cocktail} onRemove={remove} />
+          <FavoriteCocktailCard
+            cocktail={cocktail}
+            editable={!userId}
+            onRemove={remove}
+          />
         </Grid>
       ))}
     </Grid>

@@ -3,7 +3,8 @@ import {
   CocktailPostDraft,
   CocktailPostDraftList,
   CocktailPostItem,
-  FavoriteCocktailItem
+  FavoriteCocktailItem,
+  FavoriteCocktailList
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User } from 'lib/domain/user'
@@ -86,7 +87,7 @@ export interface PostEditorService {
 }
 
 export interface FavoriteCocktailListService {
-  getList(): FetchResponse<FavoriteCocktailItem[]>
+  getList(): FetchResponse<FavoriteCocktailList>
   remove(cocktailId: number, token: string): Promise<void>
 }
 

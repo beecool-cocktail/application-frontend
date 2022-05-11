@@ -6,8 +6,12 @@ import Error from '../status/error'
 import Loading from '../status/loading'
 import MyCocktailCard from './myCocktailCard'
 
-const MyCocktailList = () => {
-  const { data, loading, error, deleteById } = useMyCocktailList()
+export interface MyCocktailListProps {
+  userId?: number
+}
+
+const MyCocktailList = ({ userId }: MyCocktailListProps) => {
+  const { data, loading, error, deleteById } = useMyCocktailList(userId)
   if (error) return <Error />
   if (!data || loading) return <Loading />
   if (data.length === 0)
@@ -17,7 +21,11 @@ const MyCocktailList = () => {
     <Grid container alignItems="flex-start" rowSpacing={1} columnSpacing={1}>
       {data.map(cocktail => (
         <Grid item xs={6} key={cocktail.id}>
-          <MyCocktailCard cocktail={cocktail} onDelete={deleteById} />
+          <MyCocktailCard
+            cocktail={cocktail}
+            editable={!userId}
+            onDelete={deleteById}
+          />
         </Grid>
       ))}
     </Grid>

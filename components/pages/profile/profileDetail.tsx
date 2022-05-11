@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Stack, Typography, Tabs, Tab } from '@mui/material'
 import {
   FeedOutlined as FeedIcon,
@@ -28,10 +28,9 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
     setValue(newValue)
   }
 
-  if (!storage.getToken()) {
-    gotoIndex()
-    return null
-  }
+  useEffect(() => {
+    if (!storage.getToken()) gotoIndex()
+  }, [gotoIndex, storage])
 
   if (loading) return <Loading />
   if (!user || error) return <Error />
@@ -56,14 +55,14 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
         <Avatar src={user.photo} size={80} />
       </Box>
       <Box mt={2}>
-        <ProfileDetailRow />
+        <ProfileDetailRow userId={userId} />
       </Box>
       <Tabs value={value} onChange={handleChange}>
         <Tab label={userId ? '發文' : '我的發文'} />
         <Tab label="收藏" />
       </Tabs>
-      <PostTabPanel value={value} index={0} />
-      <CollectionTabPanel value={value} index={1} />
+      <PostTabPanel userId={userId} value={value} index={0} />
+      <CollectionTabPanel userId={userId} value={value} index={1} />
     </Stack>
   )
 }

@@ -4,12 +4,17 @@ import TabPanel from './tabPanel'
 export interface CollectionTabPanelProps {
   value: number
   index: number
+  userId?: number
 }
 
-const CollectionTabPanel = ({ index, value }: CollectionTabPanelProps) => {
+const CollectionTabPanel = ({
+  userId,
+  index,
+  value
+}: CollectionTabPanelProps) => {
   return (
     <TabPanel index={index} value={value}>
-      <FavoriteCocktailCardList />
+      <FavoriteCocktailCardList userId={userId} />
     </TabPanel>
   )
 }

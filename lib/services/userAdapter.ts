@@ -10,7 +10,8 @@ const useUserService = (
   token: string | null
 ): UserService => {
   const getKey = () => {
-    const path = id ? `/users/${id}` : '/users/current'
+    const user = id ? id : 'current'
+    const path = `/users/${user}`
     if (id) return path
     return token ? [path, token] : null
   }

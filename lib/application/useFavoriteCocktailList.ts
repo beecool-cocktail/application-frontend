@@ -5,26 +5,30 @@ import useSnackbar from 'lib/application/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import { FavoriteCocktailItem } from 'lib/domain/cocktail'
+import { FavoriteCocktailList } from 'lib/domain/cocktail'
 
-const useFavoriteCocktailList = () => {
+const useFavoriteCocktailList = (userId?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
   const favoriteCocktailListService = useFavoriteCocktailListService(
-    storage.getToken()
+    storage.getToken(),
+    userId
   )
   const result = favoriteCocktailListService.getList()
 
-  let cocktails: FavoriteCocktailItem[] | undefined
+  let cocktailList: FavoriteCocktailList | undefined
   if (result.data && config) {
-    cocktails = result.data.map(cocktail =>
-      produce(cocktail, draft => {
-        draft.photoUrl = draft.photoUrl
-          ? join(config.staticBaseUrl, draft.photoUrl)
-          : FALLBACK_URL
-      })
-    )
+    cocktailList = {
+      isPublic: result.data.isPublic,
+      data: result.data.data.map(cocktail =>
+        produce(cocktail, draft => {
+          draft.photoUrl = draft.photoUrl
+            ? join(config.staticBaseUrl, draft.photoUrl)
+            : FALLBACK_URL
+        })
+      )
+    }
   }
 
   const remove = async (id: number) => {
@@ -37,7 +41,7 @@ const useFavoriteCocktailList = () => {
 
   return {
     ...result,
-    data: cocktails,
+    data: cocktailList,
     loading: (result.data && result.error) || configLoading,
     remove
   }

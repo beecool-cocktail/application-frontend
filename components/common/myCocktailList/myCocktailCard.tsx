@@ -14,10 +14,15 @@ import useMyCocktailCard from 'lib/application/useMyCocktailCard'
 
 export interface FavoriteCocktailCardProps {
   cocktail: MyCocktailItem
+  editable?: boolean
   onDelete(id: number): void
 }
 
-const MyCocktailCard = ({ cocktail, onDelete }: FavoriteCocktailCardProps) => {
+const MyCocktailCard = ({
+  cocktail,
+  editable = false,
+  onDelete
+}: FavoriteCocktailCardProps) => {
   const {
     moreActionMenuOpen,
     moreActionMenuAnchorEl,
@@ -44,22 +49,26 @@ const MyCocktailCard = ({ cocktail, onDelete }: FavoriteCocktailCardProps) => {
           <Typography>{cocktail.title}</Typography>
           <Typography>{cocktail.userName}</Typography>
         </Stack>
-        <IconButton style={{ fontSize: 24 }} onClick={handleClickMoreAction}>
-          <MoreHoriz />
-        </IconButton>
+        {editable && (
+          <IconButton style={{ fontSize: 24 }} onClick={handleClickMoreAction}>
+            <MoreHoriz />
+          </IconButton>
+        )}
       </Stack>
-      <Menu
-        open={moreActionMenuOpen}
-        anchorEl={moreActionMenuAnchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-      >
-        <MenuItem onClick={handleEdit}>編輯</MenuItem>
-        <MenuItem onClick={handleDelete}>刪除</MenuItem>
-      </Menu>
+      {editable && (
+        <Menu
+          open={moreActionMenuOpen}
+          anchorEl={moreActionMenuAnchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left'
+          }}
+        >
+          <MenuItem onClick={handleEdit}>編輯</MenuItem>
+          <MenuItem onClick={handleDelete}>刪除</MenuItem>
+        </Menu>
+      )}
     </Stack>
   )
 }

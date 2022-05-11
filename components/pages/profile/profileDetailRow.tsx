@@ -2,8 +2,12 @@ import { Stack, Typography } from '@mui/material'
 import Loading from 'components/common/status/loading'
 import useUser from 'lib/application/useUser'
 
-const ProfileDetailRow = () => {
-  const { user, loading, error } = useUser()
+export interface ProfileDetailRowProps {
+  userId?: number
+}
+
+const ProfileDetailRow = ({ userId }: ProfileDetailRowProps) => {
+  const { user, loading, error } = useUser(userId)
 
   if (loading) return <Loading />
   if (!user || error) return <Typography>error</Typography>

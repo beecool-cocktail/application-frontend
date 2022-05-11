@@ -14,11 +14,13 @@ import useFavoriteCocktailCard from 'lib/application/useFavoriteCocktailCard'
 
 export interface FavoriteCocktailCardProps {
   cocktail: FavoriteCocktailItem
+  editable?: boolean
   onRemove(id: number): void
 }
 
 const FavoriteCocktailCard = ({
   cocktail,
+  editable = false,
   onRemove
 }: FavoriteCocktailCardProps) => {
   const {
@@ -61,7 +63,7 @@ const FavoriteCocktailCard = ({
         }}
       >
         <MenuItem onClick={handleShare}>分享</MenuItem>
-        <MenuItem onClick={handleRemove}>取消收藏</MenuItem>
+        {editable && <MenuItem onClick={handleRemove}>取消收藏</MenuItem>}
       </Menu>
     </Stack>
   )

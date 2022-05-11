@@ -1,8 +1,8 @@
 import produce from 'immer'
-import { join } from 'lib/helper/url'
 import useCocktailService from 'lib/services/cocktailAdapter'
 import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdateAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
+import { FALLBACK_URL } from 'lib/constants/image'
 import useConfig from './useConfig'
 import useLoginDialog from './useLoginDialog'
 import useSnackbar from './useSnackbar'
@@ -11,7 +11,7 @@ const useCocktail = (id?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
-  const { config, loading: configLoading } = useConfig()
+  const { config, loading: configLoading, toAbsolutePath } = useConfig()
   const { getById } = useCocktailService(id, storage.getToken())
   const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
   const result = getById()
@@ -22,8 +22,10 @@ const useCocktail = (id?: number) => {
     cocktail = produce(cocktail, draft => {
       draft.photos = draft.photos.map(p => ({
         ...p,
-        path: join(config.staticBaseUrl, p.path)
+        path: toAbsolutePath(p.path)
       }))
+      if (draft.userPhoto) draft.userPhoto = toAbsolutePath(draft.userPhoto)
+      else draft.userPhoto = FALLBACK_URL
     })
   } else {
     cocktail = undefined

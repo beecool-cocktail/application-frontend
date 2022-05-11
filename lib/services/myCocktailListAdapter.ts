@@ -4,13 +4,14 @@ import { MyCocktailItem } from 'lib/domain/cocktail'
 import { DeleteFormalArticleRequest, GetSelfCocktailListResponse } from 'sdk'
 import { cocktailApi } from './api'
 
-const path = '/users/current/cocktails'
-
 const useMyCocktailListService = (
-  token: string | null
+  token: string | null,
+  id?: number
 ): MyCocktailListService => {
   const getKey = () => {
     if (!token) return null
+    const user = id ? id : 'current'
+    const path = `/users/${user}/cocktails`
     return [path, token]
   }
 

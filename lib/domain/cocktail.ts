@@ -57,6 +57,11 @@ export interface CocktailPostDraftList {
   totalCount: number
 }
 
+export interface FavoriteCocktailList {
+  data: FavoriteCocktailItem[]
+  isPublic: boolean
+}
+
 export interface FavoriteCocktailItem {
   id: number
   userName: string

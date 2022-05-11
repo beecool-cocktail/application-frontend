@@ -7,11 +7,14 @@ import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { FavoriteCocktailItem } from 'lib/domain/cocktail'
 
-const useMyCocktailList = () => {
+const useMyCocktailList = (userId?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
-  const myCocktailListService = useMyCocktailListService(storage.getToken())
+  const myCocktailListService = useMyCocktailListService(
+    storage.getToken(),
+    userId
+  )
   const result = myCocktailListService.getList()
 
   let cocktails: FavoriteCocktailItem[] | undefined

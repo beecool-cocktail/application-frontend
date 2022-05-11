@@ -36,6 +36,7 @@ const Post = ({ cocktailPost, onCollect }: CocktailDetailsProps) => {
           title={cocktailPost.title}
           userId={cocktailPost.userId}
           userName={cocktailPost.userName}
+          userPhoto={cocktailPost.userPhoto}
         />
         <Box py={2}>
           <Typography>{cocktailPost.description}</Typography>
