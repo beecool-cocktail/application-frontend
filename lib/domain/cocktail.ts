@@ -1,3 +1,5 @@
+import { Photo, PhotoWithBlur } from './photo'
+
 export interface Step {
   description: string
 }
@@ -7,15 +9,11 @@ export interface Ingredient {
   amount: string
 }
 
-export interface Photo {
-  id?: number
-  path: string
-}
-
 export interface CocktailPost {
   id: number
   userId: number
   userName: string
+  userPhoto: string
   title: string
   description: string
   photos: Photo[]
@@ -29,7 +27,7 @@ export interface CocktailPostItem {
   userId: number
   userName: string
   title: string
-  photoUrls: string[]
+  photos: PhotoWithBlur[]
   ingredients: Ingredient[]
   isCollected: boolean
 }

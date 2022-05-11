@@ -303,6 +303,12 @@ export interface GetCocktailByIDResponse {
      * @memberof GetCocktailByIDResponse
      */
     'user_name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktailByIDResponse
+     */
+    'user_photo': string;
 }
 /**
  * 
@@ -407,6 +413,56 @@ export interface GetDraftCocktailListResponse {
 /**
  * 
  * @export
+ * @interface GetOtherCocktailListResponse
+ */
+export interface GetOtherCocktailListResponse {
+    /**
+     * 
+     * @type {Array<OtherCocktailList>}
+     * @memberof GetOtherCocktailListResponse
+     */
+    'cocktail_list': Array<OtherCocktailList>;
+}
+/**
+ * 
+ * @export
+ * @interface GetOtherUserInfoResponse
+ */
+export interface GetOtherUserInfoResponse {
+    /**
+     * 是否公開收藏 false=不公開, true=公開
+     * @type {boolean}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'is_collection_public': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'number_of_collection': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'number_of_post': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'user_id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'user_name': string;
+}
+/**
+ * 
+ * @export
  * @interface GetPopularCocktailListRequest
  */
 export interface GetPopularCocktailListRequest {
@@ -467,6 +523,12 @@ export interface GetUserFavoriteCocktailListResponse {
      * @memberof GetUserFavoriteCocktailListResponse
      */
     'favorite_cocktail_list': Array<FavoriteCocktail>;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof GetUserFavoriteCocktailListResponse
+     */
+    'is_public': boolean;
     /**
      * 
      * @type {number}
@@ -657,10 +719,10 @@ export interface InlineResponse2003 {
 export interface InlineResponse2004 {
     /**
      * 
-     * @type {GetUserFavoriteCocktailListResponse}
+     * @type {GetOtherUserInfoResponse}
      * @memberof InlineResponse2004
      */
-    'data': GetUserFavoriteCocktailListResponse;
+    'data': GetOtherUserInfoResponse;
     /**
      * 
      * @type {string}
@@ -682,10 +744,10 @@ export interface InlineResponse2004 {
 export interface InlineResponse2005 {
     /**
      * 
-     * @type {GetUserInfoResponse}
+     * @type {GetOtherCocktailListResponse}
      * @memberof InlineResponse2005
      */
-    'data': GetUserInfoResponse;
+    'data': GetOtherCocktailListResponse;
     /**
      * 
      * @type {string}
@@ -707,10 +769,10 @@ export interface InlineResponse2005 {
 export interface InlineResponse2006 {
     /**
      * 
-     * @type {UpdateUserInfoResponse}
+     * @type {GetUserFavoriteCocktailListResponse}
      * @memberof InlineResponse2006
      */
-    'data': UpdateUserInfoResponse;
+    'data': GetUserFavoriteCocktailListResponse;
     /**
      * 
      * @type {string}
@@ -732,10 +794,10 @@ export interface InlineResponse2006 {
 export interface InlineResponse2007 {
     /**
      * 
-     * @type {GetSelfCocktailListResponse}
+     * @type {GetUserInfoResponse}
      * @memberof InlineResponse2007
      */
-    'data': GetSelfCocktailListResponse;
+    'data': GetUserInfoResponse;
     /**
      * 
      * @type {string}
@@ -746,6 +808,56 @@ export interface InlineResponse2007 {
      * 
      * @type {string}
      * @memberof InlineResponse2007
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse2008
+ */
+export interface InlineResponse2008 {
+    /**
+     * 
+     * @type {UpdateUserInfoResponse}
+     * @memberof InlineResponse2008
+     */
+    'data': UpdateUserInfoResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2008
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2008
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse2009
+ */
+export interface InlineResponse2009 {
+    /**
+     * 
+     * @type {GetSelfCocktailListResponse}
+     * @memberof InlineResponse2009
+     */
+    'data': GetSelfCocktailListResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2009
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse2009
      */
     'error_message': string;
 }
@@ -790,6 +902,37 @@ export interface LogoutRequest {
 /**
  * 
  * @export
+ * @interface OtherCocktailList
+ */
+export interface OtherCocktailList {
+    /**
+     * 
+     * @type {number}
+     * @memberof OtherCocktailList
+     */
+    'cocktail_id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OtherCocktailList
+     */
+    'photo': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OtherCocktailList
+     */
+    'title': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OtherCocktailList
+     */
+    'user_name': string;
+}
+/**
+ * 
+ * @export
  * @interface PopularCocktailList
  */
 export interface PopularCocktailList {
@@ -817,6 +960,12 @@ export interface PopularCocktailList {
      * @memberof PopularCocktailList
      */
     'is_collected': boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof PopularCocktailList
+     */
+    'low_quality_photos': Array<string>;
     /**
      * 
      * @type {Array<string>}
@@ -2220,6 +2369,43 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
+         * Get other user id, name, email, numberOfPost, numberOfCollection and photo.
+         * @summary Get other user information.
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOtherUserInfo: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getOtherUserInfo', 'id', id)
+            const localVarPath = `/users/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get current user favorite cocktail article list.
          * @summary Get current user favorite cocktail article list.
          * @param {*} [options] Override http request option.
@@ -2260,6 +2446,43 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          */
         info: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/users/current`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get other user cocktail list order by create date.
+         * @summary Get other user cocktail list
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        otherCocktailList: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('otherCocktailList', 'id', id)
+            const localVarPath = `/users/{id}/cocktails`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2420,8 +2643,19 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOtherUserFavoriteList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async getOtherUserFavoriteList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOtherUserFavoriteList(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get other user id, name, email, numberOfPost, numberOfCollection and photo.
+         * @summary Get other user information.
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOtherUserInfo(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOtherUserInfo(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2430,7 +2664,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserFavoriteList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async getUserFavoriteList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUserFavoriteList(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2440,8 +2674,19 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async info(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async info(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.info(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get other user cocktail list order by create date.
+         * @summary Get other user cocktail list
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async otherCocktailList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.otherCocktailList(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2461,7 +2706,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async selfCocktailList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
+        async selfCocktailList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.selfCocktailList(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2472,7 +2717,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserInfoRequest(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2503,8 +2748,18 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOtherUserFavoriteList(id: number, options?: any): AxiosPromise<InlineResponse2004> {
+        getOtherUserFavoriteList(id: number, options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.getOtherUserFavoriteList(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get other user id, name, email, numberOfPost, numberOfCollection and photo.
+         * @summary Get other user information.
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOtherUserInfo(id: number, options?: any): AxiosPromise<InlineResponse2004> {
+            return localVarFp.getOtherUserInfo(id, options).then((request) => request(axios, basePath));
         },
         /**
          * Get current user favorite cocktail article list.
@@ -2512,7 +2767,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserFavoriteList(options?: any): AxiosPromise<InlineResponse2004> {
+        getUserFavoriteList(options?: any): AxiosPromise<InlineResponse2006> {
             return localVarFp.getUserFavoriteList(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2521,8 +2776,18 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        info(options?: any): AxiosPromise<InlineResponse2005> {
+        info(options?: any): AxiosPromise<InlineResponse2007> {
             return localVarFp.info(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get other user cocktail list order by create date.
+         * @summary Get other user cocktail list
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        otherCocktailList(id: number, options?: any): AxiosPromise<InlineResponse2005> {
+            return localVarFp.otherCocktailList(id, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove cocktail article from favorite list.
@@ -2540,7 +2805,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        selfCocktailList(options?: any): AxiosPromise<InlineResponse2007> {
+        selfCocktailList(options?: any): AxiosPromise<InlineResponse2009> {
             return localVarFp.selfCocktailList(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2550,7 +2815,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: any): AxiosPromise<InlineResponse2006> {
+        updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: any): AxiosPromise<InlineResponse2008> {
             return localVarFp.updateUserInfoRequest(body, options).then((request) => request(axios, basePath));
         },
     };
@@ -2588,6 +2853,18 @@ export class UserApi extends BaseAPI {
     }
 
     /**
+     * Get other user id, name, email, numberOfPost, numberOfCollection and photo.
+     * @summary Get other user information.
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public getOtherUserInfo(id: number, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).getOtherUserInfo(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
      * Get current user favorite cocktail article list.
      * @summary Get current user favorite cocktail article list.
      * @param {*} [options] Override http request option.
@@ -2607,6 +2884,18 @@ export class UserApi extends BaseAPI {
      */
     public info(options?: AxiosRequestConfig) {
         return UserApiFp(this.configuration).info(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get other user cocktail list order by create date.
+     * @summary Get other user cocktail list
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public otherCocktailList(id: number, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).otherCocktailList(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

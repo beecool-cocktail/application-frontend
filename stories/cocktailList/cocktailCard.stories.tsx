@@ -3,6 +3,11 @@ import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import CocktailCard from 'components/common/cocktailList/cocktailCard'
 import CocktailSkeleton from 'components/common/cocktailList/cocktailSkeleton'
+import { CocktailPostItem } from 'lib/domain/cocktail'
+import mockPhotos, {
+  mockBlurPhotos,
+  mockFallbackPhotos
+} from 'lib/mocks/data/photos'
 
 export default {
   title: 'cocktailList/Cocktail Card',
@@ -33,7 +38,7 @@ const CocktailSkeletonTemplate: ComponentStory<
   </Box>
 )
 
-const defaultCocktail = {
+const defaultCocktail: CocktailPostItem = {
   id: 98078024211279,
   title: 'Old Fashioned',
   ingredients: [
@@ -43,18 +48,16 @@ const defaultCocktail = {
   userId: 1,
   userName: 'Raven',
   isCollected: false,
-  photoUrls: [
-    'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505',
-    'https://www.eatthis.com/wp-content/uploads/sites/4/2019/03/old-fashioned-cocktail.jpg?fit=1200%2C879&ssl=1',
-    'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg'
-  ]
+  photos: mockPhotos
 }
 
-const onePhotoCocktail = {
+const fallbackPhotoCocktail: CocktailPostItem = {
   ...defaultCocktail,
-  photoUrls: [
-    'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505'
-  ]
+  photos: mockFallbackPhotos
+}
+const blurPhotoCocktail: CocktailPostItem = {
+  ...defaultCocktail,
+  photos: mockBlurPhotos
 }
 
 const ellipsisCocktail = {
@@ -87,11 +90,7 @@ const ellipsisCocktail = {
       amount: '3L'
     }
   ],
-  photoUrls: [
-    'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505',
-    'https://www.eatthis.com/wp-content/uploads/sites/4/2019/03/old-fashioned-cocktail.jpg?fit=1200%2C879&ssl=1',
-    'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg'
-  ]
+  photos: mockPhotos
 }
 
 export const Default = CocktailCardTemplate.bind({})
@@ -115,9 +114,14 @@ Ellipsis.args = {
   cocktail: ellipsisCocktail
 }
 
-export const OnePhoto = CocktailCardTemplate.bind({})
-OnePhoto.args = {
-  cocktail: onePhotoCocktail
+export const WithoutUploadPhoto = CocktailCardTemplate.bind({})
+WithoutUploadPhoto.args = {
+  cocktail: fallbackPhotoCocktail
+}
+
+export const Blur = CocktailCardTemplate.bind({})
+Blur.args = {
+  cocktail: blurPhotoCocktail
 }
 
 export const Skeleton = CocktailSkeletonTemplate.bind({})

@@ -27,6 +27,7 @@ const useCocktailService = (
         id: resData.cocktail_id,
         userId: resData.user_id,
         userName: resData.user_name,
+        userPhoto: resData.user_photo,
         title: resData.title,
         description: resData.description,
         photos: resData.photos.map(p => ({

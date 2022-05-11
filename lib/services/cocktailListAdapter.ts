@@ -23,7 +23,10 @@ const useCocktailListService = (token: string | null): CocktailListService => {
           userId: cocktail.user_id,
           userName: cocktail.user_name,
           title: cocktail.title,
-          photoUrls: cocktail.photos,
+          photos: cocktail.photos.map((p, index) => ({
+            path: p,
+            blurPath: cocktail.low_quality_photos[index]
+          })),
           ingredients: cocktail.ingredient_list.map(i => ({
             name: i.name,
             amount: i.amount

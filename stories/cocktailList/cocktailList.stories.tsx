@@ -7,6 +7,7 @@ import CocktailList from 'components/common/cocktailList/cocktailList'
 import mockCocktail from 'lib/mocks/data/cocktail'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import { GetPopularCocktailListResponse, PopularCocktailList } from 'sdk'
+import mockPhotos from 'lib/mocks/data/photos'
 
 export default {
   title: 'cocktailList/Cocktail List',
@@ -20,16 +21,13 @@ export default {
 } as ComponentMeta<typeof CocktailList>
 
 const generateMockCocktail = (id: number): PopularCocktailList => {
-  let photos = [
-    'https://images.immediate.co.uk/production/volatile/sites/30/2021/04/Raspberry-Mojito-a9cb8d4.jpg?quality=90&resize=556,505',
-    'https://www.eatthis.com/wp-content/uploads/sites/4/2019/03/old-fashioned-cocktail.jpg?fit=1200%2C879&ssl=1',
-    'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg'
-  ]
+  let photos = mockPhotos
   for (let i = 0; i < id % 3; i++) photos = move(0, -1, photos)
   return {
     ...mockCocktail,
     cocktail_id: id,
-    photos
+    photos: photos.map(p => p.path),
+    low_quality_photos: photos.map(p => p.blurPath)
   }
 }
 

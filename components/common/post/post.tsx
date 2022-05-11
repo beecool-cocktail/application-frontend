@@ -22,11 +22,12 @@ const Post = ({ cocktailPost, onCollect }: CocktailDetailsProps) => {
   const photos = cocktailPost.photos.length
     ? cocktailPost.photos.map(p => p.path)
     : [FALLBACK_URL]
+
   return (
     <Stack>
       <CocktailSwiper
         title={cocktailPost.title}
-        images={photos}
+        images={photos.map(p => ({ path: p, blurPath: '' }))}
         isCollected={cocktailPost.isCollected}
         onCollect={() => onCollect?.()}
       />

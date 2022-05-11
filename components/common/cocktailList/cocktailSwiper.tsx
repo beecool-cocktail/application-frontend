@@ -6,10 +6,11 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import Favorite from 'lib/assets/like/default.svg'
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { PhotoWithBlur } from 'lib/domain/photo'
 
 export interface CocktailSwiperProps {
   title: string
-  images: string[]
+  images: PhotoWithBlur[]
   isCollected: boolean
   preloadAmount?: number
   onCollect(): void
@@ -76,10 +77,12 @@ const CocktailSwiper = ({
                 <Image
                   style={{ borderRadius: 10 }}
                   layout="responsive"
-                  src={image}
-                  alt={title}
+                  placeholder={image.blurPath ? 'blur' : 'empty'}
+                  src={image.path}
+                  blurDataURL={image.blurPath}
                   width={400}
                   height={300}
+                  alt={title}
                   onLoadingComplete={handleLoadingComplete(index)}
                 />
               )}

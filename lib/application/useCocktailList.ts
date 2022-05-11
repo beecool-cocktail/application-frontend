@@ -7,6 +7,7 @@ import useCocktailListService from 'lib/services/cocktailListAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdateAdapter'
+import { PhotoWithBlur } from 'lib/domain/photo'
 import useConfig from './useConfig'
 import useSnackbar from './useSnackbar'
 import useLoginDialog from './useLoginDialog'
@@ -38,11 +39,14 @@ const useCocktailList = () => {
   if (cocktails && config) {
     cocktails = cocktails.map(cocktail =>
       produce(cocktail, draft => {
-        const getAbsoluteUrl = (photo: string) =>
-          join(config.staticBaseUrl, photo)
-        draft.photoUrls = draft.photoUrls.length
-          ? draft.photoUrls.map(getAbsoluteUrl)
-          : [FALLBACK_URL]
+        const getAbsoluteUrl = (photo: PhotoWithBlur): PhotoWithBlur => ({
+          id: photo.id,
+          path: join(config.staticBaseUrl, photo.path),
+          blurPath: join(config.staticBaseUrl, photo.blurPath)
+        })
+        draft.photos = draft.photos.length
+          ? draft.photos.map(getAbsoluteUrl)
+          : [{ path: FALLBACK_URL, blurPath: '' }]
       })
     )
   } else {

@@ -24,6 +24,7 @@ export default {
         configHandler,
         rest.get('/api/users/current/favorite-cocktails', (req, res, ctx) => {
           const data: GetUserFavoriteCocktailListResponse = {
+            is_public: true,
             favorite_cocktail_list: [
               {
                 cocktail_id: 1,

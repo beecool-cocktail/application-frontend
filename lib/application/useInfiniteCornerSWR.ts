@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import useSWRInfinite from 'swr/infinite'
 import { last } from 'ramda'
+import { v4 as uuidv4 } from 'uuid'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import fetcher from 'lib/helper/fetcher'
 import { InfiniteFetchResponse } from './ports'
@@ -12,7 +13,7 @@ const useCornerSWRInfinite = <T>(
   token: string | null,
   pageSize: number = PAGE_SIZE
 ): InfiniteFetchResponse<T> => {
-  const [retryCount, setRetryCount] = useState(0)
+  const [id, setId] = useState(() => uuidv4())
   const {
     data: pageData,
     error,
@@ -29,7 +30,7 @@ const useCornerSWRInfinite = <T>(
         pageIndex: index + 1,
         pageSize: pageSize
       }
-      return [path, token, pagination, retryCount]
+      return [path, token, pagination, id]
     },
     fetcher,
     {
@@ -64,7 +65,7 @@ const useCornerSWRInfinite = <T>(
   const resolveRef = useRef<((value: unknown) => void) | null>(null)
 
   const retry = async () => {
-    setRetryCount(c => c + 1)
+    setId(uuidv4())
     await new Promise(resolve => {
       resolveRef.current = resolve
     })
