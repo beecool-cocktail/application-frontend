@@ -14,4 +14,4 @@ substitutions:
   _IMAGE_NAME: 'asia-east1-docker.pkg.dev/${PROJECT_ID}/frontend-repo/application-frontend'
 options:
   dynamic_substitutions: true
-timeout: 900s
+timeout: 1800s
