@@ -7,7 +7,7 @@ if (process.env.IMAGE_DOMAIN) imageDomains.push(process.env.IMAGE_DOMAIN)
 /** @type {import('next').NextConfig} */
 module.exports = withPWA({
   reactStrictMode: true,
-  swcMinify: false,
+  swcMinify: true,
   serverRuntimeConfig: {
     apiBaseUrl: process.env.API_BASE_URL,
     staticBaseUrl: process.env.API_BASE_URL
