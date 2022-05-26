@@ -5,12 +5,20 @@ const imageDomains = []
 if (process.env.IMAGE_DOMAIN) imageDomains.push(process.env.IMAGE_DOMAIN)
 
 /** @type {import('next').NextConfig} */
-module.exports = withPWA({
+const config = {
   reactStrictMode: true,
   swcMinify: true,
   serverRuntimeConfig: {
     apiBaseUrl: process.env.API_BASE_URL,
     staticBaseUrl: process.env.API_BASE_URL
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/static/:path*',
+        destination: process.env.API_BASE_URL + '/static/:path*'
+      }
+    ]
   },
   images: { domains: imageDomains },
   pwa: {
@@ -25,4 +33,5 @@ module.exports = withPWA({
     })
     return config
   }
-})
+}
+module.exports = withPWA(config)

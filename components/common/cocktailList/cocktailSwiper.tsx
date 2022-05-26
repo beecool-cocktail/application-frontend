@@ -71,27 +71,23 @@ const CocktailSwiper = ({
             setPreloadIndex(swiper.activeIndex + preloadAmount)
           }}
         >
-          {images.map((image, index) => {
-            // eslint-disable-next-line no-console
-            console.log({ image })
-            return (
-              <SwiperSlide key={index}>
-                {index <= preloadIndex && (
-                  <Image
-                    style={{ borderRadius: 10 }}
-                    layout="responsive"
-                    placeholder={image.blurPath ? 'blur' : 'empty'}
-                    src={image.path}
-                    blurDataURL={image.blurPath}
-                    width={400}
-                    height={300}
-                    alt={title}
-                    onLoadingComplete={handleLoadingComplete(index)}
-                  />
-                )}
-              </SwiperSlide>
-            )
-          })}
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              {index <= preloadIndex && (
+                <Image
+                  style={{ borderRadius: 10 }}
+                  layout="responsive"
+                  placeholder={image.blurPath ? 'blur' : 'empty'}
+                  src={image.path}
+                  blurDataURL={image.blurPath}
+                  width={400}
+                  height={300}
+                  alt={title}
+                  onLoadingComplete={handleLoadingComplete(index)}
+                />
+              )}
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Box>
       <Box

@@ -85,7 +85,7 @@ const useCocktailList = (pageSize: number) => {
         const getAbsoluteUrl = (photo: PhotoWithBlur): PhotoWithBlur => ({
           id: photo.id,
           path: join(config.staticBaseUrl, photo.path),
-          blurPath: join(config.staticBaseUrl, photo.blurPath)
+          blurPath: '/' + photo.blurPath
         })
         draft.photos = draft.photos.length
           ? draft.photos.map(getAbsoluteUrl)
