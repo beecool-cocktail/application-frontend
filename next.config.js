@@ -13,12 +13,11 @@ const config = {
     staticBaseUrl: process.env.API_BASE_URL
   },
   async rewrites() {
-    return [
-      {
-        source: '/static/:path*',
-        destination: process.env.API_BASE_URL + '/static/:path*'
-      }
-    ]
+    const source = '/static/:path*'
+    let destination = source
+    if (process.env.API_BASE_URL)
+      destination = process.env.API_BASE_URL + source
+    return [{ source, destination }]
   },
   images: { domains: imageDomains },
   pwa: {
