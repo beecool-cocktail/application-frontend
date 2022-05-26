@@ -20,6 +20,7 @@ export interface CocktailPost {
   ingredients: Ingredient[]
   steps: Step[]
   isCollected: boolean
+  createdDate: string
 }
 
 export interface CocktailPostItem {
@@ -75,3 +76,15 @@ export interface MyCocktailItem {
   title: string
   photoUrl: string
 }
+
+export const collectCocktailItem = (
+  cocktail: CocktailPostItem
+): CocktailPostItem => ({
+  ...cocktail,
+  isCollected: !cocktail.isCollected
+})
+
+export const collectCocktail = (cocktail: CocktailPost): CocktailPost => ({
+  ...cocktail,
+  isCollected: !cocktail.isCollected
+})

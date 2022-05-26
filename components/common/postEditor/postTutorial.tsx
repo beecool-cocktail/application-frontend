@@ -1,9 +1,9 @@
 import React from 'react'
 import { Stack, TextField } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
+import { CocktailPostForm } from 'lib/application/ports'
 import IngredientList from './ingredientList'
 import StepList from './stepList'
-import type { CocktailPostForm } from 'lib/types/cocktail'
 
 interface PostTutorialProps {
   control: Control<CocktailPostForm>

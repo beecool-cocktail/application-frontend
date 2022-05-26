@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack, TextField, Typography } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/types/cocktail'
+import { CocktailPostForm } from 'lib/application/ports'
 import ImageInput from './imageInput'
 
 interface PostImageBlockProps {

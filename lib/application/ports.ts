@@ -9,6 +9,19 @@ import {
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User } from 'lib/domain/user'
 
+export interface MutateOptions<T> {
+  rollbackOnError?: boolean
+  optimisticData?: T
+  revalidate?: boolean
+}
+
+export interface Page<T> {
+  total: number
+  data: T[]
+}
+
+export type CocktailListPage = Page<CocktailPostItem>
+
 export interface FetchResponse<T> {
   data: T | undefined
   error: Error
@@ -26,7 +39,7 @@ export interface InfiniteFetchResponse<T> {
   isReachingEnd: boolean
   isRefreshing: boolean
   loadMore(): void
-  mutate: () => Promise<unknown>
+  mutate: () => void
   retry: () => Promise<unknown>
 }
 
@@ -61,12 +74,13 @@ export interface UserService {
   updateUserInfo(form: UpdateUserForm): Promise<void>
 }
 
-export interface CocktailListService {
-  getList(): InfiniteFetchResponse<CocktailPostItem>
-}
-
 export interface CocktailService {
-  getById(): FetchResponse<CocktailPost>
+  getList(
+    page: number,
+    pageSize: number,
+    token: string
+  ): Promise<CocktailListPage>
+  getById(id: number, token?: string): Promise<CocktailPost>
 }
 
 export interface DraftListService {

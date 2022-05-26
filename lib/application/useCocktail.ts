@@ -1,8 +1,10 @@
 import produce from 'immer'
-import useCocktailService from 'lib/services/cocktailAdapter'
+import useSWR, { MutatorOptions } from 'swr'
 import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdateAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { FALLBACK_URL } from 'lib/constants/image'
+import { CocktailPost, collectCocktail } from 'lib/domain/cocktail'
+import cocktailService from 'lib/services/cocktailAdapter'
 import useConfig from './useConfig'
 import useLoginDialog from './useLoginDialog'
 import useSnackbar from './useSnackbar'
@@ -12,12 +14,19 @@ const useCocktail = (id?: number) => {
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
-  const { getById } = useCocktailService(id, storage.getToken())
+  const { data, error, mutate } = useSWR(
+    () => {
+      if (!id) return null
+      const token = storage.getToken()
+      if (!token) return id
+      return [id, token]
+    },
+    cocktailService.getById,
+    { revalidateOnFocus: false }
+  )
   const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
-  const result = getById()
-  const error = result.error
-  let cocktail = result.data
 
+  let cocktail = data
   if (cocktail && config) {
     cocktail = produce(cocktail, draft => {
       draft.photos = draft.photos.map(p => ({
@@ -32,17 +41,34 @@ const useCocktail = (id?: number) => {
   }
 
   const collect = async () => {
+    if (!id) return
+
     const token = storage.getToken()
-    if (!id || !cocktail) return
     if (!token) return loginDialog.setOpen(true)
-    if (cocktail.isCollected) {
-      await favoriteCocktailUpdateService.remove(id, token)
-      snackbar.success('remove success')
-    } else {
-      await favoriteCocktailUpdateService.collect(id, token)
-      snackbar.success('collect success')
+
+    const mutateOpts: MutatorOptions<CocktailPost> = {
+      rollbackOnError: true,
+      optimisticData: currentData => {
+        if (!currentData) return currentData as unknown as CocktailPost
+        return collectCocktail(currentData)
+      }
     }
-    result.mutate()
+
+    try {
+      await mutate(async optimisticData => {
+        if (!optimisticData) return
+        if (optimisticData.isCollected) {
+          await favoriteCocktailUpdateService.collect(id, token)
+          snackbar.success('collect success')
+        } else {
+          await favoriteCocktailUpdateService.remove(id, token)
+          snackbar.success('remove success')
+        }
+        return optimisticData
+      }, mutateOpts)
+    } catch (e) {
+      if (e instanceof Error) snackbar.error(e.message)
+    }
   }
 
   return {

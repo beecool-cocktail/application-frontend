@@ -21,7 +21,7 @@ const CocktailList = () => {
     isReachingEnd,
     collect,
     retry
-  } = useCocktailList()
+  } = useCocktailList(PAGE_SIZE)
 
   const renderSkeletonList = () => {
     return Array.from(new Array(PAGE_SIZE)).map((item, index) => (

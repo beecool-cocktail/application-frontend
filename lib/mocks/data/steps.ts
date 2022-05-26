@@ -1,4 +1,4 @@
-import type { Step } from 'lib/types/cocktail'
+import { Step } from 'lib/domain/cocktail'
 
 const mockSteps: Step[] = [
   { description: 'Step 1' },

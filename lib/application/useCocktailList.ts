@@ -1,37 +1,80 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import useSWRInfinite from 'swr/infinite'
 import { useInView } from 'react-intersection-observer'
 import produce from 'immer'
+import { v4 as uuidv4 } from 'uuid'
+import { last } from 'ramda'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import useCocktailListService from 'lib/services/cocktailListAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import { CocktailPostItem } from 'lib/domain/cocktail'
+import { CocktailPostItem, collectCocktailItem } from 'lib/domain/cocktail'
 import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdateAdapter'
 import { PhotoWithBlur } from 'lib/domain/photo'
+import cocktailService from 'lib/services/cocktailAdapter'
+import { PAGE_SIZE } from 'lib/constants/pagination'
 import useConfig from './useConfig'
 import useSnackbar from './useSnackbar'
 import useLoginDialog from './useLoginDialog'
+import { Page } from './ports'
 
-const useCocktailList = () => {
+const useCocktailList = (pageSize: number) => {
+  const [fetchId, setFetchId] = useState(() => uuidv4())
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading } = useConfig()
-  const { getList } = useCocktailListService(storage.getToken())
+
+  const result = useSWRInfinite<Page<CocktailPostItem>>(
+    (index, previousPageData: Page<CocktailPostItem>) => {
+      if (previousPageData && !previousPageData.data.length) return null
+      return [index + 1, PAGE_SIZE, storage.getToken(), fetchId]
+    },
+    cocktailService.getList,
+    {
+      shouldRetryOnError: false,
+      revalidateOnFocus: false,
+      revalidateFirstPage: false
+    }
+  )
   const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
   const { ref: bottomRef, inView } = useInView()
 
-  const result = getList()
-  const {
-    data,
-    error,
-    isLoadingInitialData,
-    isLoadingMore,
-    isReachingEnd,
-    isRefreshing,
-    loadMore,
-    mutate
-  } = result
+  const { data: pageData, error, isValidating, size, setSize, mutate } = result
+
+  const getTotal = (): number => {
+    if (!pageData) return 0
+    const lastPage = last(pageData)
+    if (!lastPage) return 0
+    return lastPage.total
+  }
+
+  const total = getTotal()
+  const data = pageData ? pageData.map(p => p.data) : []
+
+  const isLoadingInitialData = !pageData && !error
+  const isLoadingMore =
+    (isLoadingInitialData ||
+      (size > 0 && data && typeof data[size - 1] === 'undefined')) &&
+    !error
+  const isEmpty = data?.[0]?.length === 0
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < pageSize)
+  const isRefreshing =
+    (isValidating && data && data.length === size) || (error && isValidating)
+  const resolveRef = useRef<((value: unknown) => void) | null>(null)
+
+  const retry = async () => {
+    setFetchId(uuidv4())
+    await new Promise(resolve => {
+      resolveRef.current = resolve
+    })
+  }
+
+  useEffect(() => {
+    if (isLoadingInitialData || !resolveRef.current) return
+    resolveRef.current(null)
+    resolveRef.current = null
+  }, [isLoadingInitialData])
 
   let cocktails: CocktailPostItem[] | undefined = data
     ? data.flatMap(c => c)
@@ -55,15 +98,29 @@ const useCocktailList = () => {
 
   const collect = async (id: number, isCollected: boolean) => {
     const token = storage.getToken()
-    if (!token) return loginDialog.setOpen(true)
-    if (isCollected) {
-      await favoriteCocktailUpdateService.remove(id, token)
-      snackbar.success('remove success')
-    } else {
-      await favoriteCocktailUpdateService.collect(id, token)
-      snackbar.success('collect success')
+    if (!token || !pageData) return loginDialog.setOpen(true)
+
+    const optimisticData = pageData.map(page => ({
+      total: page.total,
+      data: page.data.map(cocktail => {
+        if (cocktail.id === id) return collectCocktailItem(cocktail)
+        return cocktail
+      })
+    }))
+
+    await mutate(optimisticData, false)
+    try {
+      if (isCollected) {
+        await favoriteCocktailUpdateService.remove(id, token)
+        snackbar.success('remove success')
+      } else {
+        await favoriteCocktailUpdateService.collect(id, token)
+        snackbar.success('collect success')
+      }
+    } catch (e) {
+      await mutate(pageData, false)
+      if (e instanceof Error) snackbar.error(e.message)
     }
-    mutate()
   }
 
   useEffect(() => {
@@ -75,7 +132,7 @@ const useCocktailList = () => {
       !isReachingEnd &&
       !isRefreshing
     ) {
-      loadMore()
+      setSize(s => s + 1)
     }
   }, [
     error,
@@ -84,13 +141,20 @@ const useCocktailList = () => {
     isLoadingMore,
     isReachingEnd,
     isRefreshing,
-    loadMore
+    setSize
   ])
 
   return {
     ...result,
-    bottomRef,
     cocktails,
+    total,
+    isRefreshing,
+    isLoadingInitialData,
+    isLoadingMore,
+    isReachingEnd,
+    isEmpty,
+    retry,
+    bottomRef,
     loading: isLoadingInitialData || configLoading,
     collect
   }

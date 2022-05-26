@@ -1,51 +1,72 @@
-import useSWR from 'swr'
-import { GetCocktailByIDResponse } from 'sdk'
-import { CocktailService } from 'lib/application/ports'
-import { CocktailPost } from 'lib/domain/cocktail'
+import { AxiosRequestConfig } from 'axios'
+import { CocktailListPage, CocktailService } from 'lib/application/ports'
+import { CocktailPost, CocktailPostItem } from 'lib/domain/cocktail'
+import { cocktailApi } from './api'
 
-const useCocktailService = (
-  id: number | undefined,
-  token: string | null
-): CocktailService => {
-  const getKey = () => {
-    if (!id) return null
-    const path = `/cocktails/${id}`
-    return token ? [path, token] : path
+const getById = async (id: number, token?: string): Promise<CocktailPost> => {
+  const config: AxiosRequestConfig = {
+    headers: { ...(token && { Authorization: `Bearer ${token}` }) }
+  }
+  const res = await cocktailApi.getCocktailByIDRequest(id, config)
+  const resData = res.data.data
+  const result: CocktailPost = {
+    id: resData.cocktail_id,
+    userId: resData.user_id,
+    userName: resData.user_name,
+    userPhoto: resData.user_photo,
+    title: resData.title,
+    description: resData.description,
+    photos: resData.photos.map(p => ({
+      id: p.id,
+      path: p.path
+    })),
+    ingredients: resData.ingredient_list.map(i => ({
+      name: i.name,
+      amount: i.amount
+    })),
+    steps: resData.step_list.map(s => ({ description: s.description })),
+    isCollected: resData.is_collected,
+    createdDate: resData.created_date
   }
 
-  const {
-    data: resData,
-    error,
-    isValidating,
-    mutate
-  } = useSWR<GetCocktailByIDResponse>(getKey, { revalidateOnFocus: false })
+  return result
+}
 
-  const getById = () => {
-    let data: CocktailPost | undefined
-    if (resData) {
-      data = {
-        id: resData.cocktail_id,
-        userId: resData.user_id,
-        userName: resData.user_name,
-        userPhoto: resData.user_photo,
-        title: resData.title,
-        description: resData.description,
-        photos: resData.photos.map(p => ({
-          id: p.id,
-          path: p.path
+const getList = async (
+  pageIndex: number,
+  pageSize: number,
+  token: string | null
+): Promise<CocktailListPage> => {
+  const config: AxiosRequestConfig = {
+    headers: { ...(token && { Authorization: `Bearer ${token}` }) }
+  }
+  const res = await cocktailApi.getCocktail(pageIndex, pageSize, config)
+  const resData = res.data.data
+  const result: CocktailListPage = {
+    total: resData.total,
+    data: resData.popular_cocktail_list.map(cocktail => {
+      const cocktailPost: CocktailPostItem = {
+        id: cocktail.cocktail_id,
+        userId: cocktail.user_id,
+        userName: cocktail.user_name,
+        title: cocktail.title,
+        photos: cocktail.photos.map((p, index) => ({
+          path: p,
+          blurPath: cocktail.low_quality_photos[index]
         })),
-        ingredients: resData.ingredient_list.map(i => ({
+        ingredients: cocktail.ingredient_list.map(i => ({
           name: i.name,
           amount: i.amount
         })),
-        steps: resData.step_list.map(s => ({ description: s.description })),
-        isCollected: resData.is_collected
+        isCollected: cocktail.is_collected
       }
-    }
-    return { data, error, mutate, isValidating }
+      return cocktailPost
+    })
   }
 
-  return { getById }
+  return result
 }
 
-export default useCocktailService
+const cocktailService: CocktailService = { getList, getById }
+
+export default cocktailService

@@ -8,7 +8,7 @@ import { clamp } from 'ramda'
 import swap from 'lodash-move'
 import { Control, useFieldArray } from 'react-hook-form'
 import AddButton from 'components/common/button/addButton'
-import { CocktailPostForm } from 'lib/types/cocktail'
+import { CocktailPostForm } from 'lib/application/ports'
 import StepInput from './stepInput'
 
 const HEIGHT = 100

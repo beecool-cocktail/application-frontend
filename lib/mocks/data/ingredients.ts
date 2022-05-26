@@ -1,4 +1,4 @@
-import type { Ingredient } from 'lib/types/cocktail'
+import type { Ingredient } from 'lib/domain/cocktail'
 
 const mockIngredients: Ingredient[] = [
   { name: '波本或裸麥威士忌', amount: '3L' },

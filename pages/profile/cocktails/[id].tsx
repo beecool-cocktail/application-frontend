@@ -1,20 +1,29 @@
 import React from 'react'
+import useSWR from 'swr'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import Loading from 'components/common/status/loading'
 import PostEditor from 'components/common/postEditor/postEditor'
 import { join } from 'lib/helper/url'
 import useConfig from 'lib/application/useConfig'
-import useCocktailService from 'lib/services/cocktailAdapter'
+import cocktailService from 'lib/services/cocktailAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 
 const useEditCocktail = (id: number) => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getById } = useCocktailService(id, storage.getToken())
+  const { data, error, isValidating } = useSWR(
+    () => {
+      if (!id) return null
+      const token = storage.getToken()
+      if (!token) return id
+      return [id, token]
+    },
+    cocktailService.getById,
+    { revalidateOnFocus: false }
+  )
 
-  const getByIdResult = getById()
-  let cocktailPost = getByIdResult.data
-  const { isValidating, error } = getByIdResult
+  let cocktailPost = data
+
   if (cocktailPost && config) {
     cocktailPost = {
       ...cocktailPost,

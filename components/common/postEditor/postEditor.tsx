@@ -89,10 +89,11 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
                 userPhoto: user.photo,
                 title: values.title,
                 description: values.description,
-                photos: previewUrls.map(url => ({ path: url })),
+                photos: previewUrls.map(url => ({ id: 0, path: url })),
                 steps: values.steps,
                 ingredients: values.ingredients,
-                isCollected: false
+                isCollected: false,
+                createdDate: ''
               }
               return cocktailPost
             })()}

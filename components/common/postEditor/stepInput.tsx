@@ -2,8 +2,8 @@ import React from 'react'
 import { Stack, TextField, IconButton } from '@mui/material'
 import { Menu } from '@mui/icons-material'
 import { Controller, Control } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/types/cocktail'
 import RemoveButton from 'components/common/button/removeButton'
+import { CocktailPostForm } from 'lib/application/ports'
 
 interface StepInputProps {
   name: `steps.${number}.description`

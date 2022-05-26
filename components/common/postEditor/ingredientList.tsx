@@ -2,8 +2,8 @@ import React from 'react'
 import { Control } from 'react-hook-form'
 import { Stack, Typography } from '@mui/material'
 import { useFieldArray } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/types/cocktail'
 import AddButton from 'components/common/button/addButton'
+import { CocktailPostForm } from 'lib/application/ports'
 import IngredientInput from './ingredientInput'
 
 interface IngredientListProps {
