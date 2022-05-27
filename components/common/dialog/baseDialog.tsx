@@ -21,8 +21,8 @@ const BaseDialog = ({
   open,
   title,
   content,
-  cancelText = '確定',
-  confirmText = '取消',
+  cancelText = '取消',
+  confirmText = '確定',
   onClose,
   onConfirm
 }: BaseDialogProps) => {
