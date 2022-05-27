@@ -11,22 +11,6 @@ export default {
 
 const Template: ComponentStory<typeof ConfirmDialog> = () => <ConfirmDialog />
 
-export const DeleteConfirmDialog = Template.bind({})
-
-DeleteConfirmDialog.decorators = [
-  story => {
-    const toInitialState = useStore(state => state.toInitialState)
-    useOnce(() =>
-      toInitialState({
-        confirmDialogOpen: true,
-        confirmDialogTitle: '刪除發文',
-        confirmDialogContent: '確定刪除此發文，一旦刪除將無法復原？'
-      })
-    )
-    return story()
-  }
-]
-
 export const CancelConfirmDialog = Template.bind({})
 CancelConfirmDialog.decorators = [
   story => {
@@ -34,8 +18,45 @@ CancelConfirmDialog.decorators = [
     useOnce(() =>
       toInitialState({
         confirmDialogOpen: true,
+        confirmDialogTitle: '放棄發文',
+        confirmDialogContent: ['確定放棄此發文，', '一旦放棄將無法復原？'].join(
+          '\n'
+        )
+      })
+    )
+    return story()
+  }
+]
+
+export const UnsavedConfirmDialog = Template.bind({})
+UnsavedConfirmDialog.decorators = [
+  story => {
+    const toInitialState = useStore(state => state.toInitialState)
+    useOnce(() =>
+      toInitialState({
+        confirmDialogOpen: true,
         confirmDialogTitle: '尚未儲存',
-        confirmDialogContent: '修改內容還沒儲存，是否要放棄編輯的內容？'
+        confirmDialogContent: [
+          '修改內容還沒儲存，',
+          '是否要放棄編輯的內容？'
+        ].join('\n')
+      })
+    )
+    return story()
+  }
+]
+
+export const DeleteConfirmDialog = Template.bind({})
+DeleteConfirmDialog.decorators = [
+  story => {
+    const toInitialState = useStore(state => state.toInitialState)
+    useOnce(() =>
+      toInitialState({
+        confirmDialogOpen: true,
+        confirmDialogTitle: '刪除發文',
+        confirmDialogContent: ['確定刪除此發文，', '一旦刪除將無法復原？'].join(
+          '\n'
+        )
       })
     )
     return story()

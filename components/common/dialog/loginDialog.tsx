@@ -1,22 +1,21 @@
-import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material'
 import useAuth from 'lib/application/useAuth'
 import useLoginDialog from 'lib/application/useLoginDialog'
+import BaseDialog from './baseDialog'
 
 const LoginDialog = () => {
   const { open, setOpen } = useLoginDialog()
   const { askUserPermission } = useAuth()
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const handleClose = () => setOpen(false)
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Sign in with Google</DialogTitle>
-      <DialogContent>
-        <Button onClick={askUserPermission}>Login</Button>
-      </DialogContent>
-    </Dialog>
+    <BaseDialog
+      open={open}
+      title="使用Google帳號登入"
+      content="登入之後即可收藏"
+      onClose={handleClose}
+      onConfirm={askUserPermission}
+    />
   )
 }
 

@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button as BaseButton, Typography } from '@mui/material'
+import { Button as BaseButton, SxProps, Typography } from '@mui/material'
 
 export interface ButtonProps {
+  sx?: SxProps
   size?: 'small' | 'medium' | 'large'
   variant?: 'contained' | 'outlined' | 'text'
   disabled?: boolean
@@ -10,6 +11,7 @@ export interface ButtonProps {
 }
 
 const Button = ({
+  sx,
   size = 'medium',
   variant = 'contained',
   disabled = false,
@@ -76,7 +78,8 @@ const Button = ({
             return theme.palette.primary.darker
           },
           borderColor: theme => theme.palette.primary.darker
-        }
+        },
+        ...sx
       }}
     >
       <Typography variant={getTypographyVariant()}>{children}</Typography>
