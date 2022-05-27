@@ -3,7 +3,22 @@ import { devtools } from 'zustand/middleware'
 import { noop } from 'ramda-adjunct'
 import { AlertColor } from '@mui/material'
 
-export const initialState = {
+export interface CornerState {
+  searchBarInput: string
+  loginDialogOpen: boolean
+  confirmDialogOpen: boolean
+  confirmDialogTitle: string
+  confirmDialogContent: string
+  confirmDialogOnConfirm: () => void
+  confirmDialogOnCancel: () => void
+  snackbarOpen: boolean
+  snackbarDuration: number | null
+  snackbarSeverity: AlertColor
+  snackbarMessage: string
+  snackbarOnUndo?: () => void
+}
+
+export const initialState: CornerState = {
   searchBarInput: '',
   loginDialogOpen: false,
   confirmDialogOpen: false,
@@ -14,21 +29,11 @@ export const initialState = {
   snackbarOpen: false,
   snackbarDuration: 0,
   snackbarSeverity: 'info' as AlertColor,
-  snackbarMessage: ''
+  snackbarMessage: '',
+  snackbarOnUndo: undefined
 }
 
-export interface CornerState {
-  searchBarInput: string
-  loginDialogOpen: boolean
-  confirmDialogOpen: boolean
-  confirmDialogTitle: string
-  confirmDialogContent: string
-  confirmDialogOnConfirm: () => void
-  confirmDialogOnCancel: () => void
-  snackbarOpen: boolean
-  snackbarDuration: number
-  snackbarSeverity: AlertColor
-  snackbarMessage: string
+export interface CornerStore extends CornerState {
   setSearchBarInput: (v: string) => void
   setLoginDialogOpen: (v: boolean) => void
   openConfirmDialog: (v: {
@@ -45,10 +50,10 @@ export interface CornerState {
     duration: number
     message: string
   }) => void
-  toInitialState: (mergeState?: Partial<typeof initialState>) => void
+  toInitialState: (mergeState?: Partial<CornerState>) => void
 }
 
-const useStore = create<CornerState>(
+const useStore = create<CornerStore>(
   devtools(set => ({
     ...initialState,
     setSearchBarInput: value => set({ searchBarInput: value }),
