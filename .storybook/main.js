@@ -14,11 +14,10 @@ module.exports = {
     'storybook-addon-next',
     'storybook-addon-designs',
     'storybook-addon-pseudo-states',
-    'storybook-dark-mode'
+    'storybook-dark-mode',
+    'storybook-addon-swc'
   ],
-  features: {
-    emotionAlias: false
-  },
+  features: { emotionAlias: false },
   framework: '@storybook/react',
   webpackFinal: async config => {
     config.resolve.plugins = [
@@ -41,5 +40,6 @@ module.exports = {
 
     return config
   },
-  staticDirs: ['../public']
+  staticDirs: ['../public'],
+  typescript: { reactDocgen: 'react-docgen' }
 }

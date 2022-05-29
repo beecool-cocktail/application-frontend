@@ -17,6 +17,12 @@ export default {
     disabled: { type: 'boolean' },
     children: { type: 'string' },
     onClick: { action: 'click' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3745%3A7982'
+    }
   }
 } as ComponentMeta<typeof Button>
 

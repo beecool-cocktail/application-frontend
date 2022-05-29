@@ -3330,6 +3330,90 @@
     "@svgr/plugin-jsx" "^6.2.1"
     "@svgr/plugin-svgo" "^6.2.0"
 
+"@swc/core-android-arm-eabi@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-android-arm-eabi/-/core-android-arm-eabi-1.2.194.tgz#27a92ac4ce3bb036da95b376ba88f0a364430ab2"
+  integrity sha512-Hv/k9KN2Aab8jO/SmSlzKpzS941IXfdr9XEQRl/rc5Nj4neVW8AWS4+AJnl4u7MiJrfM0No6ZRQx32Ke+APmLQ==
+
+"@swc/core-android-arm64@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-android-arm64/-/core-android-arm64-1.2.194.tgz#3ac858368ed86894c2b9d288382dc438dacd68f4"
+  integrity sha512-/r2iah0khiv3xUbOT6upf1fdeGdKrVa8sghyTI0jPRpQ5GKD01nuEq+FlmieTwkQ0pQbgVKun0zyriAOXjLqWA==
+
+"@swc/core-darwin-arm64@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.2.194.tgz#dfd25234bd49a3195c1e2ad5e8ebcc10f9af2de9"
+  integrity sha512-pLsxgi985iSu+wqskJAO+kr0QwNqYQSyfdQEjCtWi5oYp3wIBPHLccIPVcIUfD6YAqXdqnQJg9RtA4scpdrQNg==
+
+"@swc/core-darwin-x64@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-darwin-x64/-/core-darwin-x64-1.2.194.tgz#1e60ffcb7b3b959da9aa192c7d6cc9b96e6890b2"
+  integrity sha512-WLFhotRbGqMKg9HwB0RF0Ycz6B6uSMEHcblAdBhiyL4fIp+CMUhkvC8jTs0xij/yJj96B6Xf9UH/Q5MFUQrJEw==
+
+"@swc/core-freebsd-x64@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-freebsd-x64/-/core-freebsd-x64-1.2.194.tgz#31551c68724a942b59122774cf522ebde911ec6e"
+  integrity sha512-UNG8G5TlYWvfyB7+Fc1h5hoSwEY1LLLth7V8DFMljd0dm2hcSpukuWaQk/GE3EANCE40nq3y4THEAlSu4lauSg==
+
+"@swc/core-linux-arm-gnueabihf@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.2.194.tgz#471d8a3d23d4338969e74dad1889781b0f0e4461"
+  integrity sha512-mbk4MMgBf9BWFV0yqvReT29xZ6N6CLNgiG2UFnmXkLrrEBrAz5c3W8so5VqdyK52yWMS5Vs0a6VOvlimh057KA==
+
+"@swc/core-linux-arm64-gnu@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.2.194.tgz#49da5e1f92a9566442fc8e9bd67a699f35096049"
+  integrity sha512-vdr2zUJnd67oQfXn1Ix0ueND+iEnCTwA4dobT4s0KsZCusJKuJlkm97p7rgk3Cxn2sHm/8BBQX4KpdXwNEL3Tw==
+
+"@swc/core-linux-arm64-musl@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.2.194.tgz#29c309bf7ac484baa8ba105e6f6acaaaaede4336"
+  integrity sha512-wocEG55mu/KAFs1B9l1E0FbfU9nKaY3ULuT/isELHqDNZB23nNFRa+ymez/NqBhqVPhX4B0L+7j2r4tipXiI2A==
+
+"@swc/core-linux-x64-gnu@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.2.194.tgz#6f091d74ef58354410c9bcba7285546579008b54"
+  integrity sha512-PA7kudCtpGy1m40LKTeIsSse0zkmMyHthYjfn7q8pUWlo2b9o9RxO5zsnLxLsgATsoPwfMmVl9m3+1xSkxJp+g==
+
+"@swc/core-linux-x64-musl@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.2.194.tgz#41c110bb30cd38d1fd61e29698166d59b3fda3aa"
+  integrity sha512-2CdLXLpdKqtZmFgcEOyw9Gu/24ku5/4NabSdYg58XGarrPS96lQk80rzaMYxs6AzfsfhHGmsp3se07jnLwSlXQ==
+
+"@swc/core-win32-arm64-msvc@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.2.194.tgz#be4eb6826f4665fc67c170b485ec92f01f509c05"
+  integrity sha512-7NpBJ1fgeP8Y2H0aCTZR8nx0BEHXdSuFwBAwKrb4kaP0d2qVAVIv/rOk7L/MwsuXmlsISQ13JnUtQYjYPGJsUg==
+
+"@swc/core-win32-ia32-msvc@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.2.194.tgz#f5a3311f8368e6299e53e350ee6b41f00f2ebeb0"
+  integrity sha512-1TP+kS32uFSgBHOJGmLNfxcqU7e85FZZTKAVAQgEPmHH0lJ/9BcViMDhMOdnyEWjIluD5aj6WdPdeAz1YlXDng==
+
+"@swc/core-win32-x64-msvc@1.2.194":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.2.194.tgz#39cd340c6c2e0e6221f92d64f6c30ca749bcf0cc"
+  integrity sha512-c3tiShCGY03XbJqXpliHRHMBBB/KGWS1kcbKn2GhaZN4fY8UgD5kZk3XJDwDJ6oqwlgkBdWXRAgD5Td2aAKMRg==
+
+"@swc/core@^1.2.152":
+  version "1.2.194"
+  resolved "https://registry.yarnpkg.com/@swc/core/-/core-1.2.194.tgz#698d9ea07fd0b55273e7651e3f95b1c5cf4b61ae"
+  integrity sha512-+Jg3qxad32CqnFmw4pqwm/5JCVWGkoM8P5pqPlyj5sokHFUJluMkCeaikuvIZhJCabR9q84lEnXlIjMu42ZfKA==
+  optionalDependencies:
+    "@swc/core-android-arm-eabi" "1.2.194"
+    "@swc/core-android-arm64" "1.2.194"
+    "@swc/core-darwin-arm64" "1.2.194"
+    "@swc/core-darwin-x64" "1.2.194"
+    "@swc/core-freebsd-x64" "1.2.194"
+    "@swc/core-linux-arm-gnueabihf" "1.2.194"
+    "@swc/core-linux-arm64-gnu" "1.2.194"
+    "@swc/core-linux-arm64-musl" "1.2.194"
+    "@swc/core-linux-x64-gnu" "1.2.194"
+    "@swc/core-linux-x64-musl" "1.2.194"
+    "@swc/core-win32-arm64-msvc" "1.2.194"
+    "@swc/core-win32-ia32-msvc" "1.2.194"
+    "@swc/core-win32-x64-msvc" "1.2.194"
+
 "@trysound/sax@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
@@ -10806,6 +10890,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-countdown-circle-timer@^3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/react-countdown-circle-timer/-/react-countdown-circle-timer-3.0.9.tgz#9bdf127c63f9c67dc12bc83cb8029765512b1f5f"
+  integrity sha512-2rE2NklqgtArbvM9RVR3NctiKQ8+lY8PEjUZ2S1pKowD8CmaXUGqIaCbFBcygYH2aZQs9qPIQA49Z+9Jc2TOiQ==
+
 react-docgen-typescript@^2.1.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-docgen-typescript/-/react-docgen-typescript-2.2.2.tgz#4611055e569edc071204aadb20e1c93e1ab1659c"
@@ -11929,6 +12018,16 @@ storybook-addon-pseudo-states@^1.14.0:
   resolved "https://registry.yarnpkg.com/storybook-addon-pseudo-states/-/storybook-addon-pseudo-states-1.14.0.tgz#f9ef125bbc3fd4538db6238f947aa73dab40a520"
   integrity sha512-flX5u6DvN3Vj6wmOR8jgq9qujCdLgF+AvINefYUBC7IRsTzWaURuphFCa32g1al/vX9rDq9KWz8qi2UNjTSB2g==
 
+storybook-addon-swc@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/storybook-addon-swc/-/storybook-addon-swc-1.1.7.tgz#5cc82b299377d9cab1d6b7ccb8c8d19b51fd8715"
+  integrity sha512-nfls79zOhwM6Jbs9jm4DeFhpOOG/fHd7okh6cgVM9javaS2kP2SH/Ze3zRs2PpzvyQxXkzXrHQlbyQYWkMYD4g==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "@swc/core" "^1.2.152"
+    deepmerge "^4.2.2"
+    swc-loader "^0.1.15"
+
 storybook-dark-mode@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/storybook-dark-mode/-/storybook-dark-mode-1.1.0.tgz#4aca307a9c09f1b95743da2db6b07c8eea99ed24"
@@ -12250,6 +12349,11 @@ svgo@^2.5.0, svgo@^2.8.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
+
+swc-loader@^0.1.15:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/swc-loader/-/swc-loader-0.1.16.tgz#4c718d698e518f3e6ceb9f7872c1855cdb187066"
+  integrity sha512-NKIm8aJjK/z/yfzk+v7YGwJMjBKaLaUs9ZKI2zoaIGKAjtkwjO92ZLI0fiTZuwzRqVLQl/29fBdSgFCBzquR0w==
 
 swiper@^8.1.6:
   version "8.1.6"

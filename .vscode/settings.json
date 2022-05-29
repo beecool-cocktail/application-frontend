@@ -3,6 +3,7 @@
     "bgcolor",
     "cloudbuild",
     "cloudsdktool",
+    "docgen",
     "entrypoint",
     "fontsource",
     "gcloud",

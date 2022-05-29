@@ -1,14 +1,16 @@
-import {
-  Box,
-  CircularProgress,
-  Snackbar as BaseSnackbar,
-  Typography
-} from '@mui/material'
+import { Box, Snackbar as BaseSnackbar, Typography } from '@mui/material'
 import useSnackbar from 'lib/application/useSnackbar'
-import Button from 'components/common/button/button'
+import UndoCountDown from './undoCountDown'
+
+const mx = 24
 
 const Snackbar = () => {
   const { open, duration, message, close, onUndo } = useSnackbar()
+
+  const handleUndo = () => {
+    close()
+    onUndo?.()
+  }
 
   return (
     <BaseSnackbar
@@ -20,6 +22,12 @@ const Snackbar = () => {
       }}
       autoHideDuration={duration}
       onClose={close}
+      sx={{
+        width: `calc(100% - ${mx * 2}px)`,
+        maxWidth: 785,
+        top: '8px !important',
+        m: 'auto'
+      }}
     >
       <Box
         sx={{
@@ -31,6 +39,7 @@ const Snackbar = () => {
             '0px 4px 15px rgba(0, 0, 0, 0.65), 0px 0px 10px rgba(0, 0, 0, 0.25)',
           borderRadius: '8px',
           height: 48,
+          width: 1,
           minWidth: 327,
           px: '24px'
         }}
@@ -41,13 +50,8 @@ const Snackbar = () => {
         >
           {message}
         </Typography>
-        {onUndo && (
-          <Box>
-            <CircularProgress />
-            <Button size="small" variant="text" onClick={onUndo}>
-              Undo
-            </Button>
-          </Box>
+        {onUndo && duration && (
+          <UndoCountDown onUndo={handleUndo} duration={duration} />
         )}
       </Box>
     </BaseSnackbar>

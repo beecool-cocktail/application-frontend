@@ -6,7 +6,13 @@ import useStore from 'lib/services/storeAdapter'
 
 export default {
   title: 'Snackbar/Snackbar',
-  component: Snackbar
+  component: Snackbar,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3753%3A8144'
+    }
+  }
 } as ComponentMeta<typeof Snackbar>
 
 const Template: ComponentStory<typeof Snackbar> = () => <Snackbar />
@@ -34,7 +40,7 @@ Undo.decorators = [
       toInitialState({
         snackbarOpen: true,
         snackbarMessage: '已從收藏移除',
-        snackbarDuration: null,
+        snackbarDuration: 5000,
         snackbarOnUndo: () => {
           // eslint-disable-next-line no-console
           console.log('undo')

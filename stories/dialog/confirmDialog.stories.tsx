@@ -6,7 +6,13 @@ import useOnce from 'lib/hooks/useOnce'
 
 export default {
   title: 'dialog/Confirm Dialog',
-  component: ConfirmDialog
+  component: ConfirmDialog,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3753%3A8103'
+    }
+  }
 } as ComponentMeta<typeof ConfirmDialog>
 
 const Template: ComponentStory<typeof ConfirmDialog> = () => <ConfirmDialog />

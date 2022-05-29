@@ -6,7 +6,13 @@ import useStore from 'lib/services/storeAdapter'
 
 export default {
   title: 'dialog/Login Dialog',
-  component: LoginDialog
+  component: LoginDialog,
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3753%3A8103'
+    }
+  }
 } as ComponentMeta<typeof LoginDialog>
 
 const Template: ComponentStory<typeof LoginDialog> = () => <LoginDialog />
