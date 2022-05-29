@@ -15,7 +15,16 @@ module.exports = {
     'storybook-addon-designs',
     'storybook-addon-pseudo-states',
     'storybook-dark-mode',
-    'storybook-addon-swc'
+    {
+      name: 'storybook-addon-swc',
+      options: {
+        enable: true,
+        enableSwcLoader: true,
+        enableSwcMinify: false,
+        swcLoaderOptions: {},
+        swcMinifyOptions: {}
+      }
+    }
   ],
   features: { emotionAlias: false },
   framework: '@storybook/react',
