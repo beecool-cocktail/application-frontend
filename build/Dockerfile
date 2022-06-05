@@ -1,5 +1,5 @@
 ########## deps ##########
-FROM node:18.3-alpine AS deps
+FROM node:18.2-alpine AS deps
 
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
@@ -17,7 +17,7 @@ RUN yarn build
 
 
 ########## runner ##########
-FROM node:18.3-alpine AS runner
+FROM node:18.2-alpine AS runner
 
 ARG REVISION_ID
 LABEL revision_id=${REVISION_ID}
