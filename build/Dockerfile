@@ -8,7 +8,7 @@ RUN yarn install --frozen-lockfile --ignore-scripts
 
 
 ########## builder ##########
-FROM node:18.3-alpine AS builder
+FROM node:18.2-alpine AS builder
 
 WORKDIR /app
 COPY . .
