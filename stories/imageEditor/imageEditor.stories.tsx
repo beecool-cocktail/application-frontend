@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import ImageEditor from 'components/common/imageEditor/imageEditor'
 
 export default {
-  title: 'imageEditor/ImageEditor',
+  title: 'image/Image Editor',
   component: ImageEditor,
   argTypes: {
     imgSrc: { type: 'string' },

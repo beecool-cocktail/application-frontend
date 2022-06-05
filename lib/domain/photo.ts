@@ -3,6 +3,12 @@ export interface Photo {
   path: string
 }
 
+export interface EditablePhoto {
+  id?: number
+  originURL: string
+  editedURL: string
+}
+
 export interface PhotoWithBlur {
   id?: number
   path: string

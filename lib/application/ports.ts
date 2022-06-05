@@ -8,6 +8,7 @@ import {
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User } from 'lib/domain/user'
+import { EditablePhoto } from 'lib/domain/photo'
 
 export interface MutateOptions<T> {
   rollbackOnError?: boolean
@@ -48,7 +49,7 @@ export interface CocktailPostForm {
   description: string
   ingredients: Ingredient[]
   steps: Step[]
-  photos: FileList | null
+  photos: EditablePhoto[]
 }
 
 export interface UpdateUserForm {

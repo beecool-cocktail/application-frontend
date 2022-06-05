@@ -1,10 +1,10 @@
 import React from 'react'
 import { Stack } from '@mui/material'
-import { CocktailPost } from 'lib/domain/cocktail'
+import { CocktailPostPreview } from 'lib/domain/cocktail'
 import Post from 'components/common/post/post'
 
 interface PostPreviewProps {
-  cocktailPost: CocktailPost
+  cocktailPost: CocktailPostPreview
 }
 
 const PostPreview = ({ cocktailPost }: PostPreviewProps) => {

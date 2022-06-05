@@ -1,33 +1,35 @@
-import { UpdateDraftArticleRequest, UpdateFormalArticleRequest } from 'sdk'
+import {
+  PostArticleRequest,
+  PostDraftArticleRequest,
+  UpdateDraftArticleRequest,
+  UpdateFormalArticleRequest
+} from 'sdk'
 import { PostEditorService, CocktailPostForm } from 'lib/application/ports'
-import { toBase64 } from 'lib/helper/image'
 import { cocktailApi } from './api'
 
-const getBase64Photos = async (files: FileList | null) => {
-  let photos: string[] = []
-  if (files) {
-    const promiseObjs = Array.from(files).map(toBase64)
-    photos = await Promise.all(promiseObjs)
-  }
-  return photos
-}
+const getCreateReqPayload = async (
+  form: CocktailPostForm
+): Promise<PostArticleRequest> => ({
+  name: form.title,
+  ingredient_list: form.ingredients,
+  step_list: form.steps,
+  description: form.description,
+  files: form.photos.map(p => p.editedURL)
+})
 
-const getReqPayload = async (form: CocktailPostForm) => {
-  const photos = await getBase64Photos(form.photos)
-  const payload = {
-    name: form.title,
-    ingredient_list: form.ingredients,
-    step_list: form.steps,
-    description: form.description,
-    photos,
-    files: photos
-  }
-  return payload
-}
+const getUpdateReqPayload = async (
+  form: CocktailPostForm
+): Promise<UpdateFormalArticleRequest> => ({
+  name: form.title,
+  ingredient_list: form.ingredients,
+  step_list: form.steps,
+  description: form.description,
+  photos: form.photos.map(p => ({ id: p.id, path: p.editedURL }))
+})
 
 const usePostEditorService = (): PostEditorService => {
   const createPost = async (form: CocktailPostForm, token: string) => {
-    const req = await getReqPayload(form)
+    const req: PostArticleRequest = await getCreateReqPayload(form)
     await cocktailApi.postArticleRequest(req, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -38,21 +40,14 @@ const usePostEditorService = (): PostEditorService => {
     form: CocktailPostForm,
     token: string
   ) => {
-    const base64Photos = await getBase64Photos(form.photos)
-    const req: UpdateFormalArticleRequest = {
-      name: form.title,
-      description: form.description,
-      photos: base64Photos.map(path => ({ path })),
-      ingredient_list: form.ingredients,
-      step_list: form.steps
-    }
+    const req: UpdateFormalArticleRequest = await getUpdateReqPayload(form)
     await cocktailApi.updateFormalArticle(id, req, {
       headers: { Authorization: `Bearer ${token}` }
     })
   }
 
   const createDraft = async (form: CocktailPostForm, token: string) => {
-    const req = await getReqPayload(form)
+    const req: PostDraftArticleRequest = await getCreateReqPayload(form)
     await cocktailApi.postDraftArticleRequest(req, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -63,14 +58,7 @@ const usePostEditorService = (): PostEditorService => {
     form: CocktailPostForm,
     token: string
   ) => {
-    const base64Photos = await getBase64Photos(form.photos)
-    const req: UpdateDraftArticleRequest = {
-      name: form.title,
-      description: form.description,
-      photos: base64Photos.map(path => ({ path })),
-      ingredient_list: form.ingredients,
-      step_list: form.steps
-    }
+    const req: UpdateDraftArticleRequest = await getUpdateReqPayload(form)
     await cocktailApi.updateCocktailDraft(id, req, {
       headers: { Authorization: `Bearer ${token}` }
     })

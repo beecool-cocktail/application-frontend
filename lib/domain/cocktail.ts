@@ -23,6 +23,19 @@ export interface CocktailPost {
   createdDate: string
 }
 
+export interface CocktailPostPreview {
+  id: number
+  userId: number
+  userName: string
+  userPhoto: string
+  title: string
+  description: string
+  photos: string[]
+  ingredients: Ingredient[]
+  steps: Step[]
+  isCollected: boolean
+}
+
 export interface CocktailPostItem {
   id: number
   userId: number

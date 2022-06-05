@@ -1,13 +1,11 @@
 import { Button, Stack } from '@mui/material'
-import { CocktailPost, CocktailPostDraft } from 'lib/domain/cocktail'
+import { CocktailPostPreview, CocktailPostDraft } from 'lib/domain/cocktail'
 import useUser from 'lib/application/useUser'
 import usePostEditor from 'lib/application/usePostEditor'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
 import PostEditorHeader from './postEditorHeader'
 import PostTutorial from './postTutorial'
-
-const steps = ['step 1', 'step 2', 'step 3']
 
 export interface PostEditorProps {
   draft?: CocktailPostDraft
@@ -18,13 +16,16 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   const { user } = useUser()
   const {
     form: { control, getValues, isDirty },
+    steps,
     activeStep,
-    previewUrls,
     goBack,
     goNext,
     saveDraft,
     submit,
-    handlePreviewUrlsChange
+    handleImageUpload,
+    handleImageToCover,
+    handleImageEdit,
+    handleImageDelete
   } = usePostEditor(isDraft, draft)
 
   const renderButton = () => {
@@ -75,25 +76,26 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
         ) : activeStep === 1 ? (
           <PostImageBlock
             control={control}
-            previewUrls={previewUrls}
-            onChange={handlePreviewUrlsChange}
+            onImageUpload={handleImageUpload}
+            onImageToCover={handleImageToCover}
+            onImageEdit={handleImageEdit}
+            onImageDelete={handleImageDelete}
           />
         ) : (
           <PostPreview
             cocktailPost={(() => {
               const values = getValues()
-              const cocktailPost: CocktailPost = {
+              const cocktailPost: CocktailPostPreview = {
                 id: draft ? draft.id : 0,
                 userId: user.id,
                 userName: user.username,
                 userPhoto: user.photo,
                 title: values.title,
                 description: values.description,
-                photos: previewUrls.map(url => ({ id: 0, path: url })),
+                photos: values.photos.map(p => p.editedURL),
                 steps: values.steps,
                 ingredients: values.ingredients,
-                isCollected: false,
-                createdDate: ''
+                isCollected: false
               }
               return cocktailPost
             })()}
