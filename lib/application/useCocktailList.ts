@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer'
 import produce from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { last } from 'ramda'
-import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { CocktailPostItem, collectCocktailItem } from 'lib/domain/cocktail'
@@ -22,7 +21,7 @@ const useCocktailList = (pageSize: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
-  const { config, loading: configLoading } = useConfig()
+  const { config, loading: configLoading, toAbsolutePath } = useConfig()
 
   const result = useSWRInfinite<Page<CocktailPostItem>>(
     (index, previousPageData: Page<CocktailPostItem>) => {
@@ -84,8 +83,8 @@ const useCocktailList = (pageSize: number) => {
       produce(cocktail, draft => {
         const getAbsoluteUrl = (photo: PhotoWithBlur): PhotoWithBlur => ({
           id: photo.id,
-          path: join(config.staticBaseUrl, photo.path),
-          blurPath: '/' + photo.blurPath
+          path: toAbsolutePath(photo.path),
+          blurPath: toAbsolutePath(photo.blurPath)
         })
         draft.photos = draft.photos.length
           ? draft.photos.map(getAbsoluteUrl)
