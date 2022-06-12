@@ -35,12 +35,18 @@ const getById = async (id: number, token?: string): Promise<CocktailPost> => {
 const getList = async (
   pageIndex: number,
   pageSize: number,
+  keyword: string,
   token: string | null
 ): Promise<CocktailListPage> => {
   const config: AxiosRequestConfig = {
     headers: { ...(token && { Authorization: `Bearer ${token}` }) }
   }
-  const res = await cocktailApi.getCocktail(pageIndex, pageSize, config)
+  const res = await cocktailApi.getCocktail(
+    pageIndex,
+    pageSize,
+    keyword,
+    config
+  )
   const resData = res.data.data
   const result: CocktailListPage = {
     total: resData.total,

@@ -1,13 +1,10 @@
 import React, { ReactElement } from 'react'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import Head from 'next/head'
 import Layout from 'components/layout/layout'
-import NotFound from 'components/common/status/notFound'
-import useStore from 'lib/services/storeAdapter'
+import CocktailList from 'components/common/cocktailList/cocktailList'
 
 const Search = () => {
-  const searchBarInput = useStore(state => state.searchBarInput)
-
   return (
     <>
       <Head>
@@ -22,15 +19,7 @@ const Search = () => {
         justifyContent="center"
         mt="115px"
       >
-        {searchBarInput ? (
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <NotFound />
-          </Box>
-        ) : (
-          <Typography variant="h1" textAlign="center" sx={{ color: 'white' }}>
-            快來搜尋(･8･)
-          </Typography>
-        )}
+        <CocktailList useSearch />
       </Box>
     </>
   )

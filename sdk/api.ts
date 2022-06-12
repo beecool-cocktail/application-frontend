@@ -449,6 +449,12 @@ export interface GetOtherUserInfoResponse {
     'number_of_post': number;
     /**
      * 
+     * @type {string}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'photo': string;
+    /**
+     * 
      * @type {number}
      * @memberof GetOtherUserInfoResponse
      */
@@ -1319,10 +1325,11 @@ export const CocktailApiAxiosParamCreator = function (configuration?: Configurat
          * @summary Get popular cocktail list
          * @param {number} page 
          * @param {number} pageSize 
+         * @param {string} [keyword] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCocktail: async (page: number, pageSize: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getCocktail: async (page: number, pageSize: number, keyword?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'page' is not null or undefined
             assertParamExists('getCocktail', 'page', page)
             // verify required parameter 'pageSize' is not null or undefined
@@ -1345,6 +1352,10 @@ export const CocktailApiAxiosParamCreator = function (configuration?: Configurat
 
             if (pageSize !== undefined) {
                 localVarQueryParameter['page_size'] = pageSize;
+            }
+
+            if (keyword !== undefined) {
+                localVarQueryParameter['keyword'] = keyword;
             }
 
 
@@ -1692,11 +1703,12 @@ export const CocktailApiFp = function(configuration?: Configuration) {
          * @summary Get popular cocktail list
          * @param {number} page 
          * @param {number} pageSize 
+         * @param {string} [keyword] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCocktail(page: number, pageSize: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCocktail(page, pageSize, options);
+        async getCocktail(page: number, pageSize: number, keyword?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCocktail(page, pageSize, keyword, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1823,11 +1835,12 @@ export const CocktailApiFactory = function (configuration?: Configuration, baseP
          * @summary Get popular cocktail list
          * @param {number} page 
          * @param {number} pageSize 
+         * @param {string} [keyword] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCocktail(page: number, pageSize: number, options?: any): AxiosPromise<InlineResponse2002> {
-            return localVarFp.getCocktail(page, pageSize, options).then((request) => request(axios, basePath));
+        getCocktail(page: number, pageSize: number, keyword?: string, options?: any): AxiosPromise<InlineResponse2002> {
+            return localVarFp.getCocktail(page, pageSize, keyword, options).then((request) => request(axios, basePath));
         },
         /**
          * Get cocktail photo, steps and ingredient.
@@ -1949,12 +1962,13 @@ export class CocktailApi extends BaseAPI {
      * @summary Get popular cocktail list
      * @param {number} page 
      * @param {number} pageSize 
+     * @param {string} [keyword] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CocktailApi
      */
-    public getCocktail(page: number, pageSize: number, options?: AxiosRequestConfig) {
-        return CocktailApiFp(this.configuration).getCocktail(page, pageSize, options).then((request) => request(this.axios, this.basePath));
+    public getCocktail(page: number, pageSize: number, keyword?: string, options?: AxiosRequestConfig) {
+        return CocktailApiFp(this.configuration).getCocktail(page, pageSize, keyword, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

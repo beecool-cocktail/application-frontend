@@ -1,17 +1,23 @@
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import PullToRefresh from 'react-simple-pull-to-refresh'
 import useCocktailList from 'lib/application/useCocktailList'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import Loading from 'components/common/status/loading'
 import Empty from 'components/common/status/empty'
+import NotFound from 'components/common/status/notFound'
 import CocktailCard from './cocktailCard'
 import CocktailSkeleton from './cocktailSkeleton'
 import ErrorRetry from './errorRetry'
 import NoMoreHint from './noMoreHint'
 
-const CocktailList = () => {
+interface CocktailListProps {
+  useSearch?: boolean
+}
+
+const CocktailList = ({ useSearch }: CocktailListProps) => {
   const {
     bottomRef,
+    keyword,
     cocktails = [],
     error,
     isLoadingInitialData,
@@ -21,7 +27,7 @@ const CocktailList = () => {
     isReachingEnd,
     collect,
     retry
-  } = useCocktailList(PAGE_SIZE)
+  } = useCocktailList(PAGE_SIZE, useSearch)
 
   const renderSkeletonList = () => {
     return Array.from(new Array(PAGE_SIZE)).map((item, index) => (
@@ -29,10 +35,32 @@ const CocktailList = () => {
     ))
   }
 
+  const renderNotFound = () => {
+    return (
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <NotFound />
+      </Box>
+    )
+  }
+
+  const renderSearchPrompt = () => {
+    return (
+      <Typography variant="h1" textAlign="center" sx={{ color: 'white' }}>
+        快來搜尋(･8･)
+      </Typography>
+    )
+  }
+
   const renderContent = () => {
+    if (useSearch) {
+      if (!keyword) return renderSearchPrompt()
+    }
     if (isLoadingInitialData) return renderSkeletonList()
     if (error) return <ErrorRetry onRetry={retry} />
-    if (isEmpty) return <Empty />
+    if (isEmpty) {
+      if (useSearch) return renderNotFound()
+      return <Empty />
+    }
 
     return cocktails.map(cocktail => (
       <CocktailCard key={cocktail.id} cocktail={cocktail} onCollect={collect} />

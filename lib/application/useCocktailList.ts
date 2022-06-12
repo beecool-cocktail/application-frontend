@@ -11,14 +11,16 @@ import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdat
 import { PhotoWithBlur } from 'lib/domain/photo'
 import cocktailService from 'lib/services/cocktailAdapter'
 import { PAGE_SIZE } from 'lib/constants/pagination'
+import useStore from 'lib/services/storeAdapter'
 import useConfig from './useConfig'
 import useSnackbar from './useSnackbar'
 import useLoginDialog from './useLoginDialog'
 import { Page } from './ports'
 
-const useCocktailList = (pageSize: number) => {
+const useCocktailList = (pageSize: number, useSearch = false) => {
   const [fetchId, setFetchId] = useState(() => uuidv4())
   const storage = useLocalStorage()
+  const keyword = useStore(state => state.searchBarInput)
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
@@ -26,7 +28,15 @@ const useCocktailList = (pageSize: number) => {
   const result = useSWRInfinite<Page<CocktailPostItem>>(
     (index, previousPageData: Page<CocktailPostItem>) => {
       if (previousPageData && !previousPageData.data.length) return null
-      return [index + 1, PAGE_SIZE, storage.getToken(), fetchId]
+      if (useSearch && !keyword) return null
+      return [
+        index + 1,
+        PAGE_SIZE,
+        keyword,
+        storage.getToken(),
+        useSearch,
+        fetchId
+      ]
     },
     cocktailService.getList,
     {
@@ -147,6 +157,7 @@ const useCocktailList = (pageSize: number) => {
     ...result,
     cocktails,
     total,
+    keyword,
     isRefreshing,
     isLoadingInitialData,
     isLoadingMore,

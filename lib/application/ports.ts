@@ -79,6 +79,7 @@ export interface CocktailService {
   getList(
     page: number,
     pageSize: number,
+    keyword: string,
     token: string
   ): Promise<CocktailListPage>
   getById(id: number, token?: string): Promise<CocktailPost>
