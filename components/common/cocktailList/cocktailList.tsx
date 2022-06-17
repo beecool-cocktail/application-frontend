@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
 import PullToRefresh from 'react-simple-pull-to-refresh'
-import useCocktailList from 'lib/application/useCocktailList'
+import useCocktailList from 'lib/application/cocktail/useCocktailList'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import Loading from 'components/common/status/loading'
 import Empty from 'components/common/status/empty'

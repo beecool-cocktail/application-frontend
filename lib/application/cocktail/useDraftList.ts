@@ -4,7 +4,7 @@ import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import useDraftListService from 'lib/services/draftListAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import useConfig from './useConfig'
+import useConfig from '../useConfig'
 
 const useDrafts = () => {
   const storage = useLocalStorage()

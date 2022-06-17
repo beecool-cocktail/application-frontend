@@ -1,7 +1,7 @@
 import useDraftService from 'lib/services/draftAdapter'
 import { join } from 'lib/helper/url'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import useConfig from './useConfig'
+import useConfig from '../useConfig'
 
 const useDraft = (id: number) => {
   const storage = useLocalStorage()

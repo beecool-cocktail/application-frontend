@@ -8,7 +8,7 @@ import useCornerRouter from 'lib/application/useCornerRouter'
 import Avatar from 'components/common/image/avatar'
 import Loading from 'components/common/status/loading'
 import Error from 'components/common/status/error'
-import useUser from 'lib/application/useUser'
+import useUser from 'lib/application/user/useUser'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import ProfileDetailRow from './profileDetailRow'
 import CollectionTabPanel from './collectionTabPanel'
@@ -21,11 +21,11 @@ interface ProfileDetailProps {
 const ProfileDetail = ({ userId }: ProfileDetailProps) => {
   const storage = useLocalStorage()
   const { gotoIndex, gotoDrafts: gotoDraft, gotoSettings } = useCornerRouter()
-  const [value, setValue] = useState(0)
   const { user, loading, error } = useUser(userId)
+  const [tab, setTab] = useState(0)
 
   const handleChange = (_e: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
+    setTab(newValue)
   }
 
   useEffect(() => {
@@ -57,12 +57,12 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
       <Box mt={2}>
         <ProfileDetailRow userId={userId} />
       </Box>
-      <Tabs value={value} onChange={handleChange}>
+      <Tabs value={tab} onChange={handleChange}>
         <Tab label={userId ? '發文' : '我的發文'} />
         <Tab label="收藏" />
       </Tabs>
-      <PostTabPanel userId={userId} value={value} index={0} />
-      <CollectionTabPanel userId={userId} value={value} index={1} />
+      <PostTabPanel userId={userId} value={tab} index={0} />
+      <CollectionTabPanel userId={userId} value={tab} index={1} />
     </Stack>
   )
 }

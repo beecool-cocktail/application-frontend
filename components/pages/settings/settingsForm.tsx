@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Stack, Switch, Typography, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
-import { User } from 'lib/domain/user'
+import { CurrentUser } from 'lib/domain/user'
 import { UpdateUserForm } from 'lib/application/ports'
 import SettingsHeader from 'components/pages/settings/settingsHeader'
 import Avatar from 'components/common/image/avatar'
 
 interface SettingsFormProps {
-  user: User
+  user: CurrentUser
   onSubmit(formData: UpdateUserForm): void
   onBack(isDirty: boolean): void
 }

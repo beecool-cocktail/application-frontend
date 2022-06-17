@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material'
 import Loading from 'components/common/status/loading'
-import useUser from 'lib/application/useUser'
+import useUser from 'lib/application/user/useUser'
 
 export interface ProfileDetailRowProps {
   userId?: number

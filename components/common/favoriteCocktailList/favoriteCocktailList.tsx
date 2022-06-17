@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Typography } from '@mui/material'
-import useFavoriteCocktailList from 'lib/application/useFavoriteCocktailList'
+import useFavoriteCocktailList from 'lib/application/cocktail/useFavoriteCocktailList'
 import Error from '../status/error'
 import Loading from '../status/loading'
 import FavoriteCocktailCard from './favoriteCocktailCard'

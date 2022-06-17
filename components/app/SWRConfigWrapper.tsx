@@ -1,6 +1,6 @@
 import { SWRConfig, Cache } from 'swr'
 import { AxiosError } from 'axios'
-import useSnackbar from 'lib/application/useSnackbar'
+import useSnackbar from 'lib/application/ui/useSnackbar'
 import fetcher from 'lib/helper/fetcher'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 

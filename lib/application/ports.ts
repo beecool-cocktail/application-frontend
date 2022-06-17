@@ -7,7 +7,7 @@ import {
   FavoriteCocktailList
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
-import { User } from 'lib/domain/user'
+import { User, CurrentUser } from 'lib/domain/user'
 import { EditablePhoto } from 'lib/domain/photo'
 
 export interface MutateOptions<T> {
@@ -71,8 +71,9 @@ export interface AuthService {
 }
 
 export interface UserService {
-  getUserInfo(): FetchResponse<User>
-  updateUserInfo(form: UpdateUserForm): Promise<void>
+  getCurrentUserInfo(token: string): Promise<CurrentUser>
+  getOtherUserInfo(id: number): Promise<User>
+  updateCurrentUserInfo(form: UpdateUserForm, token: string): Promise<void>
 }
 
 export interface CocktailService {

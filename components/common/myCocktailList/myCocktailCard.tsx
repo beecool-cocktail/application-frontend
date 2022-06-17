@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { MoreHoriz } from '@mui/icons-material'
 import { MyCocktailItem } from 'lib/domain/cocktail'
-import useMyCocktailCard from 'lib/application/useMyCocktailCard'
+import useMyCocktailCard from 'lib/application/cocktail/useMyCocktailCard'
 
 export interface FavoriteCocktailCardProps {
   cocktail: MyCocktailItem

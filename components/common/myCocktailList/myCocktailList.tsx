@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Grid } from '@mui/material'
-import useMyCocktailList from 'lib/application/useMyCocktailList'
+import useMyCocktailList from 'lib/application/cocktail/useMyCocktailList'
 import Error from '../status/error'
 import Loading from '../status/loading'
 import MyCocktailCard from './myCocktailCard'

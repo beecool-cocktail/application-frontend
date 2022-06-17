@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material'
 import { CocktailPostItem } from 'lib/domain/cocktail'
-import useCocktailCard from 'lib/application/useCocktailCard'
+import useCocktailCard from 'lib/application/cocktail/useCocktailCard'
 import CocktailSwiper from './cocktailSwiper'
 
 export interface CocktailCardProps {

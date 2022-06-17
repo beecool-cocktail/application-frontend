@@ -1,7 +1,7 @@
 import produce from 'immer'
 import useMyCocktailListService from 'lib/services/myCocktailListAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import useSnackbar from 'lib/application/useSnackbar'
+import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'

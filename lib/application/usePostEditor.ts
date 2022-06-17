@@ -10,7 +10,7 @@ import { CocktailPostDraft, Ingredient, Step } from 'lib/domain/cocktail'
 import { EditablePhoto } from 'lib/domain/photo'
 import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
 import { CocktailPostForm } from './ports'
-import useSnackbar from './useSnackbar'
+import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
 
 const steps = ['step 1', 'step 2', 'step 3']

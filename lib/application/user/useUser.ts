@@ -1,13 +1,19 @@
+import useSWR from 'swr'
 import { FALLBACK_URL } from 'lib/constants/image'
-import useUserService from 'lib/services/userAdapter'
+import userService from 'lib/services/userAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
-import useConfig from './useConfig'
+import useConfig from '../useConfig'
 
 const useUser = (id?: number) => {
   const storage = useLocalStorage()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
-  const { getUserInfo, updateUserInfo } = useUserService(id, storage.getToken())
-  const { data, error, mutate } = getUserInfo()
+  const { data, error, mutate } = useSWR(
+    () => {
+      if (id) return id
+      return storage.getToken()
+    },
+    id ? userService.getOtherUserInfo : userService.getCurrentUserInfo
+  )
 
   let user = data
   if (data && config) {
@@ -21,8 +27,7 @@ const useUser = (id?: number) => {
     user,
     loading: (!data && !error) || configLoading,
     error,
-    mutate,
-    updateUserInfo
+    mutate
   }
 }
 

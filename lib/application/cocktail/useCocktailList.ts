@@ -12,10 +12,10 @@ import { PhotoWithBlur } from 'lib/domain/photo'
 import cocktailService from 'lib/services/cocktailAdapter'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import useStore from 'lib/services/storeAdapter'
-import useConfig from './useConfig'
-import useSnackbar from './useSnackbar'
-import useLoginDialog from './useLoginDialog'
-import { Page } from './ports'
+import useConfig from '../useConfig'
+import useSnackbar from '../ui/useSnackbar'
+import useLoginDialog from '../useLoginDialog'
+import { Page } from '../ports'
 
 const useCocktailList = (pageSize: number, useSearch = false) => {
   const [fetchId, setFetchId] = useState(() => uuidv4())

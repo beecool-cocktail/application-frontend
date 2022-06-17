@@ -1,6 +1,6 @@
 import { Button, Stack } from '@mui/material'
 import { CocktailPostPreview, CocktailPostDraft } from 'lib/domain/cocktail'
-import useUser from 'lib/application/useUser'
+import userCurrentUser from 'lib/application/user/useCurrentUser'
 import usePostEditor from 'lib/application/usePostEditor'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
@@ -13,7 +13,7 @@ export interface PostEditorProps {
 }
 
 const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
-  const { user } = useUser()
+  const { user } = userCurrentUser()
   const {
     form: { control, getValues, isDirty },
     steps,

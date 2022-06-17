@@ -5,9 +5,9 @@ import useLocalStorage from 'lib/services/localStorageAdapter'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { CocktailPost, collectCocktail } from 'lib/domain/cocktail'
 import cocktailService from 'lib/services/cocktailAdapter'
-import useConfig from './useConfig'
-import useLoginDialog from './useLoginDialog'
-import useSnackbar from './useSnackbar'
+import useConfig from '../useConfig'
+import useLoginDialog from '../useLoginDialog'
+import useSnackbar from '../ui/useSnackbar'
 
 const useCocktail = (id?: number) => {
   const storage = useLocalStorage()

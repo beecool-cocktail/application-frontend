@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import useCornerRouter from 'lib/application/useCornerRouter'
-import useConfirmDialog from 'lib/application/useConfirmDialog'
-import useShare from 'lib/application/useShare'
-import { FavoriteCocktailItem } from 'lib/domain/cocktail'
+import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
+import { MyCocktailItem } from 'lib/domain/cocktail'
 
-const useFavoriteCocktailCard = (
-  cocktail: FavoriteCocktailItem,
-  onRemove: (id: number) => void
+const useMyCocktailCard = (
+  cocktail: MyCocktailItem,
+  onDelete: (id: number) => void
 ) => {
   const router = useCornerRouter()
-  const share = useShare()
   const confirmDialog = useConfirmDialog()
   const [moreActionMenuAnchorEl, setMoreActionMenuAnchorEl] =
     useState<HTMLButtonElement | null>(null)
@@ -30,25 +28,22 @@ const useFavoriteCocktailCard = (
     setMoreActionMenuAnchorEl(null)
   }
 
-  const handleRemove = (e: React.MouseEvent) => {
+  const handleDelete = (e: React.MouseEvent) => {
     handleClose(e)
     confirmDialog.open({
-      title: '取消收藏',
-      content: '確定取消收藏此發文， 一旦取消收藏將無法復原？',
+      title: '刪除發文',
+      content: '確定刪除此發文，一旦刪除將無法復原？',
       onConfirm: () => {
-        onRemove(cocktail.id)
+        onDelete(cocktail.id)
         confirmDialog.destroy()
       },
       onCancel: () => confirmDialog.destroy()
     })
   }
 
-  const handleShare = (e: React.MouseEvent) => {
+  const handleEdit = (e: React.MouseEvent) => {
     handleClose(e)
-    share(
-      cocktail.title,
-      new URL(`/cocktails/${cocktail.id}`, window.location.origin).href
-    )
+    router.gotoEditPost(cocktail.id)
   }
   const moreActionMenuOpen = Boolean(moreActionMenuAnchorEl)
 
@@ -58,9 +53,9 @@ const useFavoriteCocktailCard = (
     handleClick,
     handleClickMoreAction,
     handleClose,
-    handleRemove,
-    handleShare
+    handleDelete,
+    handleEdit
   }
 }
 
-export default useFavoriteCocktailCard
+export default useMyCocktailCard

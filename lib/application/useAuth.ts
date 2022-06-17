@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useAuthService from '../services/authAdapter'
 import { paths } from '../configs/routes'
-import useSnackbar from './useSnackbar'
+import useSnackbar from './ui/useSnackbar'
 
 const useAuth = () => {
   const router = useRouter()

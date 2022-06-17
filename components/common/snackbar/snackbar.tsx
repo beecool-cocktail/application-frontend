@@ -1,5 +1,5 @@
 import { Box, Snackbar as BaseSnackbar, Typography } from '@mui/material'
-import useSnackbar from 'lib/application/useSnackbar'
+import useSnackbar from 'lib/application/ui/useSnackbar'
 import UndoCountDown from './undoCountDown'
 
 const mx = 24

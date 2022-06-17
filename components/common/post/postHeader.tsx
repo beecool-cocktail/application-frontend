@@ -3,7 +3,7 @@ import { ShareOutlined } from '@mui/icons-material'
 import { IconButton, Stack, Typography } from '@mui/material'
 import { Grid } from '@mui/material'
 import Avatar from 'components/common/image/avatar'
-import useShare from 'lib/application/useShare'
+import useShare from 'lib/application/ui/useShare'
 import useCornerRouter from 'lib/application/useCornerRouter'
 
 export type CocktailDetailsHeaderProps = {

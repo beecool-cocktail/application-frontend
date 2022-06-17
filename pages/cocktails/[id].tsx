@@ -5,7 +5,7 @@ import { Box, Stack } from '@mui/material'
 import BackButton from 'components/common/button/backButton'
 import Loading from 'components/common/status/loading'
 import Post from 'components/common/post/post'
-import useCocktail from 'lib/application/useCocktail'
+import useCocktail from 'lib/application/cocktail/useCocktail'
 
 const CocktailPage: NextPage = () => {
   const router = useRouter()

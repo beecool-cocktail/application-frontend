@@ -4,7 +4,7 @@ import Header from 'components/layout/header'
 import BackButton from 'components/common/button/backButton'
 import DeleteButton from 'components/common/button/deleteButton'
 import DraftList from 'components/pages/draft/draftList'
-import useDraftList from 'lib/application/useDraftList'
+import useDraftList from 'lib/application/cocktail/useDraftList'
 import Loading from 'components/common/status/loading'
 
 const Drafts = () => {

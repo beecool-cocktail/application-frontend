@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { Box, Dialog, Slider, Typography } from '@mui/material'
 import ReactCrop, { Crop, PixelCrop, PercentCrop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
-import useSnackbar from 'lib/application/useSnackbar'
+import useSnackbar from 'lib/application/ui/useSnackbar'
 import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
 import Button from '../button/button'
 
