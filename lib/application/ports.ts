@@ -3,18 +3,12 @@ import {
   CocktailPostDraft,
   CocktailPostDraftList,
   CocktailPostItem,
-  FavoriteCocktailItem,
-  FavoriteCocktailList
+  FavoriteCocktailList,
+  MyCocktailItem
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User, CurrentUser } from 'lib/domain/user'
 import { EditablePhoto } from 'lib/domain/photo'
-
-export interface MutateOptions<T> {
-  rollbackOnError?: boolean
-  optimisticData?: T
-  revalidate?: boolean
-}
 
 export interface Page<T> {
   total: number
@@ -22,27 +16,6 @@ export interface Page<T> {
 }
 
 export type CocktailListPage = Page<CocktailPostItem>
-
-export interface FetchResponse<T> {
-  data: T | undefined
-  error: Error
-  isValidating: boolean
-  mutate: () => void
-}
-
-export interface InfiniteFetchResponse<T> {
-  data: T[][]
-  total: number
-  error: Error
-  isLoadingInitialData: boolean
-  isLoadingMore: boolean
-  isEmpty: boolean
-  isReachingEnd: boolean
-  isRefreshing: boolean
-  loadMore(): void
-  mutate: () => void
-  retry: () => Promise<unknown>
-}
 
 export interface CocktailPostForm {
   title: string
@@ -86,13 +59,10 @@ export interface CocktailService {
   getById(id: number, token?: string): Promise<CocktailPost>
 }
 
-export interface DraftListService {
-  getList(): FetchResponse<CocktailPostDraftList>
-  deleteByIds(ids: number[], token: string): Promise<void>
-}
-
 export interface DraftService {
-  getById(): FetchResponse<CocktailPostDraft>
+  getList(token: string): Promise<CocktailPostDraftList>
+  getById(draftId: number, token: string): Promise<CocktailPostDraft>
+  deleteByIds(ids: number[], token: string): Promise<void>
 }
 
 export interface PostEditorService {
@@ -104,16 +74,14 @@ export interface PostEditorService {
 }
 
 export interface FavoriteCocktailListService {
-  getList(): FetchResponse<FavoriteCocktailList>
-  remove(cocktailId: number, token: string): Promise<void>
-}
-
-export interface FavoriteCocktailUpdateService {
+  getSelfList(token: string): Promise<FavoriteCocktailList>
+  getOtherList(userId: number): Promise<FavoriteCocktailList>
   collect(cocktailId: number, token: string): Promise<void>
   remove(cocktailId: number, token: string): Promise<void>
 }
 
 export interface MyCocktailListService {
-  getList(): FetchResponse<FavoriteCocktailItem[]>
+  getSelfList(token: string): Promise<MyCocktailItem[]>
+  getOtherList(userId: number): Promise<MyCocktailItem[]>
   deleteById(cocktailId: number, token: string): Promise<void>
 }

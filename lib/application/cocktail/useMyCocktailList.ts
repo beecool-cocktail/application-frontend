@@ -1,25 +1,30 @@
 import produce from 'immer'
-import useMyCocktailListService from 'lib/services/myCocktailListAdapter'
+import useSWR from 'swr'
+import myCocktailService from 'lib/services/myCocktailListAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import { FavoriteCocktailItem } from 'lib/domain/cocktail'
+import { MyCocktailItem } from 'lib/domain/cocktail'
+import useUser from '../user/useUser'
 
 const useMyCocktailList = (userId?: number) => {
+  const { mutate: userMutate } = useUser(userId)
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
-  const myCocktailListService = useMyCocktailListService(
-    storage.getToken(),
-    userId
+  const { data, error, mutate } = useSWR(
+    () => {
+      if (userId) return userId
+      return storage.getToken()
+    },
+    userId ? myCocktailService.getOtherList : myCocktailService.getSelfList
   )
-  const result = myCocktailListService.getList()
 
-  let cocktails: FavoriteCocktailItem[] | undefined
-  if (result.data && config) {
-    cocktails = result.data.map(cocktail =>
+  let cocktails: MyCocktailItem[] | undefined
+  if (data && config) {
+    cocktails = data.map(cocktail =>
       produce(cocktail, draft => {
         draft.photoUrl = draft.photoUrl
           ? join(config.staticBaseUrl, draft.photoUrl)
@@ -31,15 +36,16 @@ const useMyCocktailList = (userId?: number) => {
   const deleteById = async (id: number) => {
     const token = storage.getToken()
     if (!token) return
-    await myCocktailListService.deleteById(id, token)
-    result.mutate()
+    await myCocktailService.deleteById(id, token)
+    mutate()
+    userMutate()
     snackbar.success('remove success')
   }
 
   return {
-    ...result,
     data: cocktails,
-    loading: (result.data && result.error) || configLoading,
+    loading: (data && error) || configLoading,
+    error,
     deleteById
   }
 }

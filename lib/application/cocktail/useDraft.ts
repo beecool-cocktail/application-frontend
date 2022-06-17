@@ -1,4 +1,5 @@
-import useDraftService from 'lib/services/draftAdapter'
+import useSWR from 'swr'
+import draftService from 'lib/services/draftAdapter'
 import { join } from 'lib/helper/url'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
@@ -6,11 +7,17 @@ import useConfig from '../useConfig'
 const useDraft = (id: number) => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getById } = useDraftService(id, storage.getToken())
+  const { data, error, isValidating } = useSWR(
+    () => {
+      const token = storage.getToken()
+      if (!token) return null
+      return [id, token]
+    },
+    draftService.getById,
+    { revalidateOnFocus: false }
+  )
 
-  const getByIdResult = getById()
-  let draft = getByIdResult.data
-  const { isValidating, error } = getByIdResult
+  let draft = data
   if (draft && config) {
     draft = {
       ...draft,

@@ -1,6 +1,6 @@
 import produce from 'immer'
 import useSWR, { MutatorOptions } from 'swr'
-import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdateAdapter'
+import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { CocktailPost, collectCocktail } from 'lib/domain/cocktail'
@@ -24,7 +24,6 @@ const useCocktail = (id?: number) => {
     cocktailService.getById,
     { revalidateOnFocus: false }
   )
-  const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
 
   let cocktail = data
   if (cocktail && config) {
@@ -58,10 +57,10 @@ const useCocktail = (id?: number) => {
       await mutate(async optimisticData => {
         if (!optimisticData) return
         if (optimisticData.isCollected) {
-          await favoriteCocktailUpdateService.collect(id, token)
+          await favoriteCocktailService.collect(id, token)
           snackbar.success('collect success')
         } else {
-          await favoriteCocktailUpdateService.remove(id, token)
+          await favoriteCocktailService.remove(id, token)
           snackbar.success('remove success')
         }
         return optimisticData

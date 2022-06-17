@@ -1,27 +1,34 @@
 import produce from 'immer'
-import useFavoriteCocktailListService from 'lib/services/favoriteCocktailListAdapter'
+import useSWR from 'swr'
+import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { FavoriteCocktailList } from 'lib/domain/cocktail'
+import useUser from '../user/useUser'
 
 const useFavoriteCocktailList = (userId?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
-  const favoriteCocktailListService = useFavoriteCocktailListService(
-    storage.getToken(),
+  const { data, error, mutate } = useSWR(
+    () => {
+      if (userId) return userId
+      return storage.getToken()
+    },
     userId
+      ? favoriteCocktailService.getOtherList
+      : favoriteCocktailService.getSelfList
   )
-  const result = favoriteCocktailListService.getList()
+  const { mutate: userMutate } = useUser(userId)
 
   let cocktailList: FavoriteCocktailList | undefined
-  if (result.data && config) {
+  if (data && config) {
     cocktailList = {
-      isPublic: result.data.isPublic,
-      data: result.data.data.map(cocktail =>
+      isPublic: data.isPublic,
+      data: data.data.map(cocktail =>
         produce(cocktail, draft => {
           draft.photoUrl = draft.photoUrl
             ? join(config.staticBaseUrl, draft.photoUrl)
@@ -34,15 +41,16 @@ const useFavoriteCocktailList = (userId?: number) => {
   const remove = async (id: number) => {
     const token = storage.getToken()
     if (!token) return
-    await favoriteCocktailListService.remove(id, token)
-    result.mutate()
+    await favoriteCocktailService.remove(id, token)
+    mutate()
+    userMutate()
     snackbar.success('remove success')
   }
 
   return {
-    ...result,
     data: cocktailList,
-    loading: (result.data && result.error) || configLoading,
+    loading: (data && error) || configLoading,
+    error,
     remove
   }
 }

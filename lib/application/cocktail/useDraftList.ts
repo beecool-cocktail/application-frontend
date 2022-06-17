@@ -1,22 +1,20 @@
 import { useState } from 'react'
 import produce from 'immer'
+import useSWR from 'swr'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import useDraftListService from 'lib/services/draftListAdapter'
+import draftService from 'lib/services/draftAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
 
 const useDrafts = () => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { getList, deleteByIds } = useDraftListService(storage.getToken())
+  const { data, error, mutate } = useSWR(storage.getToken, draftService.getList)
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
 
-  const listResult = getList()
-
-  let resData = listResult.data
-  const error = listResult.error
+  let resData = data
   if (resData && config) {
     resData = produce(resData, base => {
       base.data = base.data.map(d => ({
@@ -36,10 +34,10 @@ const useDrafts = () => {
 
   const deleteSelected = async () => {
     const token = storage.getToken()
-    if (token) await deleteByIds(selectedIds, token)
+    if (token) await draftService.deleteByIds(selectedIds, token)
     setBatchDeleteMode(false)
     setSelectedIds([])
-    listResult.mutate()
+    mutate()
   }
 
   const select = (targetId: number, checked: boolean) => {

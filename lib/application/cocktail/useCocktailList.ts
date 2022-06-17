@@ -7,7 +7,7 @@ import { last } from 'ramda'
 import { FALLBACK_URL } from 'lib/constants/image'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { CocktailPostItem, collectCocktailItem } from 'lib/domain/cocktail'
-import useFavoriteCocktailUpdateService from 'lib/services/favoriteCocktailUpdateAdapter'
+import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import { PhotoWithBlur } from 'lib/domain/photo'
 import cocktailService from 'lib/services/cocktailAdapter'
 import { PAGE_SIZE } from 'lib/constants/pagination'
@@ -45,7 +45,6 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
       revalidateFirstPage: false
     }
   )
-  const favoriteCocktailUpdateService = useFavoriteCocktailUpdateService()
   const { ref: bottomRef, inView } = useInView()
 
   const { data: pageData, error, isValidating, size, setSize, mutate } = result
@@ -120,10 +119,10 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
     await mutate(optimisticData, false)
     try {
       if (isCollected) {
-        await favoriteCocktailUpdateService.remove(id, token)
+        await favoriteCocktailService.remove(id, token)
         snackbar.success('remove success')
       } else {
-        await favoriteCocktailUpdateService.collect(id, token)
+        await favoriteCocktailService.collect(id, token)
         snackbar.success('collect success')
       }
     } catch (e) {
