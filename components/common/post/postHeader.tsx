@@ -1,9 +1,6 @@
 import React from 'react'
-import { ShareOutlined } from '@mui/icons-material'
-import { IconButton, Stack, Typography } from '@mui/material'
-import { Grid } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import Avatar from 'components/common/image/avatar'
-import useShare from 'lib/application/ui/useShare'
 import useCornerRouter from 'lib/application/useCornerRouter'
 
 export type CocktailDetailsHeaderProps = {
@@ -20,26 +17,31 @@ const CocktailDetailsHeader = ({
   userPhoto
 }: CocktailDetailsHeaderProps) => {
   const router = useCornerRouter()
-  const share = useShare()
 
   const handleUserClick = () => router.gotoUserById(userId)
 
   return (
-    <Stack>
-      <Grid container alignItems="center" spacing={2}>
-        <Grid item xs="auto" onClick={handleUserClick}>
-          <Avatar src={userPhoto} size={32} onClick={handleUserClick}></Avatar>
-        </Grid>
-        <Grid item xs>
-          <Typography variant="h5">{title}</Typography>
-        </Grid>
-        <Grid item xs="auto">
-          <IconButton onClick={() => share(title)}>
-            <ShareOutlined />
-          </IconButton>
-        </Grid>
-      </Grid>
-      <Typography onClick={handleUserClick}>{userName}</Typography>
+    <Stack alignItems="flex-start" spacing="16px">
+      <Typography variant="h5">{title}</Typography>
+      <Stack direction="row" spacing="8px">
+        <Avatar src={userPhoto} size={30} onClick={handleUserClick}></Avatar>
+        <Stack>
+          <Typography
+            variant="body3"
+            sx={{ color: theme => theme.palette.light2.main }}
+            onClick={handleUserClick}
+          >
+            {userName}
+          </Typography>
+          <Typography
+            variant="body4"
+            sx={{ color: theme => theme.palette.light4.main }}
+            onClick={handleUserClick}
+          >
+            #{userId}
+          </Typography>
+        </Stack>
+      </Stack>
     </Stack>
   )
 }

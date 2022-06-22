@@ -16,7 +16,16 @@ const BackButton = ({ color = 'white', onClick }: BackButtonProps) => {
   }, [onClick, router])
 
   return (
-    <IconButton onClick={handleClick}>
+    <IconButton
+      sx={{
+        color: '#fff',
+        backgroundColor: theme => theme.palette.light4.main,
+        width: 28,
+        height: 28,
+        padding: 0
+      }}
+      onClick={handleClick}
+    >
       <ArrowBack sx={{ color }} />
     </IconButton>
   )
