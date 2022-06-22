@@ -120,10 +120,24 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     setValue('photos', move(index, 0, currentPhotos))
   }
 
-  const handleImageUpload = async (urls: string[]) => {
-    if (urls.length > 5) {
-      urls = urls.slice(0, 5)
-      snackbar.warning('最多只能上傳五張照片')
+  const handleImageUpload = async (index: number, urls: string[]) => {
+    const originPhotos = getValues().photos
+    if (originPhotos.length > index) {
+      const url = urls[0]
+      const updated = {
+        originURL: url,
+        editedURL: await getDefaultCroppedImage(url)
+      }
+      setValue('photos', update(index, updated, originPhotos))
+      return
+    }
+
+    const maxImageCount = 5
+    const availableImageCount = maxImageCount - originPhotos.length
+
+    if (urls.length > availableImageCount) {
+      urls = urls.slice(0, availableImageCount)
+      snackbar.warning(`最多只能上傳 ${availableImageCount} 張照片`)
     }
     const promiseObjs = urls.map(async url => ({
       originURL: url,
@@ -131,7 +145,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     }))
 
     const photos: EditablePhoto[] = await Promise.all(promiseObjs)
-    setValue('photos', photos)
+    setValue('photos', [...originPhotos, ...photos])
   }
 
   const handleImageEdit = (index: number, url: string) => {

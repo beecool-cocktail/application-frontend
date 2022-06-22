@@ -7,7 +7,7 @@ import ImageSelector, { ImageSelectorProps } from './imageSelector'
 interface PostImageBlockProps {
   control: Control<CocktailPostForm>
   onImageToCover(index: number): void
-  onImageUpload(urls: string[]): void
+  onImageUpload(index: number, urls: string[]): void
   onImageEdit(index: number, url: string): void
   onImageDelete(index: number): void
 }
@@ -27,10 +27,11 @@ const PostImageBlock = ({
         render={({ field }) => {
           const toImageSelectorProps = (index: number): ImageSelectorProps => {
             return {
+              index,
               photo: field.value[index],
               onDelete: () => onImageDelete(index),
               onToCover: () => onImageToCover(index),
-              onUpload: onImageUpload,
+              onUpload: (urls: string[]) => onImageUpload(index, urls),
               onEdit: (url: string) => onImageEdit(index, url)
             }
           }

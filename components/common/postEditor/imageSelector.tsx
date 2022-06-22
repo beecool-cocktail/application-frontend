@@ -7,6 +7,7 @@ import { toBase64Photos } from 'lib/helper/image'
 import ImageEditor from '../imageEditor/imageEditor'
 
 export interface ImageSelectorProps {
+  index: number
   isCover?: boolean
   photo?: EditablePhoto
   onToCover(): void
@@ -16,6 +17,7 @@ export interface ImageSelectorProps {
 }
 
 const ImageSelector = ({
+  index,
   isCover = false,
   photo,
   onToCover,
@@ -27,6 +29,8 @@ const ImageSelector = ({
   const [imageEditorOpen, setImageEditorOpen] = useState(false)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+  const fileInputId = `upload-${index}`
+
   const handleEditButtonClick = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -68,7 +72,7 @@ const ImageSelector = ({
           cursor: 'pointer',
           aspectRatio: '4/3'
         }}
-        htmlFor="upload"
+        htmlFor={fileInputId}
         component="label"
         onClick={(e: React.SyntheticEvent<HTMLLabelElement>) => {
           if (photo) e.preventDefault()
@@ -113,7 +117,7 @@ const ImageSelector = ({
         )}
       </Box>
       <input
-        id="upload"
+        id={fileInputId}
         ref={inputRef}
         onClick={e => {
           e.stopPropagation()
@@ -126,7 +130,7 @@ const ImageSelector = ({
         }}
         accept="image/*"
         type="file"
-        multiple
+        multiple={!photo}
         style={{ display: 'none' }}
       />
     </Box>
