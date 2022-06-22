@@ -9,6 +9,8 @@ import { FALLBACK_URL } from 'lib/constants/image'
 import { MyCocktailItem } from 'lib/domain/cocktail'
 import useUser from '../user/useUser'
 
+const FETCH_KEY = Symbol('MY_COCKTAIL')
+
 const useMyCocktailList = (userId?: number) => {
   const { mutate: userMutate } = useUser(userId)
   const storage = useLocalStorage()
@@ -16,8 +18,8 @@ const useMyCocktailList = (userId?: number) => {
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
-      if (userId) return userId
-      return storage.getToken()
+      if (userId) return [userId, FETCH_KEY]
+      return [storage.getToken(), FETCH_KEY]
     },
     userId ? myCocktailService.getOtherList : myCocktailService.getSelfList
   )

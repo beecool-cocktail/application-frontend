@@ -9,14 +9,16 @@ import { FALLBACK_URL } from 'lib/constants/image'
 import { FavoriteCocktailList } from 'lib/domain/cocktail'
 import useUser from '../user/useUser'
 
+const FETCH_KEY = 'FAVORITE_COCKTAIL_LIST'
+
 const useFavoriteCocktailList = (userId?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
-      if (userId) return userId
-      return storage.getToken()
+      if (userId) return [userId, FETCH_KEY]
+      return [storage.getToken(), FETCH_KEY]
     },
     userId
       ? favoriteCocktailService.getOtherList

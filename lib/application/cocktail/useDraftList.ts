@@ -7,10 +7,15 @@ import draftService from 'lib/services/draftAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
 
+const FETCH_KEY = 'DRAFTS'
+
 const useDrafts = () => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
-  const { data, error, mutate } = useSWR(storage.getToken, draftService.getList)
+  const { data, error, mutate } = useSWR(
+    () => [storage.getToken(), FETCH_KEY],
+    draftService.getList
+  )
   const [selectedIds, setSelectedIds] = useState<number[]>([])
   const [isBatchDeleteMode, setBatchDeleteMode] = useState(false)
 

@@ -14,6 +14,8 @@ const SWRConfigWrapper = ({ provider, children }: SWRConfigWrapperProps) => {
   const storage = useLocalStorage()
 
   const handleError = (error: AxiosError) => {
+    console.error(error)
+
     const statusCode = error.response?.status
     if (statusCode === 401) {
       snackbar.error('token expired, logged out.')

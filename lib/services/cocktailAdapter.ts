@@ -3,7 +3,10 @@ import { CocktailListPage, CocktailService } from 'lib/application/ports'
 import { CocktailPost, CocktailPostItem } from 'lib/domain/cocktail'
 import { cocktailApi } from './api'
 
-const getById = async (id: number, token?: string): Promise<CocktailPost> => {
+const getById = async (
+  id: number,
+  token: string | null
+): Promise<CocktailPost> => {
   const config: AxiosRequestConfig = {
     headers: { ...(token && { Authorization: `Bearer ${token}` }) }
   }

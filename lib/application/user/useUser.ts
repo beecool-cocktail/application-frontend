@@ -4,13 +4,15 @@ import userService from 'lib/services/userAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
 
+const FETCH_KEY = 'USER'
+
 const useUser = (id?: number) => {
   const storage = useLocalStorage()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
-      if (id) return id
-      return storage.getToken()
+      if (id) return [id, FETCH_KEY]
+      return [storage.getToken(), FETCH_KEY]
     },
     id ? userService.getOtherUserInfo : userService.getCurrentUserInfo
   )

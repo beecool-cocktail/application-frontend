@@ -9,6 +9,8 @@ import useConfig from '../useConfig'
 import useLoginDialog from '../useLoginDialog'
 import useSnackbar from '../ui/useSnackbar'
 
+const FETCH_KEY = 'COCKTAIL'
+
 const useCocktail = (id?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
@@ -18,8 +20,7 @@ const useCocktail = (id?: number) => {
     () => {
       if (!id) return null
       const token = storage.getToken()
-      if (!token) return id
-      return [id, token]
+      return [id, token, FETCH_KEY]
     },
     cocktailService.getById,
     { revalidateOnFocus: false }

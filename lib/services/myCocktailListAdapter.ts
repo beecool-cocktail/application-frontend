@@ -7,6 +7,7 @@ const getSelfList = async (token: string): Promise<MyCocktailItem[]> => {
   const res = await userApi.selfCocktailList({
     headers: { Authorization: `Bearer ${token}` }
   })
+
   return res.data.data.cocktail_list.map(cocktailItem => ({
     id: cocktailItem.cocktail_id,
     title: cocktailItem.title,

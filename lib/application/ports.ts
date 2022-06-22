@@ -56,7 +56,7 @@ export interface CocktailService {
     keyword: string,
     token: string
   ): Promise<CocktailListPage>
-  getById(id: number, token?: string): Promise<CocktailPost>
+  getById(id: number, token: string | null): Promise<CocktailPost>
 }
 
 export interface DraftService {

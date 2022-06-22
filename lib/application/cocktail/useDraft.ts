@@ -4,6 +4,8 @@ import { join } from 'lib/helper/url'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
 
+const FETCH_KEY = 'DRAFT'
+
 const useDraft = (id: number) => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
@@ -11,7 +13,7 @@ const useDraft = (id: number) => {
     () => {
       const token = storage.getToken()
       if (!token) return null
-      return [id, token]
+      return [id, token, FETCH_KEY]
     },
     draftService.getById,
     { revalidateOnFocus: false }

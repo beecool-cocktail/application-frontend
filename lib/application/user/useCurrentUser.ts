@@ -5,11 +5,13 @@ import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
 import { UpdateUserForm } from '../ports'
 
+const FETCH_KEY = 'CURRENT_USER'
+
 const useCurrentUser = () => {
   const storage = useLocalStorage()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
   const { data, error, mutate } = useSWR(
-    storage.getToken,
+    () => [storage.getToken(), FETCH_KEY],
     userService.getCurrentUserInfo
   )
 
