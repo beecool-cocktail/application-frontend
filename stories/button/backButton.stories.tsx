@@ -7,6 +7,12 @@ export default {
   component: BackButton,
   argTypes: {
     onClick: { action: 'click' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3227%3A5890'
+    }
   }
 } as ComponentMeta<typeof BackButton>
 
@@ -15,3 +21,8 @@ const Template: ComponentStory<typeof BackButton> = args => {
 }
 
 export const Normal = Template.bind({})
+
+export const Contained = Template.bind({})
+Contained.args = {
+  contained: true
+}
