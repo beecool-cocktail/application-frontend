@@ -94,8 +94,8 @@ const CocktailSwiper = ({
       </Box>
       <Box
         position="absolute"
-        right="12px"
-        bottom="12px"
+        right="16px"
+        bottom="16px"
         onClick={e => {
           e.preventDefault()
           e.stopPropagation()
