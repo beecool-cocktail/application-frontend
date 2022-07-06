@@ -13,6 +13,7 @@ export interface CocktailSwiperProps {
   images: PhotoWithBlur[]
   isCollected: boolean
   preloadAmount?: number
+  rounded?: boolean
   onCollect(): void
   onFirstImageLoadingComplete?(): void
 }
@@ -22,6 +23,7 @@ const CocktailSwiper = ({
   images,
   isCollected,
   preloadAmount = 1,
+  rounded = false,
   onCollect,
   onFirstImageLoadingComplete
 }: CocktailSwiperProps) => {
@@ -39,7 +41,7 @@ const CocktailSwiper = ({
       style={{ cursor: 'grab' }}
     >
       <Box
-        borderRadius="10px"
+        borderRadius={rounded ? '10px' : 0}
         overflow="hidden"
         position="relative"
         sx={{
@@ -62,7 +64,7 @@ const CocktailSwiper = ({
         }}
       >
         <Swiper
-          style={{ borderRadius: 10 }}
+          style={{ borderRadius: rounded ? 10 : 0 }}
           modules={[Pagination]}
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
@@ -75,7 +77,7 @@ const CocktailSwiper = ({
             <SwiperSlide key={index}>
               {index <= preloadIndex && (
                 <Image
-                  style={{ borderRadius: 10 }}
+                  style={{ borderRadius: rounded ? 10 : 0 }}
                   layout="responsive"
                   placeholder={image.blurPath ? 'blur' : 'empty'}
                   src={image.path}

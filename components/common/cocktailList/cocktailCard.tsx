@@ -31,6 +31,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
         title={titleDisplay}
         images={cocktail.photos}
         isCollected={isCollected}
+        rounded
         onCollect={collect}
         onFirstImageLoadingComplete={firstImageLoadingComplete}
       />
