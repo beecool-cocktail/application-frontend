@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import Avatar from 'components/common/image/avatar'
 import useCornerRouter from 'lib/application/useCornerRouter'
 
@@ -10,7 +10,7 @@ export type CocktailDetailsHeaderProps = {
   userPhoto: string
 }
 
-const CocktailDetailsHeader = ({
+const TitleUserInfo = ({
   title,
   userId,
   userName,
@@ -22,9 +22,11 @@ const CocktailDetailsHeader = ({
 
   return (
     <Stack alignItems="flex-start" spacing="16px">
-      <Typography variant="h5">{title}</Typography>
+      <Typography variant="h2">{title}</Typography>
       <Stack direction="row" spacing="8px">
-        <Avatar src={userPhoto} size={30} onClick={handleUserClick}></Avatar>
+        <Box p="3px">
+          <Avatar src={userPhoto} size={30} onClick={handleUserClick}></Avatar>
+        </Box>
         <Stack>
           <Typography
             variant="body3"
@@ -46,4 +48,4 @@ const CocktailDetailsHeader = ({
   )
 }
 
-export default CocktailDetailsHeader
+export default TitleUserInfo

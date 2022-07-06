@@ -1,10 +1,9 @@
 import React from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Box, Stack } from '@mui/material'
-import BackButton from 'components/common/button/backButton'
-import Loading from 'components/common/status/loading'
+import { Stack } from '@mui/material'
 import Post from 'components/common/post/post'
+import PostSkeleton from 'components/common/post/postSkeleton'
 import useCocktail from 'lib/application/cocktail/useCocktail'
 
 const CocktailPage: NextPage = () => {
@@ -20,13 +19,10 @@ const CocktailPage: NextPage = () => {
       sx={{ minHeight: '100vh', width: '100%' }}
     >
       {loading || !cocktail ? (
-        <Loading />
+        <PostSkeleton />
       ) : (
         <Post cocktailPost={cocktail} onCollect={collect} />
       )}
-      <Box position="absolute" left={1} top={1} zIndex={1}>
-        <BackButton color="white" />
-      </Box>
     </Stack>
   )
 }

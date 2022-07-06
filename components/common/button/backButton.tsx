@@ -1,14 +1,14 @@
-import { ArrowBack } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
-import { useRouter } from 'next/router'
 import { useCallback } from 'react'
+import { useRouter } from 'next/router'
+import { IconButton } from '@mui/material'
+import BackIcon from 'lib/assets/backReturn/topNav.svg'
 
 export interface BackButtonProps {
-  color?: string
+  contained?: boolean
   onClick?(): void
 }
 
-const BackButton = ({ color = 'white', onClick }: BackButtonProps) => {
+const BackButton = ({ contained, onClick }: BackButtonProps) => {
   const router = useRouter()
   const handleClick = useCallback(async () => {
     if (onClick) return onClick()
@@ -18,15 +18,18 @@ const BackButton = ({ color = 'white', onClick }: BackButtonProps) => {
   return (
     <IconButton
       sx={{
+        width: 30,
+        height: 30,
+        padding: 0,
+        backgroundColor: theme => {
+          if (contained) return theme.palette.light4.main
+        },
         color: '#fff',
-        backgroundColor: theme => theme.palette.light4.main,
-        width: 28,
-        height: 28,
-        padding: 0
+        fontSize: 24
       }}
       onClick={handleClick}
     >
-      <ArrowBack sx={{ color }} />
+      <BackIcon />
     </IconButton>
   )
 }
