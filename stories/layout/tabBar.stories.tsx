@@ -67,8 +67,8 @@ export const AddPost = Template.bind({})
 
 AddPost.parameters = {
   nextRouter: {
-    path: paths.creatPost,
-    asPath: paths.creatPost
+    path: paths.createPost,
+    asPath: paths.createPost
   }
 }
 

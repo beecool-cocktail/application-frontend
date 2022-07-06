@@ -9,7 +9,7 @@ import useCocktail from 'lib/application/cocktail/useCocktail'
 const CocktailPage: NextPage = () => {
   const router = useRouter()
   const id = Number(router.query.id as string)
-  const { cocktail, loading, collect } = useCocktail(id)
+  const { cocktail, editable, loading, collect, handleEdit } = useCocktail(id)
 
   return (
     <Stack
@@ -21,7 +21,12 @@ const CocktailPage: NextPage = () => {
       {loading || !cocktail ? (
         <PostSkeleton />
       ) : (
-        <Post cocktailPost={cocktail} onCollect={collect} />
+        <Post
+          cocktailPost={cocktail}
+          editable={editable}
+          onCollect={collect}
+          onEdit={handleEdit}
+        />
       )}
     </Stack>
   )

@@ -25,7 +25,7 @@ export enum paths {
   drafts = '/profile/drafts',
   draftById = '/profile/drafts/[id]',
   cocktailById = '/cocktails/[id]',
-  creatPost = '/create-post',
+  createPost = '/create-post',
   editPost = '/profile/cocktails/[id]',
   userById = '/users/[id]'
 }
@@ -44,7 +44,7 @@ const routes: Route[] = [
     inNavigationBar: true
   },
   {
-    path: paths.creatPost,
+    path: paths.createPost,
     label: 'Create Post',
     icon: <PlusAdd />,
     requireAuth: true,

@@ -5,17 +5,21 @@ import useLocalStorage from 'lib/services/localStorageAdapter'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { CocktailPost, collectCocktail } from 'lib/domain/cocktail'
 import cocktailService from 'lib/services/cocktailAdapter'
+import useUser from 'lib/application/user/useUser'
 import useConfig from '../useConfig'
 import useLoginDialog from '../useLoginDialog'
 import useSnackbar from '../ui/useSnackbar'
+import useCornerRouter from '../useCornerRouter'
 
 const FETCH_KEY = 'COCKTAIL'
 
 const useCocktail = (id?: number) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
+  const router = useCornerRouter()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
+  const { user } = useUser()
   const { data, error, mutate } = useSWR(
     () => {
       if (!id) return null
@@ -71,11 +75,18 @@ const useCocktail = (id?: number) => {
     }
   }
 
+  const handleEdit = () => {
+    if (!cocktail) return
+    router.gotoEditPost(cocktail.id)
+  }
+
   return {
     cocktail,
     collect,
     loading: (!cocktail && !error) || configLoading,
-    error
+    error,
+    editable: user && cocktail && user.id === cocktail.userId,
+    handleEdit
   }
 }
 

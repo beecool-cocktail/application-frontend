@@ -10,10 +10,19 @@ import TopNavigation from './topNavigation'
 
 export type PostProps = {
   cocktailPost: CocktailPost | CocktailPostPreview
+  editable?: boolean
+  isPreview?: boolean
   onCollect?(): void
+  onEdit?(): void
 }
 
-const Post = ({ cocktailPost, onCollect }: PostProps) => {
+const Post = ({
+  cocktailPost,
+  editable = false,
+  isPreview = false,
+  onCollect,
+  onEdit
+}: PostProps) => {
   const getPhotoUrls = (): string[] => {
     if (!cocktailPost.photos.length) return [FALLBACK_URL]
     if ('createdDate' in cocktailPost)
@@ -23,7 +32,13 @@ const Post = ({ cocktailPost, onCollect }: PostProps) => {
 
   return (
     <Stack>
-      <TopNavigation title={cocktailPost.title} />
+      {!isPreview && (
+        <TopNavigation
+          title={cocktailPost.title}
+          editable={editable}
+          onEdit={onEdit}
+        />
+      )}
       <Swiper
         title={cocktailPost.title}
         isCollected={cocktailPost.isCollected}

@@ -10,7 +10,7 @@ interface PostPreviewProps {
 const PostPreview = ({ cocktailPost }: PostPreviewProps) => {
   return (
     <Stack width={1}>
-      <Post cocktailPost={cocktailPost}></Post>
+      <Post cocktailPost={cocktailPost} isPreview></Post>
     </Stack>
   )
 }

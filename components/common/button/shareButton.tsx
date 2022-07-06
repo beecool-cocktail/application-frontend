@@ -13,8 +13,8 @@ const ShareButton = ({ contained, title }: ShareButtonProps) => {
   return (
     <IconButton
       sx={{
-        width: 30,
-        height: 30,
+        width: 28,
+        height: 28,
         padding: 0,
         backgroundColor: theme => {
           if (contained) return theme.palette.light4.main
