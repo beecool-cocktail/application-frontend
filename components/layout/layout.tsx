@@ -33,7 +33,7 @@ const Layout = ({
           {useLogo && <Logo />}
           {useSearchBar && (
             <Box pt="12px">
-              <SearchBar placeHolder="找調酒..." autoFocus />
+              <SearchBar placeholder="找調酒..." autoFocus />
             </Box>
           )}
         </Box>

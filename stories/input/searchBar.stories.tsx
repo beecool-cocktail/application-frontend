@@ -7,7 +7,7 @@ import useStore from 'lib/services/storeAdapter'
 export default {
   title: 'input/Search Bar',
   argTypes: {
-    placeHolder: { type: 'string' },
+    placeholder: { type: 'string' },
     onClick: { action: 'click' }
   },
   parameters: {
@@ -24,7 +24,7 @@ const Template: ComponentStory<typeof SearchBar> = args => {
 
 export const Default = Template.bind({})
 Default.args = {
-  placeHolder: '找調酒...'
+  placeholder: '找調酒...'
 }
 
 export const Selected = Template.bind({})

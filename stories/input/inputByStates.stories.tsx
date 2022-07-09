@@ -1,0 +1,40 @@
+import React from 'react'
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Box } from '@mui/material'
+import Input from 'components/common/input/input'
+
+export default {
+  title: 'input/Input by States',
+  argTypes: {
+    onClick: { action: 'click' }
+  }
+} as ComponentMeta<typeof Input>
+
+const Template: ComponentStory<typeof Input> = args => {
+  return (
+    <Box width="311px">
+      <Input fullWidth {...args} />
+    </Box>
+  )
+}
+
+export const Default = Template.bind({})
+Default.args = {
+  placeholder: 'Placeholder'
+}
+
+export const Selected = Template.bind({})
+Selected.args = {
+  autoFocus: true
+}
+
+export const Typing = Template.bind({})
+Typing.args = {
+  autoFocus: true,
+  defaultValue: 'Content'
+}
+
+export const Filled = Template.bind({})
+Filled.args = {
+  defaultValue: 'Content'
+}

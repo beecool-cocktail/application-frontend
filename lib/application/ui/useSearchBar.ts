@@ -1,14 +1,11 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import useStore from 'lib/services/storeAdapter'
 
 const useSearchBar = () => {
-  const [focused, setFocused] = useState<boolean>(false)
   const input = useStore(state => state.searchBarInput)
   const setInput = useStore(state => state.setSearchBarInput)
-  const ref = useRef<HTMLIFrameElement>()
+  const ref = useRef<HTMLInputElement>()
 
-  const handleBlur = () => setFocused(false)
-  const handleFocus = () => setFocused(true)
   const handleCancel = () => {
     setInput('')
     ref.current?.focus()
@@ -16,11 +13,8 @@ const useSearchBar = () => {
 
   return {
     ref,
-    focused,
     input,
     setInput,
-    handleBlur,
-    handleFocus,
     handleCancel
   }
 }
