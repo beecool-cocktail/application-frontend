@@ -7,6 +7,12 @@ export default {
   title: 'input/Input by States',
   argTypes: {
     onClick: { action: 'click' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2884%3A4341'
+    }
   }
 } as ComponentMeta<typeof Input>
 

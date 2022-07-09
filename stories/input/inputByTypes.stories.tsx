@@ -9,6 +9,12 @@ export default {
   title: 'input/Input by Types',
   argTypes: {
     onClick: { action: 'click' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2884%3A4339'
+    }
   }
 } as ComponentMeta<typeof Input>
 
