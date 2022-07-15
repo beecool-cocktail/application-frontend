@@ -60,7 +60,7 @@ const RawInput = (props: InputProps) => {
         sx={{
           display: 'flex',
           alignItems: 'flex-start',
-          height: multiline ? '186px' : '40px',
+          minHeight: multiline ? '186px' : '40px',
           p: () => {
             if (!multiline) return '9px 12px'
             return '16px 20px'
