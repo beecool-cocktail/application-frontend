@@ -16,10 +16,12 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   const { user } = userCurrentUser()
   const {
     form: { control, getValues, isDirty },
+    isEditPost,
     steps,
     activeStep,
     goBack,
     goNext,
+    goPreview,
     saveDraft,
     submit,
     handleImageUpload,
@@ -56,12 +58,12 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   return (
     <Stack alignItems="stretch" minHeight="100vh">
       <PostEditorHeader
-        isDraft={isDraft}
-        isEdit={Boolean(draft)}
+        isEditPost={isEditPost}
         steps={steps}
         activeStep={activeStep}
         savable={isDirty}
         onBack={goBack}
+        onPreview={goPreview}
         onSaveDraft={saveDraft}
       />
       <Stack

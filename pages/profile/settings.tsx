@@ -5,7 +5,7 @@ import Loading from 'components/common/status/loading'
 import Error from 'components/common/status/error'
 import SettingsForm from 'components/pages/settings/settingsForm'
 import LogoutButton from 'components/common/button/logoutButton'
-import { paths } from 'lib/configs/routes'
+import { pathname } from 'lib/configs/routes'
 import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import { UpdateUserForm } from 'lib/application/ports'
@@ -23,7 +23,7 @@ const Settings = () => {
 
   const handleConfirmDialog = () => {
     confirmDialog.destroy()
-    router.push(paths.profile)
+    router.push(pathname.profile)
   }
 
   const handleGoBack = async (isDirty: boolean) => {
@@ -34,7 +34,7 @@ const Settings = () => {
         onConfirm: handleConfirmDialog,
         onCancel: () => confirmDialog.destroy()
       })
-    else router.push(paths.profile)
+    else router.push(pathname.profile)
   }
 
   if (loading) return <Loading />

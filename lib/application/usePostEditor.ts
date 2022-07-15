@@ -12,6 +12,7 @@ import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
 import { CocktailPostForm } from './ports'
 import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
+import useConfirmDialog from './ui/useConfirmDialog'
 
 const steps = ['step 1', 'step 2', 'step 3']
 
@@ -71,6 +72,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
   const { mutate } = useSWRConfig()
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
+  const confirmDialog = useConfirmDialog()
   const [activeStep, setActiveStep] = useState<number>(0)
   const {
     control,
@@ -82,14 +84,22 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     defaultValues: getDefaultValues(draft)
   })
 
+  const isEditPost = Boolean(draft) && !isDraft
+
   const goBack = () => {
-    setActiveStep(prevStep => {
-      if (prevStep <= 0) {
-        router.back()
-        return prevStep
-      }
-      return prevStep - 1
-    })
+    if (activeStep === 0) {
+      if (!isDirty) return router.back()
+      return confirmDialog.open({
+        title: isEditPost ? '放棄編輯' : '放棄發文',
+        content: '修改內容還沒儲存，是否要放棄編輯的內容？',
+        onCancel: confirmDialog.destroy,
+        onConfirm: () => {
+          confirmDialog.destroy()
+          router.back()
+        }
+      })
+    }
+    return setActiveStep(activeStep - 1)
   }
 
   const goNext = () => {
@@ -98,6 +108,8 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
       return prevStep + 1
     })
   }
+
+  const goPreview = () => setActiveStep(steps.length - 1)
 
   const saveDraft = async () => {
     const token = storage.getToken()
@@ -182,7 +194,11 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
       }
     }
 
-    router.push(paths.profile)
+    const id = draft?.id
+    if (router.query.backToCocktailPage && id)
+      router.push(paths.cocktailById(id))
+    else router.push(paths.profile)
+
     snackbar.success('saved!')
   }
 
@@ -190,10 +206,12 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
 
   return {
     form: { control, isDirty, getValues },
+    isEditPost,
     steps,
     activeStep,
     goBack,
     goNext,
+    goPreview,
     saveDraft,
     submit,
     handleImageUpload,

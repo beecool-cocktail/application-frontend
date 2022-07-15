@@ -1,6 +1,5 @@
 import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
-import { paths, getUrlById } from 'lib/configs/routes'
 import routes from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 
@@ -22,20 +21,7 @@ const useCornerRouter = (props?: useGotoProps) => {
     nextRouter.push(url)
   }
 
-  return {
-    ...nextRouter,
-    push,
-    gotoIndex: () => push(paths.index),
-    gotoSearch: () => push(paths.search),
-    gotoProfile: () => push(paths.profile),
-    gotoDrafts: () => push(paths.drafts),
-    gotoSettings: () => push(paths.settings),
-    gotoCocktailDetails: (id: number) =>
-      push(getUrlById(paths.cocktailById, id)),
-    gotoCreatePost: () => push(paths.createPost),
-    gotoEditPost: (id: number) => push(getUrlById(paths.editPost, id)),
-    gotoUserById: (id: number) => push(getUrlById(paths.userById, id))
-  }
+  return { ...nextRouter, push }
 }
 
 export default useCornerRouter

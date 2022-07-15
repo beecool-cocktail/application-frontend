@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { rest } from 'msw'
 import TabBar from 'components/layout/tabBar'
-import { paths } from 'lib/configs/routes'
+import { pathname } from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useOnce from 'lib/hooks/useOnce'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
@@ -41,8 +41,8 @@ export const Home = Template.bind({})
 
 Home.parameters = {
   nextRouter: {
-    path: paths.index,
-    asPath: paths.index
+    path: pathname.index,
+    asPath: pathname.index
   }
 }
 
@@ -58,8 +58,8 @@ export const Search = Template.bind({})
 
 Search.parameters = {
   nextRouter: {
-    path: paths.search,
-    asPath: paths.search
+    path: pathname.search,
+    asPath: pathname.search
   }
 }
 
@@ -67,8 +67,8 @@ export const AddPost = Template.bind({})
 
 AddPost.parameters = {
   nextRouter: {
-    path: paths.createPost,
-    asPath: paths.createPost
+    path: pathname.createPost,
+    asPath: pathname.createPost
   }
 }
 
@@ -76,8 +76,8 @@ export const ProfileTourist = Template.bind({})
 
 ProfileTourist.parameters = {
   nextRouter: {
-    path: paths.profile,
-    asPath: paths.profile
+    path: pathname.profile,
+    asPath: pathname.profile
   }
 }
 
@@ -85,8 +85,8 @@ export const ProfileMember = Template.bind({})
 
 ProfileMember.parameters = {
   nextRouter: {
-    path: paths.profile,
-    asPath: paths.profile
+    path: pathname.profile,
+    asPath: pathname.profile
   }
 }
 

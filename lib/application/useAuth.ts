@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useAuthService from '../services/authAdapter'
-import { paths } from '../configs/routes'
+import { pathname } from '../configs/routes'
 import useSnackbar from './ui/useSnackbar'
 
 const useAuth = () => {
@@ -18,7 +18,7 @@ const useAuth = () => {
 
       storage.setToken(token)
       snackbar.success('login success.')
-      router.push(paths.index)
+      router.push(pathname.index)
     } catch (e) {
       if (e instanceof Error) console.error(e.message)
     }
@@ -29,7 +29,7 @@ const useAuth = () => {
       await authService.logout(userId)
       storage.removeToken()
       snackbar.success('logout success.')
-      router.push(paths.index)
+      router.push(pathname.index)
     } catch (e) {
       if (e instanceof Error) snackbar.error(e.message)
     }

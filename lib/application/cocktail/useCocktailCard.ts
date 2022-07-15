@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { getUrlById, paths } from 'lib/configs/routes'
+import { getUrlById, pathname } from 'lib/configs/routes'
 import { CocktailPostItem } from 'lib/domain/cocktail'
 
 const useCocktailCard = (
@@ -20,7 +20,7 @@ const useCocktailCard = (
   const ingredientsDisplay = ingredients.slice(0, 4)
 
   const gotoCocktailDetails = () =>
-    router.push(getUrlById(paths.cocktailById, id))
+    router.push(getUrlById(pathname.cocktailById, id))
 
   const collect = async () => {
     onCollect(id, isCollected)

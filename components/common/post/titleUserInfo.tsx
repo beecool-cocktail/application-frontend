@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import Avatar from 'components/common/image/avatar'
 import useCornerRouter from 'lib/application/useCornerRouter'
+import { paths } from 'lib/configs/routes'
 
 export type CocktailDetailsHeaderProps = {
   title: string
@@ -18,7 +19,7 @@ const TitleUserInfo = ({
 }: CocktailDetailsHeaderProps) => {
   const router = useCornerRouter()
 
-  const handleUserClick = () => router.gotoUserById(userId)
+  const handleUserClick = () => router.push(paths.userById(userId))
 
   return (
     <Stack alignItems="flex-start" spacing="16px">

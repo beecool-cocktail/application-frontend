@@ -5,6 +5,7 @@ import { CurrentUser } from 'lib/domain/user'
 import { UpdateUserForm } from 'lib/application/ports'
 import SettingsHeader from 'components/pages/settings/settingsHeader'
 import Avatar from 'components/common/image/avatar'
+import { CJKPattern } from 'lib/helper/string'
 
 interface SettingsFormProps {
   user: CurrentUser
@@ -73,9 +74,7 @@ const SettingsForm = ({ user, onSubmit, onBack }: SettingsFormProps) => {
           rules={{
             required: true,
             maxLength: 20,
-            // Unicode u+4E00..u+9FFF: CJK Unified Ideographs
-            // reference: https://en.wikipedia.org/wiki/CJK_Unified_Ideographs_(Unicode_block)
-            pattern: /^[\u4E00-\u9FFF\w_.]+$/
+            pattern: CJKPattern
           }}
           render={({ field }) => (
             <TextField

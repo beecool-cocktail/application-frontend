@@ -1,4 +1,4 @@
-import routes, { paths } from 'lib/configs/routes'
+import routes, { pathname } from 'lib/configs/routes'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useLoginDialog from 'lib/application/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
@@ -14,7 +14,7 @@ const useTabBar = () => {
 
   if (user) {
     tabBarRoutes = tabBarRoutes.map(r => {
-      if (r.path === paths.profile)
+      if (r.path === pathname.profile)
         return { ...r, icon: <Avatar src={user.photo} size={24} /> }
       return r
     })

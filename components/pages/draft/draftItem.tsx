@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { IconButton, Checkbox, Stack, Typography } from '@mui/material'
 import { ArrowForwardIos } from '@mui/icons-material'
 import { CocktailPostDraftItem } from 'lib/domain/cocktail'
-import { paths, getUrlById } from 'lib/configs/routes'
+import { pathname, getUrlById } from 'lib/configs/routes'
 
 export interface DraftItemProps {
   isDeleteMode: boolean
@@ -26,7 +26,8 @@ const DraftItem = ({
   const router = useRouter()
 
   const handleClick = () => {
-    if (!isDeleteMode) return router.push(getUrlById(paths.draftById, draft.id))
+    if (!isDeleteMode)
+      return router.push(getUrlById(pathname.draftById, draft.id))
     onCheck(!selected)
   }
 

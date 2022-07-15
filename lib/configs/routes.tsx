@@ -1,3 +1,4 @@
+import { ParsedUrlQueryInput } from 'querystring'
 import React from 'react'
 import Home from 'lib/assets/home/default.svg'
 import Search from 'lib/assets/search/default.svg'
@@ -12,75 +13,90 @@ export interface Route {
   inNavigationBar?: boolean
 }
 
-export const getUrlById = (path: string, id: string | number) => ({
+export const getUrlByQuery = (path: string, query: ParsedUrlQueryInput) => ({
   pathname: path,
-  query: { id }
+  query
 })
 
-export enum paths {
-  index = '/',
-  search = '/search',
-  profile = '/profile',
-  settings = '/profile/settings',
-  drafts = '/profile/drafts',
-  draftById = '/profile/drafts/[id]',
-  cocktailById = '/cocktails/[id]',
-  createPost = '/create-post',
-  editPost = '/profile/cocktails/[id]',
-  userById = '/users/[id]'
+export const getUrlById = (path: string, id: string | number) =>
+  getUrlByQuery(path, { id })
+
+export const pathname = {
+  index: '/',
+  search: '/search',
+  profile: '/profile',
+  settings: '/profile/settings',
+  drafts: '/profile/drafts',
+  draftById: '/profile/drafts/[id]',
+  cocktailById: '/cocktails/[id]',
+  createPost: '/create-post',
+  editPost: '/profile/cocktails/[id]',
+  userById: '/users/[id]'
+}
+
+export const paths = {
+  ...pathname,
+  draftById: (id: number) => getUrlById(pathname.draftById, id),
+  cocktailById: (id: number) => getUrlById(pathname.cocktailById, id),
+  editPost: (id: number, backToCocktailPage?: boolean) => {
+    const query: { id: number; backToCocktailPage?: true } = { id }
+    if (backToCocktailPage) query.backToCocktailPage = true
+    return getUrlByQuery(pathname.editPost, query)
+  },
+  userById: (id: number) => getUrlById(pathname.userById, id)
 }
 
 const routes: Route[] = [
   {
-    path: paths.index,
+    path: pathname.index,
     label: 'Home',
     icon: <Home />,
     inNavigationBar: true
   },
   {
-    path: paths.search,
+    path: pathname.search,
     label: 'Search',
     icon: <Search />,
     inNavigationBar: true
   },
   {
-    path: paths.createPost,
+    path: pathname.createPost,
     label: 'Create Post',
     icon: <PlusAdd />,
     requireAuth: true,
     inNavigationBar: true
   },
   {
-    path: paths.profile,
+    path: pathname.profile,
     label: 'Profile',
     icon: <Profile />,
     requireAuth: true,
     inNavigationBar: true
   },
   {
-    path: paths.drafts,
+    path: pathname.drafts,
     label: 'Draft',
     requireAuth: false
   },
   {
-    path: paths.draftById,
+    path: pathname.draftById,
     label: 'draft'
   },
   {
-    path: paths.cocktailById,
+    path: pathname.cocktailById,
     label: 'cocktail by id'
   },
   {
-    path: paths.settings,
+    path: pathname.settings,
     label: 'Settings',
     requireAuth: true
   },
   {
-    path: paths.editPost,
+    path: pathname.editPost,
     label: 'Edit Post'
   },
   {
-    path: paths.userById,
+    path: pathname.userById,
     label: 'User'
   }
 ]

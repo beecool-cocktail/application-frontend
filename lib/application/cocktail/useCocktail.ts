@@ -6,6 +6,7 @@ import { FALLBACK_URL } from 'lib/constants/image'
 import { CocktailPost, collectCocktail } from 'lib/domain/cocktail'
 import cocktailService from 'lib/services/cocktailAdapter'
 import useUser from 'lib/application/user/useUser'
+import { paths } from 'lib/configs/routes'
 import useConfig from '../useConfig'
 import useLoginDialog from '../useLoginDialog'
 import useSnackbar from '../ui/useSnackbar'
@@ -77,7 +78,7 @@ const useCocktail = (id?: number) => {
 
   const handleEdit = () => {
     if (!cocktail) return
-    router.gotoEditPost(cocktail.id)
+    router.push(paths.editPost(cocktail.id, true))
   }
 
   return {
