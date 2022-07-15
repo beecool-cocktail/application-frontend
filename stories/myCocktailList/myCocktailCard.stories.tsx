@@ -19,7 +19,7 @@ export default {
 } as ComponentMeta<typeof MyCocktailCard>
 
 const Template: ComponentStory<typeof MyCocktailCard> = args => (
-  <Box width={400} margin="0 auto">
+  <Box margin="0 auto" width="176px" height="171px">
     <MyCocktailCard {...args} />
   </Box>
 )

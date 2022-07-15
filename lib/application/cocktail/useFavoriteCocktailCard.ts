@@ -3,6 +3,7 @@ import useCornerRouter from 'lib/application/useCornerRouter'
 import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
 import useShare from 'lib/application/ui/useShare'
 import { FavoriteCocktailItem } from 'lib/domain/cocktail'
+import { paths } from 'lib/configs/routes'
 
 const useFavoriteCocktailCard = (
   cocktail: FavoriteCocktailItem,
@@ -15,7 +16,7 @@ const useFavoriteCocktailCard = (
     useState<HTMLButtonElement | null>(null)
 
   const handleClick = () => {
-    router.gotoCocktailDetails(cocktail.id)
+    router.push(paths.cocktailById(cocktail.id))
   }
 
   const handleClickMoreAction = (e: React.MouseEvent<HTMLButtonElement>) => {

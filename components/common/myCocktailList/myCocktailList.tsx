@@ -18,9 +18,15 @@ const MyCocktailList = ({ userId }: MyCocktailListProps) => {
     return <Image src="/post.png" alt="post" width={512} height={392} />
 
   return (
-    <Grid container alignItems="flex-start" rowSpacing={1} columnSpacing={1}>
+    <Grid
+      container
+      alignItems="flex-start"
+      rowSpacing="8px"
+      columnSpacing="8px"
+      sx={{ p: '8px', color: theme => theme.palette.dark3.main }}
+    >
       {data.map(cocktail => (
-        <Grid item xs={6} key={cocktail.id}>
+        <Grid item xs={6} key={cocktail.id} sx={{ aspectRatio: '176/171' }}>
           <MyCocktailCard
             cocktail={cocktail}
             editable={!userId}

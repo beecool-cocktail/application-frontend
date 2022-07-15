@@ -2,6 +2,7 @@ import { useState } from 'react'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
 import { MyCocktailItem } from 'lib/domain/cocktail'
+import { paths } from 'lib/configs/routes'
 
 const useMyCocktailCard = (
   cocktail: MyCocktailItem,
@@ -9,23 +10,22 @@ const useMyCocktailCard = (
 ) => {
   const router = useCornerRouter()
   const confirmDialog = useConfirmDialog()
-  const [moreActionMenuAnchorEl, setMoreActionMenuAnchorEl] =
-    useState<HTMLButtonElement | null>(null)
+  const [isEditMode, setEditMode] = useState(false)
 
   const handleClick = () => {
-    router.gotoCocktailDetails(cocktail.id)
+    router.push(paths.cocktailById(cocktail.id))
   }
 
   const handleClickMoreAction = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     e.stopPropagation()
-    setMoreActionMenuAnchorEl(e.currentTarget)
+    setEditMode(editMode => !editMode)
   }
 
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    setMoreActionMenuAnchorEl(null)
+    setEditMode(false)
   }
 
   const handleDelete = (e: React.MouseEvent) => {
@@ -43,13 +43,11 @@ const useMyCocktailCard = (
 
   const handleEdit = (e: React.MouseEvent) => {
     handleClose(e)
-    router.gotoEditPost(cocktail.id)
+    router.push(paths.editPost(cocktail.id))
   }
-  const moreActionMenuOpen = Boolean(moreActionMenuAnchorEl)
 
   return {
-    moreActionMenuOpen,
-    moreActionMenuAnchorEl,
+    isEditMode,
     handleClick,
     handleClickMoreAction,
     handleClose,
