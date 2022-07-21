@@ -20,6 +20,7 @@ const FavoriteCocktailCardList = ({
     gotoCocktailPage,
     removeCocktail
   } = useFavoriteCocktailList(userId)
+
   if (error) return <Error />
   if (!list || loading) return <Loading />
   if (!list.isPublic && userId)
@@ -28,9 +29,15 @@ const FavoriteCocktailCardList = ({
     return <Typography variant="h4">沒有收藏 QQ</Typography>
 
   return (
-    <Grid container alignItems="flex-start" rowSpacing={1} columnSpacing={1}>
+    <Grid
+      container
+      alignItems="flex-start"
+      rowSpacing="8px"
+      columnSpacing="8px"
+      sx={{ p: '8px', color: theme => theme.palette.dark3.main }}
+    >
       {list.data.map(cocktail => (
-        <Grid item xs={6} key={cocktail.id}>
+        <Grid item xs={6} key={cocktail.id} sx={{ aspectRatio: '176/171' }}>
           <CocktailCardSmall
             cocktail={cocktail}
             actions={[
