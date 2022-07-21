@@ -37,4 +37,6 @@ export const mockFallbackPhotos = [
   }
 ]
 
+export const mockAvatar = '/avatar.png'
+
 export default mockPhotos

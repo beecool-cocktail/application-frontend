@@ -15,7 +15,10 @@ const useTabBar = () => {
   if (user) {
     tabBarRoutes = tabBarRoutes.map(r => {
       if (r.path === pathname.profile)
-        return { ...r, icon: <Avatar src={user.photo} size={24} /> }
+        return {
+          ...r,
+          icon: <Avatar src={user.photo} size={24} />
+        }
       return r
     })
   }

@@ -26,7 +26,7 @@ const TitleUserInfo = ({
       <Typography variant="h2">{title}</Typography>
       <Stack direction="row" spacing="8px">
         <Box p="3px">
-          <Avatar src={userPhoto} size={30} onClick={handleUserClick}></Avatar>
+          <Avatar size={30} src={userPhoto} onClick={handleUserClick}></Avatar>
         </Box>
         <Stack>
           <Typography

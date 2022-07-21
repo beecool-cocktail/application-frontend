@@ -43,7 +43,7 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
           backgroundColor: theme => theme.palette.dark5.main
         }}
       >
-        <Avatar src={user.photo} size={84} />
+        <Avatar src={user.photo} size={70} />
         <Typography
           variant="h4"
           sx={{
