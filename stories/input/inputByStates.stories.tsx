@@ -4,7 +4,7 @@ import { Box } from '@mui/material'
 import Input from 'components/common/input/input'
 
 export default {
-  title: 'input/Input by States',
+  title: 'input/Normal Input/Input by States',
   argTypes: {
     onClick: { action: 'click' }
   },

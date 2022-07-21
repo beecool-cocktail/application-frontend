@@ -10,7 +10,7 @@ import { GetPopularCocktailListResponse, PopularCocktailList } from 'sdk'
 import mockPhotos from 'lib/mocks/data/photos'
 
 export default {
-  title: 'cocktailList/Cocktail List',
+  title: 'Cocktail/Cocktail List/Normal Cocktail List',
   component: CocktailList,
   parameters: {
     design: {

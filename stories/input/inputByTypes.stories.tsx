@@ -6,7 +6,7 @@ import Search from 'lib/assets/search/default.svg'
 import Close from 'lib/assets/cancelClose.svg'
 
 export default {
-  title: 'input/Input by Types',
+  title: 'input/Normal Input/Input by Types',
   argTypes: {
     onClick: { action: 'click' }
   },

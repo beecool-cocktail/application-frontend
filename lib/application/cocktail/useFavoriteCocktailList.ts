@@ -6,13 +6,20 @@ import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import { FavoriteCocktailList } from 'lib/domain/cocktail'
+import { FavoriteCocktailList, ProfileCocktailItem } from 'lib/domain/cocktail'
+import { paths } from 'lib/configs/routes'
 import useUser from '../user/useUser'
+import useCornerRouter from '../useCornerRouter'
+import useShare from '../ui/useShare'
+import useConfirmDialog from '../ui/useConfirmDialog'
 
 const FETCH_KEY = 'FAVORITE_COCKTAIL_LIST'
 
 const useFavoriteCocktailList = (userId?: number) => {
   const storage = useLocalStorage()
+  const share = useShare()
+  const router = useCornerRouter()
+  const confirmDialog = useConfirmDialog()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
@@ -40,20 +47,40 @@ const useFavoriteCocktailList = (userId?: number) => {
     }
   }
 
-  const remove = async (id: number) => {
+  const handleRemoveConfirm = (id: number) => async () => {
     const token = storage.getToken()
     if (!token) return
     await favoriteCocktailService.remove(id, token)
     mutate()
     userMutate()
     snackbar.success('remove success')
+    confirmDialog.destroy()
   }
+
+  const removeCocktail = async (cocktail: ProfileCocktailItem) => {
+    confirmDialog.open({
+      title: '取消收藏',
+      content: '確定取消收藏此發文， 一旦取消收藏將無法復原？',
+      onConfirm: handleRemoveConfirm(cocktail.id),
+      onCancel: () => confirmDialog.destroy()
+    })
+  }
+
+  const shareCocktail = (cocktail: ProfileCocktailItem) =>
+    share(
+      cocktail.title,
+      new URL(`/cocktails/${cocktail.id}`, window.location.origin).href
+    )
+
+  const gotoCocktailPage = (id: number) => router.push(paths.cocktailById(id))
 
   return {
     data: cocktailList,
     loading: (data && error) || configLoading,
     error,
-    remove
+    shareCocktail,
+    removeCocktail,
+    gotoCocktailPage
   }
 }
 

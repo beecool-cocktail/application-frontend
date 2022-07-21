@@ -72,18 +72,11 @@ export interface CocktailPostDraftList {
 }
 
 export interface FavoriteCocktailList {
-  data: FavoriteCocktailItem[]
+  data: ProfileCocktailItem[]
   isPublic: boolean
 }
 
-export interface FavoriteCocktailItem {
-  id: number
-  userName: string
-  title: string
-  photoUrl: string
-}
-
-export interface MyCocktailItem {
+export interface ProfileCocktailItem {
   id: number
   userName: string
   title: string

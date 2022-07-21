@@ -20,7 +20,11 @@ const ActionButton = ({ onClick, text }: ActionButtonProps) => {
         width: '160px',
         height: '48px',
         background: 'rgba(204, 204, 204, 0.5)',
-        borderRadius: '6px'
+        borderRadius: '6px',
+        transition: 'background .1s',
+        ':hover': {
+          background: 'rgba(204, 204, 204, 0.8)'
+        }
       }}
       onClick={onClick}
     >

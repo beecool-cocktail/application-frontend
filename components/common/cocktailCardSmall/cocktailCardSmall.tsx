@@ -1,36 +1,55 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { Box, Stack, Typography } from '@mui/material'
-import { MyCocktailItem } from 'lib/domain/cocktail'
-import useMyCocktailCard from 'lib/application/cocktail/useMyCocktailCard'
+import { ProfileCocktailItem } from 'lib/domain/cocktail'
 import MoreIcon from 'lib/assets/more.svg'
 import CloseIcon from 'lib/assets/cancelClose.svg'
 import IconButton from '../button/iconButton'
-import ActionButton from './actionButton'
+import ActionButton from '../myCocktailList/actionButton'
 
-export interface FavoriteCocktailCardProps {
-  cocktail: MyCocktailItem
-  editable?: boolean
-  onDelete(id: number): void
+interface CardAction {
+  text: string
+  onClick: (cocktail: ProfileCocktailItem) => void
 }
 
-const MyCocktailCard = ({
+export interface FavoriteCocktailCardProps {
+  cocktail: ProfileCocktailItem
+  onClick(id: number): void
+  actions: CardAction[]
+  defaultEditMode?: boolean
+}
+
+const CocktailCardSmall = ({
   cocktail,
-  // editable = false,
-  onDelete
+  onClick,
+  actions,
+  defaultEditMode = false
 }: FavoriteCocktailCardProps) => {
-  const {
-    isEditMode,
-    handleClick,
-    handleClickMoreAction,
-    // handleClose,
-    handleEdit,
-    handleDelete
-  } = useMyCocktailCard(cocktail, onDelete)
+  const [isEditMode, setEditMode] = useState(defaultEditMode)
+
+  const handleClose = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setEditMode(false)
+  }
+
+  const handleClickMoreAction = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setEditMode(editMode => !editMode)
+  }
+
+  const buttonActions = actions.map(action => ({
+    ...action,
+    onClick: (e: React.MouseEvent) => {
+      handleClose(e)
+      action.onClick(cocktail)
+    }
+  }))
 
   return (
     <Box
-      onClick={handleClick}
+      onClick={() => onClick(cocktail.id)}
       sx={{
         position: 'relative',
         width: 1,
@@ -63,8 +82,9 @@ const MyCocktailCard = ({
             }
           }}
         >
-          <ActionButton text="刪除貼文" onClick={handleDelete} />
-          <ActionButton text="編輯貼文" onClick={handleEdit} />
+          {buttonActions.map(({ text, onClick }) => (
+            <ActionButton key={text} text={text} onClick={onClick} />
+          ))}
         </Stack>
       )}
       <Box
@@ -101,12 +121,14 @@ const MyCocktailCard = ({
               background:
                 'linear-gradient(90deg, #FFFFFF 42.53%, rgba(255, 255, 255, 0) 80%)',
               backgroundClip: 'text',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
               textFillColor: 'transparent'
             }}
           >
             {cocktail.title}
           </Typography>
-          <IconButton onClick={handleClickMoreAction}>
+          <IconButton size={18} onClick={handleClickMoreAction}>
             {isEditMode ? <CloseIcon /> : <MoreIcon />}
           </IconButton>
         </Stack>
@@ -115,4 +137,4 @@ const MyCocktailCard = ({
   )
 }
 
-export default MyCocktailCard
+export default CocktailCardSmall

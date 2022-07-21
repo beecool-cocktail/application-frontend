@@ -2,15 +2,15 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { rest } from 'msw'
-import FavoriteCocktailCardList from 'components/common/favoriteCocktailList/favoriteCocktailList'
+import MyCocktailList from 'components/common/myCocktailList/myCocktailList'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
-import { GetUserFavoriteCocktailListResponse } from 'sdk'
+import { GetSelfCocktailListResponse } from 'sdk'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useOnce from 'lib/hooks/useOnce'
 
 export default {
-  title: 'favorite cocktail list/Favorite Cocktail List',
-  component: FavoriteCocktailCardList,
+  title: 'Cocktail/Cocktail List/My Cocktail List',
+  component: MyCocktailList,
   argTypes: {
     cocktails: { control: { type: 'array' } }
   },
@@ -22,10 +22,9 @@ export default {
     msw: {
       handlers: [
         configHandler,
-        rest.get('/api/users/current/favorite-cocktails', (req, res, ctx) => {
-          const data: GetUserFavoriteCocktailListResponse = {
-            is_public: true,
-            favorite_cocktail_list: [
+        rest.get('/api/users/current/cocktails', (req, res, ctx) => {
+          const data: GetSelfCocktailListResponse = {
+            cocktail_list: [
               {
                 cocktail_id: 1,
                 photo: '/cocktail.jpg',
@@ -44,8 +43,7 @@ export default {
                 title: 'Gin Tonic',
                 user_name: 'Mock User'
               }
-            ],
-            total: 3
+            ]
           }
           return responseJson(res, ctx, data)
         })
@@ -59,11 +57,11 @@ export default {
       return story()
     }
   ]
-} as ComponentMeta<typeof FavoriteCocktailCardList>
+} as ComponentMeta<typeof MyCocktailList>
 
-const Template: ComponentStory<typeof FavoriteCocktailCardList> = () => (
+const Template: ComponentStory<typeof MyCocktailList> = () => (
   <Box width={400} margin="0 auto">
-    <FavoriteCocktailCardList />
+    <MyCocktailList />
   </Box>
 )
 

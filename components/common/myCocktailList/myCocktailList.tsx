@@ -4,14 +4,21 @@ import { Grid } from '@mui/material'
 import useMyCocktailList from 'lib/application/cocktail/useMyCocktailList'
 import Error from '../status/error'
 import Loading from '../status/loading'
-import MyCocktailCard from './myCocktailCard'
+import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
 
 export interface MyCocktailListProps {
   userId?: number
 }
 
 const MyCocktailList = ({ userId }: MyCocktailListProps) => {
-  const { data, loading, error, deleteById } = useMyCocktailList(userId)
+  const {
+    data,
+    loading,
+    error,
+    gotoCocktailPage,
+    gotoEditPage,
+    deleteCocktail
+  } = useMyCocktailList(userId)
   if (error) return <Error />
   if (!data || loading) return <Loading />
   if (data.length === 0)
@@ -27,10 +34,13 @@ const MyCocktailList = ({ userId }: MyCocktailListProps) => {
     >
       {data.map(cocktail => (
         <Grid item xs={6} key={cocktail.id} sx={{ aspectRatio: '176/171' }}>
-          <MyCocktailCard
+          <CocktailCardSmall
             cocktail={cocktail}
-            editable={!userId}
-            onDelete={deleteById}
+            actions={[
+              { text: '刪除貼文', onClick: gotoEditPage },
+              { text: '編輯貼文', onClick: deleteCocktail }
+            ]}
+            onClick={gotoCocktailPage}
           />
         </Grid>
       ))}

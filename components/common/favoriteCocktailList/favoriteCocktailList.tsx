@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material'
 import useFavoriteCocktailList from 'lib/application/cocktail/useFavoriteCocktailList'
 import Error from '../status/error'
 import Loading from '../status/loading'
-import FavoriteCocktailCard from './favoriteCocktailCard'
+import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
 
 export interface FavoriteCocktailCardListProps {
   userId?: number
@@ -12,7 +12,14 @@ export interface FavoriteCocktailCardListProps {
 const FavoriteCocktailCardList = ({
   userId
 }: FavoriteCocktailCardListProps) => {
-  const { data: list, loading, error, remove } = useFavoriteCocktailList(userId)
+  const {
+    data: list,
+    loading,
+    error,
+    shareCocktail,
+    gotoCocktailPage,
+    removeCocktail
+  } = useFavoriteCocktailList(userId)
   if (error) return <Error />
   if (!list || loading) return <Loading />
   if (!list.isPublic && userId)
@@ -24,10 +31,13 @@ const FavoriteCocktailCardList = ({
     <Grid container alignItems="flex-start" rowSpacing={1} columnSpacing={1}>
       {list.data.map(cocktail => (
         <Grid item xs={6} key={cocktail.id}>
-          <FavoriteCocktailCard
+          <CocktailCardSmall
             cocktail={cocktail}
-            editable={!userId}
-            onRemove={remove}
+            actions={[
+              { text: '分享貼文', onClick: shareCocktail },
+              { text: '移除收藏', onClick: removeCocktail }
+            ]}
+            onClick={gotoCocktailPage}
           />
         </Grid>
       ))}

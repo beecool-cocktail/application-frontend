@@ -1,9 +1,9 @@
 import { MyCocktailListService } from 'lib/application/ports'
-import { MyCocktailItem } from 'lib/domain/cocktail'
+import { ProfileCocktailItem } from 'lib/domain/cocktail'
 import { DeleteFormalArticleRequest } from 'sdk'
 import { cocktailApi, userApi } from './api'
 
-const getSelfList = async (token: string): Promise<MyCocktailItem[]> => {
+const getSelfList = async (token: string): Promise<ProfileCocktailItem[]> => {
   const res = await userApi.selfCocktailList({
     headers: { Authorization: `Bearer ${token}` }
   })
@@ -16,7 +16,7 @@ const getSelfList = async (token: string): Promise<MyCocktailItem[]> => {
   }))
 }
 
-const getOtherList = async (userId: number): Promise<MyCocktailItem[]> => {
+const getOtherList = async (userId: number): Promise<ProfileCocktailItem[]> => {
   const res = await userApi.otherCocktailList(userId)
   return res.data.data.cocktail_list.map(cocktailItem => ({
     id: cocktailItem.cocktail_id,

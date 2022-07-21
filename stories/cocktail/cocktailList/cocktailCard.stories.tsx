@@ -10,7 +10,7 @@ import mockPhotos, {
 } from 'lib/mocks/data/photos'
 
 export default {
-  title: 'cocktailList/Cocktail Card',
+  title: 'Cocktail/Cocktail Card/Cocktail Card Normal',
   component: CocktailCard,
   argTypes: {
     cocktail: { control: { type: 'object' } },
@@ -21,22 +21,23 @@ export default {
       type: 'figma',
       url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2873%3A4549'
     }
-  }
+  },
+  decorators: [
+    story => (
+      <Box width={400} margin="0 auto">
+        {story()}
+      </Box>
+    )
+  ]
 } as ComponentMeta<typeof CocktailCard>
 
 const CocktailCardTemplate: ComponentStory<typeof CocktailCard> = args => (
-  <Box width={400} margin="0 auto">
-    <CocktailCard {...args} />
-  </Box>
+  <CocktailCard {...args} />
 )
 
 const CocktailSkeletonTemplate: ComponentStory<
   typeof CocktailSkeleton
-> = () => (
-  <Box width={400} margin="0 auto">
-    <CocktailSkeleton />
-  </Box>
-)
+> = () => <CocktailSkeleton />
 
 const defaultCocktail: CocktailPostItem = {
   id: 98078024211279,

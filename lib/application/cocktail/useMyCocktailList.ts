@@ -6,15 +6,20 @@ import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import { MyCocktailItem } from 'lib/domain/cocktail'
+import { ProfileCocktailItem } from 'lib/domain/cocktail'
+import { paths } from 'lib/configs/routes'
 import useUser from '../user/useUser'
+import useConfirmDialog from '../ui/useConfirmDialog'
+import useCornerRouter from '../useCornerRouter'
 
 const FETCH_KEY = Symbol('MY_COCKTAIL')
 
 const useMyCocktailList = (userId?: number) => {
   const { mutate: userMutate } = useUser(userId)
   const storage = useLocalStorage()
+  const router = useCornerRouter()
   const snackbar = useSnackbar()
+  const confirmDialog = useConfirmDialog()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
@@ -24,7 +29,7 @@ const useMyCocktailList = (userId?: number) => {
     userId ? myCocktailService.getOtherList : myCocktailService.getSelfList
   )
 
-  let cocktails: MyCocktailItem[] | undefined
+  let cocktails: ProfileCocktailItem[] | undefined
   if (data && config) {
     cocktails = data.map(cocktail =>
       produce(cocktail, draft => {
@@ -35,20 +40,36 @@ const useMyCocktailList = (userId?: number) => {
     )
   }
 
-  const deleteById = async (id: number) => {
+  const handleDeleteConfirm = (id: number) => async () => {
     const token = storage.getToken()
     if (!token) return
     await myCocktailService.deleteById(id, token)
     mutate()
     userMutate()
     snackbar.success('remove success')
+    confirmDialog.destroy()
   }
+
+  const deleteCocktail = async (cocktail: ProfileCocktailItem) => {
+    confirmDialog.open({
+      title: '刪除發文',
+      content: '確定刪除此發文，一旦刪除將無法復原？',
+      onConfirm: handleDeleteConfirm(cocktail.id),
+      onCancel: () => confirmDialog.destroy()
+    })
+  }
+
+  const gotoEditPage = (cocktail: ProfileCocktailItem) =>
+    router.push(paths.editPost(cocktail.id))
+  const gotoCocktailPage = (id: number) => router.push(paths.cocktailById(id))
 
   return {
     data: cocktails,
     loading: (data && error) || configLoading,
     error,
-    deleteById
+    gotoCocktailPage,
+    gotoEditPage,
+    deleteCocktail
   }
 }
 

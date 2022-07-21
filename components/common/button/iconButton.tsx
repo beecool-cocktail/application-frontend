@@ -5,14 +5,20 @@ export interface BackButtonProps {
   contained?: boolean
   onClick?(e: React.MouseEvent): void
   children: React.ReactNode
+  size?: number
 }
 
-const IconButton = ({ children, contained, onClick }: BackButtonProps) => {
+const IconButton = ({
+  children,
+  contained,
+  size = 28,
+  onClick
+}: BackButtonProps) => {
   return (
     <BaseIconButton
       sx={{
-        width: 28,
-        height: 28,
+        width: size,
+        height: size,
         padding: 0,
         backgroundColor: theme => {
           if (contained) return theme.palette.light4.main
