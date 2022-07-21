@@ -26,12 +26,13 @@ const useSnackbar = () => {
       message: message || 'info'
     })
   }
-  const success = (message: string, duration?: number) => {
+  const success = (message: string, duration?: number, onUndo?: () => void) => {
     setState({
       open: true,
       severity: 'success',
       duration: duration || DEFAULT_CONFIG.duration,
-      message: message || 'success'
+      message: message || 'success',
+      onUndo
     })
   }
   const warning = (message: string, duration?: number) => {

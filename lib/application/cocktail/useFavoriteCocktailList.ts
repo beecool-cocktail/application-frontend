@@ -1,6 +1,7 @@
 import produce from 'immer'
 import useSWR from 'swr'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
+import commandService from 'lib/services/commandAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
@@ -50,10 +51,15 @@ const useFavoriteCocktailList = (userId?: number) => {
   const handleRemoveConfirm = (id: number) => async () => {
     const token = storage.getToken()
     if (!token) return
-    await favoriteCocktailService.remove(id, token)
+
+    const commandId = await favoriteCocktailService.remove(id, token)
     mutate()
     userMutate()
-    snackbar.success('remove success')
+    snackbar.success('remove success', 5000, async () => {
+      await commandService.undoCommand(commandId, token)
+      mutate()
+      userMutate()
+    })
     confirmDialog.destroy()
   }
 

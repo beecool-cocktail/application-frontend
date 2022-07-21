@@ -152,6 +152,19 @@ export interface DeleteDraftArticleRequest {
 /**
  * 
  * @export
+ * @interface DeleteFavoriteCocktailResponse
+ */
+export interface DeleteFavoriteCocktailResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteFavoriteCocktailResponse
+     */
+    'command_id': string;
+}
+/**
+ * 
+ * @export
  * @interface DeleteFormalArticleRequest
  */
 export interface DeleteFormalArticleRequest {
@@ -664,6 +677,31 @@ export interface InlineResponse2001 {
      * 
      * @type {string}
      * @memberof InlineResponse2001
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
+ * @interface InlineResponse20010
+ */
+export interface InlineResponse20010 {
+    /**
+     * 
+     * @type {DeleteFavoriteCocktailResponse}
+     * @memberof InlineResponse20010
+     */
+    'data': DeleteFavoriteCocktailResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20010
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse20010
      */
     'error_message': string;
 }
@@ -2071,6 +2109,114 @@ export class CocktailApi extends BaseAPI {
 
 
 /**
+ * CommandApi - axios parameter creator
+ * @export
+ */
+export const CommandApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Undo command.
+         * @summary Undo command.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        undoCommand: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('undoCommand', 'id', id)
+            const localVarPath = `/command/{id}/undo`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * CommandApi - functional programming interface
+ * @export
+ */
+export const CommandApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CommandApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Undo command.
+         * @summary Undo command.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async undoCommand(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.undoCommand(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * CommandApi - factory interface
+ * @export
+ */
+export const CommandApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CommandApiFp(configuration)
+    return {
+        /**
+         * Undo command.
+         * @summary Undo command.
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        undoCommand(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.undoCommand(id, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * CommandApi - object-oriented interface
+ * @export
+ * @class CommandApi
+ * @extends {BaseAPI}
+ */
+export class CommandApi extends BaseAPI {
+    /**
+     * Undo command.
+     * @summary Undo command.
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CommandApi
+     */
+    public undoCommand(id: string, options?: AxiosRequestConfig) {
+        return CommandApiFp(this.configuration).undoCommand(id, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * LoginApi - axios parameter creator
  * @export
  */
@@ -2710,7 +2856,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeCollectionArticle(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async removeCollectionArticle(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.removeCollectionArticle(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2810,7 +2956,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeCollectionArticle(id: number, options?: any): AxiosPromise<void> {
+        removeCollectionArticle(id: number, options?: any): AxiosPromise<InlineResponse20010> {
             return localVarFp.removeCollectionArticle(id, options).then((request) => request(axios, basePath));
         },
         /**

@@ -43,9 +43,10 @@ const collect = async (cocktailId: number, token: string) => {
 }
 
 const remove = async (cocktailId: number, token: string) => {
-  await userApi.removeCollectionArticle(cocktailId, {
+  const res = await userApi.removeCollectionArticle(cocktailId, {
     headers: { Authorization: `Bearer ${token}` }
   })
+  return res.data.data.command_id
 }
 
 const favoriteCocktailService: FavoriteCocktailListService = {

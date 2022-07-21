@@ -77,11 +77,15 @@ export interface FavoriteCocktailListService {
   getSelfList(token: string): Promise<FavoriteCocktailList>
   getOtherList(userId: number): Promise<FavoriteCocktailList>
   collect(cocktailId: number, token: string): Promise<void>
-  remove(cocktailId: number, token: string): Promise<void>
+  remove(cocktailId: number, token: string): Promise<string>
 }
 
 export interface MyCocktailListService {
   getSelfList(token: string): Promise<ProfileCocktailItem[]>
   getOtherList(userId: number): Promise<ProfileCocktailItem[]>
   deleteById(cocktailId: number, token: string): Promise<void>
+}
+
+export interface CommandService {
+  undoCommand(id: string, token: string): Promise<void>
 }
