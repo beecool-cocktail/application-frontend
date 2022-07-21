@@ -10,10 +10,11 @@ const FETCH_KEY = 'CURRENT_USER'
 const useCurrentUser = () => {
   const storage = useLocalStorage()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
-  const { data, error, mutate } = useSWR(
-    () => [storage.getToken(), FETCH_KEY],
-    userService.getCurrentUserInfo
-  )
+  const { data, error, mutate } = useSWR(() => {
+    const token = storage.getToken()
+    if (!token) return null
+    return [token, FETCH_KEY]
+  }, userService.getCurrentUserInfo)
 
   const updateUserInfo = async (form: UpdateUserForm) => {
     const token = storage.getToken()
