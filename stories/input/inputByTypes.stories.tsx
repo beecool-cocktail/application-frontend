@@ -4,6 +4,7 @@ import { Box, Stack } from '@mui/material'
 import Input from 'components/common/input/input'
 import Search from 'lib/assets/search/default.svg'
 import Close from 'lib/assets/cancelClose.svg'
+import { getCharacterCount } from 'lib/helper/string'
 
 export default {
   title: 'input/Normal Input/Input by Types',
@@ -49,7 +50,8 @@ export const TextArea = Template.bind({})
 TextArea.args = {
   defaultValue: '輸入的內容輸入的內容輸入的內容輸入的內容輸入的內容輸入的內容',
   multiline: true,
-  maxLength: 150
+  maxLength: 150,
+  getLetterCount: getCharacterCount
 }
 
 export const Placeholder = Template.bind({})

@@ -12,7 +12,9 @@ interface InputProps extends InputBaseProps {
   label?: string
   feedback?: string
   maxLength?: number
+  getLetterCount?: (target: string) => number
 }
+
 const RawInput = (props: InputProps) => {
   const {
     value: valueFromProps,
@@ -22,7 +24,8 @@ const RawInput = (props: InputProps) => {
     feedback,
     placeholder,
     maxLength,
-    multiline
+    multiline,
+    getLetterCount = target => target.length
   } = props
   const formControl = useFormControl()
   const { current: isControlled } = useRef(valueFromProps != null)
@@ -32,7 +35,7 @@ const RawInput = (props: InputProps) => {
   )
   const value = String(isControlled ? valueFromProps : internalValue)
 
-  const letterCount = value.length
+  const letterCount = getLetterCount(value)
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
@@ -43,6 +46,11 @@ const RawInput = (props: InputProps) => {
   const getPlaceholder = () => {
     if (formControl && formControl.focused) return ''
     return placeholder
+  }
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (props.onBlur) props.onBlur(e)
+    e.target.value.replace(/  +/g, ' ')
   }
 
   return (
@@ -105,6 +113,7 @@ const RawInput = (props: InputProps) => {
         inputProps={{ ...props.inputProps, maxLength }}
         placeholder={getPlaceholder()}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
       {feedback && (
         <Typography
