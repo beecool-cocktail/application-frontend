@@ -4,12 +4,17 @@ import throttle from 'lodash.throttle'
 import SettingIcon from 'lib/assets/setting.svg'
 import DraftIcon from 'lib/assets/draft/default.svg'
 import { paths } from 'lib/configs/routes'
-import IconButton from 'components/common/button/iconButton'
 import useCornerRouter from 'lib/application/useCornerRouter'
+import IconButton from 'components/common/button/iconButton'
+import BackButton from 'components/common/button/backButton'
 
 const NAV_HEIGHT = 40
 
-const TopNavigation = () => {
+interface TopNavigationProps {
+  isVisitor: boolean
+}
+
+const TopNavigation = ({ isVisitor }: TopNavigationProps) => {
   const router = useCornerRouter()
   const [concrete, setConcrete] = useState(false)
 
@@ -34,20 +39,25 @@ const TopNavigation = () => {
         height: NAV_HEIGHT,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        px: '8px',
+        justifyContent: isVisitor ? 'flex-start' : 'flex-end',
+        pl: '16px',
+        pr: '8px',
         backgroundColor: theme =>
           concrete ? theme.palette.dark3.main : theme.palette.dark5.main
       }}
     >
-      <Stack direction="row" spacing="12px">
-        <IconButton onClick={() => router.push(paths.drafts)}>
-          <DraftIcon />
-        </IconButton>
-        <IconButton onClick={() => router.push(paths.settings)}>
-          <SettingIcon />
-        </IconButton>
-      </Stack>
+      {isVisitor ? (
+        <BackButton />
+      ) : (
+        <Stack direction="row" spacing="12px">
+          <IconButton onClick={() => router.push(paths.drafts)}>
+            <DraftIcon />
+          </IconButton>
+          <IconButton onClick={() => router.push(paths.settings)}>
+            <SettingIcon />
+          </IconButton>
+        </Stack>
+      )}
     </Box>
   )
 }

@@ -3,14 +3,15 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { rest } from 'msw'
 import ProfileDetail from 'components/pages/profile/profileDetail'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
-import { GetUserInfoResponse, GetSelfCocktailListResponse } from 'sdk'
+import {
+  GetUserInfoResponse,
+  GetSelfCocktailListResponse,
+  GetUserFavoriteCocktailListResponse
+} from 'sdk'
 
 export default {
   title: 'profile/Profile',
   component: ProfileDetail,
-  argTypes: {
-    onCollect: { action: 'collect' }
-  },
   parameters: {
     layout: 'fullscreen',
     design: {
@@ -20,92 +21,136 @@ export default {
   }
 } as ComponentMeta<typeof ProfileDetail>
 
-const Template: ComponentStory<typeof ProfileDetail> = args => {
-  return <ProfileDetail {...args} />
+const Template: ComponentStory<typeof ProfileDetail> = args => (
+  <ProfileDetail {...args} />
+)
+
+const cocktails = [
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: '血腥瑪莉 Bloody Mary',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: 'Vodka Lime 伏特加萊姆',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: 'Mojito 家中特條款',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: 'Gin Tonic 琴湯尼',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: '橡木桶的寶藏',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: '我是測試調酒',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: '血腥瑪莉 Bloody Mary',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: '血腥瑪莉 Bloody Mary',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: '血腥瑪莉 Bloody Mary',
+    user_name: '123123'
+  },
+  {
+    cocktail_id: 1234,
+    photo: '',
+    title: '血腥瑪莉 Bloody Mary',
+    user_name: '123123'
+  }
+]
+
+const handlers = [
+  configHandler,
+  rest.get('/api/users/current', (req, res, ctx) => {
+    const data: GetUserInfoResponse = {
+      user_id: 1234,
+      user_name: 'Heather H. Jenner',
+      email: 'jenner@gmail.com',
+      photo: '/avatar.png',
+      number_of_collection: 15,
+      number_of_post: 15,
+      is_collection_public: true
+    }
+    return responseJson(res, ctx, data)
+  }),
+  rest.get('/api/users/current/cocktails', (req, res, ctx) => {
+    const data: GetSelfCocktailListResponse = { cocktail_list: cocktails }
+    return responseJson(res, ctx, data)
+  }),
+  rest.get('/api/users/current/favorite-cocktails', (req, res, ctx) => {
+    const data: GetUserFavoriteCocktailListResponse = {
+      is_public: true,
+      total: 10,
+      favorite_cocktail_list: cocktails
+    }
+    return responseJson(res, ctx, data)
+  })
+]
+
+export const Profile = Template.bind({})
+Profile.args = {}
+Profile.parameters = {
+  msw: { handlers }
 }
 
-export const Default = Template.bind({})
-Default.args = {}
-Default.parameters = {
+const userId = 1234
+
+export const Visitor = Template.bind({})
+Visitor.args = { userId }
+Visitor.parameters = {
   msw: {
     handlers: [
-      configHandler,
-      rest.get('/api/users/current', (req, res, ctx) => {
+      ...handlers,
+      rest.get(`/api/users/${userId}`, (req, res, ctx) => {
         const data: GetUserInfoResponse = {
           user_id: 1234,
           user_name: 'Heather H. Jenner',
           email: 'jenner@gmail.com',
-          photo: '',
+          photo: '/avatar.png',
           number_of_collection: 15,
           number_of_post: 15,
           is_collection_public: true
         }
         return responseJson(res, ctx, data)
       }),
-      rest.get('/api/users/current/cocktails', (req, res, ctx) => {
-        const data: GetSelfCocktailListResponse = {
-          cocktail_list: [
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: '血腥瑪莉 Bloody Mary',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: 'Vodka Lime 伏特加萊姆',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: 'Mojito 家中特條款',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: 'Gin Tonic 琴湯尼',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: '橡木桶的寶藏',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: '我是測試調酒',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: '血腥瑪莉 Bloody Mary',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: '血腥瑪莉 Bloody Mary',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: '血腥瑪莉 Bloody Mary',
-              user_name: '123123'
-            },
-            {
-              cocktail_id: 1234,
-              photo: '',
-              title: '血腥瑪莉 Bloody Mary',
-              user_name: '123123'
-            }
-          ]
+      rest.get(`/api/users/${userId}/cocktails`, (req, res, ctx) => {
+        const data: GetSelfCocktailListResponse = { cocktail_list: cocktails }
+        return responseJson(res, ctx, data)
+      }),
+      rest.get(`/api/users/${userId}/favorite-cocktails`, (req, res, ctx) => {
+        const data: GetUserFavoriteCocktailListResponse = {
+          is_public: true,
+          total: 10,
+          favorite_cocktail_list: cocktails
         }
         return responseJson(res, ctx, data)
       })

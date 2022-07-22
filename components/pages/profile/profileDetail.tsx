@@ -35,15 +35,16 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
 
   return (
     <Stack flex={1}>
-      {!userId && <TopNavigation />}
+      <TopNavigation isVisitor={Boolean(userId)} />
       <Stack
         sx={{
           alignItems: 'center',
           pt: '2px',
+          mb: '4px',
           backgroundColor: theme => theme.palette.dark5.main
         }}
       >
-        <Avatar src={user.photo} size={70} />
+        <Avatar src={user.photo} userId={user.id} size={70} />
         <Typography
           variant="h4"
           sx={{
@@ -53,7 +54,11 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
         >{`${user.username}#${user.id}`}</Typography>
         <CounterRow userId={userId} />
       </Stack>
-      <SegmentedControl userId={userId} tab={tab} onChange={handleChange} />
+      <SegmentedControl
+        tabIndex={tab}
+        tabs={['我的發文', '收藏文章']}
+        onChange={handleChange}
+      />
       <PostTabPanel userId={userId} value={tab} index={0} />
       <CollectionTabPanel userId={userId} value={tab} index={1} />
     </Stack>

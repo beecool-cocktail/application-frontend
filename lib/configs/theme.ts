@@ -133,7 +133,7 @@ const theme = createTheme({
     h4: {
       fontWeight: 500,
       fontSize: 20,
-      lineHeight: 1.25
+      lineHeight: 1.4
     },
     subtitle1: {
       fontWeight: 500,
