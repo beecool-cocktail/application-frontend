@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Stack, Typography } from '@mui/material'
+import { Skeleton, Stack, Typography } from '@mui/material'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import Avatar from 'components/common/image/avatar'
-import Loading from 'components/common/status/loading'
 import Error from 'components/common/status/error'
 import useUser from 'lib/application/user/useUser'
 import useLocalStorage from 'lib/services/localStorageAdapter'
@@ -30,8 +29,7 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
     if (!storage.getToken()) router.push(paths.index)
   }, [router, storage])
 
-  if (loading) return <Loading />
-  if (!user || error) return <Error />
+  if (error) return <Error />
 
   return (
     <Stack flex={1}>
@@ -44,15 +42,33 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
           backgroundColor: theme => theme.palette.dark5.main
         }}
       >
-        <Avatar src={user.photo} userId={user.id} size={70} />
-        <Typography
-          variant="h4"
-          sx={{
-            color: theme => theme.palette.light1.main,
-            mt: '2px'
-          }}
-        >{`${user.username}#${user.id}`}</Typography>
-        <CounterRow userId={userId} />
+        {loading || !user ? (
+          <>
+            <Skeleton variant="circular" sx={{ width: 84, height: 84 }} />
+            <Skeleton
+              variant="rectangular"
+              sx={{ width: 174, height: 28, mt: '2px', borderRadius: '6px' }}
+            />
+            <CounterRow collectionCount={0} postCount={0} />
+          </>
+        ) : (
+          <>
+            <Avatar src={user.photo} userId={user.id} size={70} />
+            <Typography
+              variant="h4"
+              sx={{
+                color: theme => theme.palette.light1.main,
+                mt: '2px'
+              }}
+            >
+              {`${user.username}#${user.id}`}
+            </Typography>
+            <CounterRow
+              collectionCount={user.collectionCount}
+              postCount={user.postCount}
+            />
+          </>
+        )}
       </Stack>
       <SegmentedControl
         tabIndex={tab}

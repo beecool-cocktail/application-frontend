@@ -1,9 +1,8 @@
 import { Divider, Stack, Typography } from '@mui/material'
-import Loading from 'components/common/status/loading'
-import useUser from 'lib/application/user/useUser'
 
 export interface CounterRowProps {
-  userId?: number
+  collectionCount: number
+  postCount: number
 }
 
 interface CounterStackProps {
@@ -37,13 +36,7 @@ const CounterStack = ({ title, count }: CounterStackProps) => {
   )
 }
 
-const CounterRow = ({ userId }: CounterRowProps) => {
-  const { user, loading, error } = useUser(userId)
-
-  if (loading) return <Loading />
-  if (!user || error) return <Typography>error</Typography>
-  const { collectionCount, postCount } = user
-
+const CounterRow = ({ collectionCount, postCount }: CounterRowProps) => {
   return (
     <Stack
       direction="row"

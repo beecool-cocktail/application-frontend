@@ -48,11 +48,11 @@ const useFavoriteCocktailList = (userId?: number) => {
     }
   }
 
-  const handleRemoveConfirm = (id: number) => async () => {
+  const removeCocktail = async (cocktail: ProfileCocktailItem) => {
     const token = storage.getToken()
     if (!token) return
 
-    const commandId = await favoriteCocktailService.remove(id, token)
+    const commandId = await favoriteCocktailService.remove(cocktail.id, token)
     mutate()
     userMutate()
     snackbar.success('remove success', 5000, async () => {
@@ -61,15 +61,6 @@ const useFavoriteCocktailList = (userId?: number) => {
       userMutate()
     })
     confirmDialog.destroy()
-  }
-
-  const removeCocktail = async (cocktail: ProfileCocktailItem) => {
-    confirmDialog.open({
-      title: '取消收藏',
-      content: '確定取消收藏此發文， 一旦取消收藏將無法復原？',
-      onConfirm: handleRemoveConfirm(cocktail.id),
-      onCancel: () => confirmDialog.destroy()
-    })
   }
 
   const shareCocktail = (cocktail: ProfileCocktailItem) =>

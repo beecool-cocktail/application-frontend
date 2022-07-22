@@ -1,6 +1,7 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { rest } from 'msw'
+import { move } from 'ramda'
 import ProfileDetail from 'components/pages/profile/profileDetail'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import {
@@ -28,61 +29,61 @@ const Template: ComponentStory<typeof ProfileDetail> = args => (
 const cocktails = [
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-1.jpg',
     title: '血腥瑪莉 Bloody Mary',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-2.jpg',
     title: 'Vodka Lime 伏特加萊姆',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-3.jpg',
     title: 'Mojito 家中特條款',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-1.jpg',
     title: 'Gin Tonic 琴湯尼',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-2.jpg',
     title: '橡木桶的寶藏',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-3.jpg',
     title: '我是測試調酒',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-1.jpg',
     title: '血腥瑪莉 Bloody Mary',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-2.jpg',
     title: '血腥瑪莉 Bloody Mary',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-3.jpg',
     title: '血腥瑪莉 Bloody Mary',
     user_name: '123123'
   },
   {
     cocktail_id: 1234,
-    photo: '',
+    photo: '/cocktail-2.jpg',
     title: '血腥瑪莉 Bloody Mary',
     user_name: '123123'
   }
@@ -110,7 +111,7 @@ const handlers = [
     const data: GetUserFavoriteCocktailListResponse = {
       is_public: true,
       total: 10,
-      favorite_cocktail_list: cocktails
+      favorite_cocktail_list: move(-1, 0, cocktails)
     }
     return responseJson(res, ctx, data)
   })
@@ -150,7 +151,7 @@ Visitor.parameters = {
         const data: GetUserFavoriteCocktailListResponse = {
           is_public: true,
           total: 10,
-          favorite_cocktail_list: cocktails
+          favorite_cocktail_list: move(-1, 0, cocktails)
         }
         return responseJson(res, ctx, data)
       })

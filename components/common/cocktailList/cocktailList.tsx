@@ -30,7 +30,7 @@ const CocktailList = ({ useSearch }: CocktailListProps) => {
   } = useCocktailList(PAGE_SIZE, useSearch)
 
   const renderSkeletonList = () => {
-    return Array.from(new Array(PAGE_SIZE)).map((item, index) => (
+    return Array.from(new Array(PAGE_SIZE)).map((_item, index) => (
       <CocktailSkeleton key={index} />
     ))
   }
