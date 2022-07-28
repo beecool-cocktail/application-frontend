@@ -12,6 +12,7 @@ const getList = async (token: string): Promise<CocktailPostDraftList> => {
     totalCount: resData.total,
     data: resData.draft_cocktail_list.map(item => ({
       id: item.cocktail_id,
+      description: item.description,
       title: item.title,
       coverPhotoUrl: item.photo
     }))

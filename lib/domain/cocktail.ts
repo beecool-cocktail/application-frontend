@@ -63,6 +63,7 @@ export interface CocktailPostDraft {
 export interface CocktailPostDraftItem {
   id: number
   title: string
+  description: string
   coverPhotoUrl: string
 }
 

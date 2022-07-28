@@ -7,7 +7,7 @@ import {
   FormControlLabel
 } from '@mui/material'
 import IngredientListIcon from 'lib/assets/list.svg'
-import Checkbox from './checkbox'
+import Checkbox from '../input/checkbox'
 import type { Ingredient } from 'lib/domain/cocktail'
 
 interface IngredientListProps {

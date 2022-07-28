@@ -139,6 +139,25 @@ export interface CollectArticleRequest {
 /**
  * 
  * @export
+ * @interface Coordinate
+ */
+export interface Coordinate {
+    /**
+     * 
+     * @type {number}
+     * @memberof Coordinate
+     */
+    'x': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Coordinate
+     */
+    'y': number;
+}
+/**
+ * 
+ * @export
  * @interface DeleteDraftArticleRequest
  */
 export interface DeleteDraftArticleRequest {
@@ -193,6 +212,12 @@ export interface DraftCocktailList {
      * @memberof DraftCocktailList
      */
     'created_date': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DraftCocktailList
+     */
+    'description': string;
     /**
      * 
      * @type {string}
@@ -263,6 +288,12 @@ export interface GetCocktailByIDResponse {
      */
     'cocktail_id': number;
     /**
+     * 座標 [左上XY, 右下XY]
+     * @type {Array<Coordinate>}
+     * @memberof GetCocktailByIDResponse
+     */
+    'coordinate': Array<Coordinate>;
+    /**
      * 
      * @type {string}
      * @memberof GetCocktailByIDResponse
@@ -286,6 +317,12 @@ export interface GetCocktailByIDResponse {
      * @memberof GetCocktailByIDResponse
      */
     'is_collected': boolean;
+    /**
+     * 原圖長
+     * @type {number}
+     * @memberof GetCocktailByIDResponse
+     */
+    'length': number;
     /**
      * 
      * @type {Array<CocktailPhotoWithIDInResponse>}
@@ -322,6 +359,12 @@ export interface GetCocktailByIDResponse {
      * @memberof GetCocktailByIDResponse
      */
     'user_photo': string;
+    /**
+     * 原圖寬
+     * @type {number}
+     * @memberof GetCocktailByIDResponse
+     */
+    'width': number;
 }
 /**
  * 
@@ -443,11 +486,23 @@ export interface GetOtherCocktailListResponse {
  */
 export interface GetOtherUserInfoResponse {
     /**
+     * 座標 [左上XY, 右下XY]
+     * @type {Array<Coordinate>}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'coordinate': Array<Coordinate>;
+    /**
      * 是否公開收藏 false=不公開, true=公開
      * @type {boolean}
      * @memberof GetOtherUserInfoResponse
      */
     'is_collection_public': boolean;
+    /**
+     * 原圖長
+     * @type {number}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'length': number;
     /**
      * 
      * @type {number}
@@ -478,6 +533,12 @@ export interface GetOtherUserInfoResponse {
      * @memberof GetOtherUserInfoResponse
      */
     'user_name': string;
+    /**
+     * 原圖寬
+     * @type {number}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'width': number;
 }
 /**
  * 
@@ -562,6 +623,12 @@ export interface GetUserFavoriteCocktailListResponse {
  */
 export interface GetUserInfoResponse {
     /**
+     * 座標 [左上XY, 右下XY]
+     * @type {Array<Coordinate>}
+     * @memberof GetUserInfoResponse
+     */
+    'coordinate': Array<Coordinate>;
+    /**
      * 
      * @type {string}
      * @memberof GetUserInfoResponse
@@ -573,6 +640,12 @@ export interface GetUserInfoResponse {
      * @memberof GetUserInfoResponse
      */
     'is_collection_public': boolean;
+    /**
+     * 原圖長
+     * @type {number}
+     * @memberof GetUserInfoResponse
+     */
+    'length': number;
     /**
      * 
      * @type {number}
@@ -603,6 +676,12 @@ export interface GetUserInfoResponse {
      * @memberof GetUserInfoResponse
      */
     'user_name': string;
+    /**
+     * 原圖寬
+     * @type {number}
+     * @memberof GetUserInfoResponse
+     */
+    'width': number;
 }
 /**
  * 
@@ -957,6 +1036,12 @@ export interface OtherCocktailList {
     'cocktail_id': number;
     /**
      * 
+     * @type {boolean}
+     * @memberof OtherCocktailList
+     */
+    'is_collected': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof OtherCocktailList
      */
@@ -1246,6 +1331,12 @@ export interface UpdateFormalArticleRequest {
  */
 export interface UpdateUserInfoRequest {
     /**
+     * 座標 [左上XY, 右下XY]
+     * @type {Array<Coordinate>}
+     * @memberof UpdateUserInfoRequest
+     */
+    'coordinate': Array<Coordinate>;
+    /**
      * 
      * @type {string}
      * @memberof UpdateUserInfoRequest
@@ -1258,11 +1349,23 @@ export interface UpdateUserInfoRequest {
      */
     'is_collection_public': boolean;
     /**
+     * 原圖長
+     * @type {number}
+     * @memberof UpdateUserInfoRequest
+     */
+    'length': number;
+    /**
      * name for this user
      * @type {string}
      * @memberof UpdateUserInfoRequest
      */
     'name': string;
+    /**
+     * 原圖寬
+     * @type {number}
+     * @memberof UpdateUserInfoRequest
+     */
+    'width': number;
 }
 /**
  * 

@@ -23,7 +23,7 @@ const IconButton = ({
         backgroundColor: theme => {
           if (contained) return theme.palette.light4.main
         },
-        color: '#fff',
+        color: theme => theme.palette.light1.main,
         fontSize: 24
       }}
       onClick={onClick}

@@ -9,7 +9,7 @@ import useConfig from '../useConfig'
 
 const FETCH_KEY = 'DRAFTS'
 
-const useDrafts = () => {
+const useDraftList = () => {
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
@@ -31,6 +31,8 @@ const useDrafts = () => {
       }))
     })
   }
+  const drafts = resData?.data
+  const isAllSelected = (drafts || []).length === selectedIds.length
 
   const toggleDeleteMode = () => {
     setBatchDeleteMode(mode => !mode)
@@ -52,16 +54,24 @@ const useDrafts = () => {
     setSelectedIds(ids => [...ids, targetId])
   }
 
+  const selectAll = () => {
+    if (!drafts) return
+    if (isAllSelected) return setSelectedIds([])
+    setSelectedIds(drafts.map(draft => draft.id))
+  }
+
   return {
     isBatchDeleteMode,
     selectedIds,
-    drafts: resData?.data,
+    isAllSelected,
+    drafts,
     error,
     loading: (!resData && !error) || configLoading,
     toggleDeleteMode,
     select,
+    selectAll,
     deleteSelected
   }
 }
 
-export default useDrafts
+export default useDraftList
