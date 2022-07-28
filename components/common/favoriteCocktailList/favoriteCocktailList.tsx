@@ -1,5 +1,5 @@
-import React from 'react'
-import { Grid, GridProps, Typography } from '@mui/material'
+import Image from 'next/image'
+import { Box, Grid, GridProps, Stack, Typography } from '@mui/material'
 import useFavoriteCocktailList from 'lib/application/cocktail/useFavoriteCocktailList'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
@@ -16,7 +16,7 @@ const CardGridContainer = (props: GridProps) => (
     alignItems="flex-start"
     rowSpacing="8px"
     columnSpacing="8px"
-    sx={{ p: '8px', color: theme => theme.palette.dark3.main }}
+    sx={{ p: '8px' }}
   />
 )
 
@@ -34,7 +34,7 @@ const FavoriteCocktailCardList = ({
 
   const renderSkeletonList = () => (
     <CardGridContainer>
-      {Array.from(new Array(6)).map((item, index) => (
+      {Array.from(new Array(6)).map((_item, index) => (
         <Grid item xs={6} key={index} sx={{ aspectRatio: '176/171' }}>
           <CocktailCardSmallSkeleton />
         </Grid>
@@ -44,10 +44,30 @@ const FavoriteCocktailCardList = ({
 
   if (error) return <Error />
   if (!list || loading) return renderSkeletonList()
-  if (!list.isPublic && userId)
-    return <Typography variant="h4">收藏不公開</Typography>
-  if (list.data.length === 0)
-    return <Typography variant="h4">沒有收藏 QQ</Typography>
+  if (!list.isPublic && userId) {
+    const text = '該用戶未開放收藏'
+    return (
+      <Stack alignItems="center">
+        <Box sx={{ mt: '90px' }}>
+          <Image src="/incognito.png" alt={text} width={150} height={150} />
+        </Box>
+        <Typography
+          variant="h3"
+          color={theme => theme.palette.light2.main}
+          sx={{ mt: '16px' }}
+        >
+          {text}
+        </Typography>
+      </Stack>
+    )
+  }
+  if (list.data.length === 0) {
+    return (
+      <Stack alignItems="center">
+        <Typography variant="h4">沒有收藏</Typography>
+      </Stack>
+    )
+  }
 
   return (
     <CardGridContainer>
