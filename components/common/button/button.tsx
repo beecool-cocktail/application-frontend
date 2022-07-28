@@ -1,10 +1,10 @@
-import React from 'react'
+import { alpha } from '@mui/material'
 import { Button as BaseButton, SxProps, Typography } from '@mui/material'
 
 export interface ButtonProps {
   sx?: SxProps
-  size?: 'small' | 'medium' | 'large'
-  variant?: 'contained' | 'outlined' | 'text'
+  size?: 'small' | 'large'
+  variant?: 'primary' | 'secondary' | 'text' | 'contained' | 'outlined'
   disabled?: boolean
   children?: React.ReactNode
   onClick?(): void
@@ -12,20 +12,18 @@ export interface ButtonProps {
 
 const Button = ({
   sx,
-  size = 'medium',
-  variant = 'contained',
+  size = 'small',
+  variant = 'primary',
   disabled = false,
   children,
   onClick
 }: ButtonProps) => {
   const getSize = () => {
-    if (size === 'small') return { width: 70, height: 32 }
-    if (size === 'medium') return { width: 120, height: 44 }
-    if (size === 'large') return { width: 311, height: 52 }
+    if (size === 'small') return { width: 141, height: 44 }
+    if (size === 'large') return { width: 295, height: 44 }
   }
   const getTypographyVariant = () => {
-    if (size === 'small') return 'body3'
-    if (size === 'medium') return 'body2'
+    if (size === 'small') return 'body2'
     if (size === 'large') return 'subtitle2'
   }
 
@@ -37,44 +35,47 @@ const Button = ({
       sx={{
         ...getSize(),
         color: theme => {
-          if (variant !== 'contained') return theme.palette.primary.main
-          return 'white'
+          if (variant !== 'primary') return theme.palette.primary.main
+          return theme.palette.light1.main
         },
         opacity: disabled ? 0.4 : 1,
-        border: theme => `1px solid ${theme.palette.primary.main}`,
-        borderWidth: variant === 'outlined' ? '1px' : 0,
+        borderStyle: 'solid',
+        borderWidth: variant === 'secondary' ? '1px' : 0,
         backgroundColor: theme => {
-          if (variant !== 'contained') return 'transparent'
+          if (variant !== 'primary') return 'transparent'
           return theme.palette.primary.main
         },
         '&.Mui-disabled': {
           color: theme => {
-            if (variant !== 'contained') return theme.palette.primary.main
-            return 'white'
+            if (variant !== 'primary') return theme.palette.light3.main
+            return theme.palette.light2.main
           },
           backgroundColor: theme => {
-            if (variant !== 'contained') return 'transparent'
-            return theme.palette.primary.main
-          }
+            if (variant !== 'primary') return 'transparent'
+            return theme.palette.light4.main
+          },
+          borderColor: theme => theme.palette.light3.lighter,
+          opacity: 1
         },
         ':hover': {
           color: theme => {
-            if (variant !== 'contained') return theme.palette.primary.lighter
-            return 'white'
+            if (variant !== 'primary') return theme.palette.primary.lighter
+            return theme.palette.light1.main
           },
           backgroundColor: theme => {
-            if (variant !== 'contained') return 'transparent'
+            if (variant !== 'primary') return 'transparent'
             return theme.palette.primary.lighter
           },
           borderColor: theme => theme.palette.primary.lighter
         },
         ':active': {
           color: theme => {
-            if (variant !== 'contained') return theme.palette.primary.darker
-            return 'white'
+            if (variant !== 'primary') return theme.palette.primary.darker
+            return theme.palette.light2.main
           },
           backgroundColor: theme => {
-            if (variant !== 'contained') return 'transparent'
+            if (variant !== 'primary')
+              return alpha(theme.palette.primary.darker || '#000', 0.1)
             return theme.palette.primary.darker
           },
           borderColor: theme => theme.palette.primary.darker

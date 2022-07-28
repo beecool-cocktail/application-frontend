@@ -33,7 +33,7 @@ const UndoCountDown = ({
         colors={theme.palette.light1.main as ColorHex}
       />
       <Button
-        size="medium"
+        size="small"
         variant="text"
         sx={{ p: 0, m: 0, width: 'auto', minWidth: 'auto' }}
         onClick={onUndo}

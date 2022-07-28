@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box } from '@mui/system'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import Button from 'components/common/button/button'
 
@@ -7,11 +8,11 @@ export default {
   component: Button,
   argTypes: {
     size: {
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'large'],
       control: { type: 'radio' }
     },
     variant: {
-      options: ['contained', 'outlined', 'text'],
+      options: ['primary', 'secondary'],
       control: { type: 'radio' }
     },
     disabled: { type: 'boolean' },
@@ -27,14 +28,22 @@ export default {
 } as ComponentMeta<typeof Button>
 
 const Template: ComponentStory<typeof Button> = args => {
-  return <Button {...args} />
+  return (
+    <Box
+      width={1}
+      height={300}
+      sx={{ bgColor: theme => theme.palette.dark6.main }}
+    >
+      <Button {...args} />
+    </Box>
+  )
 }
 
 export const PrimaryDefault = Template.bind({})
 PrimaryDefault.args = {
   children: 'Default',
-  size: 'medium',
-  variant: 'contained',
+  size: 'small',
+  variant: 'primary',
   disabled: false
 }
 
@@ -45,16 +54,45 @@ PrimaryHover.args = {
 }
 PrimaryHover.parameters = { pseudo: { hover: true } }
 
-export const PrimaryActive = Template.bind({})
-PrimaryActive.args = {
+export const PrimaryPressed = Template.bind({})
+PrimaryPressed.args = {
   ...PrimaryDefault.args,
   children: 'Pressed'
 }
-PrimaryActive.parameters = { pseudo: { active: true } }
+PrimaryPressed.parameters = { pseudo: { active: true } }
 
 export const PrimaryDisable = Template.bind({})
 PrimaryDisable.args = {
   ...PrimaryDefault.args,
+  children: 'Disable',
+  disabled: true
+}
+
+export const SecondaryDefault = Template.bind({})
+SecondaryDefault.args = {
+  children: 'Default',
+  size: 'small',
+  variant: 'secondary',
+  disabled: false
+}
+
+export const SecondaryHover = Template.bind({})
+SecondaryHover.args = {
+  ...SecondaryDefault.args,
+  children: 'Hover'
+}
+SecondaryHover.parameters = { pseudo: { hover: true } }
+
+export const SecondaryPressed = Template.bind({})
+SecondaryPressed.args = {
+  ...SecondaryDefault.args,
+  children: 'Pressed'
+}
+SecondaryPressed.parameters = { pseudo: { active: true } }
+
+export const SecondaryDisable = Template.bind({})
+SecondaryDisable.args = {
+  ...SecondaryDefault.args,
   children: 'Disable',
   disabled: true
 }

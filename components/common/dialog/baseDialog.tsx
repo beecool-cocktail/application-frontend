@@ -70,7 +70,7 @@ const BaseDialog = ({
         }}
       >
         <Button onClick={onClose}>{cancelText}</Button>
-        <Button variant="outlined" onClick={onConfirm}>
+        <Button variant="secondary" onClick={onConfirm}>
           {confirmText}
         </Button>
       </Box>
