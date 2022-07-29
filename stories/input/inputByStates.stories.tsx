@@ -44,3 +44,9 @@ export const Filled = Template.bind({})
 Filled.args = {
   defaultValue: 'Content'
 }
+
+export const Error = Template.bind({})
+Error.args = {
+  error: true,
+  defaultValue: 'Content'
+}

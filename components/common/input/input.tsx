@@ -15,6 +15,39 @@ interface InputProps extends InputBaseProps {
   getLetterCount?: (target: string) => number
 }
 
+interface optionalControlProps {
+  defaultValue?: InputBaseProps['defaultValue']
+  valueFromProps?: InputBaseProps['value']
+  onChangeFromProps: InputBaseProps['onChange']
+}
+
+const useOptionalControl = ({
+  defaultValue,
+  valueFromProps,
+  onChangeFromProps
+}: optionalControlProps) => {
+  const { current: isControlled } = useRef(valueFromProps != null)
+  const { current: hasDefaultValue } = useRef(defaultValue != null)
+  const [internalValue, setInternalValue] = useState(
+    hasDefaultValue ? defaultValue : ''
+  )
+  const value = String(isControlled ? valueFromProps : internalValue)
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    if (onChangeFromProps) onChangeFromProps(e)
+    if (!isControlled) setInternalValue(e.target.value)
+  }
+
+  return {
+    value,
+    isControlled,
+    hasDefaultValue,
+    handleChange
+  }
+}
+
 const RawInput = (props: InputProps) => {
   const {
     value: valueFromProps,
@@ -28,20 +61,11 @@ const RawInput = (props: InputProps) => {
     getLetterCount = target => target.length
   } = props
   const formControl = useFormControl()
-  const { current: isControlled } = useRef(valueFromProps != null)
-  const { current: hasDefaultValue } = useRef(defaultValue != null)
-  const [internalValue, setInternalValue] = useState(
-    hasDefaultValue ? defaultValue : ''
-  )
-  const value = String(isControlled ? valueFromProps : internalValue)
-
-  const letterCount = getLetterCount(value)
-  const handleChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    if (onChangeFromProps) onChangeFromProps(e)
-    if (!isControlled) setInternalValue(e.target.value)
-  }
+  const { value, handleChange } = useOptionalControl({
+    defaultValue,
+    valueFromProps,
+    onChangeFromProps
+  })
 
   const getPlaceholder = () => {
     if (formControl && formControl.focused) return ''
@@ -52,6 +76,8 @@ const RawInput = (props: InputProps) => {
     if (props.onBlur) props.onBlur(e)
     e.target.value.replace(/  +/g, ' ')
   }
+
+  const letterCount = getLetterCount(value)
 
   return (
     <Stack alignItems="flex-start" spacing="4px" sx={{ position: 'relative' }}>
@@ -68,26 +94,30 @@ const RawInput = (props: InputProps) => {
         sx={{
           display: 'flex',
           alignItems: 'flex-start',
-          minHeight: multiline ? '186px' : '40px',
+          minHeight: multiline ? '186px' : '50px',
           p: () => {
-            if (!multiline) return '9px 12px'
+            if (!multiline) return '10px 11px'
             return '16px 20px'
           },
           columnGap: '4px',
           borderRadius: '8px',
+          border: theme =>
+            `2px solid ${
+              formControl?.error ? theme.palette.red.main : 'transparent'
+            }`,
           color: theme => {
-            if (formControl && formControl.focused)
+            if (formControl && (formControl.focused || formControl.error))
               return theme.palette.light1.main
             return theme.palette.light2.main
+          },
+          backgroundColor: theme => {
+            if (formControl && (formControl.focused || formControl.error))
+              return theme.palette.dark6.main
+            return theme.palette.dark5.main
           },
           fontSize: theme => theme.typography.body1.fontSize,
           fontWeight: theme => theme.typography.body1.fontWeight,
           lineHeight: theme => theme.typography.body1.lineHeight,
-          backgroundColor: theme => {
-            if (formControl && formControl.focused)
-              return theme.palette.dark6.main
-            return theme.palette.dark5.main
-          },
           '&::placeholder': {
             color: theme => theme.palette.light4.main
           },
@@ -149,7 +179,7 @@ const RawInput = (props: InputProps) => {
 
 const Input = (props: InputProps) => {
   return (
-    <FormControl fullWidth={props.fullWidth}>
+    <FormControl fullWidth={props.fullWidth} error={props.error}>
       <RawInput {...props} />
     </FormControl>
   )
