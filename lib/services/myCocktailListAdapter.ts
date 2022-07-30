@@ -18,10 +18,10 @@ const getSelfList = async (token: string): Promise<ProfileCocktailItem[]> => {
 
 const getOtherList = async (
   userId: number,
-  token: string
+  token: string | null
 ): Promise<ProfileCocktailItem[]> => {
   const res = await userApi.otherCocktailList(userId, {
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { ...(token && { Authorization: `Bearer ${token}` }) }
   })
   return res.data.data.cocktail_list.map(cocktailItem => ({
     id: cocktailItem.cocktail_id,

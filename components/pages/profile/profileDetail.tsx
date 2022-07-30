@@ -54,7 +54,7 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
               variant="rectangular"
               sx={{ width: 174, height: 28, mt: '2px', borderRadius: '6px' }}
             />
-            <CounterRow collectionCount={0} postCount={0} />
+            <CounterRow loading />
           </>
         ) : (
           <>

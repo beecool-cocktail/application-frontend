@@ -55,7 +55,6 @@ Home.decorators = [
 ]
 
 export const Search = Template.bind({})
-
 Search.parameters = {
   nextRouter: {
     path: pathname.search,
@@ -64,7 +63,6 @@ Search.parameters = {
 }
 
 export const AddPost = Template.bind({})
-
 AddPost.parameters = {
   nextRouter: {
     path: pathname.createPost,
@@ -73,7 +71,6 @@ AddPost.parameters = {
 }
 
 export const ProfileTourist = Template.bind({})
-
 ProfileTourist.parameters = {
   nextRouter: {
     path: pathname.profile,
@@ -82,20 +79,10 @@ ProfileTourist.parameters = {
 }
 
 export const ProfileMember = Template.bind({})
-
 ProfileMember.parameters = {
   nextRouter: {
     path: pathname.profile,
     asPath: pathname.profile
   }
 }
-
-ProfileMember.decorators = [
-  story => {
-    const storage = useLocalStorage()
-    useOnce(() => storage.setToken('mock login token'))
-    return story()
-  },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  loggedInDecorator as any
-]
+ProfileMember.decorators = [loggedInDecorator]

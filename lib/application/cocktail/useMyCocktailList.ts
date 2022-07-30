@@ -27,8 +27,8 @@ const useMyCocktailList = (userId?: number) => {
   const { data, error, mutate } = useSWR(
     () => {
       const token = storage.getToken()
-      if (!token) return null
       if (userId) return [userId, token, FETCH_KEY]
+      if (!token) return null
       return [token, FETCH_KEY]
     },
     userId ? myCocktailService.getOtherList : myCocktailService.getSelfList

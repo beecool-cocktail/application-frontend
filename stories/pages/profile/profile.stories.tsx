@@ -9,6 +9,7 @@ import {
   GetSelfCocktailListResponse,
   GetUserFavoriteCocktailListResponse
 } from 'sdk'
+import loggedInDecorator from 'stories/decorators/loggedInDecorator'
 
 export default {
   title: 'profile/Profile',
@@ -139,6 +140,27 @@ Profile.parameters = {
     ]
   }
 }
+Profile.decorators = [loggedInDecorator]
+
+export const Skeleton = Template.bind({})
+Skeleton.args = {}
+Skeleton.parameters = {
+  msw: {
+    handlers: [
+      configHandler,
+      rest.get('/api/users/current', (_req, res, ctx) =>
+        res(ctx.delay('infinite'))
+      ),
+      rest.get('/api/users/current/cocktails', (req, res, ctx) =>
+        res(ctx.delay('infinite'))
+      ),
+      rest.get('/api/users/current/favorite-cocktails', (req, res, ctx) =>
+        res(ctx.delay('infinite'))
+      )
+    ]
+  }
+}
+Skeleton.decorators = [loggedInDecorator]
 
 const userId = 1234
 
@@ -172,7 +194,7 @@ VisitorWithPrivateCollection.parameters = {
         const data: GetUserInfoResponse = {
           ...userInfoResponse,
           is_collection_public: false,
-          number_of_collection: 0
+          number_of_collection: 15
         }
         return responseJson(res, ctx, data)
       }),
@@ -183,7 +205,7 @@ VisitorWithPrivateCollection.parameters = {
       rest.get(`/api/users/${userId}/favorite-cocktails`, (req, res, ctx) => {
         const data: GetUserFavoriteCocktailListResponse = {
           is_public: false,
-          total: 0,
+          total: 15,
           favorite_cocktail_list: []
         }
         return responseJson(res, ctx, data)
