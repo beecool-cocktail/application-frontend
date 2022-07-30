@@ -12,6 +12,8 @@ const useUser = (id?: number) => {
   const { data, error, mutate } = useSWR(
     () => {
       if (id) return [id, FETCH_KEY]
+      const token = storage.getToken()
+      if (!token) return null
       return [storage.getToken(), FETCH_KEY]
     },
     id ? userService.getOtherUserInfo : userService.getCurrentUserInfo
