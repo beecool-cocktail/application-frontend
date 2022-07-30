@@ -26,8 +26,10 @@ const useMyCocktailList = (userId?: number) => {
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
-      if (userId) return [userId, FETCH_KEY]
-      return [storage.getToken(), FETCH_KEY]
+      const token = storage.getToken()
+      if (!token) return null
+      if (userId) return [userId, token, FETCH_KEY]
+      return [token, FETCH_KEY]
     },
     userId ? myCocktailService.getOtherList : myCocktailService.getSelfList
   )
@@ -94,8 +96,8 @@ const useMyCocktailList = (userId?: number) => {
         { text: '移除收藏', onClick: removeCocktail }
       ]
     : [
-        { text: '刪除貼文', onClick: gotoEditPage },
-        { text: '編輯貼文', onClick: deleteCocktail }
+        { text: '刪除貼文', onClick: deleteCocktail },
+        { text: '編輯貼文', onClick: gotoEditPage }
       ]
 
   return {

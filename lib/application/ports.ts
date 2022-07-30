@@ -82,7 +82,7 @@ export interface FavoriteCocktailListService {
 
 export interface MyCocktailListService {
   getSelfList(token: string): Promise<ProfileCocktailItem[]>
-  getOtherList(userId: number): Promise<ProfileCocktailItem[]>
+  getOtherList(userId: number, token: string): Promise<ProfileCocktailItem[]>
   deleteById(cocktailId: number, token: string): Promise<void>
 }
 

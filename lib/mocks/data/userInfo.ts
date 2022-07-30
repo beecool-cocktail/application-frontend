@@ -7,7 +7,10 @@ const mockUserInfo: GetUserInfoResponse = {
   photo: 'cocktail.jpg',
   number_of_collection: 0,
   number_of_post: 0,
-  is_collection_public: false
+  is_collection_public: false,
+  coordinate: [],
+  width: 0,
+  length: 0
 }
 
 export default mockUserInfo

@@ -44,7 +44,10 @@ const updateCurrentUserInfo = async (form: UpdateUserForm, token: string) => {
   const req: UpdateUserInfoRequest = {
     file,
     name: form.username,
-    is_collection_public: form.isCollectionPublic
+    is_collection_public: form.isCollectionPublic,
+    coordinate: [],
+    width: 0,
+    length: 0
   }
   await userApi.updateUserInfoRequest(req, {
     headers: { Authorization: `Bearer ${token}` }

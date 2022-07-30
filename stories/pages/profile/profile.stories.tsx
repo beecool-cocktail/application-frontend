@@ -108,7 +108,10 @@ const userInfoResponse: GetUserInfoResponse = {
   photo: '/avatar.png',
   number_of_collection: 15,
   number_of_post: 15,
-  is_collection_public: true
+  is_collection_public: true,
+  coordinate: [],
+  width: 0,
+  length: 0
 }
 
 const userFavoriteCocktailListResponse: GetUserFavoriteCocktailListResponse = {
