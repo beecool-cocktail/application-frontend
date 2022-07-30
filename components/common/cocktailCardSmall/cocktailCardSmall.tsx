@@ -62,6 +62,7 @@ const CocktailCardSmall = ({
       <Image
         style={{ borderRadius: '6px' }}
         layout="fill"
+        objectFit="cover"
         src={cocktail.photoUrl}
         alt="favorite cocktail image"
         width={400}
