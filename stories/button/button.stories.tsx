@@ -32,7 +32,11 @@ const Template: ComponentStory<typeof Button> = args => {
     <Box
       width={1}
       height={300}
-      sx={{ bgColor: theme => theme.palette.dark6.main }}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      margin="auto"
+      sx={{ backgroundColor: theme => theme.palette.dark6.main }}
     >
       <Button {...args} />
     </Box>

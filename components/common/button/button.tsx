@@ -34,6 +34,7 @@ const Button = ({
       disableRipple
       sx={{
         ...getSize(),
+        textTransform: 'none',
         color: theme => {
           if (variant !== 'primary') return theme.palette.primary.main
           return theme.palette.light1.main
