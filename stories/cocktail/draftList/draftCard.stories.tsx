@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import DraftCard from 'components/pages/draft/draftCard'
+import DraftCardSkeleton from 'components/pages/draft/draftCardSkeleton'
 import { CocktailPostDraftItem } from 'lib/domain/cocktail'
 import { mockFallbackPhotos } from 'lib/mocks/data/photos'
 
@@ -18,6 +19,10 @@ export default {
 const Template: ComponentStory<typeof DraftCard> = args => {
   const [selected, setSelected] = useState(args.selected || false)
   return <DraftCard {...args} selected={selected} onCheck={setSelected} />
+}
+
+const SkeletonTemplate: ComponentStory<typeof DraftCardSkeleton> = () => {
+  return <DraftCardSkeleton />
 }
 
 const draftWithoutDescription: CocktailPostDraftItem = {
@@ -59,3 +64,5 @@ EditWithoutDescription.args = {
   isEditMode: true,
   selected: false
 }
+
+export const Skeleton = SkeletonTemplate.bind({})

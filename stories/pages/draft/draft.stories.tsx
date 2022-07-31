@@ -21,56 +21,20 @@ const Template: ComponentStory<typeof Draft> = () => {
 }
 
 const drafts: DraftCocktailList[] = [
-  {
-    cocktail_id: 1,
-    title: '經典威士忌',
-    description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
-    created_date: '',
-    photo: '/cocktail-1.jpg'
-  },
-  {
-    cocktail_id: 2,
-    title: '血腥瑪莉 Bloody Mary',
-    description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
-    created_date: '',
-    photo: '/cocktail-2.jpg'
-  },
-  {
-    cocktail_id: 3,
-    title: 'Vodka Lime 伏特加萊姆',
-    description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
-    created_date: '',
-    photo: '/cocktail-3.jpg'
-  },
-  {
-    cocktail_id: 4,
-    title: 'Mojito 家中特調款',
-    description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
-    created_date: '',
-    photo: '/cocktail-1.jpg'
-  },
-  {
-    cocktail_id: 5,
-    title: 'Gin Tonic 琴湯尼',
-    description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
-    created_date: '',
-    photo: '/cocktail-2.jpg'
-  },
-  {
-    cocktail_id: 6,
-    title: 'Mojito 家中特調款',
-    description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
-    created_date: '',
-    photo: '/cocktail-3.jpg'
-  },
-  {
-    cocktail_id: 7,
-    title: 'Gin Tonic 琴湯尼',
-    description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
-    created_date: '',
-    photo: '/cocktail-1.jpg'
-  }
-]
+  '經典威士忌',
+  '血腥瑪莉 Bloody Mary',
+  'Vodka Lime 伏特加萊姆',
+  'Mojito 家中特調款',
+  'Gin Tonic 琴湯尼',
+  'Mojito 家中特調款',
+  'Gin Tonic 琴湯尼'
+].map((title, index) => ({
+  cocktail_id: index + 1,
+  title,
+  description: '關於威士忌的起源有點關於威士忌關於威士忌的起源有點關於威士忌',
+  created_date: '',
+  photo: `/cocktail-${(index % 3) + 1}.jpg`
+}))
 
 export const Default = Template.bind({})
 Default.parameters = {
@@ -84,6 +48,18 @@ Default.parameters = {
         }
         return responseJson(res, ctx, data)
       })
+    ]
+  }
+}
+
+export const Skeleton = Template.bind({})
+Skeleton.parameters = {
+  msw: {
+    handlers: [
+      configHandler,
+      rest.get('/api/cocktail-drafts', (_req, res, ctx) =>
+        res(ctx.delay('infinite'))
+      )
     ]
   }
 }

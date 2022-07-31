@@ -1,26 +1,46 @@
 import Image from 'next/image'
-import { Stack } from '@mui/material'
+import { Stack, StackProps } from '@mui/material'
+import { range } from 'ramda'
 import Button from 'components/common/button/button'
 import { CocktailPostDraftItem } from 'lib/domain/cocktail'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { paths } from 'lib/configs/routes'
 import DraftCard from './draftCard'
+import DraftCardSkeleton from './draftCardSkeleton'
 
 export interface DraftListProps {
+  loading: boolean
+  drafts: CocktailPostDraftItem[]
   isEditMode: boolean
   selectedIds: number[]
-  drafts: CocktailPostDraftItem[]
   onCheck(id: number, checked: boolean): void
 }
 
+const DraftCardContainer = ({ children }: StackProps) => (
+  <Stack width={1} gap="12px">
+    {children}
+  </Stack>
+)
+
 const DraftList = ({
   drafts,
+  loading,
   selectedIds,
   isEditMode,
   onCheck
 }: DraftListProps) => {
   const router = useCornerRouter()
   const gotoCreatePost = () => router.push(paths.createPost)
+
+  if (loading) {
+    return (
+      <DraftCardContainer>
+        {range(0, 6).map(index => (
+          <DraftCardSkeleton key={index} />
+        ))}
+      </DraftCardContainer>
+    )
+  }
 
   if (!drafts.length) {
     return (
@@ -46,7 +66,7 @@ const DraftList = ({
   }
 
   return (
-    <Stack width={1} gap="12px">
+    <DraftCardContainer>
       {drafts.map(draft => (
         <DraftCard
           key={draft.id}
@@ -56,7 +76,7 @@ const DraftList = ({
           onCheck={checked => onCheck(draft.id, checked)}
         />
       ))}
-    </Stack>
+    </DraftCardContainer>
   )
 }
 

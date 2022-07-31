@@ -2,7 +2,6 @@ import { Box, Stack } from '@mui/material'
 import TopNavigation from 'components/pages/draft/topNavigation'
 import DraftList from 'components/pages/draft/draftList'
 import useDraftList from 'lib/application/cocktail/useDraftList'
-import Loading from 'components/common/status/loading'
 import ConfirmButton from 'components/pages/draft/confirmButton'
 
 const Drafts = () => {
@@ -18,8 +17,6 @@ const Drafts = () => {
     deleteSelected
   } = useDraftList()
 
-  if (loading) return <Loading />
-
   return (
     <>
       <Stack width={1} gap="12px" minHeight="100vh">
@@ -31,6 +28,7 @@ const Drafts = () => {
         />
         <Box px="16px" flex={1}>
           <DraftList
+            loading={loading}
             drafts={drafts}
             isEditMode={isBatchDeleteMode}
             selectedIds={selectedIds}
