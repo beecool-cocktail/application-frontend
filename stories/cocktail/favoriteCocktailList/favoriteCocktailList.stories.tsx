@@ -30,19 +30,22 @@ export default {
                 cocktail_id: 1,
                 photo: '/cocktail.jpg',
                 title: 'Gin Tonic',
-                user_name: 'Mock User'
+                user_name: 'Mock User',
+                is_collected: true
               },
               {
                 cocktail_id: 2,
                 photo: '/cocktail.jpg',
                 title: 'Gin Tonic',
-                user_name: 'Mock User'
+                user_name: 'Mock User',
+                is_collected: true
               },
               {
                 cocktail_id: 3,
                 photo: 'cocktail.jpg',
                 title: 'Gin Tonic',
-                user_name: 'Mock User'
+                user_name: 'Mock User',
+                is_collected: true
               }
             ],
             total: 3

@@ -245,6 +245,12 @@ export interface FavoriteCocktail {
     'cocktail_id': number;
     /**
      * 
+     * @type {boolean}
+     * @memberof FavoriteCocktail
+     */
+    'is_collected': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof FavoriteCocktail
      */

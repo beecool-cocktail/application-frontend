@@ -82,6 +82,7 @@ export interface ProfileCocktailItem {
   userName: string
   title: string
   photoUrl: string
+  collected?: boolean
 }
 
 export const collectCocktailItem = (

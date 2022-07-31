@@ -22,7 +22,7 @@ const CardGridContainer = (props: GridProps) => (
 )
 
 const MyCocktailList = ({ userId }: MyCocktailListProps) => {
-  const { data, loading, error, gotoCocktailPage, cardActions } =
+  const { data, loading, error, gotoCocktailPage, getCardActions } =
     useMyCocktailList(userId)
 
   const renderSkeletonList = () => (
@@ -45,7 +45,7 @@ const MyCocktailList = ({ userId }: MyCocktailListProps) => {
         <Grid item xs={6} key={cocktail.id} sx={{ aspectRatio: '176/171' }}>
           <CocktailCardSmall
             cocktail={cocktail}
-            actions={cardActions}
+            actions={getCardActions(cocktail.collected)}
             onClick={gotoCocktailPage}
           />
         </Grid>

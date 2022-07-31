@@ -14,7 +14,8 @@ const getSelfList = async (token: string): Promise<FavoriteCocktailList> => {
         id: cocktailItem.cocktail_id,
         title: cocktailItem.title,
         photoUrl: cocktailItem.photo,
-        userName: cocktailItem.user_name
+        userName: cocktailItem.user_name,
+        collected: cocktailItem.is_collected
       })) || [],
     isPublic: resData.is_public
   }
@@ -29,7 +30,8 @@ const getOtherList = async (userId: number): Promise<FavoriteCocktailList> => {
         id: cocktailItem.cocktail_id,
         title: cocktailItem.title,
         photoUrl: cocktailItem.photo,
-        userName: cocktailItem.user_name
+        userName: cocktailItem.user_name,
+        collected: cocktailItem.is_collected
       })) || [],
     isPublic: resData.is_public
   }

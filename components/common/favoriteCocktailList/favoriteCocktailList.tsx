@@ -27,9 +27,8 @@ const FavoriteCocktailCardList = ({
     data: list,
     loading,
     error,
-    shareCocktail,
     gotoCocktailPage,
-    removeCocktail
+    getCardActions
   } = useFavoriteCocktailList(userId)
 
   const renderSkeletonList = () => (
@@ -75,10 +74,7 @@ const FavoriteCocktailCardList = ({
         <Grid item xs={6} key={cocktail.id} sx={{ aspectRatio: '176/171' }}>
           <CocktailCardSmall
             cocktail={cocktail}
-            actions={[
-              { text: '分享貼文', onClick: shareCocktail },
-              { text: '移除收藏', onClick: removeCocktail }
-            ]}
+            actions={getCardActions(cocktail.collected)}
             onClick={gotoCocktailPage}
           />
         </Grid>

@@ -1,13 +1,14 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { rest } from 'msw'
-import { move } from 'ramda'
+import { move, range } from 'ramda'
 import ProfileDetail from 'components/pages/profile/profileDetail'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import {
   GetUserInfoResponse,
   GetSelfCocktailListResponse,
-  GetUserFavoriteCocktailListResponse
+  GetUserFavoriteCocktailListResponse,
+  OtherCocktailList
 } from 'sdk'
 import loggedInDecorator from 'stories/decorators/loggedInDecorator'
 
@@ -23,92 +24,32 @@ export default {
   }
 } as ComponentMeta<typeof ProfileDetail>
 
-const Template: ComponentStory<typeof ProfileDetail> = args => (
-  <ProfileDetail {...args} />
-)
-
-const cocktails = [
-  {
-    cocktail_id: 1,
-    photo: '/cocktail-1.jpg',
-    title: '血腥瑪莉 Bloody Mary',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 2,
-    photo: '/cocktail-2.jpg',
-    title: 'Vodka Lime 伏特加萊姆',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 3,
-    photo: '/cocktail-3.jpg',
-    title: 'Mojito 家中特條款',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 3,
-    photo: '/cocktail-1.jpg',
-    title: 'Gin Tonic 琴湯尼',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 4,
-    photo: '/cocktail-2.jpg',
-    title: '橡木桶的寶藏',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 4,
-    photo: '/cocktail-3.jpg',
-    title: '我是測試調酒',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 5,
-    photo: '/cocktail-1.jpg',
-    title: '血腥瑪莉 Bloody Mary',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 6,
-    photo: '/cocktail-2.jpg',
-    title: '血腥瑪莉 Bloody Mary',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 7,
-    photo: '/cocktail-3.jpg',
-    title: '血腥瑪莉 Bloody Mary',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 8,
-    photo: '/cocktail-2.jpg',
-    title: '血腥瑪莉 Bloody Mary',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 9,
-    photo: '/cocktail-3.jpg',
-    title: '血腥瑪莉 Bloody Mary',
-    user_name: '123123'
-  },
-  {
-    cocktail_id: 10,
-    photo: '/cocktail-2.jpg',
-    title: '血腥瑪莉 Bloody Mary',
-    user_name: '123123'
-  }
+const titles = [
+  '血腥瑪莉 Bloody Mary',
+  'Vodka Lime 伏特加萊姆',
+  'Mojito 家中特條款',
+  'Gin Tonic 琴湯尼',
+  '橡木桶的寶藏',
+  '我是測試調酒'
 ]
+
+const count = 15
+const genCocktail = (index: number): OtherCocktailList => ({
+  cocktail_id: index + 1,
+  title: titles[(index % titles.length) + 1],
+  photo: `/cocktail-${(index % 3) + 1}.jpg`,
+  user_name: '123123',
+  is_collected: true
+})
+const cocktails: OtherCocktailList[] = range(0, count).map(genCocktail)
 
 const userInfoResponse: GetUserInfoResponse = {
   user_id: 1234,
   user_name: 'Heather H. Jenner',
   email: 'jenner@gmail.com',
   photo: '/avatar.png',
-  number_of_collection: 15,
-  number_of_post: 15,
+  number_of_collection: count,
+  number_of_post: count,
   is_collection_public: true,
   coordinate: [],
   width: 0,
@@ -117,9 +58,13 @@ const userInfoResponse: GetUserInfoResponse = {
 
 const userFavoriteCocktailListResponse: GetUserFavoriteCocktailListResponse = {
   is_public: true,
-  total: 15,
+  total: count,
   favorite_cocktail_list: move(-1, 0, cocktails)
 }
+
+const Template: ComponentStory<typeof ProfileDetail> = args => (
+  <ProfileDetail {...args} />
+)
 
 export const Profile = Template.bind({})
 Profile.args = {}
@@ -194,7 +139,7 @@ VisitorWithPrivateCollection.parameters = {
         const data: GetUserInfoResponse = {
           ...userInfoResponse,
           is_collection_public: false,
-          number_of_collection: 15
+          number_of_collection: count
         }
         return responseJson(res, ctx, data)
       }),
@@ -205,7 +150,7 @@ VisitorWithPrivateCollection.parameters = {
       rest.get(`/api/users/${userId}/favorite-cocktails`, (req, res, ctx) => {
         const data: GetUserFavoriteCocktailListResponse = {
           is_public: false,
-          total: 15,
+          total: count,
           favorite_cocktail_list: []
         }
         return responseJson(res, ctx, data)

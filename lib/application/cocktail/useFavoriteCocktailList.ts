@@ -8,6 +8,7 @@ import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { FavoriteCocktailList, ProfileCocktailItem } from 'lib/domain/cocktail'
+import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
 import { paths } from 'lib/configs/routes'
 import useUser from '../user/useUser'
 import useCornerRouter from '../useCornerRouter'
@@ -48,18 +49,34 @@ const useFavoriteCocktailList = (userId?: number) => {
     }
   }
 
+  const isVisitor = userId != null
+
+  const collectCocktail = async (cocktail: ProfileCocktailItem) => {
+    const token = storage.getToken()
+    if (!token) return
+
+    await favoriteCocktailService.collect(cocktail.id, token)
+    mutate()
+    if (!isVisitor) userMutate()
+    snackbar.success('collect success')
+  }
+
   const removeCocktail = async (cocktail: ProfileCocktailItem) => {
     const token = storage.getToken()
     if (!token) return
 
     const commandId = await favoriteCocktailService.remove(cocktail.id, token)
     mutate()
-    userMutate()
-    snackbar.success('remove success', 5000, async () => {
-      await commandService.undoCommand(commandId, token)
-      mutate()
-      userMutate()
-    })
+    if (!isVisitor) userMutate()
+    snackbar.success(
+      'remove success',
+      DEFAULT_CONFIG.undoDuration,
+      async () => {
+        await commandService.undoCommand(commandId, token)
+        mutate()
+        if (!isVisitor) userMutate()
+      }
+    )
     confirmDialog.destroy()
   }
 
@@ -69,14 +86,22 @@ const useFavoriteCocktailList = (userId?: number) => {
       new URL(`/cocktails/${cocktail.id}`, window.location.origin).href
     )
 
+  const getCardActions = (collected = false) => {
+    return [
+      { text: '分享貼文', onClick: shareCocktail },
+      collected
+        ? { text: '移除收藏', onClick: removeCocktail }
+        : { text: '收藏貼文', onClick: collectCocktail }
+    ]
+  }
+
   const gotoCocktailPage = (id: number) => router.push(paths.cocktailById(id))
 
   return {
     data: cocktailList,
     loading: (data && error) || configLoading,
     error,
-    shareCocktail,
-    removeCocktail,
+    getCardActions,
     gotoCocktailPage
   }
 }
