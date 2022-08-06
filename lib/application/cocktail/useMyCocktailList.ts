@@ -13,6 +13,7 @@ import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
 import useUser from '../user/useUser'
 import useConfirmDialog from '../ui/useConfirmDialog'
+import useLoginDialog from '../useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 
@@ -25,6 +26,7 @@ const useMyCocktailList = (userId?: number) => {
   const router = useCornerRouter()
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
+  const loginDialog = useLoginDialog()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
@@ -61,7 +63,10 @@ const useMyCocktailList = (userId?: number) => {
 
   const collectCocktail = async (cocktail: ProfileCocktailItem) => {
     const token = storage.getToken()
-    if (!token) return
+    if (!token) {
+      loginDialog.setOpen(true)
+      return
+    }
 
     await favoriteCocktailService.collect(cocktail.id, token)
     mutate()
