@@ -26,8 +26,8 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
     setTab(newValue)
 
   useEffect(() => {
-    if (!storage.getToken()) router.push(paths.index)
-  }, [router, storage])
+    if (!userId && !storage.getToken()) router.push(paths.index)
+  }, [router, storage, userId])
 
   if (error) return <Error />
 
