@@ -55,8 +55,8 @@ const DraftCard = ({
       >
         <Image
           layout="fixed"
-          width={80}
-          height={60}
+          width={81}
+          height={61}
           src={draft.coverPhotoUrl}
           alt={draft.title}
           style={{ borderRadius: '4px' }}

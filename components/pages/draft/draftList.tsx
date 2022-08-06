@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Stack, StackProps } from '@mui/material'
+import { Box, Stack, StackProps } from '@mui/material'
 import { range } from 'ramda'
 import Button from 'components/common/button/button'
 import { CocktailPostDraftItem } from 'lib/domain/cocktail'
@@ -17,7 +17,7 @@ export interface DraftListProps {
 }
 
 const DraftCardContainer = ({ children }: StackProps) => (
-  <Stack width={1} gap="12px">
+  <Stack width={1} gap="12px" position="relative">
     {children}
   </Stack>
 )
@@ -38,6 +38,17 @@ const DraftList = ({
         {range(0, 6).map(index => (
           <DraftCardSkeleton key={index} />
         ))}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: 0,
+            bottom: 0,
+            width: 1,
+            height: 169,
+            background:
+              'radial-gradient(384.91% 384.91% at 50.16% 393.48%, #141414 81.59%, rgba(0, 0, 0, 0) 100%)'
+          }}
+        ></Box>
       </DraftCardContainer>
     )
   }
