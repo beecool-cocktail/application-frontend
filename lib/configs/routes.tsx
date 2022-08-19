@@ -26,6 +26,8 @@ export const pathname = {
   search: '/search',
   profile: '/profile',
   settings: '/profile/settings',
+  editUsername: '/profile/settings/edit-username',
+  editAvatar: '/profile/settings/edit-avatar',
   drafts: '/profile/drafts',
   draftById: '/profile/drafts/[id]',
   cocktailById: '/cocktails/[id]',
@@ -89,6 +91,16 @@ const routes: Route[] = [
   {
     path: pathname.settings,
     label: 'Settings',
+    requireAuth: true
+  },
+  {
+    path: pathname.editUsername,
+    label: 'Edit Username',
+    requireAuth: true
+  },
+  {
+    path: pathname.editAvatar,
+    label: 'Edit Avatar',
     requireAuth: true
   },
   {

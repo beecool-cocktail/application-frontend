@@ -40,6 +40,8 @@ const SettingsForm = ({ user, onSubmit, onBack }: SettingsFormProps) => {
   }, [reset, isSubmitSuccessful, user])
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <form onSubmit={handleSubmit(onSubmit)}>
       <SettingsHeader isDirty={isDirty} isValid={isValid} onBack={onBack} />
       <Box

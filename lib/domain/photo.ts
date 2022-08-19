@@ -14,3 +14,8 @@ export interface PhotoWithBlur {
   path: string
   blurPath: string
 }
+
+export interface Coordinate {
+  x: number
+  y: number
+}

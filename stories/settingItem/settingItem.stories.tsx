@@ -33,3 +33,10 @@ Switch.args = {
   icon: <LikeIcon />,
   text: '公開我的收藏'
 }
+
+export const Danger = Template.bind({})
+Danger.args = {
+  actionType: 'danger',
+  icon: <CameraIcon />,
+  text: '登出'
+}

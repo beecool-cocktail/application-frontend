@@ -8,7 +8,7 @@ import {
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User, CurrentUser } from 'lib/domain/user'
-import { EditablePhoto } from 'lib/domain/photo'
+import { EditablePhoto, Coordinate } from 'lib/domain/photo'
 
 export interface Page<T> {
   total: number
@@ -28,6 +28,9 @@ export interface CocktailPostForm {
 export interface UpdateUserForm {
   username: string
   file?: FileList
+  coordinate: Coordinate[]
+  width: number
+  height: number
   isCollectionPublic: boolean
 }
 
