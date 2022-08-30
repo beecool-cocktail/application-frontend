@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { IconButton } from '@mui/material'
-import BackIcon from 'lib/assets/backReturn/topNav.svg'
+import BackIcon from 'lib/assets/backNext.svg'
 
 export interface BackButtonProps {
   contained?: boolean

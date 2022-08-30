@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material'
+import LikeIcon from 'lib/assets/like/likeDefault.svg'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import Loading from 'components/common/status/loading'
@@ -7,15 +8,14 @@ import Error from 'components/common/status/error'
 import LogoutButton from 'components/common/button/logoutButton'
 import Avatar from 'components/common/image/avatar'
 import SettingItem from 'components/pages/settings/settingItem'
-import SettingItemGroup from 'components/pages/settings/SettingItemGroup'
+import SettingItemGroup from 'components/pages/settings/settingItemGroup'
 import { pathname } from 'lib/configs/routes'
 // import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
 // import useSnackbar from 'lib/application/ui/useSnackbar'
 // import { UpdateUserForm } from 'lib/application/ports'
 import CameraIcon from 'lib/assets/camera.svg'
 import DeleteIcon from 'lib/assets/delete.svg'
-import LikeIcon from 'lib/assets/like/default.svg'
-import EditIcon from 'lib/assets/edit/topNav.svg'
+import EditIcon from 'lib/assets/edit.svg'
 
 const Settings = () => {
   const router = useCornerRouter()

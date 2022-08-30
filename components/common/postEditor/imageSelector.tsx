@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import { Box, Button, Menu, MenuItem, Typography } from '@mui/material'
-import EditIcon from 'lib/assets/edit/default.svg'
+import EditIcon from 'lib/assets/edit.svg'
 import { EditablePhoto } from 'lib/domain/photo'
 import { toBase64Photos } from 'lib/helper/image'
 import ImageEditor from '../imageEditor/imageEditor'
