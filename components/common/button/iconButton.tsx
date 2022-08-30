@@ -1,21 +1,24 @@
 import { IconButton as BaseIconButton } from '@mui/material'
 import React from 'react'
 
-export interface BackButtonProps {
+export interface IconButtonProps {
   contained?: boolean
   onClick?(e: React.MouseEvent): void
   children: React.ReactNode
   size?: number
+  disabled?: boolean
 }
 
 const IconButton = ({
   children,
   contained,
   size = 28,
-  onClick
-}: BackButtonProps) => {
+  onClick,
+  disabled
+}: IconButtonProps) => {
   return (
     <BaseIconButton
+      disabled={disabled}
       sx={{
         width: size,
         height: size,
@@ -23,7 +26,10 @@ const IconButton = ({
         backgroundColor: theme => {
           if (contained) return theme.palette.light4.main
         },
-        color: theme => theme.palette.light1.main,
+        '& svg *': {
+          stroke: theme =>
+            disabled ? theme.palette.light4.main : theme.palette.light1.main
+        },
         fontSize: 24
       }}
       onClick={onClick}

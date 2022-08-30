@@ -1,6 +1,8 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import NextIcon from 'lib/assets/next.svg'
+import SwitchOnIcon from 'lib/assets/switch/on.svg'
+// import SwitchOffIcon from 'lib/assets/switch/off.svg'
 
 interface SettingItemProps {
   actionType?: 'normal' | 'link' | 'switch' | 'danger'
@@ -26,7 +28,11 @@ const SettingItem = ({
           </Box>
         )
       case 'switch':
-        return <Box fontSize={24} lineHeight={0}></Box>
+        return (
+          <Box fontSize={34} lineHeight={0}>
+            <SwitchOnIcon />
+          </Box>
+        )
     }
   }
 

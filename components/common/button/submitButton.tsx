@@ -1,15 +1,16 @@
-import { Check } from '@mui/icons-material'
-import { IconButton } from '@mui/material'
+import ConfirmIcon from 'lib/assets/confirm.svg'
+import IconButton from './iconButton'
 
 export interface SubmitButtonProps {
   disabled: boolean
   color?: string
+  onClick?: () => void
 }
 
-const SubmitButton = ({ disabled }: SubmitButtonProps) => {
+const SubmitButton = ({ disabled, onClick }: SubmitButtonProps) => {
   return (
-    <IconButton disabled={disabled} type="submit">
-      <Check />
+    <IconButton onClick={onClick} disabled={disabled}>
+      <ConfirmIcon />
     </IconButton>
   )
 }

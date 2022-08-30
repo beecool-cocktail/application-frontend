@@ -93,7 +93,12 @@ const RawInput = (props: InputProps) => {
       variant="body4"
       sx={{
         ml: 'auto',
-        color: theme => theme.palette.light4.main
+        color: theme =>
+          formControl?.error
+            ? theme.palette.red.main
+            : formControl?.focused
+            ? theme.palette.light2.main
+            : theme.palette.light4.main
       }}
     >
       {`${letterCount}/${maxLength}`}
@@ -194,7 +199,12 @@ const RawInput = (props: InputProps) => {
         {feedback && (
           <Typography
             variant="body2"
-            sx={{ color: theme => theme.palette.light4.main }}
+            sx={{
+              color: theme =>
+                formControl?.error
+                  ? theme.palette.red.main
+                  : theme.palette.light4.main
+            }}
           >
             {feedback}
           </Typography>

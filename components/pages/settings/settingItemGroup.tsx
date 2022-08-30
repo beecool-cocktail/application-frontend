@@ -7,7 +7,7 @@ interface SettingItemGroupProps {
 
 const SettingItemGroup = ({ title, children }: SettingItemGroupProps) => {
   return (
-    <Stack>
+    <Stack spacing="4px">
       {title && (
         <Typography
           variant="body2"
