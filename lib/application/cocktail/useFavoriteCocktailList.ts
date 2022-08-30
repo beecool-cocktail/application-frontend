@@ -28,8 +28,9 @@ const useFavoriteCocktailList = (userId?: number) => {
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
-      if (userId) return [userId, FETCH_KEY]
-      return [storage.getToken(), FETCH_KEY]
+      const token = storage.getToken()
+      if (userId) return [userId, token, FETCH_KEY]
+      return [token, FETCH_KEY]
     },
     userId
       ? favoriteCocktailService.getOtherList
@@ -73,15 +74,15 @@ const useFavoriteCocktailList = (userId?: number) => {
     const commandId = await favoriteCocktailService.remove(cocktail.id, token)
     mutate()
     if (!isVisitor) userMutate()
-    snackbar.success(
-      'remove success',
-      DEFAULT_CONFIG.undoDuration,
-      async () => {
-        await commandService.undoCommand(commandId, token)
-        mutate()
-        if (!isVisitor) userMutate()
-      }
-    )
+
+    const undoFn = isVisitor
+      ? undefined
+      : async () => {
+          await commandService.undoCommand(commandId, token)
+          mutate()
+          if (!isVisitor) userMutate()
+        }
+    snackbar.success('remove success', DEFAULT_CONFIG.undoDuration, undoFn)
     confirmDialog.destroy()
   }
 

@@ -78,7 +78,10 @@ export interface PostEditorService {
 
 export interface FavoriteCocktailListService {
   getSelfList(token: string): Promise<FavoriteCocktailList>
-  getOtherList(userId: number): Promise<FavoriteCocktailList>
+  getOtherList(
+    userId: number,
+    token: string | null
+  ): Promise<FavoriteCocktailList>
   collect(cocktailId: number, token: string): Promise<void>
   remove(cocktailId: number, token: string): Promise<string>
 }

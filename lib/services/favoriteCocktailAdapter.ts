@@ -21,8 +21,13 @@ const getSelfList = async (token: string): Promise<FavoriteCocktailList> => {
   }
 }
 
-const getOtherList = async (userId: number): Promise<FavoriteCocktailList> => {
-  const res = await userApi.getOtherUserFavoriteList(userId)
+const getOtherList = async (
+  userId: number,
+  token: string | null
+): Promise<FavoriteCocktailList> => {
+  const res = await userApi.getOtherUserFavoriteList(userId, {
+    headers: { ...(token && { Authorization: `Bearer ${token}` }) }
+  })
   const resData = res.data.data
   return {
     data:
