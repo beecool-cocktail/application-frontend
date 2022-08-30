@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import SettingItem from 'components/pages/settings/settingItem'
 import CameraIcon from 'lib/assets/camera.svg'
 import DeleteIcon from 'lib/assets/delete.svg'
-import LikeIcon from 'lib/assets/like/default.svg'
+import LikeIcon from 'lib/assets/like/likeDefault.svg'
 
 export default {
   title: 'Profile/Setting Item',
