@@ -87,6 +87,35 @@ Profile.parameters = {
 }
 Profile.decorators = [loggedInDecorator]
 
+export const ProfileWithNoPost = Template.bind({})
+ProfileWithNoPost.args = {}
+ProfileWithNoPost.parameters = {
+  msw: {
+    handlers: [
+      configHandler,
+      rest.get('/api/users/current', (_req, res, ctx) =>
+        responseJson(res, ctx, {
+          ...userInfoResponse,
+          number_of_collection: 0,
+          number_of_post: 0
+        })
+      ),
+      rest.get('/api/users/current/cocktails', (req, res, ctx) => {
+        const data: GetSelfCocktailListResponse = { cocktail_list: [] }
+        return responseJson(res, ctx, data)
+      }),
+      rest.get('/api/users/current/favorite-cocktails', (req, res, ctx) =>
+        responseJson(res, ctx, {
+          ...userFavoriteCocktailListResponse,
+          total: 0,
+          favorite_cocktail_list: []
+        })
+      )
+    ]
+  }
+}
+ProfileWithNoPost.decorators = [loggedInDecorator]
+
 export const Skeleton = Template.bind({})
 Skeleton.args = {}
 Skeleton.parameters = {

@@ -49,7 +49,6 @@ const CocktailCardSmall = ({
 
   return (
     <Box
-      onClick={() => onClick(cocktail.id)}
       sx={{
         position: 'relative',
         width: 1,
@@ -58,6 +57,8 @@ const CocktailCardSmall = ({
         cursor: isEditMode ? 'normal' : 'pointer',
         overflow: 'hidden'
       }}
+      onClick={() => onClick(cocktail.id)}
+      onBlur={() => setEditMode(false)}
     >
       <Image
         style={{ borderRadius: '6px' }}
