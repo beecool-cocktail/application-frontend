@@ -1,10 +1,10 @@
 import React from 'react'
-import Image from 'next/image'
 import { Grid, GridProps } from '@mui/material'
 import useMyCocktailList from 'lib/application/cocktail/useMyCocktailList'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
 import CocktailCardSmallSkeleton from '../cocktailCardSmall/cocktailCardSmallSkeleton'
+import ProfileEmptyBlock from '../block/profileBlock'
 
 export interface MyCocktailListProps {
   userId?: number
@@ -38,7 +38,8 @@ const MyCocktailList = ({ userId }: MyCocktailListProps) => {
   if (error) return <Error />
   if (!data || loading) return renderSkeletonList()
   if (data.length === 0)
-    return <Image src="/post.png" alt="post" width={512} height={392} />
+    return <ProfileEmptyBlock text="沒有！甚麼都沒有！" imageSrc="/post.png" />
+
   return (
     <CardGridContainer>
       {data.map(cocktail => (

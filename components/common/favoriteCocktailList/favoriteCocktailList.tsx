@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import { Box, Grid, GridProps, Stack, Typography } from '@mui/material'
+import { Grid, GridProps } from '@mui/material'
 import useFavoriteCocktailList from 'lib/application/cocktail/useFavoriteCocktailList'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
 import CocktailCardSmallSkeleton from '../cocktailCardSmall/cocktailCardSmallSkeleton'
+import ProfileEmptyBlock from '../block/profileBlock'
 
 export interface FavoriteCocktailCardListProps {
   userId?: number
@@ -44,29 +44,12 @@ const FavoriteCocktailCardList = ({
   if (error) return <Error />
   if (!list || loading) return renderSkeletonList()
   if (!list.isPublic && userId) {
-    const text = '該用戶未開放收藏'
     return (
-      <Stack alignItems="center">
-        <Box sx={{ mt: '90px' }}>
-          <Image src="/incognito.png" alt={text} width={150} height={150} />
-        </Box>
-        <Typography
-          variant="h3"
-          color={theme => theme.palette.light2.main}
-          sx={{ mt: '16px' }}
-        >
-          {text}
-        </Typography>
-      </Stack>
+      <ProfileEmptyBlock text="該用戶未開放收藏" imageSrc="/incognito.png" />
     )
   }
-  if (list.data.length === 0) {
-    return (
-      <Stack alignItems="center">
-        <Typography variant="h4">沒有收藏</Typography>
-      </Stack>
-    )
-  }
+  if (list.data.length === 0)
+    return <ProfileEmptyBlock text="沒有收藏" imageSrc="/post.png" />
 
   return (
     <CardGridContainer>
