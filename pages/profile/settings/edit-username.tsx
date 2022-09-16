@@ -21,8 +21,8 @@ const UserNameContent = ({
   username,
   updateUsername
 }: UserNameContentProps) => {
-  const { control, handleSubmit, formState, setValue } = useForm({
-    mode: 'onChange',
+  const { control, handleSubmit, formState, setValue, clearErrors } = useForm({
+    mode: 'onBlur',
     defaultValues: { username }
   })
   const usernameRef = useRef<HTMLInputElement>()
@@ -88,6 +88,10 @@ const UserNameContent = ({
           render={({ field, fieldState }) => (
             <Input
               {...field}
+              onChange={(...args) => {
+                field.onChange(...args)
+                clearErrors()
+              }}
               inputRef={e => {
                 field.ref(e)
                 usernameRef.current = e
