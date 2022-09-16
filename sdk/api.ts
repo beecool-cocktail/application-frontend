@@ -271,6 +271,31 @@ export interface FavoriteCocktail {
 /**
  * 
  * @export
+ * @interface GetCocktail200Response
+ */
+export interface GetCocktail200Response {
+    /**
+     * 
+     * @type {GetPopularCocktailListResponse}
+     * @memberof GetCocktail200Response
+     */
+    'data': GetPopularCocktailListResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktail200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktail200Response
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
  * @interface GetCocktailByIDRequest
  */
 export interface GetCocktailByIDRequest {
@@ -280,6 +305,31 @@ export interface GetCocktailByIDRequest {
      * @memberof GetCocktailByIDRequest
      */
     'id'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface GetCocktailByIDRequest200Response
+ */
+export interface GetCocktailByIDRequest200Response {
+    /**
+     * 
+     * @type {GetCocktailByIDResponse}
+     * @memberof GetCocktailByIDRequest200Response
+     */
+    'data': GetCocktailByIDResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktailByIDRequest200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktailByIDRequest200Response
+     */
+    'error_message': string;
 }
 /**
  * 
@@ -312,6 +362,12 @@ export interface GetCocktailByIDResponse {
      */
     'description': string;
     /**
+     * 原圖長
+     * @type {number}
+     * @memberof GetCocktailByIDResponse
+     */
+    'height': number;
+    /**
      * 
      * @type {Array<CocktailIngredientWithoutIDInResponse>}
      * @memberof GetCocktailByIDResponse
@@ -323,12 +379,6 @@ export interface GetCocktailByIDResponse {
      * @memberof GetCocktailByIDResponse
      */
     'is_collected': boolean;
-    /**
-     * 原圖長
-     * @type {number}
-     * @memberof GetCocktailByIDResponse
-     */
-    'length': number;
     /**
      * 
      * @type {Array<CocktailPhotoWithIDInResponse>}
@@ -375,6 +425,31 @@ export interface GetCocktailByIDResponse {
 /**
  * 
  * @export
+ * @interface GetCocktailDraft200Response
+ */
+export interface GetCocktailDraft200Response {
+    /**
+     * 
+     * @type {GetDraftCocktailListResponse}
+     * @memberof GetCocktailDraft200Response
+     */
+    'data': GetDraftCocktailListResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktailDraft200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktailDraft200Response
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
  * @interface GetCocktailDraftByIDRequest
  */
 export interface GetCocktailDraftByIDRequest {
@@ -384,6 +459,31 @@ export interface GetCocktailDraftByIDRequest {
      * @memberof GetCocktailDraftByIDRequest
      */
     'id'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface GetCocktailDraftByIDRequest200Response
+ */
+export interface GetCocktailDraftByIDRequest200Response {
+    /**
+     * 
+     * @type {GetCocktailDraftByIDResponse}
+     * @memberof GetCocktailDraftByIDRequest200Response
+     */
+    'data': GetCocktailDraftByIDResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktailDraftByIDRequest200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetCocktailDraftByIDRequest200Response
+     */
+    'error_message': string;
 }
 /**
  * 
@@ -488,6 +588,56 @@ export interface GetOtherCocktailListResponse {
 /**
  * 
  * @export
+ * @interface GetOtherUserFavoriteList200Response
+ */
+export interface GetOtherUserFavoriteList200Response {
+    /**
+     * 
+     * @type {GetUserFavoriteCocktailListResponse}
+     * @memberof GetOtherUserFavoriteList200Response
+     */
+    'data': GetUserFavoriteCocktailListResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOtherUserFavoriteList200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOtherUserFavoriteList200Response
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetOtherUserInfo200Response
+ */
+export interface GetOtherUserInfo200Response {
+    /**
+     * 
+     * @type {GetOtherUserInfoResponse}
+     * @memberof GetOtherUserInfo200Response
+     */
+    'data': GetOtherUserInfoResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOtherUserInfo200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetOtherUserInfo200Response
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
  * @interface GetOtherUserInfoResponse
  */
 export interface GetOtherUserInfoResponse {
@@ -498,17 +648,23 @@ export interface GetOtherUserInfoResponse {
      */
     'coordinate': Array<Coordinate>;
     /**
-     * 是否公開收藏 false=不公開, true=公開
-     * @type {boolean}
+     * 
+     * @type {string}
      * @memberof GetOtherUserInfoResponse
      */
-    'is_collection_public': boolean;
+    'crop_avatar': string;
     /**
      * 原圖長
      * @type {number}
      * @memberof GetOtherUserInfoResponse
      */
-    'length': number;
+    'height': number;
+    /**
+     * 是否公開收藏 false=不公開, true=公開
+     * @type {boolean}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'is_collection_public': boolean;
     /**
      * 
      * @type {number}
@@ -521,12 +677,6 @@ export interface GetOtherUserInfoResponse {
      * @memberof GetOtherUserInfoResponse
      */
     'number_of_post': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetOtherUserInfoResponse
-     */
-    'photo': string;
     /**
      * 
      * @type {number}
@@ -639,19 +789,25 @@ export interface GetUserInfoResponse {
      * @type {string}
      * @memberof GetUserInfoResponse
      */
+    'crop_avatar': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GetUserInfoResponse
+     */
     'email': string;
+    /**
+     * 原圖長
+     * @type {number}
+     * @memberof GetUserInfoResponse
+     */
+    'height': number;
     /**
      * 是否公開收藏 false=不公開, true=公開
      * @type {boolean}
      * @memberof GetUserInfoResponse
      */
     'is_collection_public': boolean;
-    /**
-     * 原圖長
-     * @type {number}
-     * @memberof GetUserInfoResponse
-     */
-    'length': number;
     /**
      * 
      * @type {number}
@@ -669,7 +825,7 @@ export interface GetUserInfoResponse {
      * @type {string}
      * @memberof GetUserInfoResponse
      */
-    'photo': string;
+    'origin_avatar': string;
     /**
      * 
      * @type {number}
@@ -705,6 +861,31 @@ export interface GoogleAuthenticateRequest {
 /**
  * 
  * @export
+ * @interface GoogleAuthenticateRequest201Response
+ */
+export interface GoogleAuthenticateRequest201Response {
+    /**
+     * 
+     * @type {GoogleAuthenticateResponse}
+     * @memberof GoogleAuthenticateRequest201Response
+     */
+    'data': GoogleAuthenticateResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof GoogleAuthenticateRequest201Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GoogleAuthenticateRequest201Response
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
  * @interface GoogleAuthenticateResponse
  */
 export interface GoogleAuthenticateResponse {
@@ -718,300 +899,25 @@ export interface GoogleAuthenticateResponse {
 /**
  * 
  * @export
- * @interface InlineResponse200
+ * @interface Info200Response
  */
-export interface InlineResponse200 {
-    /**
-     * 
-     * @type {GetDraftCocktailListResponse}
-     * @memberof InlineResponse200
-     */
-    'data': GetDraftCocktailListResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse200
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse200
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2001
- */
-export interface InlineResponse2001 {
-    /**
-     * 
-     * @type {GetCocktailDraftByIDResponse}
-     * @memberof InlineResponse2001
-     */
-    'data': GetCocktailDraftByIDResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2001
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2001
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse20010
- */
-export interface InlineResponse20010 {
-    /**
-     * 
-     * @type {DeleteFavoriteCocktailResponse}
-     * @memberof InlineResponse20010
-     */
-    'data': DeleteFavoriteCocktailResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20010
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse20010
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2002
- */
-export interface InlineResponse2002 {
-    /**
-     * 
-     * @type {GetPopularCocktailListResponse}
-     * @memberof InlineResponse2002
-     */
-    'data': GetPopularCocktailListResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2002
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2002
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2003
- */
-export interface InlineResponse2003 {
-    /**
-     * 
-     * @type {GetCocktailByIDResponse}
-     * @memberof InlineResponse2003
-     */
-    'data': GetCocktailByIDResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2003
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2003
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2004
- */
-export interface InlineResponse2004 {
-    /**
-     * 
-     * @type {GetOtherUserInfoResponse}
-     * @memberof InlineResponse2004
-     */
-    'data': GetOtherUserInfoResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2004
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2004
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2005
- */
-export interface InlineResponse2005 {
-    /**
-     * 
-     * @type {GetOtherCocktailListResponse}
-     * @memberof InlineResponse2005
-     */
-    'data': GetOtherCocktailListResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2005
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2006
- */
-export interface InlineResponse2006 {
-    /**
-     * 
-     * @type {GetUserFavoriteCocktailListResponse}
-     * @memberof InlineResponse2006
-     */
-    'data': GetUserFavoriteCocktailListResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2006
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2006
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2007
- */
-export interface InlineResponse2007 {
+export interface Info200Response {
     /**
      * 
      * @type {GetUserInfoResponse}
-     * @memberof InlineResponse2007
+     * @memberof Info200Response
      */
     'data': GetUserInfoResponse;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse2007
+     * @memberof Info200Response
      */
     'error_code': string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse2007
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2008
- */
-export interface InlineResponse2008 {
-    /**
-     * 
-     * @type {UpdateUserInfoResponse}
-     * @memberof InlineResponse2008
-     */
-    'data': UpdateUserInfoResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2008
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2008
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse2009
- */
-export interface InlineResponse2009 {
-    /**
-     * 
-     * @type {GetSelfCocktailListResponse}
-     * @memberof InlineResponse2009
-     */
-    'data': GetSelfCocktailListResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2009
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse2009
-     */
-    'error_message': string;
-}
-/**
- * 
- * @export
- * @interface InlineResponse201
- */
-export interface InlineResponse201 {
-    /**
-     * 
-     * @type {GoogleAuthenticateResponse}
-     * @memberof InlineResponse201
-     */
-    'data': GoogleAuthenticateResponse;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse201
-     */
-    'error_code': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof InlineResponse201
+     * @memberof Info200Response
      */
     'error_message': string;
 }
@@ -1064,6 +970,31 @@ export interface OtherCocktailList {
      * @memberof OtherCocktailList
      */
     'user_name': string;
+}
+/**
+ * 
+ * @export
+ * @interface OtherCocktailList200Response
+ */
+export interface OtherCocktailList200Response {
+    /**
+     * 
+     * @type {GetOtherCocktailListResponse}
+     * @memberof OtherCocktailList200Response
+     */
+    'data': GetOtherCocktailListResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof OtherCocktailList200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OtherCocktailList200Response
+     */
+    'error_message': string;
 }
 /**
  * 
@@ -1203,6 +1134,31 @@ export interface PostDraftArticleRequest {
 /**
  * 
  * @export
+ * @interface RemoveCollectionArticle200Response
+ */
+export interface RemoveCollectionArticle200Response {
+    /**
+     * 
+     * @type {DeleteFavoriteCocktailResponse}
+     * @memberof RemoveCollectionArticle200Response
+     */
+    'data': DeleteFavoriteCocktailResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveCollectionArticle200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RemoveCollectionArticle200Response
+     */
+    'error_message': string;
+}
+/**
+ * 
+ * @export
  * @interface ResponseData
  */
 export interface ResponseData {
@@ -1255,6 +1211,31 @@ export interface SelfCocktailList {
      * @memberof SelfCocktailList
      */
     'user_name': string;
+}
+/**
+ * 
+ * @export
+ * @interface SelfCocktailList200Response
+ */
+export interface SelfCocktailList200Response {
+    /**
+     * 
+     * @type {GetSelfCocktailListResponse}
+     * @memberof SelfCocktailList200Response
+     */
+    'data': GetSelfCocktailListResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof SelfCocktailList200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SelfCocktailList200Response
+     */
+    'error_message': string;
 }
 /**
  * 
@@ -1333,45 +1314,84 @@ export interface UpdateFormalArticleRequest {
 /**
  * 
  * @export
- * @interface UpdateUserInfoRequest
+ * @interface UpdateUserAvatarRequest
  */
-export interface UpdateUserInfoRequest {
+export interface UpdateUserAvatarRequest {
     /**
      * 座標 [左上XY, 右下XY]
      * @type {Array<Coordinate>}
-     * @memberof UpdateUserInfoRequest
+     * @memberof UpdateUserAvatarRequest
      */
     'coordinate': Array<Coordinate>;
     /**
+     * 裁切後照片
+     * @type {string}
+     * @memberof UpdateUserAvatarRequest
+     */
+    'crop_avatar': string;
+    /**
+     * 原始照片
+     * @type {string}
+     * @memberof UpdateUserAvatarRequest
+     */
+    'origin_avatar'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateUserAvatarResponse
+ */
+export interface UpdateUserAvatarResponse {
+    /**
      * 
      * @type {string}
-     * @memberof UpdateUserInfoRequest
+     * @memberof UpdateUserAvatarResponse
      */
-    'file'?: string;
+    'photo': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateUserInfoRequest
+ */
+export interface UpdateUserInfoRequest {
     /**
      * public user collection post
      * @type {boolean}
      * @memberof UpdateUserInfoRequest
      */
-    'is_collection_public': boolean;
-    /**
-     * 原圖長
-     * @type {number}
-     * @memberof UpdateUserInfoRequest
-     */
-    'length': number;
+    'is_collection_public'?: boolean;
     /**
      * name for this user
      * @type {string}
      * @memberof UpdateUserInfoRequest
      */
-    'name': string;
+    'name'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateUserInfoRequest200Response
+ */
+export interface UpdateUserInfoRequest200Response {
     /**
-     * 原圖寬
-     * @type {number}
-     * @memberof UpdateUserInfoRequest
+     * 
+     * @type {UpdateUserInfoResponse}
+     * @memberof UpdateUserInfoRequest200Response
      */
-    'width': number;
+    'data': UpdateUserInfoResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserInfoRequest200Response
+     */
+    'error_code': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateUserInfoRequest200Response
+     */
+    'error_message': string;
 }
 /**
  * 
@@ -1854,7 +1874,7 @@ export const CocktailApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCocktail(page: number, pageSize: number, keyword?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+        async getCocktail(page: number, pageSize: number, keyword?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCocktail200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCocktail(page, pageSize, keyword, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1865,7 +1885,7 @@ export const CocktailApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCocktailByIDRequest(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
+        async getCocktailByIDRequest(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCocktailByIDRequest200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCocktailByIDRequest(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1875,7 +1895,7 @@ export const CocktailApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCocktailDraft(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
+        async getCocktailDraft(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCocktailDraft200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCocktailDraft(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1886,7 +1906,7 @@ export const CocktailApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCocktailDraftByIDRequest(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
+        async getCocktailDraftByIDRequest(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetCocktailDraftByIDRequest200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCocktailDraftByIDRequest(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1986,7 +2006,7 @@ export const CocktailApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCocktail(page: number, pageSize: number, keyword?: string, options?: any): AxiosPromise<InlineResponse2002> {
+        getCocktail(page: number, pageSize: number, keyword?: string, options?: any): AxiosPromise<GetCocktail200Response> {
             return localVarFp.getCocktail(page, pageSize, keyword, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1996,7 +2016,7 @@ export const CocktailApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCocktailByIDRequest(id: number, options?: any): AxiosPromise<InlineResponse2003> {
+        getCocktailByIDRequest(id: number, options?: any): AxiosPromise<GetCocktailByIDRequest200Response> {
             return localVarFp.getCocktailByIDRequest(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2005,7 +2025,7 @@ export const CocktailApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCocktailDraft(options?: any): AxiosPromise<InlineResponse200> {
+        getCocktailDraft(options?: any): AxiosPromise<GetCocktailDraft200Response> {
             return localVarFp.getCocktailDraft(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2015,7 +2035,7 @@ export const CocktailApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCocktailDraftByIDRequest(id: number, options?: any): AxiosPromise<InlineResponse2001> {
+        getCocktailDraftByIDRequest(id: number, options?: any): AxiosPromise<GetCocktailDraftByIDRequest200Response> {
             return localVarFp.getCocktailDraftByIDRequest(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2446,7 +2466,7 @@ export const LoginApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async googleAuthenticateRequest(body?: GoogleAuthenticateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse201>> {
+        async googleAuthenticateRequest(body?: GoogleAuthenticateRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GoogleAuthenticateRequest201Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.googleAuthenticateRequest(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2488,7 +2508,7 @@ export const LoginApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        googleAuthenticateRequest(body?: GoogleAuthenticateRequest, options?: any): AxiosPromise<InlineResponse201> {
+        googleAuthenticateRequest(body?: GoogleAuthenticateRequest, options?: any): AxiosPromise<GoogleAuthenticateRequest201Response> {
             return localVarFp.googleAuthenticateRequest(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2594,6 +2614,39 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete user avatar.
+         * @summary Delete user avatar.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUserAvatar: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users/current/avatar`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2848,6 +2901,43 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
+         * Edit user avatar.
+         * @summary Edit user avatar.
+         * @param {UpdateUserAvatarRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUserAvatarRequest: async (body?: UpdateUserAvatarRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users/current/avatar`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Edit user name and collection of publicity status.
          * @summary Edit user information.
          * @param {UpdateUserInfoRequest} [body] 
@@ -2855,7 +2945,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         updateUserInfoRequest: async (body?: UpdateUserInfoRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/users/current`;
+            const localVarPath = `/users/current/info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2906,13 +2996,23 @@ export const UserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * Delete user avatar.
+         * @summary Delete user avatar.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteUserAvatar(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUserAvatar(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Get other user favorite cocktail article list.
          * @summary Get other user favorite cocktail article list.
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOtherUserFavoriteList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async getOtherUserFavoriteList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOtherUserFavoriteList200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOtherUserFavoriteList(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2923,7 +3023,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOtherUserInfo(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+        async getOtherUserInfo(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOtherUserInfo200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOtherUserInfo(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2933,7 +3033,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserFavoriteList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
+        async getUserFavoriteList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOtherUserFavoriteList200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUserFavoriteList(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2943,7 +3043,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async info(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2007>> {
+        async info(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Info200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.info(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2954,7 +3054,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async otherCocktailList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async otherCocktailList(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OtherCocktailList200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.otherCocktailList(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2965,7 +3065,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeCollectionArticle(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse20010>> {
+        async removeCollectionArticle(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RemoveCollectionArticle200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.removeCollectionArticle(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2975,8 +3075,19 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async selfCocktailList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2009>> {
+        async selfCocktailList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SelfCocktailList200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.selfCocktailList(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Edit user avatar.
+         * @summary Edit user avatar.
+         * @param {UpdateUserAvatarRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateUserAvatarRequest(body?: UpdateUserAvatarRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserAvatarRequest(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2986,7 +3097,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2008>> {
+        async updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateUserInfoRequest200Response>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserInfoRequest(body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3011,13 +3122,22 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.collectArticleRequest(body, options).then((request) => request(axios, basePath));
         },
         /**
+         * Delete user avatar.
+         * @summary Delete user avatar.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUserAvatar(options?: any): AxiosPromise<void> {
+            return localVarFp.deleteUserAvatar(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get other user favorite cocktail article list.
          * @summary Get other user favorite cocktail article list.
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOtherUserFavoriteList(id: number, options?: any): AxiosPromise<InlineResponse2006> {
+        getOtherUserFavoriteList(id: number, options?: any): AxiosPromise<GetOtherUserFavoriteList200Response> {
             return localVarFp.getOtherUserFavoriteList(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3027,7 +3147,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOtherUserInfo(id: number, options?: any): AxiosPromise<InlineResponse2004> {
+        getOtherUserInfo(id: number, options?: any): AxiosPromise<GetOtherUserInfo200Response> {
             return localVarFp.getOtherUserInfo(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3036,7 +3156,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserFavoriteList(options?: any): AxiosPromise<InlineResponse2006> {
+        getUserFavoriteList(options?: any): AxiosPromise<GetOtherUserFavoriteList200Response> {
             return localVarFp.getUserFavoriteList(options).then((request) => request(axios, basePath));
         },
         /**
@@ -3045,7 +3165,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        info(options?: any): AxiosPromise<InlineResponse2007> {
+        info(options?: any): AxiosPromise<Info200Response> {
             return localVarFp.info(options).then((request) => request(axios, basePath));
         },
         /**
@@ -3055,7 +3175,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        otherCocktailList(id: number, options?: any): AxiosPromise<InlineResponse2005> {
+        otherCocktailList(id: number, options?: any): AxiosPromise<OtherCocktailList200Response> {
             return localVarFp.otherCocktailList(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3065,7 +3185,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeCollectionArticle(id: number, options?: any): AxiosPromise<InlineResponse20010> {
+        removeCollectionArticle(id: number, options?: any): AxiosPromise<RemoveCollectionArticle200Response> {
             return localVarFp.removeCollectionArticle(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3074,8 +3194,18 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        selfCocktailList(options?: any): AxiosPromise<InlineResponse2009> {
+        selfCocktailList(options?: any): AxiosPromise<SelfCocktailList200Response> {
             return localVarFp.selfCocktailList(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Edit user avatar.
+         * @summary Edit user avatar.
+         * @param {UpdateUserAvatarRequest} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUserAvatarRequest(body?: UpdateUserAvatarRequest, options?: any): AxiosPromise<void> {
+            return localVarFp.updateUserAvatarRequest(body, options).then((request) => request(axios, basePath));
         },
         /**
          * Edit user name and collection of publicity status.
@@ -3084,7 +3214,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: any): AxiosPromise<InlineResponse2008> {
+        updateUserInfoRequest(body?: UpdateUserInfoRequest, options?: any): AxiosPromise<UpdateUserInfoRequest200Response> {
             return localVarFp.updateUserInfoRequest(body, options).then((request) => request(axios, basePath));
         },
     };
@@ -3107,6 +3237,17 @@ export class UserApi extends BaseAPI {
      */
     public collectArticleRequest(body?: CollectArticleRequest, options?: AxiosRequestConfig) {
         return UserApiFp(this.configuration).collectArticleRequest(body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Delete user avatar.
+     * @summary Delete user avatar.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public deleteUserAvatar(options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).deleteUserAvatar(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3188,6 +3329,18 @@ export class UserApi extends BaseAPI {
      */
     public selfCocktailList(options?: AxiosRequestConfig) {
         return UserApiFp(this.configuration).selfCocktailList(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Edit user avatar.
+     * @summary Edit user avatar.
+     * @param {UpdateUserAvatarRequest} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public updateUserAvatarRequest(body?: UpdateUserAvatarRequest, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).updateUserAvatarRequest(body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

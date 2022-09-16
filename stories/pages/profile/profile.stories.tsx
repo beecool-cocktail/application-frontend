@@ -47,13 +47,14 @@ const userInfoResponse: GetUserInfoResponse = {
   user_id: 1234,
   user_name: 'Heather H. Jenner',
   email: 'jenner@gmail.com',
-  photo: '/avatar.png',
+  origin_avatar: '/avatar.png',
+  crop_avatar: '/avatar.png',
   number_of_collection: count,
   number_of_post: count,
   is_collection_public: true,
   coordinate: [],
   width: 0,
-  length: 0
+  height: 0
 }
 
 const userFavoriteCocktailListResponse: GetUserFavoriteCocktailListResponse = {

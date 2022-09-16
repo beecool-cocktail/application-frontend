@@ -3,68 +3,27 @@ import useCornerRouter from 'lib/application/useCornerRouter'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import useAuth from 'lib/application/useAuth'
 import Loading from 'components/common/status/loading'
-import Error from 'components/common/status/error'
+import ErrorStatus from 'components/common/status/error'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import Avatar from 'components/common/image/avatar'
 import SettingItem from 'components/pages/settings/settingItem'
 import SettingItemGroup from 'components/pages/settings/settingItemGroup'
 import { pathname } from 'lib/configs/routes'
 import LikeIcon from 'lib/assets/like/likeDefault.svg'
-import ConfirmIcon from 'lib/assets/confirm.svg'
 import CameraIcon from 'lib/assets/camera.svg'
 import DeleteIcon from 'lib/assets/delete.svg'
 import EditIcon from 'lib/assets/edit.svg'
 import LogoutIcon from 'lib/assets/logOut.svg'
 import BackButton from 'components/common/button/backButton'
-import IconButton from 'components/common/button/iconButton'
-// import SettingsForm from 'components/pages/settings/settingsForm'
-// import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
-// import useSnackbar from 'lib/application/ui/useSnackbar'
-// import { UpdateUserForm } from 'lib/application/ports'
 
 const Settings = () => {
   const router = useCornerRouter()
-  // const confirmDialog = useConfirmDialog()
-  // const snackbar = useSnackbar()
   const { logout } = useAuth()
-  const { user, loading, error } = useCurrentUser()
-  // const { user, loading, error, updateUserInfo } = useCurrentUser()
-
-  // const handleSubmit = async (formData: UpdateUserForm) => {
-  //   await updateUserInfo(formData)
-  //   snackbar.success('success')
-  // }
-
-  // const handleConfirmDialog = () => {
-  //   confirmDialog.destroy()
-  //   router.push(pathname.profile)
-  // }
-
-  // const handleGoBack = async (isDirty: boolean) => {
-  //   if (isDirty)
-  //     confirmDialog.open({
-  //       title: '尚未儲存',
-  //       content: '修改內容還沒儲存，是否要放棄編輯的內容？',
-  //       onConfirm: handleConfirmDialog,
-  //       onCancel: () => confirmDialog.destroy()
-  //     })
-  //   else router.push(pathname.profile)
-  // }
-
-  const handleDeleteAvatar = () => {
-    // console.log('delete avatar')
-  }
-
-  const handleCollectionSwitch = () => {
-    // console.log('handle collection switch')
-  }
-
-  const handleConfirm = () => {
-    // TODO
-  }
+  const { user, loading, error, deleteAvatar, updateCollectionPublic } =
+    useCurrentUser()
 
   if (loading) return <Loading />
-  if (!user || error) return <Error />
+  if (!user || error) return <ErrorStatus />
 
   return (
     <Stack
@@ -84,16 +43,29 @@ const Settings = () => {
               justifyContent: 'space-between',
               width: 1,
               height: 1,
-              px: '16px'
+              px: '16px',
+              position: 'relative'
             }}
           >
             <BackButton />
-            <Typography variant="body1" color="light1">
-              個人設定
-            </Typography>
-            <IconButton onClick={handleConfirm}>
-              <ConfirmIcon />
-            </IconButton>
+            <Box
+              sx={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: 0,
+                width: '100%',
+                height: '100%',
+                justifySelf: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <Typography variant="body1" color="light1">
+                個人設定
+              </Typography>
+            </Box>
           </Stack>
         )}
       </BasedTopNavigation>
@@ -121,7 +93,7 @@ const Settings = () => {
               actionType="link"
               icon={<CameraIcon />}
               text="更換大頭貼"
-              onClick={() => router.push(pathname.editAvatar)}
+              onClick={() => router.push(pathname.changeAvatar)}
             />
             <SettingItem
               actionType="link"
@@ -132,7 +104,7 @@ const Settings = () => {
             <SettingItem
               icon={<DeleteIcon />}
               text="刪除大頭貼"
-              onClick={handleDeleteAvatar}
+              onClick={deleteAvatar}
             />
           </SettingItemGroup>
           <SettingItemGroup>
@@ -140,7 +112,8 @@ const Settings = () => {
               actionType="switch"
               icon={<LikeIcon />}
               text="公開我的收藏"
-              onClick={handleCollectionSwitch}
+              switchValue={user.isCollectionPublic}
+              onClick={updateCollectionPublic}
             />
             <SettingItem icon={<CameraIcon />} text={user.email} />
           </SettingItemGroup>
@@ -152,7 +125,6 @@ const Settings = () => {
               onClick={() => logout(user.id)}
             />
           </SettingItemGroup>
-          {/* <SettingsForm user={user} onSubmit={handleSubmit} onBack={handleGoBack} /> */}
         </Stack>
       </Stack>
     </Stack>

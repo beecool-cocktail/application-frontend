@@ -1,5 +1,5 @@
 import useAuth from 'lib/application/useAuth'
-import useLoginDialog from 'lib/application/useLoginDialog'
+import useLoginDialog from 'lib/application/ui/useLoginDialog'
 import BaseDialog from './baseDialog'
 
 const LoginDialog = () => {

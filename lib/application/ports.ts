@@ -25,13 +25,15 @@ export interface CocktailPostForm {
   photos: EditablePhoto[]
 }
 
-export interface UpdateUserForm {
-  username: string
-  file?: FileList
+export interface UpdateUserInfoForm {
+  username?: string
+  isCollectionPublic?: boolean
+}
+
+export interface UpdateUserAvatarForm {
+  originAvatar: string // base64 object URL
+  croppedAvatar: string // base64 object URL
   coordinate: Coordinate[]
-  width: number
-  height: number
-  isCollectionPublic: boolean
 }
 
 export interface LocalStorageService {
@@ -49,7 +51,12 @@ export interface AuthService {
 export interface UserService {
   getCurrentUserInfo(token: string): Promise<CurrentUser>
   getOtherUserInfo(id: number): Promise<User>
-  updateCurrentUserInfo(form: UpdateUserForm, token: string): Promise<void>
+  updateCurrentUserInfo(form: UpdateUserInfoForm, token: string): Promise<void>
+  updateCurrentUserAvatar(
+    form: UpdateUserAvatarForm,
+    token: string
+  ): Promise<void>
+  deleteCurrentUserAvatar(token: string): Promise<void>
 }
 
 export interface CocktailService {

@@ -1,36 +1,38 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from 'react'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import ReactCrop, { Crop, PixelCrop, PercentCrop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import useSnackbar from 'lib/application/ui/useSnackbar'
-import BasedTopNavigation from 'components/layout/topNavigation'
-import { centerAspectCrop } from 'lib/helper/image'
-import ConfirmIcon from 'lib/assets/confirm.svg'
+import {
+  centerAspectCrop,
+  getCroppedImage,
+  urlToDataURL
+} from 'lib/helper/image'
 import { Coordinate } from 'lib/domain/photo'
 import Button from '../button/button'
-import IconButton from '../button/iconButton'
-import BackButton from '../button/backButton'
 
-interface ImageEditorProps {
-  title: string
-  imgSrc: string
-  onConfirm(result: {
-    objectURL: string
-    width: number
-    height: number
-    coordinate: Coordinate[]
-  }): void
+export interface CropResult {
+  originAvatar: string // base64 object URL
+  croppedAvatar: string // base64 object URL
+  width: number
+  height: number
+  coordinate: Coordinate[]
 }
 
-const ImageEditor = ({ title, imgSrc, onConfirm }: ImageEditorProps) => {
+interface ImageEditorProps {
+  imgSrc: string
+  onConfirm(result: CropResult): void
+}
+
+const AvatarEditor = ({ imgSrc, onConfirm }: ImageEditorProps) => {
   const snackbar = useSnackbar()
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const imgRef = useRef<HTMLImageElement>(null)
   const aspect = 1
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!imgRef.current || !completedCrop) return
 
     try {
@@ -45,8 +47,12 @@ const ImageEditor = ({ title, imgSrc, onConfirm }: ImageEditorProps) => {
         { x: cropX + naturalWidth, y: cropY + naturalHeight }
       ]
 
+      const originAvatar = await urlToDataURL(imgSrc)
+      const croppedAvatar = getCroppedImage(imgRef.current, completedCrop)
+
       const result = {
-        objectURL: imgSrc,
+        originAvatar,
+        croppedAvatar,
         width,
         height,
         coordinate
@@ -69,36 +75,7 @@ const ImageEditor = ({ title, imgSrc, onConfirm }: ImageEditorProps) => {
   }
 
   return (
-    <Stack
-      sx={{
-        minHeight: '100vh',
-        bgcolor: theme => theme.palette.dark3.main,
-        alignItems: 'center'
-      }}
-    >
-      <BasedTopNavigation position="sticky" thresholdHeight={185}>
-        {() => (
-          <Stack
-            direction="row"
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: 1,
-              height: 1,
-              px: '16px',
-              backgroundColor: theme => theme.palette.dark3.main
-            }}
-          >
-            <BackButton />
-            <Typography variant="body1" color="light1">
-              {title}
-            </Typography>
-            <IconButton onClick={handleConfirm}>
-              <ConfirmIcon />
-            </IconButton>
-          </Stack>
-        )}
-      </BasedTopNavigation>
+    <Stack>
       <Box sx={{ mt: '190px' }}>
         <ReactCrop
           crop={crop}
@@ -109,7 +86,7 @@ const ImageEditor = ({ title, imgSrc, onConfirm }: ImageEditorProps) => {
         >
           <img
             ref={imgRef}
-            alt="Crop me"
+            alt="Origin Image"
             src={imgSrc}
             onLoad={handleImageLoad}
             crossOrigin="anonymous"
@@ -123,4 +100,4 @@ const ImageEditor = ({ title, imgSrc, onConfirm }: ImageEditorProps) => {
   )
 }
 
-export default ImageEditor
+export default AvatarEditor

@@ -1,7 +1,10 @@
 import { AxiosRequestConfig } from 'axios'
-import { UpdateUserInfoRequest } from 'sdk'
-import { UpdateUserForm, UserService } from 'lib/application/ports'
-import { toBase64 } from 'lib/helper/image'
+import { UpdateUserAvatarRequest, UpdateUserInfoRequest } from 'sdk'
+import {
+  UpdateUserAvatarForm,
+  UpdateUserInfoForm,
+  UserService
+} from 'lib/application/ports'
 import { User, CurrentUser } from 'lib/domain/user'
 import { userApi } from './api'
 
@@ -15,7 +18,8 @@ const getCurrentUserInfo = async (token: string): Promise<CurrentUser> => {
     id: resData.user_id,
     username: resData.user_name,
     email: resData.email,
-    photo: resData.photo,
+    photo: resData.crop_avatar,
+    originAvatar: resData.origin_avatar,
     collectionCount: resData.number_of_collection,
     postCount: resData.number_of_post,
     isCollectionPublic: resData.is_collection_public
@@ -30,7 +34,7 @@ const getOtherUserInfo = async (id: number): Promise<User> => {
   const result: User = {
     id: resData.user_id,
     username: resData.user_name,
-    photo: resData.photo,
+    photo: resData.crop_avatar,
     collectionCount: resData.number_of_collection,
     postCount: resData.number_of_post,
     isCollectionPublic: resData.is_collection_public
@@ -39,17 +43,37 @@ const getOtherUserInfo = async (id: number): Promise<User> => {
   return result
 }
 
-const updateCurrentUserInfo = async (form: UpdateUserForm, token: string) => {
-  const file = form.file?.[0] && (await toBase64(form.file[0]))
+const updateCurrentUserInfo = async (
+  form: UpdateUserInfoForm,
+  token: string
+) => {
   const req: UpdateUserInfoRequest = {
-    file,
     name: form.username,
-    is_collection_public: form.isCollectionPublic,
-    coordinate: form.coordinate,
-    width: form.width,
-    length: form.height
+    is_collection_public: form.isCollectionPublic
   }
+
   await userApi.updateUserInfoRequest(req, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+}
+
+const updateCurrentUserAvatar = async (
+  form: UpdateUserAvatarForm,
+  token: string
+) => {
+  const req: UpdateUserAvatarRequest = {
+    coordinate: form.coordinate,
+    crop_avatar: form.croppedAvatar,
+    origin_avatar: form.originAvatar
+  }
+
+  await userApi.updateUserAvatarRequest(req, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+}
+
+const deleteCurrentUserAvatar = async (token: string) => {
+  await userApi.deleteUserAvatar({
     headers: { Authorization: `Bearer ${token}` }
   })
 }
@@ -57,7 +81,9 @@ const updateCurrentUserInfo = async (form: UpdateUserForm, token: string) => {
 const userService: UserService = {
   getCurrentUserInfo,
   getOtherUserInfo,
-  updateCurrentUserInfo
+  updateCurrentUserInfo,
+  updateCurrentUserAvatar,
+  deleteCurrentUserAvatar
 }
 
 export default userService

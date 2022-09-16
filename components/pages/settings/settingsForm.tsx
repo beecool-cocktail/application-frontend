@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Box, Stack, Switch, Typography, TextField } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
 import { CurrentUser } from 'lib/domain/user'
-import { UpdateUserForm } from 'lib/application/ports'
+import { UpdateUserInfoForm } from 'lib/application/ports'
 import SettingsHeader from 'components/pages/settings/settingsHeader'
 import Avatar from 'components/common/image/avatar'
 import { CJKPattern } from 'lib/helper/string'
 
 interface SettingsFormProps {
   user: CurrentUser
-  onSubmit(formData: UpdateUserForm): void
+  onSubmit(formData: UpdateUserInfoForm): void
   onBack(isDirty: boolean): void
 }
 

@@ -13,7 +13,7 @@ import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
 import useUser from '../user/useUser'
 import useConfirmDialog from '../ui/useConfirmDialog'
-import useLoginDialog from '../useLoginDialog'
+import useLoginDialog from '../ui/useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 

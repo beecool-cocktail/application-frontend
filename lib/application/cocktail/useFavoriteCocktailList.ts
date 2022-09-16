@@ -14,7 +14,7 @@ import useUser from '../user/useUser'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 import useConfirmDialog from '../ui/useConfirmDialog'
-import useLoginDialog from '../useLoginDialog'
+import useLoginDialog from '../ui/useLoginDialog'
 
 const FETCH_KEY = 'FAVORITE_COCKTAIL_LIST'
 

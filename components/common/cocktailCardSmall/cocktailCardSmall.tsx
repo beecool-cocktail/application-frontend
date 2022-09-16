@@ -27,7 +27,7 @@ const CocktailCardSmall = ({
 }: FavoriteCocktailCardProps) => {
   const [isEditMode, setEditMode] = useState(defaultEditMode)
 
-  const handleClose = (e: React.MouseEvent) => {
+  const handleClose = (e: React.SyntheticEvent) => {
     e.preventDefault()
     e.stopPropagation()
     setEditMode(false)
@@ -58,7 +58,6 @@ const CocktailCardSmall = ({
         overflow: 'hidden'
       }}
       onClick={() => onClick(cocktail.id)}
-      onBlur={() => setEditMode(false)}
     >
       <Image
         style={{ borderRadius: '6px' }}
@@ -71,6 +70,7 @@ const CocktailCardSmall = ({
       />
       {isEditMode && (
         <Stack
+          onBlur={handleClose}
           sx={{
             position: 'absolute',
             alignItems: 'center',

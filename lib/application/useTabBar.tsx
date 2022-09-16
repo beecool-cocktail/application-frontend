@@ -1,6 +1,6 @@
 import routes, { pathname } from 'lib/configs/routes'
 import useCornerRouter from 'lib/application/useCornerRouter'
-import useLoginDialog from 'lib/application/useLoginDialog'
+import useLoginDialog from 'lib/application/ui/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 

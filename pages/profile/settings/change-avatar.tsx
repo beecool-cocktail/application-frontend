@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react'
 import { Stack, Typography } from '@mui/material'
 import AvatarEditor, {
   CropResult
@@ -5,11 +6,24 @@ import AvatarEditor, {
 import BasedTopNavigation from 'components/layout/topNavigation'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import { UpdateUserAvatarForm } from 'lib/application/ports'
+import Button from 'components/common/button/button'
 import BackButton from 'components/common/button/backButton'
 
-const EditAvatar = () => {
+const ChangeAvatar = () => {
   const { user, loading, error, updateAvatar } = useCurrentUser()
+  const [selectedImage, setSelectedImage] = useState<string>()
+  const imageInputRef = useRef<HTMLInputElement>(null)
+
   if (loading || error || !user) return null
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
+    if (!e.target.files) return
+    setSelectedImage(URL.createObjectURL(e.target.files[0]))
+  }
+
+  const handleUpload = () => {
+    imageInputRef.current?.click()
+  }
 
   const handleConfirm = async (result: CropResult) => {
     const updateForm: UpdateUserAvatarForm = {
@@ -43,14 +57,25 @@ const EditAvatar = () => {
           >
             <BackButton />
             <Typography variant="body1" color="light1">
-              編輯大頭貼
+              更換大頭貼
             </Typography>
           </Stack>
         )}
       </BasedTopNavigation>
-      <AvatarEditor imgSrc={user.originAvatar} onConfirm={handleConfirm} />
+      <Button onClick={handleUpload}>上傳</Button>
+      <input
+        id="upload"
+        ref={imageInputRef}
+        onChange={handleChange}
+        accept="image/*"
+        type="file"
+        hidden
+      />
+      {selectedImage && (
+        <AvatarEditor imgSrc={selectedImage} onConfirm={handleConfirm} />
+      )}
     </Stack>
   )
 }
 
-export default EditAvatar
+export default ChangeAvatar

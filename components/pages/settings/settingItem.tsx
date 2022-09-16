@@ -2,12 +2,13 @@ import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import NextIcon from 'lib/assets/next.svg'
 import SwitchOnIcon from 'lib/assets/switch/on.svg'
-// import SwitchOffIcon from 'lib/assets/switch/off.svg'
+import SwitchOffIcon from 'lib/assets/switch/off.svg'
 
 interface SettingItemProps {
   actionType?: 'normal' | 'link' | 'switch' | 'danger'
   icon: React.ReactNode
   text: React.ReactNode
+  switchValue?: boolean
   onClick?: () => void
 }
 
@@ -15,6 +16,7 @@ const SettingItem = ({
   actionType = 'normal',
   icon,
   text,
+  switchValue,
   onClick
 }: SettingItemProps) => {
   const renderAdornment = () => {
@@ -30,7 +32,7 @@ const SettingItem = ({
       case 'switch':
         return (
           <Box fontSize={34} lineHeight={0}>
-            <SwitchOnIcon />
+            {switchValue ? <SwitchOnIcon /> : <SwitchOffIcon />}
           </Box>
         )
     }

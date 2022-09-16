@@ -8,7 +8,7 @@ import cocktailService from 'lib/services/cocktailAdapter'
 import useUser from 'lib/application/user/useUser'
 import { paths } from 'lib/configs/routes'
 import useConfig from '../useConfig'
-import useLoginDialog from '../useLoginDialog'
+import useLoginDialog from '../ui/useLoginDialog'
 import useSnackbar from '../ui/useSnackbar'
 import useCornerRouter from '../useCornerRouter'
 

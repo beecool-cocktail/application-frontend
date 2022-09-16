@@ -14,7 +14,7 @@ import { PAGE_SIZE } from 'lib/constants/pagination'
 import useStore from 'lib/services/storeAdapter'
 import useConfig from '../useConfig'
 import useSnackbar from '../ui/useSnackbar'
-import useLoginDialog from '../useLoginDialog'
+import useLoginDialog from '../ui/useLoginDialog'
 import { Page } from '../ports'
 
 const useCocktailList = (pageSize: number, useSearch = false) => {

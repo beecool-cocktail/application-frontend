@@ -25,6 +25,5 @@ const Template: ComponentStory<typeof Avatar> = args => {
 
 export const PrimaryDefault = Template.bind({})
 PrimaryDefault.args = {
-  title: '編輯頭貼',
   imgSrc: '/cocktail.jpg'
 }

@@ -2,17 +2,29 @@ import { centerCrop, Crop, makeAspectCrop } from 'react-image-crop'
 
 const TO_RADIANS = Math.PI / 180
 
-export const toBase64 = (file: File) =>
+export const fileToDataURL = (file: File) =>
   new Promise<string>((resolve, reject) => {
     const reader = new FileReader()
-    reader.readAsDataURL(file)
     reader.onload = () => resolve(reader.result as string)
-    reader.onerror = error => reject(error)
+    reader.onerror = reject
+    reader.readAsDataURL(file)
   })
 
 export const toBase64Photos = async (fileList: FileList): Promise<string[]> => {
-  const promiseObjs = Array.from(fileList).map(toBase64)
+  const promiseObjs = Array.from(fileList).map(fileToDataURL)
   return Promise.all(promiseObjs)
+}
+
+export const urlToDataURL = async (url: string) => {
+  const res = await fetch(url)
+  const blob = await res.blob()
+
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => resolve(reader.result as string)
+    reader.onerror = reject
+    reader.readAsDataURL(blob)
+  })
 }
 
 export const centerAspectCrop = (
