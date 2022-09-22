@@ -87,7 +87,9 @@ const UserNameContent = ({
           }}
           render={({ field, fieldState }) => (
             <Input
-              {...field}
+              onBlur={field.onBlur}
+              value={field.value}
+              name={field.name}
               onChange={(...args) => {
                 field.onChange(...args)
                 clearErrors()

@@ -31,7 +31,6 @@ const useCurrentUser = () => {
         token
       )
       await mutate()
-      snackbar.success('change collection permission success')
     } catch (error) {
       snackbar.error('change collection permission failed')
       console.error(error)
@@ -45,7 +44,6 @@ const useCurrentUser = () => {
     try {
       await userService.updateCurrentUserInfo({ username }, token)
       await mutate()
-      snackbar.success('edit username success')
     } catch (error) {
       snackbar.error('edit username failed')
       console.error(error)
@@ -76,7 +74,6 @@ const useCurrentUser = () => {
         try {
           await userService.deleteCurrentUserAvatar(token)
           await mutate()
-          snackbar.success('delete success')
         } catch (error) {
           snackbar.success('delete failed')
           console.error(error)
