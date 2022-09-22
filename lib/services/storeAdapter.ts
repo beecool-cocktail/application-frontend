@@ -3,12 +3,18 @@ import { devtools } from 'zustand/middleware'
 import { noop } from 'ramda-adjunct'
 import { AlertColor } from '@mui/material'
 
+type ConfirmDialogPrimaryButton = 'confirm' | 'cancel'
+
 export interface CornerState {
   searchBarInput: string
   loginDialogOpen: boolean
   confirmDialogOpen: boolean
   confirmDialogTitle: string
   confirmDialogContent: string
+  confirmDialogPrimaryButton: ConfirmDialogPrimaryButton
+  confirmDialogOnlyConfirm: boolean
+  confirmDialogConfirmText: string
+  confirmDialogCancelText: string
   confirmDialogOnConfirm: () => void
   confirmDialogOnCancel: () => void
   snackbarOpen: boolean
@@ -24,6 +30,10 @@ export const initialState: CornerState = {
   confirmDialogOpen: false,
   confirmDialogTitle: '',
   confirmDialogContent: '',
+  confirmDialogPrimaryButton: 'confirm',
+  confirmDialogOnlyConfirm: false,
+  confirmDialogConfirmText: '確定',
+  confirmDialogCancelText: '取消',
   confirmDialogOnConfirm: noop,
   confirmDialogOnCancel: noop,
   snackbarOpen: false,
@@ -39,6 +49,10 @@ export interface CornerStore extends CornerState {
   openConfirmDialog: (v: {
     title: string
     content: string
+    confirmText?: string
+    cancelText?: string
+    primaryButton?: 'confirm' | 'cancel'
+    onlyConfirm?: boolean
     onConfirm: () => void
     onCancel: () => void
   }) => void
@@ -59,11 +73,24 @@ const useStore = create<CornerStore>(
     ...initialState,
     setSearchBarInput: value => set({ searchBarInput: value }),
     setLoginDialogOpen: value => set({ loginDialogOpen: value }),
-    openConfirmDialog: ({ title, content, onConfirm, onCancel }) =>
+    openConfirmDialog: ({
+      title,
+      content,
+      confirmText = initialState.confirmDialogConfirmText,
+      cancelText = initialState.confirmDialogCancelText,
+      primaryButton = initialState.confirmDialogPrimaryButton,
+      onlyConfirm = initialState.confirmDialogOnlyConfirm,
+      onConfirm,
+      onCancel
+    }) =>
       set({
         confirmDialogOpen: true,
         confirmDialogTitle: title,
         confirmDialogContent: content,
+        confirmDialogConfirmText: confirmText,
+        confirmDialogCancelText: cancelText,
+        confirmDialogPrimaryButton: primaryButton,
+        confirmDialogOnlyConfirm: onlyConfirm,
         confirmDialogOnConfirm: onConfirm,
         confirmDialogOnCancel: onCancel
       }),

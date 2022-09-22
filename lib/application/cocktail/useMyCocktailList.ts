@@ -78,6 +78,7 @@ const useMyCocktailList = (userId?: number) => {
     confirmDialog.open({
       title: '刪除發文',
       content: '確定刪除此發文，一旦刪除將無法復原？',
+      primaryButton: 'cancel',
       onConfirm: handleDeleteConfirm(cocktail.id),
       onCancel: () => confirmDialog.destroy()
     })

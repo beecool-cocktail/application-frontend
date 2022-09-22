@@ -92,6 +92,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
       return confirmDialog.open({
         title: isEditPost ? '放棄編輯' : '放棄發文',
         content: '修改內容還沒儲存，是否要放棄編輯的內容？',
+        primaryButton: 'cancel',
         onCancel: confirmDialog.destroy,
         onConfirm: () => {
           confirmDialog.destroy()

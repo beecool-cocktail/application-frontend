@@ -42,6 +42,7 @@ const UserNameContent = ({
       confirmDialog.open({
         title: '尚未儲存',
         content: '修改內容還沒儲存，是否要放棄編輯的內容？',
+        primaryButton: 'cancel',
         onConfirm: () => {
           router.push(pathname.settings)
           confirmDialog.destroy()

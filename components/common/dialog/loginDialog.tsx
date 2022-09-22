@@ -13,7 +13,9 @@ const LoginDialog = () => {
       open={open}
       title="使用Google帳號登入"
       content="登入之後即可收藏"
-      onClose={handleClose}
+      primaryButton="confirm"
+      confirmText="前往登入"
+      onCancel={handleClose}
       onConfirm={askUserPermission}
     />
   )
