@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import BasedTopNavigation from 'components/layout/topNavigation'
@@ -21,18 +21,11 @@ const UserNameContent = ({
   username,
   updateUsername
 }: UserNameContentProps) => {
-  const {
-    control,
-    handleSubmit,
-    formState,
-    setValue,
-    getValues,
-    clearErrors,
-    reset
-  } = useForm({
-    mode: 'onChange',
-    defaultValues: { username }
-  })
+  const { control, handleSubmit, formState, setValue, clearErrors, reset } =
+    useForm({
+      mode: 'onChange',
+      defaultValues: { username }
+    })
   const usernameRef = useRef<HTMLInputElement>()
   const router = useCornerRouter()
   const confirmDialog = useConfirmDialog()
@@ -47,21 +40,11 @@ const UserNameContent = ({
     usernameRef.current?.focus()
   }
 
-  const [isComposing, setIsComposing] = useState(false)
-  const [compositionValue, setCompositionValue] = useState('')
-
-  const handleCompositionStart = () => {
-    setIsComposing(true)
-    setCompositionValue(getValues().username)
-  }
-
-  const handleCompositionEnd = () => {
-    setIsComposing(false)
-    setValue('username', compositionValue, {
+  const handleCompositionDone = (value: string) => {
+    setValue('username', value, {
       shouldValidate: true,
       shouldDirty: true
     })
-    setCompositionValue('')
   }
 
   const handleGoBack = () => {
@@ -137,12 +120,10 @@ const UserNameContent = ({
               }
               onBlur={field.onBlur}
               onChange={e => {
-                if (isComposing) return setCompositionValue(e.target.value)
                 field.onChange(e)
                 clearErrors()
               }}
-              onCompositionStart={handleCompositionStart}
-              onCompositionEnd={handleCompositionEnd}
+              onCompositionDone={handleCompositionDone}
             />
           )}
         ></Controller>

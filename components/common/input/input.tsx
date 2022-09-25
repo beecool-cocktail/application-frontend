@@ -13,6 +13,7 @@ interface InputProps extends InputBaseProps {
   feedback?: string
   maxLength?: number
   getLetterCount?: (target: string) => number
+  onCompositionDone?: (value: string) => void
 }
 
 interface optionalControlProps {
@@ -21,6 +22,7 @@ interface optionalControlProps {
   onChangeFromProps: InputBaseProps['onChange']
   onCompositionStartFromProps: InputBaseProps['onCompositionStart']
   onCompositionEndFromProps: InputBaseProps['onCompositionEnd']
+  onCompositionDoneFromProps?: (value: string) => void
   getLetterCount: (target: string) => number
   maxLength?: number
 }
@@ -30,6 +32,7 @@ const useOptionalControl = ({
   valueFromProps,
   onCompositionStartFromProps,
   onCompositionEndFromProps,
+  onCompositionDoneFromProps,
   onChangeFromProps,
   getLetterCount,
   maxLength
@@ -51,10 +54,9 @@ const useOptionalControl = ({
     const letterCount = getLetterCount(e.target.value)
     if (isComposing) setComposingValue(e.target.value)
     if (maxLength && letterCount > maxLength) return
-    else {
-      if (onChangeFromProps) onChangeFromProps(e)
-      if (!isControlled) setInternalValue(e.target.value)
-    }
+    if (isComposing) return
+    if (onChangeFromProps) onChangeFromProps(e)
+    if (!isControlled) setInternalValue(e.target.value)
   }
 
   const handleCompositionStart: React.CompositionEventHandler<
@@ -68,9 +70,11 @@ const useOptionalControl = ({
   const handleCompositionEnd: React.CompositionEventHandler<
     HTMLInputElement
   > = e => {
+    const newValue = composingValue.substring(0, maxLength)
     onCompositionEndFromProps?.(e)
+    onCompositionDoneFromProps?.(newValue)
     setIsComposing(false)
-    if (!isControlled) setInternalValue(composingValue.substring(0, maxLength))
+    if (!isControlled) setInternalValue(newValue)
   }
 
   return {
@@ -90,6 +94,7 @@ const RawInput = (props: InputProps) => {
     onChange: onChangeFromProps,
     onCompositionStart: onCompositionStartFromProps,
     onCompositionEnd: onCompositionEndFromProps,
+    onCompositionDone: onCompositionDoneFromProps,
     defaultValue,
     label,
     feedback,
@@ -111,6 +116,7 @@ const RawInput = (props: InputProps) => {
     valueFromProps,
     onCompositionStartFromProps,
     onCompositionEndFromProps,
+    onCompositionDoneFromProps,
     onChangeFromProps,
     getLetterCount,
     maxLength
