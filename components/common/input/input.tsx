@@ -19,6 +19,8 @@ interface optionalControlProps {
   defaultValue?: InputBaseProps['defaultValue']
   valueFromProps?: InputBaseProps['value']
   onChangeFromProps: InputBaseProps['onChange']
+  onCompositionStartFromProps: InputBaseProps['onCompositionStart']
+  onCompositionEndFromProps: InputBaseProps['onCompositionEnd']
   getLetterCount: (target: string) => number
   maxLength?: number
 }
@@ -26,6 +28,8 @@ interface optionalControlProps {
 const useOptionalControl = ({
   defaultValue,
   valueFromProps,
+  onCompositionStartFromProps,
+  onCompositionEndFromProps,
   onChangeFromProps,
   getLetterCount,
   maxLength
@@ -35,16 +39,38 @@ const useOptionalControl = ({
   const [internalValue, setInternalValue] = useState(
     hasDefaultValue ? defaultValue : ''
   )
-  const value = String(isControlled ? valueFromProps : internalValue)
-  const letterCount = getLetterCount(value)
+  const [isComposing, setIsComposing] = useState(false)
+  const [composingValue, setComposingValue] = useState('')
+  const validationValue = String(isControlled ? valueFromProps : internalValue)
+  const value = String(isComposing ? composingValue : validationValue)
+  const letterCount = getLetterCount(validationValue)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
     const letterCount = getLetterCount(e.target.value)
+    if (isComposing) setComposingValue(e.target.value)
     if (maxLength && letterCount > maxLength) return
-    if (onChangeFromProps) onChangeFromProps(e)
-    if (!isControlled) setInternalValue(e.target.value)
+    else {
+      if (onChangeFromProps) onChangeFromProps(e)
+      if (!isControlled) setInternalValue(e.target.value)
+    }
+  }
+
+  const handleCompositionStart: React.CompositionEventHandler<
+    HTMLInputElement
+  > = e => {
+    onCompositionStartFromProps?.(e)
+    setIsComposing(true)
+    setComposingValue(validationValue)
+  }
+
+  const handleCompositionEnd: React.CompositionEventHandler<
+    HTMLInputElement
+  > = e => {
+    onCompositionEndFromProps?.(e)
+    setIsComposing(false)
+    if (!isControlled) setInternalValue(composingValue.substring(0, maxLength))
   }
 
   return {
@@ -52,7 +78,9 @@ const useOptionalControl = ({
     letterCount,
     isControlled,
     hasDefaultValue,
-    handleChange
+    handleChange,
+    handleCompositionStart,
+    handleCompositionEnd
   }
 }
 
@@ -60,6 +88,8 @@ const RawInput = (props: InputProps) => {
   const {
     value: valueFromProps,
     onChange: onChangeFromProps,
+    onCompositionStart: onCompositionStartFromProps,
+    onCompositionEnd: onCompositionEndFromProps,
     defaultValue,
     label,
     feedback,
@@ -70,9 +100,17 @@ const RawInput = (props: InputProps) => {
     ...restProps
   } = props
   const formControl = useFormControl()
-  const { value, letterCount, handleChange } = useOptionalControl({
+  const {
+    value,
+    letterCount,
+    handleChange,
+    handleCompositionStart,
+    handleCompositionEnd
+  } = useOptionalControl({
     defaultValue,
     valueFromProps,
+    onCompositionStartFromProps,
+    onCompositionEndFromProps,
     onChangeFromProps,
     getLetterCount,
     maxLength
@@ -183,6 +221,8 @@ const RawInput = (props: InputProps) => {
           inputProps={props.inputProps}
           multiline={multiline}
           placeholder={getPlaceholder()}
+          onCompositionStart={handleCompositionStart}
+          onCompositionEnd={handleCompositionEnd}
           onChange={handleChange}
           onBlur={handleBlur}
         />

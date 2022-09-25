@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useState, useRef } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import BasedTopNavigation from 'components/layout/topNavigation'
@@ -21,20 +21,47 @@ const UserNameContent = ({
   username,
   updateUsername
 }: UserNameContentProps) => {
-  const { control, handleSubmit, formState, setValue, clearErrors } = useForm({
-    mode: 'onBlur',
+  const {
+    control,
+    handleSubmit,
+    formState,
+    setValue,
+    getValues,
+    clearErrors,
+    reset
+  } = useForm({
+    mode: 'onChange',
     defaultValues: { username }
   })
   const usernameRef = useRef<HTMLInputElement>()
   const router = useCornerRouter()
   const confirmDialog = useConfirmDialog()
 
-  const handleConfirm = () =>
-    handleSubmit(data => updateUsername(data.username))
+  const handleConfirm = handleSubmit(async data => {
+    await updateUsername(data.username)
+    reset({ username: data.username })
+  })
 
   const handleCancel = () => () => {
     setValue('username', '')
     usernameRef.current?.focus()
+  }
+
+  const [isComposing, setIsComposing] = useState(false)
+  const [compositionValue, setCompositionValue] = useState('')
+
+  const handleCompositionStart = () => {
+    setIsComposing(true)
+    setCompositionValue(getValues().username)
+  }
+
+  const handleCompositionEnd = () => {
+    setIsComposing(false)
+    setValue('username', compositionValue, {
+      shouldValidate: true,
+      shouldDirty: true
+    })
+    setCompositionValue('')
   }
 
   const handleGoBack = () => {
@@ -53,7 +80,11 @@ const UserNameContent = ({
   }
 
   return (
-    <Stack spacing="44px">
+    <Stack
+      spacing="44px"
+      minHeight="100vh"
+      sx={{ backgroundColor: theme => theme.palette.dark3.main }}
+    >
       <BasedTopNavigation position="sticky" thresholdHeight={185}>
         {() => (
           <Stack
@@ -63,8 +94,7 @@ const UserNameContent = ({
               justifyContent: 'space-between',
               width: 1,
               height: 1,
-              px: '16px',
-              backgroundColor: theme => theme.palette.dark3.main
+              px: '16px'
             }}
           >
             <BackButton onClick={handleGoBack} />
@@ -88,18 +118,12 @@ const UserNameContent = ({
           }}
           render={({ field, fieldState }) => (
             <Input
-              onBlur={field.onBlur}
-              value={field.value}
-              name={field.name}
-              onChange={(...args) => {
-                field.onChange(...args)
-                clearErrors()
-              }}
               inputRef={e => {
                 field.ref(e)
                 usernameRef.current = e
               }}
-              // getLetterCount={getCharacterCount}
+              name={field.name}
+              value={field.value}
               error={Boolean(fieldState.error)}
               fullWidth
               maxLength={20}
@@ -111,6 +135,14 @@ const UserNameContent = ({
                   <Close />
                 </Box>
               }
+              onBlur={field.onBlur}
+              onChange={e => {
+                if (isComposing) return setCompositionValue(e.target.value)
+                field.onChange(e)
+                clearErrors()
+              }}
+              onCompositionStart={handleCompositionStart}
+              onCompositionEnd={handleCompositionEnd}
             />
           )}
         ></Controller>
