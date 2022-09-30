@@ -21,6 +21,7 @@ const SearchBar = (props: SearchBarProps) => {
       inputRef={ref}
       value={input}
       onChange={e => setInput(e.target.value)}
+      onCompositionDone={v => setInput(v)}
       startAdornment={<Search />}
       endAdornment={
         <Box sx={{ cursor: 'pointer' }} onClick={handleCancel}>
