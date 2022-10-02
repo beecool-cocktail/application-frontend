@@ -47,7 +47,6 @@ const Settings = () => {
               position: 'relative'
             }}
           >
-            <BackButton />
             <Box
               sx={{
                 position: 'absolute',
@@ -66,6 +65,7 @@ const Settings = () => {
                 個人設定
               </Typography>
             </Box>
+            <BackButton onClick={() => router.push(pathname.profile)} />
           </Stack>
         )}
       </BasedTopNavigation>
