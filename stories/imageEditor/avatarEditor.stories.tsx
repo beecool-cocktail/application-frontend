@@ -1,29 +1,32 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import Avatar from 'components/common/imageEditor/avatarEditor'
+import ImageEditor from 'components/common/imageEditor/imageEditor'
 
 export default {
-  title: 'image/Avatar Editor',
-  component: Avatar,
+  title: 'image/Image Editor',
+  component: ImageEditor,
   argTypes: {
-    title: { type: 'string' },
     imgSrc: { type: 'string' },
-    onConfirm: { action: 'confirm' }
+    aspect: { type: 'number' },
+    onConfirm: { action: 'confirm' },
+    onCancel: { action: 'cancel' }
   },
   parameters: {
+    layout: 'fullscreen',
     design: {
       type: 'figma',
       url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3745%3A7982'
-    },
-    layout: 'fullscreen'
+    }
   }
-} as ComponentMeta<typeof Avatar>
+} as ComponentMeta<typeof ImageEditor>
 
-const Template: ComponentStory<typeof Avatar> = args => {
-  return <Avatar {...args} />
+const Template: ComponentStory<typeof ImageEditor> = args => {
+  return <ImageEditor {...args} />
 }
 
 export const PrimaryDefault = Template.bind({})
 PrimaryDefault.args = {
-  imgSrc: '/cocktail.jpg'
+  imgSrc: '/cocktail.jpg',
+  // aspect: 4 / 3
+  aspect: 1 / 1
 }

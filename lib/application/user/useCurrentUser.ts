@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import useSWR from 'swr'
 import { FALLBACK_URL } from 'lib/constants/image'
 import userService from 'lib/services/userAdapter'
@@ -19,6 +20,8 @@ const useCurrentUser = () => {
     if (!token) return null
     return [token, FETCH_KEY]
   }, userService.getCurrentUserInfo)
+
+  const [imageUpdating, setImageUpdating] = useState(false)
 
   const updateCollectionPublic = async () => {
     const token = storage.getToken()
@@ -54,12 +57,15 @@ const useCurrentUser = () => {
     const token = storage.getToken()
     if (!token) return
 
+    setImageUpdating(true)
     try {
       await userService.updateCurrentUserAvatar(form, token)
       await mutate()
     } catch (e) {
       snackbar.error('update avatar failed')
       console.error(e)
+    } finally {
+      setImageUpdating(false)
     }
   }
 
@@ -103,6 +109,7 @@ const useCurrentUser = () => {
     user,
     loading: (!data && !error) || configLoading,
     error,
+    imageUpdating,
     mutate,
     updateCollectionPublic,
     updateUsername,

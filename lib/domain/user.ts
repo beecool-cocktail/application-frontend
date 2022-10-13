@@ -1,3 +1,5 @@
+import { Coordinate } from './photo'
+
 export interface User {
   id: number
   username: string
@@ -10,4 +12,7 @@ export interface User {
 export interface CurrentUser extends User {
   email: string
   originAvatar: string
+  width: number
+  height: number
+  coordinate: Coordinate[]
 }

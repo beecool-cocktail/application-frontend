@@ -1,14 +1,14 @@
-import { Stack, Typography } from '@mui/material'
-import AvatarEditor, {
-  CropResult
-} from 'components/common/imageEditor/avatarEditor'
-import BasedTopNavigation from 'components/layout/topNavigation'
+import { CropResult } from 'components/common/imageEditor/avatarEditor'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import { UpdateUserAvatarForm } from 'lib/application/ports'
-import BackButton from 'components/common/button/backButton'
+import AvatarEditor from 'components/common/imageEditor/avatarEditor'
+import WholePageSpinner from 'components/common/status/wholePageSpinner'
+import useCornerRouter from 'lib/application/useCornerRouter'
+import { paths } from 'lib/configs/routes'
 
 const EditAvatar = () => {
-  const { user, loading, error, updateAvatar } = useCurrentUser()
+  const router = useCornerRouter()
+  const { user, loading, imageUpdating, error, updateAvatar } = useCurrentUser()
   if (loading || error || !user) return null
 
   const handleConfirm = async (result: CropResult) => {
@@ -18,38 +18,23 @@ const EditAvatar = () => {
       coordinate: result.coordinate
     }
     await updateAvatar(updateForm)
+    router.push(paths.settings)
   }
 
   return (
-    <Stack
-      sx={{
-        minHeight: '100vh',
-        bgcolor: theme => theme.palette.dark3.main,
-        alignItems: 'center'
-      }}
-    >
-      <BasedTopNavigation position="sticky" thresholdHeight={185}>
-        {() => (
-          <Stack
-            direction="row"
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: 1,
-              height: 1,
-              px: '16px',
-              backgroundColor: theme => theme.palette.dark3.main
-            }}
-          >
-            <BackButton />
-            <Typography variant="body1" color="light1">
-              編輯大頭貼
-            </Typography>
-          </Stack>
-        )}
-      </BasedTopNavigation>
-      <AvatarEditor imgSrc={user.originAvatar} onConfirm={handleConfirm} />
-    </Stack>
+    <WholePageSpinner loading={imageUpdating}>
+      <AvatarEditor
+        type="edit"
+        imgSrc={user.originAvatar}
+        cropData={{
+          originWidth: user.width,
+          originHeight: user.height,
+          coordinate: user.coordinate
+        }}
+        aspect={1 / 1}
+        onConfirm={handleConfirm}
+      />
+    </WholePageSpinner>
   )
 }
 

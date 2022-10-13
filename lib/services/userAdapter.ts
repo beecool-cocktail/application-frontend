@@ -20,6 +20,9 @@ const getCurrentUserInfo = async (token: string): Promise<CurrentUser> => {
     email: resData.email,
     photo: resData.crop_avatar,
     originAvatar: resData.origin_avatar,
+    width: resData.width,
+    height: resData.height,
+    coordinate: resData.coordinate,
     collectionCount: resData.number_of_collection,
     postCount: resData.number_of_post,
     isCollectionPublic: resData.is_collection_public
