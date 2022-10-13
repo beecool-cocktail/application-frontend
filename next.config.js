@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const withPWA = require('next-pwa')
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development'
+})
 
 const imageDomains = []
 if (process.env.IMAGE_DOMAIN) imageDomains.push(process.env.IMAGE_DOMAIN)
@@ -20,10 +23,6 @@ const config = {
     return [{ source, destination }]
   },
   images: { domains: imageDomains },
-  pwa: {
-    dest: 'public',
-    disable: process.env.NODE_ENV === 'development'
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
