@@ -14,7 +14,7 @@ FROM node:18.2-alpine AS builder
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
-RUN npm build
+RUN npm run build
 
 
 ########## runner ##########
