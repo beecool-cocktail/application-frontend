@@ -32,7 +32,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
       return [
         index + 1,
         PAGE_SIZE,
-        keyword,
+        useSearch ? keyword : '',
         storage.getToken(),
         useSearch,
         fetchId
