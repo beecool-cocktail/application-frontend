@@ -9,7 +9,7 @@ interface AnimationLogoProps {
   autoplay?: boolean
 }
 
-const AnimationLogo = ({
+const LottieLogo = ({
   path,
   animationData,
   loop = false,
@@ -34,4 +34,4 @@ const AnimationLogo = ({
   return <Box width={500} height={500} ref={containerRef} />
 }
 
-export default AnimationLogo
+export default LottieLogo

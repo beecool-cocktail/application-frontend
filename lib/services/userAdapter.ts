@@ -23,6 +23,7 @@ const getCurrentUserInfo = async (token: string): Promise<CurrentUser> => {
     width: resData.width,
     height: resData.height,
     coordinate: resData.coordinate,
+    rotation: resData.rotation,
     collectionCount: resData.number_of_collection,
     postCount: resData.number_of_post,
     isCollectionPublic: resData.is_collection_public
@@ -67,7 +68,8 @@ const updateCurrentUserAvatar = async (
   const req: UpdateUserAvatarRequest = {
     coordinate: form.coordinate,
     crop_avatar: form.croppedAvatar,
-    origin_avatar: form.originAvatar
+    origin_avatar: form.originAvatar,
+    rotation: form.rotation
   }
 
   await userApi.updateUserAvatarRequest(req, {

@@ -386,6 +386,12 @@ export interface GetCocktailByIDResponse {
      */
     'photos': Array<CocktailPhotoWithIDInResponse>;
     /**
+     * 旋轉角度
+     * @type {number}
+     * @memberof GetCocktailByIDResponse
+     */
+    'rotation': number;
+    /**
      * 
      * @type {Array<CocktailStepWithoutIDInResponse>}
      * @memberof GetCocktailByIDResponse
@@ -678,6 +684,12 @@ export interface GetOtherUserInfoResponse {
      */
     'number_of_post': number;
     /**
+     * 旋轉角度
+     * @type {number}
+     * @memberof GetOtherUserInfoResponse
+     */
+    'rotation': number;
+    /**
      * 
      * @type {number}
      * @memberof GetOtherUserInfoResponse
@@ -826,6 +838,12 @@ export interface GetUserInfoResponse {
      * @memberof GetUserInfoResponse
      */
     'origin_avatar': string;
+    /**
+     * 旋轉角度
+     * @type {number}
+     * @memberof GetUserInfoResponse
+     */
+    'rotation': number;
     /**
      * 
      * @type {number}
@@ -1335,6 +1353,12 @@ export interface UpdateUserAvatarRequest {
      * @memberof UpdateUserAvatarRequest
      */
     'origin_avatar'?: string;
+    /**
+     * 旋轉角度
+     * @type {number}
+     * @memberof UpdateUserAvatarRequest
+     */
+    'rotation': number;
 }
 /**
  * 

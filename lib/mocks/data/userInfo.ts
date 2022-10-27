@@ -10,6 +10,7 @@ const mockUserInfo: GetUserInfoResponse = {
   number_of_post: 0,
   is_collection_public: false,
   coordinate: [],
+  rotation: 0,
   width: 0,
   height: 0
 }

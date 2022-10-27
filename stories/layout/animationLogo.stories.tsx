@@ -1,15 +1,15 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import AnimationLogo from 'components/layout/animationLogo'
+import LottieLogo from 'components/layout/lottieLogo'
 import animationData from './animationData.json'
 
 export default {
-  title: 'Layout/Animation Logo',
-  component: AnimationLogo
-} as ComponentMeta<typeof AnimationLogo>
+  title: 'Layout/Lottie Logo',
+  component: LottieLogo
+} as ComponentMeta<typeof LottieLogo>
 
-const Template: ComponentStory<typeof AnimationLogo> = ({ ...args }) => (
-  <AnimationLogo {...args} />
+const Template: ComponentStory<typeof LottieLogo> = ({ ...args }) => (
+  <LottieLogo {...args} />
 )
 
 export const PlayOnceByPath = Template.bind({})

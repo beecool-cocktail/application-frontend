@@ -53,6 +53,7 @@ const userInfoResponse: GetUserInfoResponse = {
   number_of_post: count,
   is_collection_public: true,
   coordinate: [],
+  rotation: 0,
   width: 0,
   height: 0
 }

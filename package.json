@@ -23,6 +23,7 @@
     "@fontsource/noto-sans-tc": "^4.5.10",
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.1",
+    "@rive-app/react-canvas": "^3.0.32",
     "@use-gesture/react": "^10.2.15",
     "axios": "^0.27.2",
     "immer": "^9.0.14",

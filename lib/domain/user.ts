@@ -15,4 +15,5 @@ export interface CurrentUser extends User {
   width: number
   height: number
   coordinate: Coordinate[]
+  rotation: number
 }

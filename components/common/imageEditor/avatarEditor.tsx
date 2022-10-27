@@ -15,6 +15,7 @@ export interface CropResult {
   width: number
   height: number
   coordinate: Coordinate[]
+  rotation: number
 }
 
 const rotateMarks = [-180, -90, 0, 90, 180].map(value => ({
@@ -30,6 +31,7 @@ interface ImageEditorProps {
     originWidth: number
     originHeight: number
     coordinate: Coordinate[]
+    rotation: number
   }
   onConfirm(result: CropResult): void
 }
@@ -45,7 +47,7 @@ const ImageEditor = ({
   const snackbar = useSnackbar()
   const [selectedImage, setSelectedImage] = useState<string>(imgSrc)
   const [zoom, setZoom] = useState(1)
-  const [rotation, setRotation] = useState(0)
+  const [rotation, setRotation] = useState(cropData?.rotation || 0)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
   const [raw, setRaw] = useState(true)
@@ -134,7 +136,8 @@ const ImageEditor = ({
         coordinate: [
           { x, y },
           { x: x + width, y: y + height }
-        ]
+        ],
+        rotation
       })
     } catch (e) {
       console.error(e)
@@ -148,11 +151,6 @@ const ImageEditor = ({
     },
     []
   )
-
-  // const handleMediaLoaded = (media: MediaSize) => {
-  //   const height = window.innerWidth * (media.height / media.width)
-  //   setContainerHeight(height)
-  // }
 
   return (
     <Stack
@@ -238,14 +236,13 @@ const ImageEditor = ({
               border: `3px dashed ${theme.palette.light1.main}`
             }
           }}
-          // onMediaLoaded={handleMediaLoaded}
           onCropChange={setCrop}
           onCropComplete={handleCropComplete}
           onRotationChange={setRotation}
           onZoomChange={setZoom}
         />
       </Box>
-      <Box sx={{ p: '16px', width: 1 }}>
+      <Box sx={{ p: '32px', width: 1 }}>
         <Typography variant="body2">縮放</Typography>
         <Slider
           value={zoom}
@@ -262,6 +259,7 @@ const ImageEditor = ({
           min={-180}
           max={180}
           marks={rotateMarks}
+          step={90}
           valueLabelDisplay="auto"
           valueLabelFormat={v => `${v}°`}
           onChange={(_event: Event, newValue: number | number[]) => {

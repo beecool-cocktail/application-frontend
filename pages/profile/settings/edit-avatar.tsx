@@ -15,7 +15,8 @@ const EditAvatar = () => {
     const updateForm: UpdateUserAvatarForm = {
       originAvatar: result.originAvatar,
       croppedAvatar: result.croppedAvatar,
-      coordinate: result.coordinate
+      coordinate: result.coordinate,
+      rotation: result.rotation
     }
     await updateAvatar(updateForm)
     router.push(paths.settings)
@@ -29,7 +30,8 @@ const EditAvatar = () => {
         cropData={{
           originWidth: user.width,
           originHeight: user.height,
-          coordinate: user.coordinate
+          coordinate: user.coordinate,
+          rotation: user.rotation
         }}
         aspect={1 / 1}
         onConfirm={handleConfirm}

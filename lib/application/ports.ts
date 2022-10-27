@@ -34,6 +34,7 @@ export interface UpdateUserAvatarForm {
   originAvatar: string // base64 object URL
   croppedAvatar: string // base64 object URL
   coordinate: Coordinate[]
+  rotation: number
 }
 
 export interface LocalStorageService {

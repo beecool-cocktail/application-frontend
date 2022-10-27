@@ -3,7 +3,7 @@
 // 1. https://en.wikipedia.org/wiki/CJK_Unified_Ideographs_(Unicode_block)
 // 2. https://blog.miniasp.com/post/2019/01/02/Common-Regex-patterns-for-Unicode-characters
 export const CJKCharacterPattern = /[\u4E00-\u9FFF]/g
-export const CJKPattern = /^[\u4E00-\u9FFF\w_.]+$/
+export const CJKPattern = /^[\u4E00-\u9FFF\w_.\s]+$/
 
 /**
  * 1.中文單一字元為一字，標點符號也算一字。
