@@ -1,7 +1,6 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import RiveLogo from 'components/layout/riveLogo'
-// import animationData from './animationData.json'
 
 export default {
   title: 'Layout/Rive Logo',
@@ -14,7 +13,7 @@ const Template: ComponentStory<typeof RiveLogo> = ({ ...args }) => (
 
 export const PlayOnceByPath = Template.bind({})
 PlayOnceByPath.args = {
-  src: 'https://cdn.rive.app/animations/vehicles.riv',
+  src: './tabBar.riv',
   autoplay: false
 }
 

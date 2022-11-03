@@ -22,8 +22,7 @@ const RiveLogo = ({ src, autoplay = false }: RiveLogoProps) => {
         }}
         width={500}
         height={500}
-        onMouseEnter={() => rive && rive.play()}
-        onMouseLeave={() => rive && rive.pause()}
+        onClick={() => rive && rive.play()}
       />
     </Box>
   )
