@@ -21,18 +21,17 @@ const UserNameContent = ({
   username,
   updateUsername
 }: UserNameContentProps) => {
-  const { control, handleSubmit, formState, setValue, clearErrors, reset } =
-    useForm({
-      mode: 'onChange',
-      defaultValues: { username }
-    })
+  const { control, handleSubmit, formState, setValue, clearErrors } = useForm({
+    mode: 'onChange',
+    defaultValues: { username }
+  })
   const usernameRef = useRef<HTMLInputElement>()
   const router = useCornerRouter()
   const confirmDialog = useConfirmDialog()
 
   const handleConfirm = handleSubmit(async data => {
     await updateUsername(data.username)
-    reset({ username: data.username })
+    router.back()
   })
 
   const handleCancel = () => () => {
