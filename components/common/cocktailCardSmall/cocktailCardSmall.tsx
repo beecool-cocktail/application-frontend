@@ -34,6 +34,7 @@ const CocktailCardSmall = ({
 
   const handleClickMoreAction = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    e.stopPropagation()
     setEditMode(editMode => !editMode)
   }
 
