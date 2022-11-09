@@ -16,7 +16,7 @@ const CocktailPage: NextPage = () => {
       justifyContent="flex-start"
       alignItems="stretch"
       position="relative"
-      sx={{ minHeight: '100vh', width: '100%' }}
+      sx={{ minHeight: '100vh', width: '100%', pb: '56px' }}
     >
       {loading || !cocktail ? (
         <PostSkeleton />
