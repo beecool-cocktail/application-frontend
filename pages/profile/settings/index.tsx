@@ -9,11 +9,13 @@ import Avatar from 'components/common/image/avatar'
 import SettingItem from 'components/pages/settings/settingItem'
 import SettingItemGroup from 'components/pages/settings/settingItemGroup'
 import { pathname } from 'lib/configs/routes'
-import LikeIcon from 'lib/assets/like/likeDefault.svg'
-import CameraIcon from 'lib/assets/camera.svg'
-import DeleteIcon from 'lib/assets/delete.svg'
-import EditIcon from 'lib/assets/edit.svg'
-import LogoutIcon from 'lib/assets/logOut.svg'
+import AccountIcon from 'lib/assets/accountOutlined.svg'
+import LikeIcon from 'lib/assets/likeSettingPageOutlined.svg'
+import CameraIcon from 'lib/assets/cameraOutlined.svg'
+import DeleteIcon from 'lib/assets/deleteAvatarOutlined.svg'
+import EditIcon from 'lib/assets/editOutlined.svg'
+import LogoutIcon from 'lib/assets/logOutOutlined.svg'
+import GoogleIcon from 'lib/assets/googleLogo.svg'
 import BackButton from 'components/common/button/backButton'
 
 const Settings = () => {
@@ -83,7 +85,7 @@ const Settings = () => {
           <SettingItemGroup title="更改名稱">
             <SettingItem
               actionType="link"
-              icon={<CameraIcon />}
+              icon={<AccountIcon />}
               text={user.username}
               onClick={() => router.push(pathname.editUsername)}
             />
@@ -115,7 +117,7 @@ const Settings = () => {
               switchValue={user.isCollectionPublic}
               onClick={updateCollectionPublic}
             />
-            <SettingItem icon={<CameraIcon />} text={user.email} />
+            <SettingItem icon={<GoogleIcon />} text={user.email} />
           </SettingItemGroup>
           <SettingItemGroup>
             <SettingItem

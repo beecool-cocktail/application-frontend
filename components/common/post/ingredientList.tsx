@@ -6,7 +6,7 @@ import {
   FormGroup,
   FormControlLabel
 } from '@mui/material'
-import IngredientListIcon from 'lib/assets/list.svg'
+import IngredientListIcon from 'lib/assets/listOutlined.svg'
 import Checkbox from '../input/checkbox'
 import type { Ingredient } from 'lib/domain/cocktail'
 

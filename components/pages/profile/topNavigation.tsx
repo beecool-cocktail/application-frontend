@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import SettingIcon from 'lib/assets/setting.svg'
-import DraftIcon from 'lib/assets/draft/default.svg'
+import DraftIcon from 'lib/assets/draftOutlined.svg'
 import { paths } from 'lib/configs/routes'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import IconButton from 'components/common/button/iconButton'

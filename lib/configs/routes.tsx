@@ -1,9 +1,9 @@
 import { ParsedUrlQueryInput } from 'querystring'
 import React from 'react'
-import Home from 'lib/assets/home/default.svg'
-import Search from 'lib/assets/search/default.svg'
-import PlusAdd from 'lib/assets/plusAdd/default.svg'
-import Profile from 'lib/assets/profile/default.svg'
+import Search from 'lib/assets/search.svg'
+import PlusAdd from 'lib/assets/plusAdd.svg'
+import Profile from 'lib/assets/profile.svg'
+import Home from 'lib/assets/homeDefault.svg'
 
 export interface Route {
   path: string

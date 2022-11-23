@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import NextIcon from 'lib/assets/next.svg'
-import SwitchOnIcon from 'lib/assets/switch/on.svg'
-import SwitchOffIcon from 'lib/assets/switch/off.svg'
+import SwitchOnIcon from 'lib/assets/switchControlOn.svg'
+import SwitchOffIcon from 'lib/assets/switchControlOff.svg'
 
 interface SettingItemProps {
   actionType?: 'normal' | 'link' | 'switch' | 'danger'
@@ -31,7 +31,13 @@ const SettingItem = ({
         )
       case 'switch':
         return (
-          <Box fontSize={34} lineHeight={0}>
+          <Box
+            fontSize={34}
+            lineHeight={0}
+            color={theme =>
+              switchValue ? theme.palette.blue.main : theme.palette.light3.main
+            }
+          >
             {switchValue ? <SwitchOnIcon /> : <SwitchOffIcon />}
           </Box>
         )
@@ -54,11 +60,9 @@ const SettingItem = ({
       <Box
         fontSize={24}
         sx={{
-          '> svg path': {
-            stroke: theme => {
-              if (actionType === 'danger') return theme.palette.red.main
-              return theme.palette.light1.main
-            }
+          color: theme => {
+            if (actionType === 'danger') return theme.palette.red.main
+            return theme.palette.light1.main
           }
         }}
         lineHeight={0}

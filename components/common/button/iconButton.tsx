@@ -26,10 +26,8 @@ const IconButton = ({
         backgroundColor: theme => {
           if (contained) return theme.palette.light4.main
         },
-        '& svg *': {
-          stroke: theme =>
-            disabled ? theme.palette.light4.main : theme.palette.light1.main
-        },
+        color: theme =>
+          disabled ? theme.palette.light4.main : theme.palette.light1.main,
         fontSize: 24
       }}
       onClick={onClick}

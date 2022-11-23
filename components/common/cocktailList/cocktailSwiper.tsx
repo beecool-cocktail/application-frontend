@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Box, IconButton } from '@mui/material'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import Favorite from 'lib/assets/like/likeDefault.svg'
+import LikeIcon from 'lib/assets/like.svg'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { PhotoWithBlur } from 'lib/domain/photo'
@@ -107,16 +107,13 @@ const CocktailSwiper = ({
             p: 0,
             zIndex: 1,
             fontSize: '24px',
-            '& *': {
-              stroke: theme => theme.palette.light1.main,
-              fill: theme => {
-                if (isCollected) return theme.palette.primary.main
-                return theme.palette.light3.main
-              }
+            color: theme => {
+              if (isCollected) return theme.palette.primary.main
+              return theme.palette.light3.main
             }
           }}
         >
-          <Favorite />
+          <LikeIcon />
         </IconButton>
       </Box>
     </Box>

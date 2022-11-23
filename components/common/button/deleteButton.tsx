@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import TrashIcon from 'lib/assets/trash.svg'
+import TrashIcon from 'lib/assets/trashOutlined.svg'
 import IconButton from './iconButton'
 
 export interface DeleteButtonProps {

@@ -1,5 +1,5 @@
 import { Box, Typography, Paper, Stack } from '@mui/material'
-import ShakerIcon from 'lib/assets/shaker.svg'
+import ShakerIcon from 'lib/assets/shakerOutlined.svg'
 import { Step } from 'lib/domain/cocktail'
 import StepRow from './stepRow'
 

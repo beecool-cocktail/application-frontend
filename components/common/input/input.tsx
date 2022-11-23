@@ -204,7 +204,7 @@ const RawInput = (props: InputProps) => {
               fontSize: '24px'
             },
             '& svg *': {
-              stroke: theme => {
+              color: theme => {
                 const { light1, light2, light4 } = theme.palette
                 if (formControl && formControl.focused) return light1.main
                 if (formControl && formControl.filled) return light2.main

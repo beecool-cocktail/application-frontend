@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material'
 import useShare from 'lib/application/ui/useShare'
-import BackIcon from 'lib/assets/share/topNav/default.svg'
+import ShareIcon from 'lib/assets/shareOutlined.svg'
 
 export interface ShareButtonProps {
   contained?: boolean
@@ -24,7 +24,7 @@ const ShareButton = ({ contained, title }: ShareButtonProps) => {
       }}
       onClick={() => share(title)}
     >
-      <BackIcon />
+      <ShareIcon />
     </IconButton>
   )
 }

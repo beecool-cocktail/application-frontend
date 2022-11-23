@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material'
-import EditIcon from 'lib/assets/edit.svg'
+import EditIcon from 'lib/assets/editOutlined.svg'
 
 export interface EditButtonProps {
   contained?: boolean

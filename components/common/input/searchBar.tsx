@@ -1,7 +1,7 @@
 import { MouseEventHandler } from 'react'
 import { Box } from '@mui/material'
 import useSearchBar from 'lib/application/ui/useSearchBar'
-import Search from 'lib/assets/search/default.svg'
+import Search from 'lib/assets/searchOutlined.svg'
 import Close from 'lib/assets/cancelClose.svg'
 import Input from './input'
 

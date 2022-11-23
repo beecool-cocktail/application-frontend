@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 48 48">
+  <path fill="#7B7B7B" d="M7 21.5V42h11.5V29.6a.1.1 0 0 1 .1-.1h10.3a.1.1 0 0 1 .1.1V42h12V21.5L24 7 7 21.5Z"/>
+  <path stroke="currentColor" stroke-width="4" d="M18.5 42H7V21.5L24 7l17 14.5V42H29m-10.5 0V29.6a.1.1 0 0 1 .1-.1h10.3a.1.1 0 0 1 .1.1V42m-10.5 0H29"/>
+</svg>
