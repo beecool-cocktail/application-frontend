@@ -7,6 +7,7 @@ export interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'text' | 'contained' | 'outlined'
   disabled?: boolean
   children?: React.ReactNode
+  type?: string
   onClick?(): void
 }
 
