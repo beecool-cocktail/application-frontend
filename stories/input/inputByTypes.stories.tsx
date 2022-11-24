@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Box, Stack } from '@mui/material'
 import Input from 'components/common/input/input'
-import Search from 'lib/assets/search/default.svg'
+import Search from 'lib/assets/search.svg'
 import Close from 'lib/assets/cancelClose.svg'
 import { getCharacterCount } from 'lib/helper/string'
 
