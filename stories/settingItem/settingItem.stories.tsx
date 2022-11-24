@@ -3,6 +3,7 @@ import SettingItem from 'components/pages/settings/settingItem'
 import CameraIcon from 'lib/assets/cameraOutlined.svg'
 import DeleteIcon from 'lib/assets/deleteAvatarOutlined.svg'
 import LikeIcon from 'lib/assets/likeSettingPageOutlined.svg'
+import LogoutIcon from 'lib/assets/logOutOutlined.svg'
 
 export default {
   title: 'Profile/Setting Item',
@@ -37,6 +38,6 @@ Switch.args = {
 export const Danger = Template.bind({})
 Danger.args = {
   actionType: 'danger',
-  icon: <CameraIcon />,
+  icon: <LogoutIcon />,
   text: '登出'
 }

@@ -14,6 +14,8 @@ import LikeIcon from 'lib/assets/likeSettingPageOutlined.svg'
 import CameraIcon from 'lib/assets/cameraOutlined.svg'
 import DeleteIcon from 'lib/assets/deleteAvatarOutlined.svg'
 import EditIcon from 'lib/assets/editOutlined.svg'
+import DonateIcon from 'lib/assets/donateOutlined.svg'
+import ShakerIcon from 'lib/assets/shakerOutlined.svg'
 import LogoutIcon from 'lib/assets/logOutOutlined.svg'
 import GoogleIcon from 'lib/assets/googleLogo.svg'
 import BackButton from 'components/common/button/backButton'
@@ -118,6 +120,22 @@ const Settings = () => {
               onClick={updateCollectionPublic}
             />
             <SettingItem icon={<GoogleIcon />} text={user.email} />
+          </SettingItemGroup>
+          <SettingItemGroup>
+            <SettingItem
+              actionType="link"
+              icon={<ShakerIcon />}
+              text="關於我們"
+              switchValue={user.isCollectionPublic}
+            />
+            <SettingItem
+              actionType="link"
+              icon={<DonateIcon />}
+              text="買一杯調酒給我們"
+              onClick={() => {
+                window.open('https://www.buymeacoffee.com/whispering', '_blank')
+              }}
+            />
           </SettingItemGroup>
           <SettingItemGroup>
             <SettingItem
