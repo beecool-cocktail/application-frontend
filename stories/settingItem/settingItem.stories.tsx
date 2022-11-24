@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import SettingItem from 'components/pages/settings/settingItem'
-import CameraIcon from 'lib/assets/camera.svg'
-import DeleteIcon from 'lib/assets/delete.svg'
-import LikeIcon from 'lib/assets/like/likeDefault.svg'
+import CameraIcon from 'lib/assets/cameraOutlined.svg'
+import DeleteIcon from 'lib/assets/deleteAvatarOutlined.svg'
+import LikeIcon from 'lib/assets/likeSettingPageOutlined.svg'
 
 export default {
   title: 'Profile/Setting Item',
