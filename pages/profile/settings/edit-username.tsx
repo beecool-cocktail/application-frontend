@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
@@ -67,29 +67,18 @@ const UserNameContent = ({
       minHeight="100vh"
       sx={{ backgroundColor: theme => theme.palette.dark3.main }}
     >
-      <BasedTopNavigation position="sticky" thresholdHeight={185}>
-        {() => (
-          <Stack
-            direction="row"
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: 1,
-              height: 1,
-              px: '16px'
-            }}
-          >
-            <BackButton onClick={handleGoBack} />
-            <Typography variant="body1" color="light1">
-              更改名稱
-            </Typography>
-            <SubmitButton
-              onClick={handleConfirm}
-              disabled={!formState.isValid || !formState.isDirty}
-            />
-          </Stack>
+      <BasedTopNavigation
+        position="sticky"
+        thresholdHeight={185}
+        title={() => '更改名稱'}
+        leftSlot={() => <BackButton onClick={handleGoBack} />}
+        rightSlot={() => (
+          <SubmitButton
+            onClick={handleConfirm}
+            disabled={!formState.isValid || !formState.isDirty}
+          />
         )}
-      </BasedTopNavigation>
+      />
       <Box px="32px">
         <Controller
           name="username"

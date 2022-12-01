@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import useAuth from 'lib/application/useAuth'
@@ -38,41 +38,14 @@ const Settings = () => {
         backgroundColor: theme => theme.palette.dark3.main
       }}
     >
-      <BasedTopNavigation position="sticky" thresholdHeight={185}>
-        {() => (
-          <Stack
-            direction="row"
-            sx={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: 1,
-              height: 1,
-              px: '16px',
-              position: 'relative'
-            }}
-          >
-            <Box
-              sx={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                width: '100%',
-                height: '100%',
-                justifySelf: 'center',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <Typography variant="body1" color="light1">
-                個人設定
-              </Typography>
-            </Box>
-            <BackButton onClick={() => router.push(pathname.profile)} />
-          </Stack>
+      <BasedTopNavigation
+        position="sticky"
+        thresholdHeight={185}
+        leftSlot={() => (
+          <BackButton onClick={() => router.push(pathname.profile)} />
         )}
-      </BasedTopNavigation>
+        title={() => '個人設定'}
+      />
       <Stack
         sx={{
           alignItems: 'stretch',

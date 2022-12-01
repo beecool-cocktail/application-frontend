@@ -160,49 +160,12 @@ const ImageEditor = ({
         alignItems: 'center'
       }}
     >
-      <BasedTopNavigation position="sticky" thresholdHeight={185}>
-        {() => (
-          <Stack
-            direction="row"
-            sx={{
-              position: 'relative',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: 1,
-              height: 1,
-              px: '16px',
-              backgroundColor: theme => theme.palette.dark3.main
-            }}
-          >
-            <Box
-              sx={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                width: '100%',
-                height: '100%',
-                justifySelf: 'center',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <Typography
-                variant="body1"
-                color="light1"
-                style={{
-                  position: 'absolute',
-                  margin: 'auto'
-                }}
-              >
-                {type === 'change' ? '更換頭貼' : '編輯頭貼'}
-              </Typography>
-            </Box>
-            <BackButton />
-          </Stack>
-        )}
-      </BasedTopNavigation>
+      <BasedTopNavigation
+        position="sticky"
+        thresholdHeight={185}
+        leftSlot={() => <BackButton />}
+        title={() => (type === 'change' ? '更換頭貼' : '編輯頭貼')}
+      />
       <Box
         style={{
           position: 'relative',
