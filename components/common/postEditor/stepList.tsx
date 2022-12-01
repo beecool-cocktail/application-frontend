@@ -72,7 +72,7 @@ const StepList = ({ control }: StepListProps) => {
 
   return (
     <Stack>
-      <Typography>步驟教學</Typography>
+      <Typography>步驟教學*</Typography>
       <Box width={1} height={fields.length * HEIGHT} position="relative">
         {springs.map(({ zIndex, shadow, y, scale }, index) => (
           <animated.div

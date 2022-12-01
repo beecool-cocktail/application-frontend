@@ -1,4 +1,4 @@
-import { Add } from '@mui/icons-material'
+import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import { IconButton } from '@mui/material'
 
 export interface AddButtonProps {
@@ -11,8 +11,8 @@ const AddButton = ({
   onClick: handleClick
 }: AddButtonProps) => {
   return (
-    <IconButton onClick={handleClick}>
-      <Add sx={{ color }} />
+    <IconButton onClick={handleClick} sx={{ color }}>
+      <AddIcon />
     </IconButton>
   )
 }

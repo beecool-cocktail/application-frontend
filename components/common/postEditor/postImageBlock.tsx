@@ -1,7 +1,8 @@
 import React from 'react'
-import { Stack, TextField, Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
 import { CocktailPostForm } from 'lib/application/ports'
+import Input from '../input/input'
 import ImageSelector, { ImageSelectorProps } from './imageSelector'
 
 interface PostImageBlockProps {
@@ -59,7 +60,13 @@ const PostImageBlock = ({
           control={control}
           name="description"
           render={({ field }) => (
-            <TextField placeholder="請輸入文字" multiline rows={5} {...field} />
+            <Input
+              placeholder="請輸入文字"
+              multiline
+              rows={5}
+              maxLength={300}
+              {...field}
+            />
           )}
         ></Controller>
       </Stack>

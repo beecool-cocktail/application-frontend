@@ -24,4 +24,3 @@ const PhotoInput = ({ onClick }: PhotoInputProps) => {
 }
 
 export default PhotoInput
-

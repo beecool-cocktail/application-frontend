@@ -1,13 +1,11 @@
-import { Remove } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
+import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
 
 export interface RemoveButtonProps {
   color?: string
   disabled?: boolean
   onClick: () => void
 }
-
-const SIZE = 30
 
 const RemoveButton = ({
   color = 'white',
@@ -16,19 +14,13 @@ const RemoveButton = ({
 }: RemoveButtonProps) => {
   return (
     <IconButton
-      size="small"
       onClick={() => {
         if (disabled) return
         onClick()
       }}
-      style={{
-        width: SIZE,
-        height: SIZE,
-        backgroundColor: disabled ? 'grey' : 'black',
-        cursor: disabled ? 'default' : 'pointer'
-      }}
+      sx={{ fontSize: 24, color }}
     >
-      <Remove sx={{ color }} />
+      <DeleteIcon />
     </IconButton>
   )
 }

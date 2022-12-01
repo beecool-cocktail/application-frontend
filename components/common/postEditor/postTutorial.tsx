@@ -1,7 +1,8 @@
 import React from 'react'
-import { Stack, TextField } from '@mui/material'
+import { Stack } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import { CocktailPostForm } from 'lib/application/ports'
+import Input from 'components/common/input/input'
 import IngredientList from './ingredientList'
 import StepList from './stepList'
 
@@ -17,7 +18,13 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
         name="title"
         rules={{ required: true }}
         render={({ field }) => (
-          <TextField label="調酒名稱" fullWidth {...field} />
+          <Input
+            label="調酒名稱*"
+            placeholder="最多輸入30個字"
+            fullWidth
+            maxLength={30}
+            {...field}
+          />
         )}
       />
       <Stack>

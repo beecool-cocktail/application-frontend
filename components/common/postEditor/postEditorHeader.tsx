@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Stack, Step, StepLabel, Stepper } from '@mui/material'
 import Header from 'components/layout/header'
 import BackButton from 'components/common/button/backButton'
+import ProgressBar from './progressBar'
 
 interface CreatePostHeaderProps {
   isEditPost: boolean
@@ -37,6 +38,7 @@ const PostEditorHeader = ({
           )
         }
       />
+      <ProgressBar />
       <Stepper activeStep={activeStep}>
         {steps.map(label => (
           <Step key={label} completed={false}>

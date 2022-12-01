@@ -1,8 +1,9 @@
 import React from 'react'
-import { Stack, TextField, IconButton } from '@mui/material'
+import { Stack, IconButton } from '@mui/material'
 import { Menu } from '@mui/icons-material'
 import { Controller, Control } from 'react-hook-form'
 import RemoveButton from 'components/common/button/removeButton'
+import Input from 'components/common/input/input'
 import { CocktailPostForm } from 'lib/application/ports'
 
 interface StepInputProps {
@@ -30,9 +31,9 @@ const StepInput = ({
         name={name}
         rules={{ required: true }}
         render={({ field }) => (
-          <TextField
-            placeholder="輸入步驟"
-            multiline
+          <Input
+            placeholder="請輸入教學步驟"
+            // multiline
             fullWidth
             maxRows={2}
             {...field}

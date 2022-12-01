@@ -19,7 +19,7 @@ const IngredientList = ({ control }: IngredientListProps) => {
 
   return (
     <Stack>
-      <Typography>備料清單</Typography>
+      <Typography>備料清單*</Typography>
       <Stack spacing={2}>
         {fields.map((field, index) => (
           <IngredientInput

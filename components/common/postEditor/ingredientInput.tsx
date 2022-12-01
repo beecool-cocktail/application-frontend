@@ -1,7 +1,8 @@
 import React from 'react'
-import { OutlinedInput, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 import { Box } from '@mui/system'
 import { Controller, Control } from 'react-hook-form'
+import Input from 'components/common/input/input'
 import RemoveButton from 'components/common/button/removeButton'
 import { CocktailPostForm } from 'lib/application/ports'
 
@@ -35,7 +36,7 @@ const IngredientInput = ({
           name={ingredientName}
           rules={{ required: true }}
           render={({ field }) => (
-            <OutlinedInput placeholder="輸入材料" fullWidth {...field} />
+            <Input placeholder="請輸入材料" fullWidth {...field} />
           )}
         />
       </Box>
@@ -45,7 +46,7 @@ const IngredientInput = ({
           name={amountName}
           rules={{ required: true }}
           render={({ field }) => (
-            <OutlinedInput placeholder="數量/單位" fullWidth {...field} />
+            <Input placeholder="數量/單位" fullWidth {...field} />
           )}
         />
       </Box>
