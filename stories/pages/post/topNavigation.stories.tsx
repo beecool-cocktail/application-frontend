@@ -1,7 +1,10 @@
 import React from 'react'
+import Image from 'next/image'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Box, Typography } from '@mui/material'
-import TopNavigation from 'components/layout/topNavigation'
+import TopNavigation, {
+  TopNavigationProps
+} from 'components/layout/topNavigation'
 import IconButton from 'components/common/button/iconButton'
 import DraftIcon from 'lib/assets/draftOutlined.svg'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
@@ -14,14 +17,17 @@ export default {
   title: 'layout/TopNavigation',
   component: TopNavigation,
   argTypes: {
-    position: { type: 'string' },
+    position: {
+      control: { type: 'select' },
+      options: ['static', 'fixed', 'sticky']
+    },
     thresholdHeight: { type: 'number' }
   },
   parameters: {
     layout: 'fullscreen',
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3745%3A7982'
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=6677%3A10809&t=eaOZmKnag7Ug7i3E-4'
     }
   }
 } as ComponentMeta<typeof TopNavigation>
@@ -35,12 +41,27 @@ const Template: ComponentStory<typeof TopNavigation> = args => {
       }}
     >
       <TopNavigation {...args} />
+      <Box>
+        <Image
+          layout="responsive"
+          width={400}
+          height={300}
+          src="/cocktail-2.jpg"
+          alt="image"
+        />
+      </Box>
     </Box>
   )
 }
 
+const baseArgs: Partial<TopNavigationProps> = {
+  position: 'sticky',
+  thresholdHeight: 1
+}
+
 export const RightIconWithoutTitle = Template.bind({})
 RightIconWithoutTitle.args = {
+  ...baseArgs,
   rightSlot: () => (
     <>
       <IconButton>
@@ -55,11 +76,13 @@ RightIconWithoutTitle.args = {
 
 export const LeftIconWithoutTitle = Template.bind({})
 LeftIconWithoutTitle.args = {
+  ...baseArgs,
   leftSlot: () => <BackButton />
 }
 
 export const RightTextLeftIconWithoutTitle = Template.bind({})
 RightTextLeftIconWithoutTitle.args = {
+  ...baseArgs,
   leftSlot: () => <BackButton />,
   rightSlot: () => (
     <Typography variant="body2" color={theme => theme.palette.light4.main}>
@@ -70,14 +93,16 @@ RightTextLeftIconWithoutTitle.args = {
 
 export const LeftIconWithTitle = Template.bind({})
 LeftIconWithTitle.args = {
+  ...baseArgs,
   leftSlot: () => <BackButton />,
-  title: () => 'Title'
+  title: 'Title'
 }
 
 export const RightTextLeftIconWithTitle = Template.bind({})
 RightTextLeftIconWithTitle.args = {
+  ...baseArgs,
   leftSlot: () => <BackButton />,
-  title: () => 'Title',
+  title: 'Title',
   rightSlot: () => (
     <Typography variant="body2" color={theme => theme.palette.light4.main}>
       Text
@@ -87,8 +112,9 @@ RightTextLeftIconWithTitle.args = {
 
 export const RightIconLeftIconWithTitle = Template.bind({})
 RightIconLeftIconWithTitle.args = {
+  ...baseArgs,
   leftSlot: () => <BackButton />,
-  title: () => 'Title',
+  title: 'Title',
   rightSlot: () => (
     <IconButton>
       <TrashIcon />
@@ -98,12 +124,13 @@ RightIconLeftIconWithTitle.args = {
 
 export const RightIconLeftTextWithTitle = Template.bind({})
 RightIconLeftTextWithTitle.args = {
+  ...baseArgs,
   leftSlot: () => (
     <Typography variant="body2" color={theme => theme.palette.light4.main}>
       Text
     </Typography>
   ),
-  title: () => 'Title',
+  title: 'Title',
   rightSlot: () => (
     <IconButton>
       <TrashIcon />
@@ -113,6 +140,7 @@ RightIconLeftTextWithTitle.args = {
 
 export const RightIconLeftIconWithoutTitle = Template.bind({})
 RightIconLeftIconWithoutTitle.args = {
+  ...baseArgs,
   leftSlot: () => <BackButton />,
   rightSlot: () => (
     <>

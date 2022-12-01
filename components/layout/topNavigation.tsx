@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { Stack, Typography } from '@mui/material'
 import throttle from 'lodash.throttle'
 
-interface TopNavigationProps {
-  position?: 'fixed' | 'sticky'
+export interface TopNavigationProps {
+  position?: 'static' | 'fixed' | 'sticky'
   thresholdHeight?: number
-  title?: (concrete: boolean) => string
+  title?: ((concrete: boolean) => string) | string
   leftSlot?: (concrete: boolean) => React.ReactNode
   rightSlot?: (concrete: boolean) => React.ReactNode
 }
@@ -22,14 +22,23 @@ const TopNavigation = ({
   const [concrete, setConcrete] = useState(false)
 
   useEffect(() => {
-    const handleScroll = throttle(() => {
+    const processConcrete = () => {
       if (window.scrollY >= thresholdHeight) setConcrete(true)
       else setConcrete(false)
-    }, 100)
+    }
 
+    processConcrete()
+
+    const handleScroll = throttle(processConcrete, 100)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [concrete, thresholdHeight])
+  }, [thresholdHeight])
+
+  const renderTitle = () => {
+    if (!title) return null
+    if (typeof title === 'string') return title
+    return title(concrete)
+  }
 
   return (
     <Stack
@@ -66,7 +75,7 @@ const TopNavigation = ({
         justifyContent="center"
       >
         <Typography variant="body1" color="light1">
-          {title?.(concrete)}
+          {renderTitle()}
         </Typography>
       </Stack>
       <Stack
