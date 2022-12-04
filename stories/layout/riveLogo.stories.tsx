@@ -11,29 +11,10 @@ const Template: ComponentStory<typeof RiveLogo> = ({ ...args }) => (
   <RiveLogo {...args} />
 )
 
-export const PlayOnceByPath = Template.bind({})
-PlayOnceByPath.args = {
-  src: './tabBar.riv',
-  autoplay: false
+export const Default = Template.bind({})
+Default.args = {
+  src: './logo.riv',
+  artboard: 'Logo Fold',
+  stateMachines: 'State Machine 1',
+  scrolling: false
 }
-
-// export const LoopByPath = Template.bind({})
-// LoopByPath.args = {
-//   loop: true,
-//   autoplay: true,
-//   path: 'https://assets2.lottiefiles.com/packages/lf20_ux73oxwe.json'
-// }
-
-// export const PlayOnceByAnimationData = Template.bind({})
-// PlayOnceByAnimationData.args = {
-//   loop: false,
-//   autoplay: true,
-//   animationData
-// }
-
-// export const LoopByAnimationData = Template.bind({})
-// LoopByAnimationData.args = {
-//   loop: true,
-//   autoplay: true,
-//   animationData
-// }

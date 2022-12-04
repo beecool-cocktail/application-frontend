@@ -1,17 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from '@mui/material'
-import { useRive } from '@rive-app/react-canvas'
+import { useRive, useStateMachineInput } from '@rive-app/react-canvas'
 
 interface RiveLogoProps {
   src: string
-  autoplay?: boolean
+  scrolling: boolean
+  artboard: string
+  stateMachines: string
 }
 
-const RiveLogo = ({ src, autoplay = false }: RiveLogoProps) => {
+const RiveLogo = ({
+  src,
+  scrolling,
+  artboard,
+  stateMachines
+}: RiveLogoProps) => {
   const { rive, RiveComponent } = useRive({
     src,
-    autoplay
+    artboard,
+    stateMachines,
+    autoplay: true
   })
+
+  const input = useStateMachineInput(rive, stateMachines, 'Scrolling')
+
+  useEffect(() => {
+    if (!input) return
+    input.value = scrolling
+  }, [input, scrolling])
 
   return (
     <Box>
@@ -22,7 +38,6 @@ const RiveLogo = ({ src, autoplay = false }: RiveLogoProps) => {
         }}
         width={500}
         height={500}
-        onClick={() => rive && rive.play()}
       />
     </Box>
   )
