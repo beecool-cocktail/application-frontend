@@ -2,23 +2,23 @@
   <rect width="38" height="14" x="43" y="31" fill="#0D85FF" rx="4" transform="rotate(180 43 31)"/>
   <rect width="2" height="14" x="45" y="31" fill="#A0A0A0" rx="1" transform="rotate(180 45 31)"/>
   <path stroke="#EBEBEB" stroke-width="4" d="M43 24c0 2.809 0 4.213-.674 5.222a4.003 4.003 0 0 1-1.104 1.104C40.213 31 38.81 31 36 31H12c-2.809 0-4.213 0-5.222-.674a4.002 4.002 0 0 1-1.104-1.104C5 28.213 5 26.81 5 24c0-2.809 0-4.213.674-5.222a4.002 4.002 0 0 1 1.104-1.104C7.787 17 9.19 17 12 17h24c2.809 0 4.213 0 5.222.674a4 4 0 0 1 1.104 1.104C43 19.787 43 21.19 43 24Z"/>
-  <g filter="url(#a)">
-    <mask id="b" fill="#fff">
+  <g filter="url(#switch-control-on__a)">
+    <mask id="switch-control-on__b" fill="#fff">
       <rect width="16" height="24" x="29" y="12" rx="4"/>
     </mask>
     <rect width="16" height="24" x="29" y="12" fill="#EBEBEB" rx="4"/>
-    <rect width="16" height="24" x="29" y="12" stroke="#EBEBEB" stroke-width="16" mask="url(#b)" rx="4"/>
+    <rect width="16" height="24" x="29" y="12" stroke="#EBEBEB" stroke-width="16" mask="url(#switch-control-on__b)" rx="4"/>
   </g>
   <defs>
-    <filter id="a" width="24" height="32" x="25" y="12" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+    <filter id="switch-control-on__a" width="24" height="32" x="25" y="12" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
       <feFlood flood-opacity="0" result="BackgroundImageFix"/>
       <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
       <feOffset dy="4"/>
       <feGaussianBlur stdDeviation="2"/>
       <feComposite in2="hardAlpha" operator="out"/>
       <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_965_919"/>
-      <feBlend in="SourceGraphic" in2="effect1_dropShadow_965_919" result="shape"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1020_469"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow_1020_469" result="shape"/>
     </filter>
   </defs>
 </svg>

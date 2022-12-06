@@ -3,7 +3,7 @@ import React from 'react'
 import Search from 'lib/assets/search.svg'
 import PlusAdd from 'lib/assets/plusAdd.svg'
 import Profile from 'lib/assets/profile.svg'
-import Home from 'lib/assets/homeDefault.svg'
+import Home from 'lib/assets/home.svg'
 
 export interface Route {
   path: string

@@ -9,13 +9,13 @@ import Avatar from 'components/common/image/avatar'
 import SettingItem from 'components/pages/settings/settingItem'
 import SettingItemGroup from 'components/pages/settings/settingItemGroup'
 import { pathname } from 'lib/configs/routes'
+import AboutUsIcon from 'lib/assets/aboutUsOutlined.svg'
 import AccountIcon from 'lib/assets/accountOutlined.svg'
 import LikeIcon from 'lib/assets/likeSettingPageOutlined.svg'
 import CameraIcon from 'lib/assets/cameraOutlined.svg'
 import DeleteIcon from 'lib/assets/deleteAvatarOutlined.svg'
 import EditIcon from 'lib/assets/editOutlined.svg'
 import DonateIcon from 'lib/assets/donateOutlined.svg'
-import ShakerIcon from 'lib/assets/shakerOutlined.svg'
 import LogoutIcon from 'lib/assets/logOutOutlined.svg'
 import GoogleIcon from 'lib/assets/googleLogo.svg'
 import BackButton from 'components/common/button/backButton'
@@ -97,7 +97,7 @@ const Settings = () => {
           <SettingItemGroup>
             <SettingItem
               actionType="link"
-              icon={<ShakerIcon />}
+              icon={<AboutUsIcon />}
               text="關於我們"
               switchValue={user.isCollectionPublic}
             />
