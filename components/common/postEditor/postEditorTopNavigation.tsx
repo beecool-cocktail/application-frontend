@@ -1,12 +1,12 @@
 import React from 'react'
-import { Button, Stack, Step, StepLabel, Stepper } from '@mui/material'
-import Header from 'components/layout/header'
+import { Button, Stack } from '@mui/material'
+import TopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
 import ProgressBar from './progressBar'
 
 interface CreatePostHeaderProps {
   isEditPost: boolean
-  steps: string[]
+  totalStep: number
   activeStep: number
   savable: boolean
   onBack(): void
@@ -14,9 +14,9 @@ interface CreatePostHeaderProps {
   onPreview(): void
 }
 
-const PostEditorHeader = ({
+const PostEditorTopNavigation = ({
   isEditPost,
-  steps,
+  totalStep,
   activeStep,
   savable,
   onBack,
@@ -25,10 +25,9 @@ const PostEditorHeader = ({
 }: CreatePostHeaderProps) => {
   return (
     <Stack>
-      <Header
-        title={isEditPost ? '編輯貼文' : '發文'}
-        leftButton={<BackButton onClick={onBack} />}
-        rightButton={
+      <TopNavigation
+        leftSlot={() => <BackButton onClick={onBack} />}
+        rightSlot={() =>
           isEditPost ? (
             <Button onClick={onPreview}>預覽</Button>
           ) : (
@@ -38,16 +37,16 @@ const PostEditorHeader = ({
           )
         }
       />
-      <ProgressBar />
-      <Stepper activeStep={activeStep}>
+      <ProgressBar totalStep={totalStep} activeStep={activeStep} />
+      {/* <Stepper activeStep={activeStep}>
         {steps.map(label => (
           <Step key={label} completed={false}>
             <StepLabel />
           </Step>
         ))}
-      </Stepper>
+      </Stepper> */}
     </Stack>
   )
 }
 
-export default PostEditorHeader
+export default PostEditorTopNavigation

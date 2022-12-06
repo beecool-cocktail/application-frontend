@@ -14,7 +14,7 @@ import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
 import useConfirmDialog from './ui/useConfirmDialog'
 
-const steps = ['step 1', 'step 2', 'step 3']
+const totalStep = 3
 
 const defaultIngredients: Ingredient[] = [{ name: '', amount: '' }]
 const defaultSteps: Step[] = [{ description: '' }]
@@ -105,12 +105,12 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
 
   const goNext = () => {
     setActiveStep(prevStep => {
-      if (prevStep >= steps.length - 1) return prevStep
+      if (prevStep >= totalStep - 1) return prevStep
       return prevStep + 1
     })
   }
 
-  const goPreview = () => setActiveStep(steps.length - 1)
+  const goPreview = () => setActiveStep(totalStep - 1)
 
   const saveDraft = async () => {
     const token = storage.getToken()
@@ -208,7 +208,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
   return {
     form: { control, isDirty, getValues },
     isEditPost,
-    steps,
+    totalStep,
     activeStep,
     goBack,
     goNext,

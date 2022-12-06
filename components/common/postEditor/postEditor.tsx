@@ -5,7 +5,7 @@ import usePostEditor from 'lib/application/usePostEditor'
 import FloatingButton from 'components/common/button/scrollToButton'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
-import PostEditorHeader from './postEditorHeader'
+import PostEditorTopNavigation from './postEditorTopNavigation'
 import PostTutorial from './postTutorial'
 
 export interface PostEditorProps {
@@ -18,7 +18,7 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   const {
     form: { control, getValues, isDirty },
     isEditPost,
-    steps,
+    totalStep,
     activeStep,
     goBack,
     goNext,
@@ -53,9 +53,9 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
 
   return (
     <Stack alignItems="stretch" minHeight="100vh">
-      <PostEditorHeader
+      <PostEditorTopNavigation
         isEditPost={isEditPost}
-        steps={steps}
+        totalStep={totalStep}
         activeStep={activeStep}
         savable={isDirty}
         onBack={goBack}
