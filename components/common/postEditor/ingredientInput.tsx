@@ -3,8 +3,9 @@ import { Stack } from '@mui/material'
 import { Box } from '@mui/system'
 import { Controller, Control } from 'react-hook-form'
 import Input from 'components/common/input/input'
-import RemoveButton from 'components/common/button/removeButton'
+import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
 import { CocktailPostForm } from 'lib/application/ports'
+import IconButton from '../button/iconButton'
 
 interface IngredientInputProps {
   ingredientName: `ingredients.${number}.name`
@@ -29,7 +30,9 @@ const IngredientInput = ({
       flexDirection="row"
       spacing={1}
     >
-      <RemoveButton disabled={removeDisabled} onClick={onRemove} />
+      <IconButton disabled={removeDisabled} onClick={onRemove}>
+        <DeleteIcon />
+      </IconButton>
       <Box flex={1}>
         <Controller
           control={control}

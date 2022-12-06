@@ -1,7 +1,8 @@
 import BasedTopNavigation, { NAV_HEIGHT } from 'components/layout/topNavigation'
+import EditIcon from 'lib/assets/editOutlined.svg'
 import BackButton from '../button/backButton'
 import ShareButton from '../button/shareButton'
-import EditButton from '../button/editButton'
+import IconButton from '../button/iconButton'
 
 interface PostTopNavigationProps {
   title: string
@@ -26,7 +27,11 @@ const PostTopNavigation = ({
       rightSlot={concrete => (
         <>
           <ShareButton title={title} contained={!concrete} />
-          {editable && <EditButton contained={!concrete} onClick={onEdit} />}
+          {editable && (
+            <IconButton contained={!concrete} onClick={onEdit}>
+              <EditIcon />
+            </IconButton>
+          )}
         </>
       )}
     />

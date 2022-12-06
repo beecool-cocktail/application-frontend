@@ -2,8 +2,9 @@ import React from 'react'
 import { Control } from 'react-hook-form'
 import { Stack, Typography } from '@mui/material'
 import { useFieldArray } from 'react-hook-form'
-import AddButton from 'components/common/button/addButton'
 import { CocktailPostForm } from 'lib/application/ports'
+import IconButton from '../button/iconButton'
+import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import IngredientInput from './ingredientInput'
 
 interface IngredientListProps {
@@ -32,7 +33,9 @@ const IngredientList = ({ control }: IngredientListProps) => {
           />
         ))}
       </Stack>
-      <AddButton onClick={handleAdd} />
+      <IconButton onClick={handleAdd}>
+        <AddIcon />
+      </IconButton>
     </Stack>
   )
 }

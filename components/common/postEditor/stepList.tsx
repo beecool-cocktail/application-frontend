@@ -7,8 +7,9 @@ import { clamp } from 'ramda'
 // @ts-ignore
 import swap from 'lodash-move'
 import { Control, useFieldArray } from 'react-hook-form'
-import AddButton from 'components/common/button/addButton'
 import { CocktailPostForm } from 'lib/application/ports'
+import IconButton from '../button/iconButton'
+import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import StepInput from './stepInput'
 
 const HEIGHT = 100
@@ -100,7 +101,9 @@ const StepList = ({ control }: StepListProps) => {
           </animated.div>
         ))}
       </Box>
-      <AddButton onClick={handleAdd} />
+      <IconButton onClick={handleAdd}>
+        <AddIcon />
+      </IconButton>
     </Stack>
   )
 }

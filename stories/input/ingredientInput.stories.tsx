@@ -8,7 +8,7 @@ export default {
   title: 'input/Ingredient Input',
   component: IngredientInput,
   argTypes: {
-    disabled: { type: 'boolean' },
+    removeDisabled: { type: 'boolean' },
     onRemove: { action: 'remove' }
   }
 } as ComponentMeta<typeof IngredientInput>
@@ -26,6 +26,9 @@ const Template: ComponentStory<typeof IngredientInput> = args => {
 }
 
 export const Normal = Template.bind({})
+Normal.args = {
+  removeDisabled: false
+}
 
 export const Disabled = Template.bind({})
 Disabled.args = {

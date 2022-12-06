@@ -1,10 +1,10 @@
 import React from 'react'
-import { Stack, IconButton } from '@mui/material'
-import { Menu } from '@mui/icons-material'
+import { Stack } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
-import RemoveButton from 'components/common/button/removeButton'
+import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
 import Input from 'components/common/input/input'
 import { CocktailPostForm } from 'lib/application/ports'
+import IconButton from '../button/iconButton'
 
 interface StepInputProps {
   name: `steps.${number}.description`
@@ -24,8 +24,17 @@ const StepInput = ({
   onRemove
 }: StepInputProps) => {
   return (
-    <Stack spacing={1} direction="row" alignItems="center" height={height}>
-      <RemoveButton disabled={removeDisabled} onClick={onRemove} />
+    <Stack
+      spacing={1}
+      direction="row"
+      alignItems="center"
+      height={height}
+      {...bind}
+      style={{ touchAction: 'none' }}
+    >
+      <IconButton disabled={removeDisabled} onClick={onRemove}>
+        <DeleteIcon />
+      </IconButton>
       <Controller
         control={control}
         name={name}
@@ -40,9 +49,6 @@ const StepInput = ({
           />
         )}
       />
-      <IconButton {...bind} style={{ touchAction: 'none' }}>
-        <Menu />
-      </IconButton>
     </Stack>
   )
 }

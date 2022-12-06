@@ -2,11 +2,11 @@ import { IconButton as BaseIconButton } from '@mui/material'
 import React from 'react'
 
 export interface IconButtonProps {
-  contained?: boolean
-  onClick?(e: React.MouseEvent): void
   children: React.ReactNode
+  contained?: boolean
   size?: number
   disabled?: boolean
+  onClick?(e: React.MouseEvent): void
 }
 
 const IconButton = ({
@@ -26,9 +26,11 @@ const IconButton = ({
         backgroundColor: theme => {
           if (contained) return theme.palette.light4.main
         },
-        color: theme =>
-          disabled ? theme.palette.light4.main : theme.palette.light1.main,
-        fontSize: 24
+        color: theme => theme.palette.light1.main,
+        fontSize: 24,
+        '&:disabled': {
+          color: theme => theme.palette.light4.main
+        }
       }}
       onClick={onClick}
     >
