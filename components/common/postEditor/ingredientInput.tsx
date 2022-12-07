@@ -33,7 +33,7 @@ const IngredientInput = ({
       <IconButton disabled={removeDisabled} onClick={onRemove}>
         <DeleteIcon />
       </IconButton>
-      <Box flex={1}>
+      <Box flex={1} width={0}>
         <Controller
           control={control}
           name={ingredientName}

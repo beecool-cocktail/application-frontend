@@ -5,7 +5,7 @@ import IngredientInput from 'components/common/postEditor/ingredientInput'
 import { CocktailPostForm } from 'lib/application/ports'
 
 export default {
-  title: 'input/Ingredient Input',
+  title: 'input/Post Editor/Ingredient Input',
   component: IngredientInput,
   argTypes: {
     removeDisabled: { type: 'boolean' },

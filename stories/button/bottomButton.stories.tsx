@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import BottomButton from 'components/common/button/bottomButton'
 
 export default {
-  title: 'button/BottomButton',
+  title: 'button/Bottom Button',
   component: BottomButton,
   argTypes: {
     position: {
