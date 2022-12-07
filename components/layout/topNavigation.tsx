@@ -5,6 +5,7 @@ import throttle from 'lodash.throttle'
 export interface TopNavigationProps {
   position?: 'static' | 'fixed' | 'sticky'
   thresholdHeight?: number
+  bgcolor?: string
   title?: ((concrete: boolean) => string) | string
   leftSlot?: (concrete: boolean) => React.ReactNode
   rightSlot?: (concrete: boolean) => React.ReactNode
@@ -13,8 +14,9 @@ export interface TopNavigationProps {
 export const NAV_HEIGHT = 40
 
 const TopNavigation = ({
-  thresholdHeight = NAV_HEIGHT,
   position = 'sticky',
+  thresholdHeight = NAV_HEIGHT,
+  bgcolor = 'transparent',
   title,
   leftSlot,
   rightSlot
@@ -53,14 +55,13 @@ const TopNavigation = ({
         width: '100%',
         height: NAV_HEIGHT,
         px: '16px',
-        backgroundColor: theme =>
-          concrete ? theme.palette.dark3.main : undefined
+        bgcolor: theme => (concrete ? theme.palette.dark3.main : bgcolor)
       }}
     >
       <Stack
         direction="row"
         flex={1}
-        rowGap="8px"
+        columnGap="8px"
         display="flex"
         alignItems="center"
         justifyContent="flex-start"
@@ -80,7 +81,7 @@ const TopNavigation = ({
       </Stack>
       <Stack
         direction="row"
-        rowGap="8px"
+        columnGap="8px"
         flex={1}
         display="flex"
         alignItems="center"

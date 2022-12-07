@@ -52,7 +52,11 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   if (!user) return null
 
   return (
-    <Stack alignItems="stretch" minHeight="100vh">
+    <Stack
+      alignItems="stretch"
+      minHeight="100vh"
+      bgcolor={theme => theme.palette.dark3.main}
+    >
       <PostEditorTopNavigation
         isEditPost={isEditPost}
         totalStep={totalStep}

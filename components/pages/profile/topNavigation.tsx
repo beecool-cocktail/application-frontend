@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import SettingIcon from 'lib/assets/setting.svg'
 import DraftIcon from 'lib/assets/draftOutlined.svg'
@@ -12,11 +13,13 @@ interface TopNavigationProps {
 
 const TopNavigation = ({ isVisitor }: TopNavigationProps) => {
   const router = useCornerRouter()
+  const theme = useTheme()
 
   return (
     <BasedTopNavigation
       position="sticky"
       thresholdHeight={185}
+      bgcolor={theme.palette.dark5.main}
       leftSlot={() => isVisitor && <BackButton />}
       rightSlot={() => {
         if (isVisitor) return null
