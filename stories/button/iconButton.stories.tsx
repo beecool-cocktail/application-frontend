@@ -17,6 +17,12 @@ export default {
   component: IconButton,
   argTypes: {
     onClick: { action: 'click' }
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=8398%3A24589&t=YxVj1MAEFPTKhVNF-4'
+    }
   }
 } as ComponentMeta<typeof IconButton>
 
@@ -53,6 +59,7 @@ const Template: ComponentStory<typeof IconButton> = args => {
 export const Normal = Template.bind({})
 Normal.args = {
   size: 28,
+  fontSize: 24,
   contained: false,
   disabled: false
 }

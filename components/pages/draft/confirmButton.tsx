@@ -1,4 +1,4 @@
-import FloatingButton from 'components/common/button/floatingButton'
+import BottomButton from 'components/common/button/bottomButton'
 
 interface ConfirmButtonProps {
   selectedCount: number
@@ -7,10 +7,11 @@ interface ConfirmButtonProps {
 
 const ConfirmButton = ({ selectedCount, onClick }: ConfirmButtonProps) => {
   return (
-    <FloatingButton
+    <BottomButton
+      position="fixed"
       disabled={selectedCount === 0}
       onClick={onClick}
-    >{`確認刪除(${selectedCount})`}</FloatingButton>
+    >{`確認刪除(${selectedCount})`}</BottomButton>
   )
 }
 

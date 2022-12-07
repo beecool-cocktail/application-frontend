@@ -5,6 +5,7 @@ export interface IconButtonProps {
   children: React.ReactNode
   contained?: boolean
   size?: number
+  fontSize?: number
   disabled?: boolean
   onClick?(e: React.MouseEvent): void
 }
@@ -13,6 +14,7 @@ const IconButton = ({
   children,
   contained,
   size = 28,
+  fontSize = 24,
   onClick,
   disabled
 }: IconButtonProps) => {
@@ -27,7 +29,7 @@ const IconButton = ({
           if (contained) return theme.palette.light4.main
         },
         color: theme => theme.palette.light1.main,
-        fontSize: 24,
+        fontSize,
         '&:disabled': {
           color: theme => theme.palette.light4.main
         }

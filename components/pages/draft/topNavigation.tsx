@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 import BackButton from 'components/common/button/backButton'
-import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
+import TrashIcon from 'lib/assets/trashOutlined.svg'
 import IconButton from 'components/common/button/iconButton'
 import BasedTopNavigation from 'components/layout/topNavigation'
 
@@ -37,7 +37,7 @@ const TopNavigation = ({
       }}
       rightSlot={() => (
         <IconButton contained={isEditMode} onClick={onDelete}>
-          <DeleteIcon />
+          <TrashIcon />
         </IconButton>
       )}
     />

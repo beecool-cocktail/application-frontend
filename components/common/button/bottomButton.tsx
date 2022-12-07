@@ -1,16 +1,22 @@
 import { Box } from '@mui/material'
 import Button, { ButtonProps } from 'components/common/button/button'
 
-const ScrollToButton = (props: ButtonProps) => {
+interface BottomButton extends ButtonProps {
+  position?: 'static' | 'fixed'
+}
+
+const BottomButton = (props: BottomButton) => {
   return (
     <Box
       sx={{
+        position: props.position,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         bottom: 0,
         left: 0,
         width: 1,
+        height: 124,
         px: '40px',
         py: '40px',
         background: theme =>
@@ -22,4 +28,4 @@ const ScrollToButton = (props: ButtonProps) => {
   )
 }
 
-export default ScrollToButton
+export default BottomButton

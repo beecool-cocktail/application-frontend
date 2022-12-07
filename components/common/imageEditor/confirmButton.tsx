@@ -1,4 +1,4 @@
-import FloatingButton from 'components/common/button/floatingButton'
+import BottomButton from 'components/common/button/bottomButton'
 
 interface ConfirmButtonProps {
   onClick(): void
@@ -6,9 +6,9 @@ interface ConfirmButtonProps {
 
 const ConfirmButton = ({ onClick }: ConfirmButtonProps) => {
   return (
-    <FloatingButton sx={{ width: 1 }} onClick={onClick}>
+    <BottomButton sx={{ width: 1 }} onClick={onClick}>
       確認
-    </FloatingButton>
+    </BottomButton>
   )
 }
 

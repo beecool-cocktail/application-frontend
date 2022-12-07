@@ -2,7 +2,7 @@ import { Stack } from '@mui/material'
 import { CocktailPostPreview, CocktailPostDraft } from 'lib/domain/cocktail'
 import userCurrentUser from 'lib/application/user/useCurrentUser'
 import usePostEditor from 'lib/application/usePostEditor'
-import FloatingButton from 'components/common/button/scrollToButton'
+import BottomButton from 'components/common/button/bottomButton'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
 import PostEditorTopNavigation from './postEditorTopNavigation'
@@ -43,9 +43,9 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
       label = draft ? '重新發佈' : '發布'
     }
     return (
-      <FloatingButton type={type} onClick={onClick}>
+      <BottomButton position="static" type={type} onClick={onClick}>
         {label}
-      </FloatingButton>
+      </BottomButton>
     )
   }
 

@@ -1,12 +1,16 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import FloatingButton from 'components/common/button/floatingButton'
+import BottomButton from 'components/common/button/bottomButton'
 
 export default {
-  title: 'button/FloatingButton',
-  component: FloatingButton,
+  title: 'button/BottomButton',
+  component: BottomButton,
   argTypes: {
+    position: {
+      control: { type: 'select' },
+      options: ['static', 'fixed']
+    },
     disabled: { type: 'boolean' },
     children: { type: 'string' },
     onClick: { action: 'click' }
@@ -18,21 +22,29 @@ export default {
       url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=6731%3A11355&t=hU57e5IQ4Reeci6G-4'
     }
   }
-} as ComponentMeta<typeof FloatingButton>
+} as ComponentMeta<typeof BottomButton>
 
-const Template: ComponentStory<typeof FloatingButton> = args => {
+const Template: ComponentStory<typeof BottomButton> = args => {
   return (
     <Box>
       <Box
         sx={{ background: theme => theme.palette.grey[700], height: '120vh' }}
       />
-      <FloatingButton {...args} />
+      <BottomButton {...args} />
     </Box>
   )
 }
 
-export const Normal = Template.bind({})
-Normal.args = {
+export const FloatingButton = Template.bind({})
+FloatingButton.args = {
+  position: 'fixed',
+  disabled: false,
+  children: 'Default'
+}
+
+export const ScrollToBottom = Template.bind({})
+ScrollToBottom.args = {
+  position: 'static',
   disabled: false,
   children: 'Default'
 }
