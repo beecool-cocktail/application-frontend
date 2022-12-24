@@ -12,6 +12,7 @@ import { PhotoWithBlur } from 'lib/domain/photo'
 import cocktailService from 'lib/services/cocktailAdapter'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import useStore from 'lib/services/storeAdapter'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
 import useSnackbar from '../ui/useSnackbar'
 import useLoginDialog from '../ui/useLoginDialog'
@@ -117,17 +118,21 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
     }))
 
     await mutate(optimisticData, false)
+
+    let snackbarMessage = snackbarMessages.collect
     try {
       if (isCollected) {
+        snackbarMessage = snackbarMessages.remove
         await favoriteCocktailService.remove(id, token)
-        snackbar.success('remove success')
       } else {
+        snackbarMessage = snackbarMessages.collect
         await favoriteCocktailService.collect(id, token)
-        snackbar.success('collect success')
       }
-    } catch (e) {
+      snackbar.success(snackbarMessage.success)
+    } catch (err) {
+      console.error(err)
+      snackbar.error(snackbarMessage.error)
       await mutate(pageData, false)
-      if (e instanceof Error) snackbar.error(e.message)
     }
   }
 

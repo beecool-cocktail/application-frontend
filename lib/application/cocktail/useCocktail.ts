@@ -7,6 +7,7 @@ import { CocktailPost, collectCocktail } from 'lib/domain/cocktail'
 import cocktailService from 'lib/services/cocktailAdapter'
 import useUser from 'lib/application/user/useUser'
 import { paths } from 'lib/configs/routes'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useSnackbar from '../ui/useSnackbar'
@@ -59,20 +60,23 @@ const useCocktail = (id?: number) => {
       }
     }
 
+    let snackbarMessage = snackbarMessages.collect
     try {
       await mutate(async optimisticData => {
         if (!optimisticData) return
         if (optimisticData.isCollected) {
+          snackbarMessage = snackbarMessages.collect
           await favoriteCocktailService.collect(id, token)
-          snackbar.success('collect success')
         } else {
+          snackbarMessage = snackbarMessages.remove
           await favoriteCocktailService.remove(id, token)
-          snackbar.success('remove success')
         }
         return optimisticData
       }, mutateOpts)
-    } catch (e) {
-      if (e instanceof Error) snackbar.error(e.message)
+      snackbar.success(snackbarMessage.success)
+    } catch (err) {
+      console.error(err)
+      snackbar.error(snackbarMessage.error)
     }
   }
 

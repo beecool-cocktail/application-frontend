@@ -9,6 +9,7 @@ import usePostEditorService from 'lib/services/postEditorAdapter'
 import { CocktailPostDraft, Ingredient, Step } from 'lib/domain/cocktail'
 import { EditablePhoto } from 'lib/domain/photo'
 import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import { CocktailPostForm } from './ports'
 import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
@@ -25,25 +26,6 @@ const createModeDefaultValues: CocktailPostForm = {
   photos: [],
   ingredients: defaultIngredients,
   steps: defaultSteps
-}
-
-const snackbarMessages = {
-  createPost: {
-    success: '發布成功',
-    error: '發佈失敗'
-  },
-  updatePost: {
-    success: '發布成功',
-    error: '發佈失敗'
-  },
-  createDraft: {
-    success: '儲存成功',
-    error: '儲存失敗'
-  },
-  updateDraft: {
-    success: '儲存成功',
-    error: '儲存失敗'
-  }
 }
 
 const getDefaultCroppedImage = async (src: string): Promise<string> => {

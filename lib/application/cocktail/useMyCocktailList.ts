@@ -8,9 +8,8 @@ import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { ProfileCocktailItem } from 'lib/domain/cocktail'
 import { paths } from 'lib/configs/routes'
-import commandService from 'lib/services/commandAdapter'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
-import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import useUser from '../user/useUser'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useLoginDialog from '../ui/useLoginDialog'
@@ -54,11 +53,19 @@ const useMyCocktailList = (userId?: number) => {
   const handleDeleteConfirm = (id: number) => async () => {
     const token = storage.getToken()
     if (!token) return
-    await myCocktailService.deleteById(id, token)
-    mutate()
-    userMutate()
-    snackbar.success('remove success')
-    confirmDialog.destroy()
+
+    try {
+      await myCocktailService.deleteById(id, token)
+      mutate()
+      userMutate()
+      snackbar.success(snackbarMessages.remove.success)
+      confirmDialog.destroy()
+    } catch (err) {
+      console.error(err)
+      snackbar.success(snackbarMessages.remove.error)
+    } finally {
+      confirmDialog.destroy()
+    }
   }
 
   const collectCocktail = async (cocktail: ProfileCocktailItem) => {
@@ -68,10 +75,15 @@ const useMyCocktailList = (userId?: number) => {
       return
     }
 
-    await favoriteCocktailService.collect(cocktail.id, token)
-    mutate()
-    if (!isVisitor) userMutate()
-    snackbar.success('collect success')
+    try {
+      await favoriteCocktailService.collect(cocktail.id, token)
+      mutate()
+      if (!isVisitor) userMutate()
+      snackbar.success(snackbarMessages.collect.success)
+    } catch (err) {
+      console.error(err)
+      snackbar.success(snackbarMessages.collect.error)
+    }
   }
 
   const deleteCocktail = async (cocktail: ProfileCocktailItem) => {
@@ -88,18 +100,15 @@ const useMyCocktailList = (userId?: number) => {
     const token = storage.getToken()
     if (!token) return
 
-    const commandId = await favoriteCocktailService.remove(cocktail.id, token)
-    mutate()
-    if (!isVisitor) userMutate()
-    snackbar.success(
-      'remove success',
-      DEFAULT_CONFIG.undoDuration,
-      async () => {
-        await commandService.undoCommand(commandId, token)
-        mutate()
-        if (!isVisitor) userMutate()
-      }
-    )
+    try {
+      await favoriteCocktailService.remove(cocktail.id, token)
+      mutate()
+      if (!isVisitor) userMutate()
+      snackbar.success(snackbarMessages.remove.success)
+    } catch (err) {
+      console.error(err)
+      snackbar.error(snackbarMessages.removeWithUndo.error)
+    }
   }
 
   const shareCocktail = (cocktail: ProfileCocktailItem) =>

@@ -10,6 +10,7 @@ import { FALLBACK_URL } from 'lib/constants/image'
 import { FavoriteCocktailList, ProfileCocktailItem } from 'lib/domain/cocktail'
 import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
 import { paths } from 'lib/configs/routes'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import useUser from '../user/useUser'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
@@ -61,29 +62,44 @@ const useFavoriteCocktailList = (userId?: number) => {
       return
     }
 
-    await favoriteCocktailService.collect(cocktail.id, token)
-    mutate()
-    if (!isVisitor) userMutate()
-    snackbar.success('collect success')
+    try {
+      await favoriteCocktailService.collect(cocktail.id, token)
+      mutate()
+      if (!isVisitor) userMutate()
+      snackbar.success(snackbarMessages.collect.success)
+    } catch (err) {
+      console.error(err)
+      snackbar.error(snackbarMessages.collect.error)
+    }
   }
 
   const removeCocktail = async (cocktail: ProfileCocktailItem) => {
     const token = storage.getToken()
     if (!token) return
 
-    const commandId = await favoriteCocktailService.remove(cocktail.id, token)
-    mutate()
-    if (!isVisitor) userMutate()
+    try {
+      const commandId = await favoriteCocktailService.remove(cocktail.id, token)
+      mutate()
+      if (!isVisitor) userMutate()
 
-    const undoFn = isVisitor
-      ? undefined
-      : async () => {
-          await commandService.undoCommand(commandId, token)
-          mutate()
-          if (!isVisitor) userMutate()
-        }
-    snackbar.success('remove success', DEFAULT_CONFIG.undoDuration, undoFn)
-    confirmDialog.destroy()
+      const undoFn = isVisitor
+        ? undefined
+        : async () => {
+            await commandService.undoCommand(commandId, token)
+            mutate()
+            if (!isVisitor) userMutate()
+          }
+      snackbar.success(
+        snackbarMessages.removeWithUndo.success,
+        DEFAULT_CONFIG.undoDuration,
+        undoFn
+      )
+    } catch (err) {
+      console.error(err)
+      snackbar.error(snackbarMessages.removeWithUndo.error)
+    } finally {
+      confirmDialog.destroy()
+    }
   }
 
   const shareCocktail = (cocktail: ProfileCocktailItem) =>
