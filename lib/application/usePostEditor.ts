@@ -27,6 +27,25 @@ const createModeDefaultValues: CocktailPostForm = {
   steps: defaultSteps
 }
 
+const snackbarMessages = {
+  createPost: {
+    success: '發布成功',
+    error: '發佈失敗'
+  },
+  updatePost: {
+    success: '發布成功',
+    error: '發佈失敗'
+  },
+  createDraft: {
+    success: '儲存成功',
+    error: '儲存失敗'
+  },
+  updateDraft: {
+    success: '儲存成功',
+    error: '儲存失敗'
+  }
+}
+
 const getDefaultCroppedImage = async (src: string): Promise<string> => {
   return new Promise(resolve => {
     const img = document.createElement('img')
@@ -112,21 +131,6 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
 
   const goPreview = () => setActiveStep(totalStep - 1)
 
-  const saveDraft = async () => {
-    const token = storage.getToken()
-    if (!token) return
-    const values = getValues()
-    if (draft) {
-      await updateDraft(draft.id, values, token)
-      mutate(`/cocktail-drafts/${draft.id}`)
-    } else {
-      await createDraft(values, token)
-    }
-    mutate('/cocktail-drafts')
-    router.push(paths.profile)
-    snackbar.success('saved!')
-  }
-
   const handleImageToCover = (index: number) => {
     const values = getValues()
     const currentPhotos = values.photos
@@ -175,32 +179,68 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     setValue('photos', remove(index, 1, currentPhotos))
   }
 
+  const saveDraft = async () => {
+    const token = storage.getToken()
+    if (!token) return
+
+    let snackbarMessage = snackbarMessages.createDraft
+    try {
+      const values = getValues()
+      if (draft) {
+        snackbarMessage = snackbarMessages.updateDraft
+        await updateDraft(draft.id, values, token)
+        mutate(`/cocktail-drafts/${draft.id}`)
+      } else {
+        snackbarMessage = snackbarMessages.createDraft
+        await createDraft(values, token)
+      }
+      mutate('/cocktail-drafts')
+      router.push(paths.profile)
+      snackbar.success(snackbarMessage.success)
+    } catch (err) {
+      console.error(err)
+      if (err instanceof Error) {
+        snackbar.error(snackbarMessage.error)
+      }
+    }
+  }
+
   const onSubmit = async (form: CocktailPostForm) => {
     const token = storage.getToken()
     if (!token) return
-    if (isDraft) {
-      if (draft) {
-        await updateDraft(draft.id, form, token)
-        await toFormal(draft.id, token)
-        mutate(`/cocktails-drafts/${draft.id}`)
+
+    let snackbarMessage = snackbarMessages.createPost
+    try {
+      if (isDraft) {
+        if (draft) {
+          snackbarMessage = snackbarMessages.updateDraft
+          await updateDraft(draft.id, form, token)
+          await toFormal(draft.id, token)
+          mutate(`/cocktails-drafts/${draft.id}`)
+        } else {
+          snackbarMessage = snackbarMessages.createPost
+          await createPost(form, token)
+        }
+        mutate('/cocktail-drafts')
       } else {
-        await createPost(form, token)
+        if (draft) {
+          snackbarMessage = snackbarMessages.updatePost
+          await updatePost(draft.id, form, token)
+          mutate('/cocktails')
+          mutate(`/cocktails/${draft.id}`)
+        }
       }
-      mutate('/cocktail-drafts')
-    } else {
-      if (draft) {
-        await updatePost(draft.id, form, token)
-        mutate('/cocktails')
-        mutate(`/cocktails/${draft.id}`)
+      snackbar.success(snackbarMessage.success)
+      const id = draft?.id
+      if (router.query.backToCocktailPage && id)
+        router.push(paths.cocktailById(id))
+      else router.push(paths.profile)
+    } catch (err) {
+      console.error(err)
+      if (err instanceof Error) {
+        snackbar.error(snackbarMessage.error)
       }
     }
-
-    const id = draft?.id
-    if (router.query.backToCocktailPage && id)
-      router.push(paths.cocktailById(id))
-    else router.push(paths.profile)
-
-    snackbar.success('saved!')
   }
 
   const submit = handleSubmit(onSubmit)
