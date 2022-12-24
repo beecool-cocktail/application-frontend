@@ -77,6 +77,12 @@ const useFavoriteCocktailList = (userId?: number) => {
     const token = storage.getToken()
     if (!token) return
 
+    const snackbarMessage = isVisitor
+      ? snackbarMessages.remove
+      : snackbarMessages.removeWithUndo
+    const snackbarDuration = isVisitor
+      ? DEFAULT_CONFIG.duration
+      : DEFAULT_CONFIG.undoDuration
     try {
       const commandId = await favoriteCocktailService.remove(cocktail.id, token)
       mutate()
@@ -89,14 +95,10 @@ const useFavoriteCocktailList = (userId?: number) => {
             mutate()
             if (!isVisitor) userMutate()
           }
-      snackbar.success(
-        snackbarMessages.removeWithUndo.success,
-        DEFAULT_CONFIG.undoDuration,
-        undoFn
-      )
+      snackbar.success(snackbarMessage.success, snackbarDuration, undoFn)
     } catch (err) {
       console.error(err)
-      snackbar.error(snackbarMessages.removeWithUndo.error)
+      snackbar.error(snackbarMessage.error)
     } finally {
       confirmDialog.destroy()
     }
