@@ -50,7 +50,7 @@ export const TextArea = Template.bind({})
 TextArea.args = {
   defaultValue: '輸入的內容輸入的內容輸入的內容輸入的內容輸入的內容輸入的內容',
   multiline: true,
-  maxLength: 150,
+  maxLength: 30,
   getLetterCount: getCharacterCount
 }
 

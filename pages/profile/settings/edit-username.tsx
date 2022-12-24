@@ -39,13 +39,6 @@ const UserNameContent = ({
     usernameRef.current?.focus()
   }
 
-  const handleCompositionDone = (value: string) => {
-    setValue('username', value, {
-      shouldValidate: true,
-      shouldDirty: true
-    })
-  }
-
   const handleGoBack = () => {
     if (formState.isDirty)
       confirmDialog.open({
@@ -111,7 +104,6 @@ const UserNameContent = ({
                 field.onChange(e)
                 clearErrors()
               }}
-              onCompositionDone={handleCompositionDone}
             />
           )}
         ></Controller>
