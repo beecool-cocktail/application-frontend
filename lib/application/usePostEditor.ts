@@ -84,6 +84,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
   } = useForm<CocktailPostForm>({
     defaultValues: getDefaultValues(draft)
   })
+  const [loading, setLoading] = useState(false)
 
   const isEditPost = Boolean(draft) && !isDraft
 
@@ -166,6 +167,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     if (!token) return
 
     let snackbarMessage = snackbarMessages.createDraft
+    setLoading(true)
     try {
       const values = getValues()
       if (draft) {
@@ -184,6 +186,8 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
       if (err instanceof Error) {
         snackbar.error(snackbarMessage.error)
       }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -191,6 +195,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     const token = storage.getToken()
     if (!token) return
 
+    setLoading(true)
     let snackbarMessage = snackbarMessages.createPost
     try {
       if (isDraft) {
@@ -222,6 +227,8 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
       if (err instanceof Error) {
         snackbar.error(snackbarMessage.error)
       }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -229,6 +236,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
 
   return {
     form: { control, isDirty, getValues },
+    loading,
     isEditPost,
     totalStep,
     activeStep,
