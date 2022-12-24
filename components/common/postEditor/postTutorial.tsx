@@ -12,7 +12,7 @@ interface PostTutorialProps {
 
 const PostTutorial = ({ control }: PostTutorialProps) => {
   return (
-    <Stack spacing={4} width={1}>
+    <Stack spacing={3} width={1}>
       <Controller
         control={control}
         name="title"
@@ -27,10 +27,8 @@ const PostTutorial = ({ control }: PostTutorialProps) => {
           />
         )}
       />
-      <Stack>
-        <IngredientList control={control} />
-        <StepList control={control} />
-      </Stack>
+      <IngredientList control={control} />
+      <StepList control={control} />
     </Stack>
   )
 }

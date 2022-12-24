@@ -12,14 +12,14 @@ import IconButton from '../button/iconButton'
 import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import StepInput from './stepInput'
 
-const HEIGHT = 100
+const HEIGHT = 50
 
 const fn =
   (order: number[], active = false, originalIndex = 0, curIndex = 0, y = 0) =>
   (index: number) =>
     active && index === originalIndex
       ? {
-          y: curIndex * HEIGHT + y,
+          y: curIndex * HEIGHT + y + curIndex * 6,
           scale: 1.005,
           zIndex: 1,
           shadow: 15,
@@ -27,7 +27,7 @@ const fn =
           config: (key: string) => (key === 'y' ? config.stiff : config.default)
         }
       : {
-          y: order.indexOf(index) * HEIGHT,
+          y: order.indexOf(index) * HEIGHT + order.indexOf(index) * 6,
           scale: 1,
           zIndex: 0,
           shadow: 1,
@@ -73,8 +73,18 @@ const StepList = ({ control }: StepListProps) => {
 
   return (
     <Stack>
-      <Typography>步驟教學*</Typography>
-      <Box width={1} height={fields.length * HEIGHT} position="relative">
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Typography variant="body1">步驟教學*</Typography>
+        <Typography variant="body4" color={theme => theme.palette.light4.main}>
+          長按拖曳可調整順序
+        </Typography>
+      </Stack>
+      <Box
+        width={1}
+        height={fields.length * HEIGHT + (fields.length - 1) * 6}
+        position="relative"
+        mt="4px"
+      >
         {springs.map(({ zIndex, shadow, y, scale }, index) => (
           <animated.div
             key={index}
@@ -95,15 +105,16 @@ const StepList = ({ control }: StepListProps) => {
               control={control}
               onRemove={handleRemove(index)}
               bind={bind(index)}
-              height={HEIGHT}
               removeDisabled={fields.length <= 1}
             />
           </animated.div>
         ))}
       </Box>
-      <IconButton onClick={handleAdd}>
-        <AddIcon />
-      </IconButton>
+      <Box display="flex" justifyContent="center" mt="12px">
+        <IconButton onClick={handleAdd}>
+          <AddIcon />
+        </IconButton>
+      </Box>
     </Stack>
   )
 }

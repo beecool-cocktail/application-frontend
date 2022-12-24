@@ -146,10 +146,10 @@ const RawInput = (props: InputProps) => {
   )
 
   return (
-    <Stack alignItems="flex-start" spacing="4px" sx={{ position: 'relative' }}>
+    <Stack alignItems="flex-start" sx={{ position: 'relative' }}>
       {label && (
         <Typography
-          variant="body2"
+          variant="body1"
           sx={{ pl: '6px', color: theme => theme.palette.light1.main }}
         >
           {label}

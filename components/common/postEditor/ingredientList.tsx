@@ -1,6 +1,6 @@
 import React from 'react'
 import { Control } from 'react-hook-form'
-import { Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { useFieldArray } from 'react-hook-form'
 import { CocktailPostForm } from 'lib/application/ports'
 import IconButton from '../button/iconButton'
@@ -20,8 +20,8 @@ const IngredientList = ({ control }: IngredientListProps) => {
 
   return (
     <Stack>
-      <Typography>備料清單*</Typography>
-      <Stack spacing={2}>
+      <Typography variant="body1">備料清單*</Typography>
+      <Stack mt="4px" spacing="6px">
         {fields.map((field, index) => (
           <IngredientInput
             key={field.id}
@@ -33,9 +33,11 @@ const IngredientList = ({ control }: IngredientListProps) => {
           />
         ))}
       </Stack>
-      <IconButton onClick={handleAdd}>
-        <AddIcon />
-      </IconButton>
+      <Box display="flex" justifyContent="center" mt="12px">
+        <IconButton onClick={handleAdd}>
+          <AddIcon />
+        </IconButton>
+      </Box>
     </Stack>
   )
 }

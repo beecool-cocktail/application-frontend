@@ -10,7 +10,6 @@ interface StepInputProps {
   name: `steps.${number}.description`
   control: Control<CocktailPostForm>
   bind: React.DOMAttributes<HTMLElement>
-  height: number
   removeDisabled?: boolean
   onRemove(): void
 }
@@ -19,7 +18,6 @@ const StepInput = ({
   name,
   control,
   bind,
-  height,
   removeDisabled = false,
   onRemove
 }: StepInputProps) => {
@@ -28,7 +26,6 @@ const StepInput = ({
       spacing={1}
       direction="row"
       alignItems="center"
-      height={height}
       {...bind}
       style={{ touchAction: 'none' }}
     >

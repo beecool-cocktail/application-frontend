@@ -66,13 +66,7 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
         onPreview={goPreview}
         onSaveDraft={saveDraft}
       />
-      <Stack
-        alignItems="center"
-        justifyContent="flex-start"
-        flex={1}
-        mt={3}
-        padding={1}
-      >
+      <Stack alignItems="center" justifyContent="flex-start" flex={1} px={2}>
         {activeStep === 0 ? (
           <PostTutorial control={control} />
         ) : activeStep === 1 ? (
@@ -104,15 +98,7 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
           />
         )}
       </Stack>
-      <Stack
-        direction="row"
-        height={100}
-        padding={1}
-        alignItems="center"
-        justifyContent="flex-end"
-      >
-        {renderButton()}
-      </Stack>
+      {renderButton()}
     </Stack>
   )
 }

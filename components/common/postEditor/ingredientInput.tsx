@@ -28,7 +28,7 @@ const IngredientInput = ({
       display="flex"
       alignItems="center"
       flexDirection="row"
-      spacing={1}
+      spacing="6px"
     >
       <IconButton disabled={removeDisabled} onClick={onRemove}>
         <DeleteIcon />
