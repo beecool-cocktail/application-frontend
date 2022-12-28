@@ -23,9 +23,10 @@ const Button = ({
     if (size === 'small') return { width: 141, height: 44 }
     if (size === 'large') return { width: 295, height: 44 }
   }
-  const getTypographyVariant = () => {
-    if (size === 'small') return 'body2'
-    if (size === 'large') return 'subtitle2'
+
+  const getPadding = () => {
+    if (size === 'small') return '10px 12px'
+    if (size === 'large') return '16px 12px'
   }
 
   return (
@@ -35,6 +36,7 @@ const Button = ({
       disableRipple
       sx={{
         ...getSize(),
+        p: getPadding(),
         textTransform: 'none',
         color: theme => {
           if (variant !== 'primary') return theme.palette.primary.main
@@ -85,7 +87,7 @@ const Button = ({
         ...sx
       }}
     >
-      <Typography variant={getTypographyVariant()}>{children}</Typography>
+      <Typography variant="body2">{children}</Typography>
     </BaseButton>
   )
 }
