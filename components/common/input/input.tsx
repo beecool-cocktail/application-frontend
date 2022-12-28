@@ -157,7 +157,7 @@ const RawInput = (props: InputProps) => {
       )}
       <Stack
         sx={{
-          justifyContent: 'space-between',
+          justifyContent: multiline ? 'flex-start' : 'center',
           gap: '4px',
           width: 1,
           minHeight: multiline ? '186px' : '50px',
@@ -166,9 +166,9 @@ const RawInput = (props: InputProps) => {
               return theme.palette.dark6.main
             return theme.palette.dark5.main
           },
-          borderRadius: '8px',
+          borderRadius: '4px',
           border: theme =>
-            `2px solid ${
+            `1px solid ${
               formControl?.error ? theme.palette.red.main : 'transparent'
             }`,
           p: () => {
@@ -191,10 +191,6 @@ const RawInput = (props: InputProps) => {
                 return theme.palette.light1.main
               return theme.palette.light2.main
             },
-
-            '&::placeholder': {
-              color: theme => theme.palette.light4.main
-            },
             '& svg': {
               p: 0,
               fontSize: '24px'
@@ -213,9 +209,13 @@ const RawInput = (props: InputProps) => {
               height: 'auto',
               p: 0,
               pt: multiline ? '8px' : 0,
-              fontSize: theme => theme.typography.body1.fontSize,
-              fontWeight: theme => theme.typography.body1.fontWeight,
-              lineHeight: theme => theme.typography.body1.lineHeight
+              fontSize: theme => theme.typography.body2.fontSize,
+              fontWeight: theme => theme.typography.body2.fontWeight,
+              lineHeight: theme => theme.typography.body2.lineHeight
+            },
+            '& .MuiInputBase-input::placeholder': {
+              color: theme => theme.palette.light4.main,
+              opacity: 1
             },
             ...restProps.sx
           }}

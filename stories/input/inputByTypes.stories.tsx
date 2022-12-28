@@ -72,7 +72,7 @@ FeedbackText.args = {
 
 const SeparatedTemplate: ComponentStory<typeof Box> = () => {
   return (
-    <Stack direction="row" spacing="2px">
+    <Stack direction="row" spacing="6px">
       <Box width="230px">
         <Input fullWidth />
       </Box>
