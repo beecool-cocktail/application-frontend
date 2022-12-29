@@ -180,8 +180,10 @@ const RawInput = (props: InputProps) => {
         <InputBase
           {...restProps}
           sx={{
+            flex: 1,
             display: 'flex',
-            alignItems: 'flex-start',
+            // justifyContent: multiline ? 'flex-start' : 'center',
+            alignItems: multiline ? 'flex-start' : 'center',
             minHeight: '0',
             columnGap: '4px',
             p: 0,
