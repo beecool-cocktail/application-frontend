@@ -1,18 +1,18 @@
 import {
   Box,
   Snackbar as BaseSnackbar,
-  Slide,
-  Typography,
-  SlideProps
+  // Slide,
+  Typography
+  // SlideProps
 } from '@mui/material'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import UndoCountDown from './undoCountDown'
 
 const mx = 24
 
-const TransitionDown = (props: SlideProps) => {
-  return <Slide {...props} direction="down" />
-}
+// const TransitionDown = (props: SlideProps) => {
+//   return <Slide {...props} direction="down" />
+// }
 
 const Snackbar = () => {
   const { open, duration, message, close, onUndo } = useSnackbar()
@@ -28,7 +28,7 @@ const Snackbar = () => {
     <BaseSnackbar
       open={open}
       message={message}
-      TransitionComponent={TransitionDown}
+      // TransitionComponent={TransitionDown}
       TransitionProps={{ onTouchMove: handleTouchMove }}
       anchorOrigin={{
         vertical: 'top',
