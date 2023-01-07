@@ -77,9 +77,7 @@ const useFavoriteCocktailList = (userId?: number) => {
     const token = storage.getToken()
     if (!token) return
 
-    const snackbarMessage = isVisitor
-      ? snackbarMessages.remove
-      : snackbarMessages.removeWithUndo
+    const snackbarMessage = snackbarMessages.remove
     const snackbarDuration = isVisitor
       ? DEFAULT_CONFIG.duration
       : DEFAULT_CONFIG.undoDuration

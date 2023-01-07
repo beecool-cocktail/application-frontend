@@ -73,7 +73,6 @@ const useCocktail = (id?: number) => {
         }
         return optimisticData
       }, mutateOpts)
-      snackbar.success(snackbarMessage.success)
     } catch (err) {
       console.error(err)
       snackbar.error(snackbarMessage.error)

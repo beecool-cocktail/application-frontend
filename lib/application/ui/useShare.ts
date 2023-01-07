@@ -1,3 +1,4 @@
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import useSnackbar from './useSnackbar'
 
 const useShare = () => {
@@ -8,7 +9,7 @@ const useShare = () => {
 
     if (!navigator.share) {
       navigator.clipboard.writeText(url)
-      snackbar.success('URL copied.')
+      snackbar.success(snackbarMessages.copyUrl.success)
       return
     }
 

@@ -128,7 +128,6 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
         snackbarMessage = snackbarMessages.collect
         await favoriteCocktailService.collect(id, token)
       }
-      snackbar.success(snackbarMessage.success)
     } catch (err) {
       console.error(err)
       snackbar.error(snackbarMessage.error)

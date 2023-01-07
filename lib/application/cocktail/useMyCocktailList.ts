@@ -107,7 +107,7 @@ const useMyCocktailList = (userId?: number) => {
       snackbar.success(snackbarMessages.remove.success)
     } catch (err) {
       console.error(err)
-      snackbar.error(snackbarMessages.removeWithUndo.error)
+      snackbar.error(snackbarMessages.remove.error)
     }
   }
 

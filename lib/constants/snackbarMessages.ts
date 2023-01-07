@@ -8,7 +8,7 @@ const snackbarMessages = {
     error: '發佈失敗'
   },
   createDraft: {
-    success: '儲存成功',
+    success: '已存成草稿',
     error: '儲存失敗'
   },
   updateDraft: {
@@ -20,12 +20,11 @@ const snackbarMessages = {
     error: '收藏失敗'
   },
   remove: {
-    success: '移除成功',
-    error: '移除失敗'
-  },
-  removeWithUndo: {
     success: '已從收藏移除',
-    error: '移除失敗'
+    error: '移除收藏失敗'
+  },
+  copyUrl: {
+    success: '已複製分享網址'
   }
 }
 
