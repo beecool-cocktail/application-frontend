@@ -2,8 +2,8 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Box, Stack } from '@mui/material'
 import Input from 'components/common/input/input'
-import Search from 'lib/assets/search.svg'
-import Close from 'lib/assets/cancelClose.svg'
+import Search from 'lib/assets/searchOutlined.svg'
+import Close from 'lib/assets/cancelCloseOutlined.svg'
 import { getCharacterCount } from 'lib/helper/string'
 
 export default {
@@ -28,7 +28,9 @@ const Template: ComponentStory<typeof Input> = args => {
 }
 
 export const Text = Template.bind({})
-Text.args = {}
+Text.args = {
+  multiline: true
+}
 
 export const LeadingIcon = Template.bind({})
 LeadingIcon.args = {
@@ -49,7 +51,7 @@ LabelText.args = {
 export const TextArea = Template.bind({})
 TextArea.args = {
   defaultValue: '輸入的內容輸入的內容輸入的內容輸入的內容輸入的內容輸入的內容',
-  multiline: true,
+  expanded: true,
   maxLength: 30,
   getLetterCount: getCharacterCount
 }

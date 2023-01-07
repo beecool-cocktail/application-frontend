@@ -37,13 +37,7 @@ const StepInput = ({
         name={name}
         rules={{ required: true }}
         render={({ field }) => (
-          <Input
-            placeholder="請輸入教學步驟"
-            // multiline
-            fullWidth
-            maxRows={2}
-            {...field}
-          />
+          <Input placeholder="請輸入教學步驟" multiline fullWidth {...field} />
         )}
       />
     </Stack>

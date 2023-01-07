@@ -12,6 +12,7 @@ interface InputProps extends Omit<InputBaseProps, 'onChange'> {
   label?: string
   feedback?: string
   maxLength?: number
+  expanded?: boolean
   getLetterCount?: (target: string) => number
   onChange?: (v: string) => void
 }
@@ -98,6 +99,7 @@ const RawInput = (props: InputProps) => {
     placeholder,
     maxLength,
     multiline,
+    expanded = false,
     getLetterCount = target => target.length,
     ...restProps
   } = props
@@ -157,10 +159,10 @@ const RawInput = (props: InputProps) => {
       )}
       <Stack
         sx={{
-          justifyContent: multiline ? 'flex-start' : 'center',
+          justifyContent: expanded ? 'flex-start' : 'center',
           gap: '4px',
           width: 1,
-          minHeight: multiline ? '186px' : '50px',
+          minHeight: expanded ? '186px' : '50px',
           bgcolor: theme => {
             if (formControl && (formControl.focused || formControl.error))
               return theme.palette.dark6.main
@@ -172,7 +174,7 @@ const RawInput = (props: InputProps) => {
               formControl?.error ? theme.palette.red.main : 'transparent'
             }`,
           p: () => {
-            if (!multiline) return '11px 10px'
+            if (!expanded) return '11px 10px'
             return '6px 10px'
           }
         }}
@@ -182,8 +184,7 @@ const RawInput = (props: InputProps) => {
           sx={{
             flex: 1,
             display: 'flex',
-            // justifyContent: multiline ? 'flex-start' : 'center',
-            alignItems: multiline ? 'flex-start' : 'center',
+            alignItems: expanded ? 'flex-start' : 'center',
             minHeight: '0',
             columnGap: '4px',
             p: 0,
@@ -210,7 +211,7 @@ const RawInput = (props: InputProps) => {
               width: 'auto',
               height: 'auto',
               p: 0,
-              pt: multiline ? '8px' : 0,
+              pt: expanded ? '8px' : 0,
               fontSize: theme => theme.typography.body2.fontSize,
               fontWeight: theme => theme.typography.body2.fontWeight,
               lineHeight: theme => theme.typography.body2.lineHeight
@@ -223,14 +224,14 @@ const RawInput = (props: InputProps) => {
           }}
           value={value}
           inputProps={props.inputProps}
-          multiline={multiline}
+          multiline={expanded ? true : multiline}
           placeholder={getPlaceholder()}
           onCompositionStart={handleCompositionStart}
           onCompositionEnd={handleCompositionEnd}
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {maxLength && multiline && renderLetterCount()}
+        {maxLength && expanded && renderLetterCount()}
       </Stack>
       <Stack
         direction="row"
@@ -253,7 +254,7 @@ const RawInput = (props: InputProps) => {
             {feedback}
           </Typography>
         )}
-        {maxLength && !multiline && renderLetterCount()}
+        {maxLength && !expanded && renderLetterCount()}
       </Stack>
     </Stack>
   )
