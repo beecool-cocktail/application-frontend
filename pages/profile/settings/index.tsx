@@ -39,7 +39,7 @@ const Settings = () => {
       }}
     >
       <BasedTopNavigation
-        position="sticky"
+        position="static"
         thresholdHeight={185}
         leftSlot={() => (
           <BackButton onClick={() => router.push(pathname.profile)} />
@@ -99,7 +99,7 @@ const Settings = () => {
               actionType="link"
               icon={<AboutUsIcon />}
               text="關於我們"
-              switchValue={user.isCollectionPublic}
+              onClick={() => router.push(pathname.aboutUs)}
             />
             <SettingItem
               actionType="link"

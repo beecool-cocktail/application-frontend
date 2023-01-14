@@ -34,7 +34,8 @@ export const pathname = {
   cocktailById: '/cocktails/[id]',
   createPost: '/create-post',
   editPost: '/profile/cocktails/[id]',
-  userById: '/users/[id]'
+  userById: '/users/[id]',
+  aboutUs: '/about-us'
 }
 
 export const paths = {
@@ -116,6 +117,10 @@ const routes: Route[] = [
   {
     path: pathname.userById,
     label: 'User'
+  },
+  {
+    path: pathname.aboutUs,
+    label: 'About Us'
   }
 ]
 

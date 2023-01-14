@@ -39,7 +39,7 @@ const IngredientInput = ({
           name={ingredientName}
           rules={{ required: true }}
           render={({ field }) => (
-            <Input placeholder="請輸入材料" fullWidth {...field} />
+            <Input placeholder="請輸入材料" fullWidth multiline {...field} />
           )}
         />
       </Box>
@@ -49,7 +49,7 @@ const IngredientInput = ({
           name={amountName}
           rules={{ required: true }}
           render={({ field }) => (
-            <Input placeholder="數量/單位" fullWidth {...field} />
+            <Input placeholder="數量/單位" fullWidth multiline {...field} />
           )}
         />
       </Box>
