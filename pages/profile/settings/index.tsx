@@ -35,7 +35,8 @@ const Settings = () => {
       spacing={2}
       sx={{
         minHeight: '100vh',
-        backgroundColor: theme => theme.palette.dark3.main
+        backgroundColor: theme => theme.palette.dark3.main,
+        pb: '15px'
       }}
     >
       <BasedTopNavigation
