@@ -1,6 +1,7 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { rest } from 'msw'
+import { Stack } from '@mui/material'
 import TabBar from 'components/layout/tabBar'
 import { pathname } from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
@@ -12,6 +13,7 @@ export default {
   title: 'layout/Tab Bar',
   component: TabBar,
   parameters: {
+    layout: 'fullscreen',
     design: {
       type: 'figma',
       url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=2873%3A4550'
@@ -35,7 +37,12 @@ export default {
   }
 } as ComponentMeta<typeof TabBar>
 
-const Template: ComponentStory<typeof TabBar> = () => <TabBar />
+const Template: ComponentStory<typeof TabBar> = () => (
+  <>
+    <Stack sx={{ width: '100vw', height: '125vh' }} />
+    <TabBar />
+  </>
+)
 
 export const Home = Template.bind({})
 

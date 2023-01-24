@@ -1,9 +1,22 @@
 import { Box, Stack } from '@mui/material'
+import { useEffect, useRef, useState } from 'react'
 import useTabBar from 'lib/application/useTabBar'
 import TabBarIcon from './tabBarIcon'
 
 export const TabBar = () => {
+  const [isVisible, setVisible] = useState(true)
+  const lastScrollTop = useRef(0)
   const { router, routes } = useTabBar()
+
+  const scrollHandler = () => {
+    setVisible(lastScrollTop.current > window.scrollY)
+    lastScrollTop.current = window.scrollY
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollHandler)
+    return () => window.removeEventListener('scroll', scrollHandler)
+  }, [])
 
   return (
     <Stack
@@ -22,7 +35,11 @@ export const TabBar = () => {
           '0px -2px 6px rgba(0, 0, 0, 0.25), 2px 2px 6px rgba(0, 0, 0, 0.25)',
         overflow: 'hidden',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        transitionProperty: 'transform',
+        transitionTimingFunction: 'ease-in-out',
+        transitionDuration: '0.1s',
+        transform: isVisible ? '' : 'translateY(80px)'
       }}
     >
       {routes.map(route => (
