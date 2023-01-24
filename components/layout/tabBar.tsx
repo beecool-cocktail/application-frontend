@@ -1,13 +1,13 @@
-import { BottomNavigation, BottomNavigationAction } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import useTabBar from 'lib/application/useTabBar'
+import TabBarIcon from './tabBarIcon'
 
 export const TabBar = () => {
   const { router, routes } = useTabBar()
 
   return (
-    <BottomNavigation
-      value={router.asPath}
-      onChange={(_event, value) => router.push(value)}
+    <Stack
+      direction="row"
       sx={{
         width: '247px',
         height: '48px',
@@ -26,13 +26,15 @@ export const TabBar = () => {
       }}
     >
       {routes.map(route => (
-        <BottomNavigationAction
+        <Box
           key={route.path}
-          value={route.path}
-          icon={route.icon}
-          disableRipple
-          onClick={() => router.push(route.path)}
+          onClick={() => {
+            router.push(route.path)
+          }}
           sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             m: 0,
             p: 0,
             minWidth: '56px',
@@ -51,19 +53,32 @@ export const TabBar = () => {
                 fill: theme => theme.palette.light4.main
               }
             },
-            '&.Mui-selected::before': {
-              content: '""',
-              position: 'absolute',
-              top: '40px',
-              height: '4px',
-              width: '4px',
-              borderRadius: '50%',
-              backgroundColor: theme => theme.palette.brandWhite.main
-            }
+            '&::before':
+              router.asPath === route.path
+                ? {
+                    content: '""',
+                    position: 'absolute',
+                    top: '40px',
+                    height: '4px',
+                    width: '4px',
+                    borderRadius: '50%',
+                    backgroundColor: theme => theme.palette.brandWhite.main
+                  }
+                : undefined,
+            cursor: 'pointer'
           }}
-        />
+        >
+          {typeof route.icon === 'string' ? (
+            <TabBarIcon
+              artboard={route.icon}
+              pressed={router.asPath === route.path}
+            />
+          ) : (
+            route.icon
+          )}
+        </Box>
       ))}
-    </BottomNavigation>
+    </Stack>
   )
 }
 

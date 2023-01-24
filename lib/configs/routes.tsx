@@ -1,14 +1,9 @@
 import { ParsedUrlQueryInput } from 'querystring'
-import React from 'react'
-import Search from 'lib/assets/search.svg'
-import PlusAdd from 'lib/assets/plusAdd.svg'
-import Profile from 'lib/assets/profile.svg'
-import Home from 'lib/assets/home.svg'
 
 export interface Route {
   path: string
   label: string
-  icon?: React.ReactNode
+  icon?: string | React.ReactNode
   requireAuth?: boolean
   inNavigationBar?: boolean
 }
@@ -54,26 +49,26 @@ const routes: Route[] = [
   {
     path: pathname.index,
     label: 'Home',
-    icon: <Home />,
+    icon: 'Home Pressed',
     inNavigationBar: true
   },
   {
     path: pathname.search,
     label: 'Search',
-    icon: <Search />,
+    icon: 'Search Pressed',
     inNavigationBar: true
   },
   {
     path: pathname.createPost,
     label: 'Create Post',
-    icon: <PlusAdd />,
+    icon: 'Add Pressed',
     requireAuth: true,
     inNavigationBar: true
   },
   {
     path: pathname.profile,
     label: 'Profile',
-    icon: <Profile />,
+    icon: 'Profile Pressed',
     requireAuth: true,
     inNavigationBar: true
   },
