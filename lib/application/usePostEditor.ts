@@ -14,6 +14,7 @@ import { CocktailPostForm } from './ports'
 import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
 import useConfirmDialog from './ui/useConfirmDialog'
+import useWholePageSpinner from './ui/useWholePageSpinner'
 
 const totalStep = 3
 
@@ -84,7 +85,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
   } = useForm<CocktailPostForm>({
     defaultValues: getDefaultValues(draft)
   })
-  const [loading, setLoading] = useState(false)
+  const { setLoading } = useWholePageSpinner()
 
   const isEditPost = Boolean(draft) && !isDraft
 
@@ -236,7 +237,6 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
 
   return {
     form: { control, isDirty, getValues },
-    loading,
     isEditPost,
     totalStep,
     activeStep,

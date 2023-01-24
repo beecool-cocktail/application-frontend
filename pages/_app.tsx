@@ -11,6 +11,7 @@ import LoginDialog from 'components/common/dialog/loginDialog'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
 import Snackbar from 'components/common/snackbar/snackbar'
 import NProgress from 'components/layout/nprogress'
+import WholePageSpinner from 'components/layout/wholePageSpinner'
 import theme from 'lib/configs/theme'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
@@ -40,6 +41,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         <LoginDialog />
         <ConfirmDialog />
         <Snackbar />
+        <WholePageSpinner />
       </SWRConfigWrapper>
     </ThemeProvider>
   )

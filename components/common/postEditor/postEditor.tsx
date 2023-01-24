@@ -1,9 +1,8 @@
-import { Box, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 import { CocktailPostPreview, CocktailPostDraft } from 'lib/domain/cocktail'
 import userCurrentUser from 'lib/application/user/useCurrentUser'
 import usePostEditor from 'lib/application/usePostEditor'
 import BottomButton from 'components/common/button/bottomButton'
-import Loading from 'components/common/status/loading'
 import PostImageBlock from './postImageBlock'
 import PostPreview from './postPreview'
 import PostEditorTopNavigation from './postEditorTopNavigation'
@@ -18,7 +17,6 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   const { user } = userCurrentUser()
   const {
     form: { control, getValues, isDirty },
-    loading,
     isEditPost,
     totalStep,
     activeStep,
@@ -102,21 +100,6 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
         )}
       </Stack>
       {renderButton()}
-      {loading && (
-        <Box
-          position="absolute"
-          display="flex"
-          top={0}
-          right={0}
-          justifyContent="center"
-          width="100%"
-          height="100%"
-          zIndex="modal"
-          sx={{ bgcolor: 'rgba(0, 0, 0, 0.5)' }}
-        >
-          <Loading />
-        </Box>
-      )}
     </Stack>
   )
 }

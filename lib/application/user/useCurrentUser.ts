@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import useSWR from 'swr'
 import { FALLBACK_URL } from 'lib/constants/image'
 import userService from 'lib/services/userAdapter'
@@ -7,12 +6,14 @@ import useConfig from '../useConfig'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useSnackbar from '../ui/useSnackbar'
 import { UpdateUserAvatarForm } from '../ports'
+import useWholePageSpinner from '../ui/useWholePageSpinner'
 
 const FETCH_KEY = 'CURRENT_USER'
 
 const useCurrentUser = () => {
   const confirmDialog = useConfirmDialog()
   const snackbar = useSnackbar()
+  const { setLoading: setWholePageLoading } = useWholePageSpinner()
   const storage = useLocalStorage()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
   const { data, error, mutate } = useSWR(() => {
@@ -20,8 +21,6 @@ const useCurrentUser = () => {
     if (!token) return null
     return [token, FETCH_KEY]
   }, userService.getCurrentUserInfo)
-
-  const [imageUpdating, setImageUpdating] = useState(false)
 
   const updateCollectionPublic = async () => {
     const token = storage.getToken()
@@ -57,7 +56,7 @@ const useCurrentUser = () => {
     const token = storage.getToken()
     if (!token) return
 
-    setImageUpdating(true)
+    setWholePageLoading(true)
     try {
       await userService.updateCurrentUserAvatar(form, token)
       await mutate()
@@ -65,7 +64,7 @@ const useCurrentUser = () => {
       snackbar.error('update avatar failed')
       console.error(e)
     } finally {
-      setImageUpdating(false)
+      setWholePageLoading(false)
     }
   }
 
@@ -109,7 +108,6 @@ const useCurrentUser = () => {
     user,
     loading: (!data && !error) || configLoading,
     error,
-    imageUpdating,
     mutate,
     updateCollectionPublic,
     updateUsername,
