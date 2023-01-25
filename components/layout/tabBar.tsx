@@ -1,22 +1,9 @@
 import { Box, Stack } from '@mui/material'
-import { useEffect, useRef, useState } from 'react'
 import useTabBar from 'lib/application/useTabBar'
 import TabBarIcon from './tabBarIcon'
 
 export const TabBar = () => {
-  const [isVisible, setVisible] = useState(true)
-  const lastScrollTop = useRef(0)
-  const { router, routes } = useTabBar()
-
-  const scrollHandler = () => {
-    setVisible(lastScrollTop.current > window.scrollY)
-    lastScrollTop.current = window.scrollY
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', scrollHandler)
-    return () => window.removeEventListener('scroll', scrollHandler)
-  }, [])
+  const { router, routes, isVisible } = useTabBar()
 
   return (
     <Stack
