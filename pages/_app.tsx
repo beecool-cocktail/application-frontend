@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
+import Head from 'next/head'
 import { ThemeProvider } from '@mui/material'
 import { CssBaseline } from '@mui/material'
 import '@fontsource/noto-sans-tc/400.css'
@@ -33,17 +34,25 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <NProgress />
-      <SWRConfigWrapper>
-        {getLayout(<Component {...pageProps} />)}
-        <LoginDialog />
-        <ConfirmDialog />
-        <Snackbar />
-        <WholePageSpinner />
-      </SWRConfigWrapper>
-    </ThemeProvider>
+    <>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+      </Head>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <NProgress />
+        <SWRConfigWrapper>
+          {getLayout(<Component {...pageProps} />)}
+          <LoginDialog />
+          <ConfirmDialog />
+          <Snackbar />
+          <WholePageSpinner />
+        </SWRConfigWrapper>
+      </ThemeProvider>
+    </>
   )
 }
 
