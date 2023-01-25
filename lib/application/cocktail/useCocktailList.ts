@@ -13,6 +13,7 @@ import cocktailService from 'lib/services/cocktailAdapter'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import useStore from 'lib/services/storeAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
+import useDebounce from 'lib/hooks/useDebounce'
 import useConfig from '../useConfig'
 import useSnackbar from '../ui/useSnackbar'
 import useLoginDialog from '../ui/useLoginDialog'
@@ -22,6 +23,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
   const [fetchId, setFetchId] = useState(() => uuidv4())
   const storage = useLocalStorage()
   const keyword = useStore(state => state.searchBarInput)
+  const debouncedKeyword = useDebounce(keyword, 500)
   const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
@@ -29,11 +31,11 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
   const result = useSWRInfinite<Page<CocktailPostItem>>(
     (index, previousPageData: Page<CocktailPostItem>) => {
       if (previousPageData && !previousPageData.data.length) return null
-      if (useSearch && !keyword) return null
+      if (useSearch && (!keyword || !debouncedKeyword)) return null
       return [
         index + 1,
         PAGE_SIZE,
-        useSearch ? keyword : '',
+        useSearch ? debouncedKeyword : '',
         storage.getToken(),
         useSearch,
         fetchId
@@ -161,6 +163,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
     cocktails,
     total,
     keyword,
+    debouncedKeyword,
     isRefreshing,
     isLoadingInitialData,
     isLoadingMore,
