@@ -33,7 +33,10 @@ const TopNavigation = ({
 
     const handleScroll = throttle(processConcrete, 100)
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    return () => {
+      handleScroll.cancel()
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [thresholdHeight])
 
   const renderTitle = () => {

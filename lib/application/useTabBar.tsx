@@ -36,7 +36,10 @@ const useTabBar = () => {
     }, 100)
 
     window.addEventListener('scroll', scrollHandler)
-    return () => window.removeEventListener('scroll', scrollHandler)
+    return () => {
+      scrollHandler.cancel()
+      window.removeEventListener('scroll', scrollHandler)
+    }
   }, [])
 
   return { router, routes: tabBarRoutes, isVisible }
