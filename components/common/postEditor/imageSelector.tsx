@@ -87,6 +87,16 @@ const ImageSelector = ({
             <Box
               sx={{
                 position: 'absolute',
+                bottom: 0,
+                width: '100%',
+                height: 45,
+                background:
+                  'radial-gradient(198.57% 198.57% at 50% 207.14%, rgba(0, 0, 0, 0.6) 60.51%, rgba(0, 0, 0, 0) 100%)'
+              }}
+            ></Box>
+            <Box
+              sx={{
+                position: 'absolute',
                 bottom: '4px',
                 right: '8px',
                 lineHeight: 0
