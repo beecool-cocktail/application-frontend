@@ -152,7 +152,11 @@ const RawInput = (props: InputProps) => {
       {label && (
         <Typography
           variant="body1"
-          sx={{ pl: '6px', color: theme => theme.palette.light1.main }}
+          sx={{
+            pl: '6px',
+            pb: '4px',
+            color: theme => theme.palette.light1.main
+          }}
         >
           {label}
         </Typography>

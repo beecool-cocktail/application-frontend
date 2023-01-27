@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
-import { Box, Button, Menu, MenuItem, Typography } from '@mui/material'
-import EditIcon from 'lib/assets/edit.svg'
+import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material'
+import MoreIcon from 'lib/assets/more.svg'
+import CameraPlusIcon from 'lib/assets/cameraPlus.svg'
 import { EditablePhoto } from 'lib/domain/photo'
 import { toBase64Photos } from 'lib/helper/image'
 import ImageEditor from '../imageEditor/imageEditor'
+import IconButton from '../button/iconButton'
 
 export interface ImageSelectorProps {
   index: number
@@ -61,16 +63,17 @@ const ImageSelector = ({
   return (
     <Box width={1}>
       <Box
-        position="relative"
         width={1}
-        bgcolor="#ddd"
         display="flex"
         alignItems="center"
         justifyContent="center"
         sx={{
           position: 'relative',
           cursor: 'pointer',
-          aspectRatio: '4/3'
+          aspectRatio: '4/3',
+          bgcolor: theme => theme.palette.dark6.main,
+          borderRadius: '4px',
+          overflow: 'hidden'
         }}
         htmlFor={fileInputId}
         component="label"
@@ -81,17 +84,42 @@ const ImageSelector = ({
         {photo ? (
           <>
             <Image src={photo.editedURL} alt="image" layout="fill" />
-            <Button
-              onClick={handleEditButtonClick}
+            <Box
               sx={{
                 position: 'absolute',
-                top: 0,
-                right: 0,
-                fontSize: '50px'
+                bottom: '4px',
+                right: '8px',
+                lineHeight: 0
               }}
             >
-              <EditIcon />
-            </Button>
+              <IconButton size={18} onClick={handleEditButtonClick}>
+                <MoreIcon />
+              </IconButton>
+            </Box>
+            {isCover && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  left: '8px',
+                  top: '8px',
+                  width: 56,
+                  height: 26,
+                  bgcolor: theme => theme.palette.dark5.main,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                  borderRadius: '100px'
+                }}
+              >
+                <Typography
+                  variant="body3"
+                  sx={{ color: theme => theme.palette.light2.main }}
+                >
+                  封面照
+                </Typography>
+              </Box>
+            )}
             <Menu anchorEl={anchorEl} open={open} onClose={closeMenu}>
               {!isCover && (
                 <MenuItem onClick={handleToCoverImage}>更換成封面照</MenuItem>
@@ -113,7 +141,38 @@ const ImageSelector = ({
             )}
           </>
         ) : (
-          <Typography sx={{ fontSize: 40 }}>+</Typography>
+          <Box sx={{ width: '100%', height: '100%', padding: '8px' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+                fontSize: isCover ? 48 : 32,
+                color: 'transparent',
+                border: theme => `2px dashed ${theme.palette.light4.main}`,
+                borderRadius: '4px'
+              }}
+            >
+              <Stack sx={{ alignItems: 'center', justifyContent: 'center' }}>
+                <CameraPlusIcon />
+                {isCover && (
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: theme => theme.palette.light2.main,
+                      textAlign: 'center'
+                    }}
+                  >
+                    點擊新增照片
+                    <br />
+                    最多可上傳 5 張
+                  </Typography>
+                )}
+              </Stack>
+            </Box>
+          </Box>
         )}
       </Box>
       <input

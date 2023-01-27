@@ -14,7 +14,6 @@ const IconButton = ({
   children,
   contained,
   size = 28,
-  fontSize = 24,
   onClick,
   disabled
 }: IconButtonProps) => {
@@ -25,11 +24,12 @@ const IconButton = ({
         width: size,
         height: size,
         padding: 0,
+        lineHeight: 0,
         backgroundColor: theme => {
           if (contained) return theme.palette.light4.main
         },
         color: theme => theme.palette.light1.main,
-        fontSize,
+        fontSize: size,
         '&:disabled': {
           color: theme => theme.palette.light4.main
         }
