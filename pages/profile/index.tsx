@@ -3,10 +3,10 @@ import { ReactElement } from 'react'
 import usePermission from 'lib/application/usePermission'
 import Layout from 'components/layout/layout'
 import ProfileDetail from 'components/pages/profile/profileDetail'
+import AnonymousProfile from 'components/pages/profile/AnonymousProfile'
 
 const Profile = () => {
-  const hasPermission = usePermission({ guard: true })
-  if (!hasPermission) return null
+  const hasPermission = usePermission()
 
   return (
     <>
@@ -15,7 +15,7 @@ const Profile = () => {
         <meta name="description" content="Whispering Corner" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ProfileDetail />
+      {hasPermission ? <ProfileDetail /> : <AnonymousProfile />}
     </>
   )
 }

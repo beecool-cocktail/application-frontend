@@ -58,7 +58,7 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
           </>
         ) : (
           <>
-            <Avatar src={user.photo} userId={user.id} size={70} />
+            <Avatar src={user.photo} userId={user.id} size={70} outlined />
             <Typography
               variant="h4"
               sx={{

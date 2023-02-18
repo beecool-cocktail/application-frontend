@@ -69,7 +69,6 @@ const routes: Route[] = [
     path: pathname.profile,
     label: 'Profile',
     icon: 'Profile Pressed',
-    requireAuth: true,
     inNavigationBar: true
   },
   {

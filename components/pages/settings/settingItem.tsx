@@ -5,7 +5,7 @@ import SwitchOnIcon from 'lib/assets/switchControlOn.svg'
 import SwitchOffIcon from 'lib/assets/switchControlOff.svg'
 
 interface SettingItemProps {
-  actionType?: 'normal' | 'link' | 'switch' | 'danger'
+  actionType?: 'normal' | 'link' | 'switch' | 'danger' | 'primary'
   icon: React.ReactNode
   text: React.ReactNode
   switchValue?: boolean
@@ -61,8 +61,14 @@ const SettingItem = ({
         fontSize={24}
         sx={{
           color: theme => {
-            if (actionType === 'danger') return theme.palette.red.main
-            return theme.palette.light1.main
+            switch (actionType) {
+              case 'primary':
+                return theme.palette.blue.main
+              case 'danger':
+                return theme.palette.red.main
+              default:
+                return theme.palette.light1.main
+            }
           }
         }}
         lineHeight={0}
@@ -73,8 +79,14 @@ const SettingItem = ({
         flex={1}
         variant="body2"
         color={theme => {
-          if (actionType === 'danger') return theme.palette.red.main
-          return theme.palette.light1.main
+          switch (actionType) {
+            case 'primary':
+              return theme.palette.blue.main
+            case 'danger':
+              return theme.palette.red.main
+            default:
+              return theme.palette.light1.main
+          }
         }}
       >
         {text}

@@ -27,10 +27,24 @@ Normal.parameters = {
   }
 }
 
+export const Outlined = Template.bind({})
+Outlined.args = {
+  src: mockAvatar,
+  outlined: true,
+  size: 70
+}
+Outlined.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3300%3A6068'
+  }
+}
+
 export const WithUserId = Template.bind({})
 WithUserId.args = {
   src: mockAvatar,
   userId: 1234,
+  outlined: true,
   size: 70
 }
 WithUserId.parameters = {

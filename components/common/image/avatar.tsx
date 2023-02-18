@@ -3,13 +3,15 @@ import Image from 'next/image'
 import type { AvatarProps as BaseAvatarProps } from '@mui/material'
 
 interface AvatarProps extends BaseAvatarProps {
-  userId?: number
   size: number
+  userId?: number
+  outlined?: boolean
 }
 
 const Avatar = ({
   src,
   alt = 'avatar',
+  outlined = false,
   userId,
   size,
   ...restProps
@@ -27,26 +29,32 @@ const Avatar = ({
     </Box>
   )
 
-  if (userId == null) return mainContent
+  const withBadge = (child: React.ReactNode) => {
+    return (
+      <Badge
+        color="primary"
+        badgeContent={`#${userId}`}
+        sx={{
+          '& .MuiBadge-badge': {
+            right: -12,
+            top: 56,
+            transform: 'none',
+            borderRadius: '20px',
+            px: '5px',
+            color: theme => theme.palette.light1.main,
+            fontSize: theme => theme.typography.body3.fontSize,
+            fontWeight: theme => theme.typography.body3.fontWeight,
+            lineHeight: theme => theme.typography.body3.lineHeight
+          }
+        }}
+      >
+        {child}
+      </Badge>
+    )
+  }
 
-  return (
-    <Badge
-      color="primary"
-      badgeContent={`#${userId}`}
-      sx={{
-        '& .MuiBadge-badge': {
-          right: -12,
-          top: 56,
-          transform: 'none',
-          borderRadius: '20px',
-          px: '5px',
-          color: theme => theme.palette.light1.main,
-          fontSize: theme => theme.typography.body3.fontSize,
-          fontWeight: theme => theme.typography.body3.fontWeight,
-          lineHeight: theme => theme.typography.body3.lineHeight
-        }
-      }}
-    >
+  const withOutlined = (child: React.ReactNode) => {
+    return (
       <Box
         component="span"
         sx={{
@@ -58,10 +66,15 @@ const Avatar = ({
           p: '5px'
         }}
       >
-        {mainContent}
+        {child}
       </Box>
-    </Badge>
-  )
+    )
+  }
+
+  let content: React.ReactNode = mainContent
+  if (outlined) content = withOutlined(content)
+  if (userId) content = withBadge(content)
+  return content
 }
 
 export default Avatar
