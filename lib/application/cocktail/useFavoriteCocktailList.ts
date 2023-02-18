@@ -7,7 +7,11 @@ import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import { FavoriteCocktailList, ProfileCocktailItem } from 'lib/domain/cocktail'
+import {
+  FavoriteCocktailList,
+  FavoriteCocktailItem,
+  ProfileCocktailItem
+} from 'lib/domain/cocktail'
 import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
 import { paths } from 'lib/configs/routes'
 import snackbarMessages from 'lib/constants/snackbarMessages'
@@ -41,15 +45,23 @@ const useFavoriteCocktailList = (userId?: number) => {
 
   let cocktailList: FavoriteCocktailList | undefined
   if (data && config) {
+    const collectedDateSorter = (
+      a: FavoriteCocktailItem,
+      b: FavoriteCocktailItem
+    ) =>
+      new Date(b.collectedDate).getTime() - new Date(a.collectedDate).getTime()
+
     cocktailList = {
       isPublic: data.isPublic,
-      data: data.data.map(cocktail =>
-        produce(cocktail, draft => {
-          draft.photoUrl = draft.photoUrl
-            ? join(config.staticBaseUrl, draft.photoUrl)
-            : FALLBACK_URL
-        })
-      )
+      data: data.data
+        .map(cocktail =>
+          produce(cocktail, draft => {
+            draft.photoUrl = draft.photoUrl
+              ? join(config.staticBaseUrl, draft.photoUrl)
+              : FALLBACK_URL
+          })
+        )
+        .sort(collectedDateSorter)
     }
   }
 

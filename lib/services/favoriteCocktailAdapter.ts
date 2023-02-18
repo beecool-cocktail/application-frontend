@@ -15,7 +15,8 @@ const getSelfList = async (token: string): Promise<FavoriteCocktailList> => {
         title: cocktailItem.title,
         photoUrl: cocktailItem.photo,
         userName: cocktailItem.user_name,
-        collected: cocktailItem.is_collected
+        collected: cocktailItem.is_collected,
+        collectedDate: cocktailItem.collected_date
       })) || [],
     isPublic: resData.is_public
   }
@@ -36,7 +37,8 @@ const getOtherList = async (
         title: cocktailItem.title,
         photoUrl: cocktailItem.photo,
         userName: cocktailItem.user_name,
-        collected: cocktailItem.is_collected
+        collected: cocktailItem.is_collected,
+        collectedDate: cocktailItem.collected_date
       })) || [],
     isPublic: resData.is_public
   }

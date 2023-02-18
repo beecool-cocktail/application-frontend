@@ -4,7 +4,7 @@ import {
   CocktailPostDraftList,
   CocktailPostItem,
   FavoriteCocktailList,
-  ProfileCocktailItem
+  MyCocktailItem
 } from 'lib/domain/cocktail'
 import { Ingredient, Step } from 'lib/domain/cocktail'
 import { User, CurrentUser } from 'lib/domain/user'
@@ -95,8 +95,8 @@ export interface FavoriteCocktailListService {
 }
 
 export interface MyCocktailListService {
-  getSelfList(token: string): Promise<ProfileCocktailItem[]>
-  getOtherList(userId: number, token: string): Promise<ProfileCocktailItem[]>
+  getSelfList(token: string): Promise<MyCocktailItem[]>
+  getOtherList(userId: number, token: string): Promise<MyCocktailItem[]>
   deleteById(cocktailId: number, token: string): Promise<void>
 }
 

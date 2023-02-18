@@ -6,7 +6,7 @@ import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
-import { ProfileCocktailItem } from 'lib/domain/cocktail'
+import { MyCocktailItem, ProfileCocktailItem } from 'lib/domain/cocktail'
 import { paths } from 'lib/configs/routes'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
@@ -37,15 +37,20 @@ const useMyCocktailList = (userId?: number) => {
     userId ? myCocktailService.getOtherList : myCocktailService.getSelfList
   )
 
-  let cocktails: ProfileCocktailItem[] | undefined
+  let cocktails: MyCocktailItem[] | undefined
   if (data && config) {
-    cocktails = data.map(cocktail =>
-      produce(cocktail, draft => {
-        draft.photoUrl = draft.photoUrl
-          ? join(config.staticBaseUrl, draft.photoUrl)
-          : FALLBACK_URL
-      })
-    )
+    const compareCreatedDate = (a: MyCocktailItem, b: MyCocktailItem) =>
+      new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+
+    cocktails = data
+      .map(cocktail =>
+        produce(cocktail, draft => {
+          draft.photoUrl = draft.photoUrl
+            ? join(config.staticBaseUrl, draft.photoUrl)
+            : FALLBACK_URL
+        })
+      )
+      .sort(compareCreatedDate)
   }
 
   const isVisitor = userId != null

@@ -8,6 +8,9 @@ import { GetSelfCocktailListResponse } from 'sdk'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useOnce from 'lib/hooks/useOnce'
 
+const genDate = (index: number) =>
+  `2022-11-09 11:07:${index.toString().padStart(2, '0')}`
+
 export default {
   title: 'Cocktail/Cocktail List/My Cocktail List',
   component: MyCocktailList,
@@ -29,19 +32,22 @@ export default {
                 cocktail_id: 1,
                 photo: '/cocktail.jpg',
                 title: 'Gin Tonic',
-                user_name: 'Mock User'
+                user_name: 'Mock User',
+                created_date: genDate(0)
               },
               {
                 cocktail_id: 2,
                 photo: '/cocktail.jpg',
                 title: 'Gin Tonic',
-                user_name: 'Mock User'
+                user_name: 'Mock User',
+                created_date: genDate(1)
               },
               {
                 cocktail_id: 3,
                 photo: 'cocktail.jpg',
                 title: 'Gin Tonic',
-                user_name: 'Mock User'
+                user_name: 'Mock User',
+                created_date: genDate(2)
               }
             ]
           }

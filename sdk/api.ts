@@ -245,6 +245,12 @@ export interface FavoriteCocktail {
     'cocktail_id': number;
     /**
      * 
+     * @type {string}
+     * @memberof FavoriteCocktail
+     */
+    'collected_date': string;
+    /**
+     * 
      * @type {boolean}
      * @memberof FavoriteCocktail
      */
@@ -300,11 +306,11 @@ export interface GetCocktail200Response {
  */
 export interface GetCocktailByIDRequest {
     /**
-     * ID of an cocktail item  In: path
+     * ID of a cocktail item  In: path
      * @type {number}
      * @memberof GetCocktailByIDRequest
      */
-    'id'?: number;
+    'ID'?: number;
 }
 /**
  * 
@@ -460,11 +466,11 @@ export interface GetCocktailDraft200Response {
  */
 export interface GetCocktailDraftByIDRequest {
     /**
-     * ID of an cocktail item  In: path
+     * ID of a cocktail item  In: path
      * @type {number}
      * @memberof GetCocktailDraftByIDRequest
      */
-    'id'?: number;
+    'ID'?: number;
 }
 /**
  * 
@@ -716,16 +722,22 @@ export interface GetOtherUserInfoResponse {
 export interface GetPopularCocktailListRequest {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof GetPopularCocktailListRequest
      */
-    'page': number;
+    'Keyword'?: string;
     /**
      * 
      * @type {number}
      * @memberof GetPopularCocktailListRequest
      */
-    'page_size': number;
+    'Page': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GetPopularCocktailListRequest
+     */
+    'PageSize': number;
 }
 /**
  * 
@@ -964,6 +976,12 @@ export interface OtherCocktailList {
      * @memberof OtherCocktailList
      */
     'cocktail_id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OtherCocktailList
+     */
+    'created_date': string;
     /**
      * 
      * @type {boolean}
@@ -1211,6 +1229,12 @@ export interface SelfCocktailList {
      * @memberof SelfCocktailList
      */
     'cocktail_id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof SelfCocktailList
+     */
+    'created_date': string;
     /**
      * 
      * @type {string}

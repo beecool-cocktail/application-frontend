@@ -8,12 +8,13 @@ import {
   GetUserInfoResponse,
   GetSelfCocktailListResponse,
   GetUserFavoriteCocktailListResponse,
-  OtherCocktailList
+  OtherCocktailList,
+  FavoriteCocktail
 } from 'sdk'
 import loggedInDecorator from 'stories/decorators/loggedInDecorator'
 
 export default {
-  title: 'profile/Profile',
+  title: 'pages/Profile',
   component: ProfileDetail,
   parameters: {
     layout: 'fullscreen',
@@ -33,15 +34,22 @@ const titles = [
   '我是測試調酒'
 ]
 
+const genDate = (index: number) =>
+  `2022-11-09 11:07:${index.toString().padStart(2, '0')}`
+
 const count = 15
-const genCocktail = (index: number): OtherCocktailList => ({
+const genCocktail = (index: number): OtherCocktailList & FavoriteCocktail => ({
   cocktail_id: index + 1,
   title: titles[(index % titles.length) + 1],
   photo: `/cocktail-${(index % 3) + 1}.jpg`,
-  user_name: '123123',
-  is_collected: true
+  user_name: 'user name',
+  is_collected: true,
+  created_date: genDate(index),
+  collected_date: genDate(index)
 })
-const cocktails: OtherCocktailList[] = range(0, count).map(genCocktail)
+const cocktails: (OtherCocktailList & FavoriteCocktail)[] = range(0, count).map(
+  genCocktail
+)
 
 const userInfoResponse: GetUserInfoResponse = {
   user_id: 1234,

@@ -8,6 +8,9 @@ import { GetUserFavoriteCocktailListResponse } from 'sdk'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import useOnce from 'lib/hooks/useOnce'
 
+const genDate = (index: number) =>
+  `2022-11-09 11:07:${index.toString().padStart(2, '0')}`
+
 export default {
   title: 'Cocktail/Cocktail List/Favorite Cocktail List',
   component: FavoriteCocktailCardList,
@@ -31,21 +34,24 @@ export default {
                 photo: '/cocktail.jpg',
                 title: 'Gin Tonic',
                 user_name: 'Mock User',
-                is_collected: true
+                is_collected: true,
+                collected_date: genDate(0)
               },
               {
                 cocktail_id: 2,
                 photo: '/cocktail.jpg',
                 title: 'Gin Tonic',
                 user_name: 'Mock User',
-                is_collected: true
+                is_collected: true,
+                collected_date: genDate(1)
               },
               {
                 cocktail_id: 3,
                 photo: 'cocktail.jpg',
                 title: 'Gin Tonic',
                 user_name: 'Mock User',
-                is_collected: true
+                is_collected: true,
+                collected_date: genDate(2)
               }
             ],
             total: 3

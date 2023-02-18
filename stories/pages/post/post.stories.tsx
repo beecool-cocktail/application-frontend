@@ -4,7 +4,7 @@ import Post from 'components/common/post/post'
 import PostSkeleton from 'components/common/post/postSkeleton'
 
 export default {
-  title: 'post/Post',
+  title: 'pages/Post',
   component: Post,
   argTypes: {
     onCollect: { action: 'collect' },
