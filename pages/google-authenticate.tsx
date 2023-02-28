@@ -1,21 +1,19 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import Loading from 'components/common/status/loading'
+import { useEffect, useRef } from 'react'
 import useAuth from 'lib/application/useAuth'
 
 const GoogleAuthenticate = () => {
   const router = useRouter()
   const { login } = useAuth()
-  const [loading, setLoading] = useState(false)
+  const isLoginLoading = useRef(false)
 
   useEffect(() => {
-    if (loading) return
-    const code = router.query.code as string
-    if (!code) return
+    if (!router.query.code || isLoginLoading.current) return
+    isLoginLoading.current = true
     login(router.query.code as string)
-    setLoading(true)
-  }, [loading, login, router])
-  return <Loading />
+  }, [login, router.query.code])
+
+  return null
 }
 
 export default GoogleAuthenticate

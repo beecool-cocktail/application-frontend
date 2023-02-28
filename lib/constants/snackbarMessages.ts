@@ -1,4 +1,10 @@
 const snackbarMessages = {
+  login: {
+    error: '登入失敗'
+  },
+  logout: {
+    error: '登出失敗'
+  },
   createPost: {
     success: '發布成功',
     error: '發佈失敗'
