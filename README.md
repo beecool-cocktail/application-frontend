@@ -10,10 +10,11 @@
 
 ### Yarn Scripts
 
-前端人員開發使用，檾確保本機使用 Node.js 16 以上的版本，並且有安裝 yarn。
+確保本機使用 [Node.js](https://nodejs.org/zh-tw/download/) 16 以上的版本，並且有安裝 [yarn](https://yarnpkg.com/)。
 
 - `yarn`：安裝 npm dependencies packages。
 - `yarn dev`：前端 Hot Reload 開發，至 [http://localhost:3000](http://localhost:3000) 查看結果。
+- `yarn storybook`：開啟 storybook 進行元件開發。
 - `yarn build`：進行 production build。
 - `yarn start`：根據 production build 產生的檔案啟動 server，至 [http://localhost:3000](http://localhost:3000) 查看結果。
 
