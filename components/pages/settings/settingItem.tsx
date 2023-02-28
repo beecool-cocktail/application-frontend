@@ -51,7 +51,8 @@ const SettingItem = ({
       gap="16px"
       sx={{
         width: 1,
-        padding: '14px 10px',
+        height: 50,
+        px: '10px',
         backgroundColor: theme => theme.palette.dark5.main,
         cursor: 'pointer'
       }}
