@@ -3,10 +3,10 @@ import { CocktailPostPreview, CocktailPostDraft } from 'lib/domain/cocktail'
 import userCurrentUser from 'lib/application/user/useCurrentUser'
 import usePostEditor from 'lib/application/usePostEditor'
 import BottomButton from 'components/common/button/bottomButton'
-import PostImageBlock from './postImageBlock'
-import PostPreview from './postPreview'
+import PostEditorStep1 from './postEditorStep1'
+import PostEditorStep2 from './postEditorStep2'
+import PostEditorStep3 from './postEditorStep3'
 import PostEditorTopNavigation from './postEditorTopNavigation'
-import PostTutorial from './postTutorial'
 
 export interface PostEditorProps {
   draft?: CocktailPostDraft
@@ -16,39 +16,22 @@ export interface PostEditorProps {
 const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
   const { user } = userCurrentUser()
   const {
-    form: { control, getValues, isDirty },
+    getValues,
+    isDraftValid,
+    step1Control,
+    step2Control,
+    buttonAction,
     isEditPost,
     totalStep,
     activeStep,
     goBack,
-    goNext,
     goPreview,
     saveDraft,
-    submit,
     handleImageUpload,
     handleImageToCover,
     handleImageEdit,
     handleImageDelete
   } = usePostEditor(isDraft, draft)
-
-  const renderButton = () => {
-    let type: 'button' | 'submit' = 'button'
-    let onClick = goNext
-    let label
-    if (activeStep === 0) label = '下一步'
-    if (activeStep === 1) label = '預覽'
-    if (activeStep === 2) {
-      type = 'submit'
-      onClick = submit
-      label = draft ? '重新發佈' : '發布'
-    }
-    return (
-      <BottomButton position="static" type={type} onClick={onClick}>
-        {label}
-      </BottomButton>
-    )
-  }
-
   if (!user) return null
 
   return (
@@ -62,24 +45,24 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
         isEditPost={isEditPost}
         totalStep={totalStep}
         activeStep={activeStep}
-        savable={isDirty}
+        savable={isDraftValid}
         onBack={goBack}
         onPreview={goPreview}
         onSaveDraft={saveDraft}
       />
       <Stack alignItems="center" justifyContent="flex-start" flex={1} px={2}>
         {activeStep === 0 ? (
-          <PostTutorial control={control} />
+          <PostEditorStep1 control={step1Control} />
         ) : activeStep === 1 ? (
-          <PostImageBlock
-            control={control}
+          <PostEditorStep2
+            control={step2Control}
             onImageUpload={handleImageUpload}
             onImageToCover={handleImageToCover}
             onImageEdit={handleImageEdit}
             onImageDelete={handleImageDelete}
           />
         ) : (
-          <PostPreview
+          <PostEditorStep3
             cocktailPost={(() => {
               const values = getValues()
               const cocktailPost: CocktailPostPreview = {
@@ -99,7 +82,14 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
           />
         )}
       </Stack>
-      {renderButton()}
+      <BottomButton
+        position="static"
+        type={buttonAction.type}
+        disabled={!buttonAction.isValid}
+        onClick={buttonAction.onClick}
+      >
+        {buttonAction.label}
+      </BottomButton>
     </Stack>
   )
 }

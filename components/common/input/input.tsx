@@ -13,6 +13,7 @@ interface InputProps extends Omit<InputBaseProps, 'onChange'> {
   feedback?: string
   maxLength?: number
   expanded?: boolean
+  showLetterCount?: boolean
   getLetterCount?: (target: string) => number
   onChange?: (v: string) => void
 }
@@ -100,6 +101,7 @@ const RawInput = (props: InputProps) => {
     maxLength,
     multiline,
     expanded = false,
+    showLetterCount = true,
     getLetterCount = target => target.length,
     ...restProps
   } = props
@@ -235,7 +237,7 @@ const RawInput = (props: InputProps) => {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        {maxLength && expanded && renderLetterCount()}
+        {maxLength && expanded && showLetterCount && renderLetterCount()}
       </Stack>
       <Stack
         direction="row"
@@ -258,7 +260,7 @@ const RawInput = (props: InputProps) => {
             {feedback}
           </Typography>
         )}
-        {maxLength && !expanded && renderLetterCount()}
+        {maxLength && !expanded && showLetterCount && renderLetterCount()}
       </Stack>
     </Stack>
   )

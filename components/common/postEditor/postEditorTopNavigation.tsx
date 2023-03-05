@@ -27,24 +27,24 @@ const PostEditorTopNavigation = ({
     <Stack>
       <TopNavigation
         leftSlot={() => <BackButton onClick={onBack} />}
-        rightSlot={() =>
-          isEditPost ? (
-            <Button onClick={onPreview}>預覽</Button>
-          ) : (
+        rightSlot={() => {
+          if (isEditPost) {
+            if (activeStep !== 2)
+              return (
+                <Button disabled={!savable} onClick={onPreview}>
+                  預覽
+                </Button>
+              )
+            return null
+          }
+          return (
             <Button disabled={!savable} onClick={onSaveDraft}>
               存成草稿
             </Button>
           )
-        }
+        }}
       />
       <ProgressBar totalStep={totalStep} activeStep={activeStep} />
-      {/* <Stepper activeStep={activeStep}>
-        {steps.map(label => (
-          <Step key={label} completed={false}>
-            <StepLabel />
-          </Step>
-        ))}
-      </Stepper> */}
     </Stack>
   )
 }

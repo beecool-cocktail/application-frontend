@@ -2,13 +2,13 @@ import React from 'react'
 import { Control } from 'react-hook-form'
 import { Box, Stack, Typography } from '@mui/material'
 import { useFieldArray } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/application/ports'
+import { CocktailPostStep1Form } from 'lib/application/ports'
 import IconButton from '../button/iconButton'
 import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import IngredientInput from './ingredientInput'
 
 interface IngredientListProps {
-  control: Control<CocktailPostForm>
+  control: Control<CocktailPostStep1Form>
 }
 
 const IngredientList = ({ control }: IngredientListProps) => {

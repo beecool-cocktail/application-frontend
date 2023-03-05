@@ -4,13 +4,14 @@ import { Box } from '@mui/system'
 import { Controller, Control } from 'react-hook-form'
 import Input from 'components/common/input/input'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
-import { CocktailPostForm } from 'lib/application/ports'
+import { CocktailPostStep1Form } from 'lib/application/ports'
+import { excludeSpecialCharacter } from 'lib/helper/string'
 import IconButton from '../button/iconButton'
 
 interface IngredientInputProps {
   ingredientName: `ingredients.${number}.name`
   amountName: `ingredients.${number}.amount`
-  control: Control<CocktailPostForm>
+  control: Control<CocktailPostStep1Form>
   removeDisabled?: boolean
   onRemove(): void
 }
@@ -37,9 +38,17 @@ const IngredientInput = ({
         <Controller
           control={control}
           name={ingredientName}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <Input placeholder="請輸入材料" fullWidth multiline {...field} />
+          rules={{ required: true, pattern: excludeSpecialCharacter }}
+          render={({ field, fieldState }) => (
+            <Input
+              placeholder="請輸入材料"
+              maxLength={24}
+              fullWidth
+              multiline
+              showLetterCount={false}
+              error={fieldState.error?.type === 'pattern'}
+              {...field}
+            />
           )}
         />
       </Box>
@@ -47,9 +56,17 @@ const IngredientInput = ({
         <Controller
           control={control}
           name={amountName}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <Input placeholder="數量/單位" fullWidth multiline {...field} />
+          rules={{ pattern: excludeSpecialCharacter }}
+          render={({ field, fieldState }) => (
+            <Input
+              placeholder="數量/單位"
+              maxLength={6}
+              fullWidth
+              multiline
+              showLetterCount={false}
+              error={fieldState.error?.type === 'pattern'}
+              {...field}
+            />
           )}
         />
       </Box>

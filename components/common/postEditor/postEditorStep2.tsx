@@ -1,19 +1,20 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/application/ports'
+import { CocktailPostStep2Form } from 'lib/application/ports'
+import { getCharacterCount } from 'lib/helper/string'
 import Input from '../input/input'
 import ImageSelector, { ImageSelectorProps } from './imageSelector'
 
 interface PostImageBlockProps {
-  control: Control<CocktailPostForm>
+  control: Control<CocktailPostStep2Form>
   onImageToCover(index: number): void
   onImageUpload(index: number, urls: string[]): void
   onImageEdit(index: number, url: string): void
   onImageDelete(index: number): void
 }
 
-const PostImageBlock = ({
+const PostEditorStep2 = ({
   control,
   onImageToCover,
   onImageUpload,
@@ -86,6 +87,7 @@ const PostImageBlock = ({
             multiline
             rows={5}
             maxLength={300}
+            getLetterCount={getCharacterCount}
             {...field}
           />
         )}
@@ -94,4 +96,4 @@ const PostImageBlock = ({
   )
 }
 
-export default PostImageBlock
+export default PostEditorStep2

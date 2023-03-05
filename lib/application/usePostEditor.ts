@@ -10,7 +10,11 @@ import { CocktailPostDraft, Ingredient, Step } from 'lib/domain/cocktail'
 import { EditablePhoto } from 'lib/domain/photo'
 import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
 import snackbarMessages from 'lib/constants/snackbarMessages'
-import { CocktailPostForm } from './ports'
+import {
+  CocktailPostForm,
+  CocktailPostStep1Form,
+  CocktailPostStep2Form
+} from './ports'
 import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
 import useConfirmDialog from './ui/useConfirmDialog'
@@ -20,14 +24,6 @@ const totalStep = 3
 
 const defaultIngredients: Ingredient[] = [{ name: '', amount: '' }]
 const defaultSteps: Step[] = [{ description: '' }]
-
-const createModeDefaultValues: CocktailPostForm = {
-  title: '',
-  description: '',
-  photos: [],
-  ingredients: defaultIngredients,
-  steps: defaultSteps
-}
 
 const getDefaultCroppedImage = async (src: string): Promise<string> => {
   return new Promise(resolve => {
@@ -48,22 +44,33 @@ const getDefaultCroppedImage = async (src: string): Promise<string> => {
   })
 }
 
-const getDefaultValues = (draft?: CocktailPostDraft): CocktailPostForm => {
-  if (!draft) return createModeDefaultValues
+const getStep1DefaultValues = (
+  draft?: CocktailPostDraft
+): CocktailPostStep1Form => {
+  if (!draft)
+    return { title: '', ingredients: defaultIngredients, steps: defaultSteps }
   const ingredients = draft.ingredients.length
     ? draft.ingredients
     : defaultIngredients
   const steps = draft.steps.length ? draft.steps : defaultSteps
   return {
     title: draft.title,
+    ingredients,
+    steps
+  }
+}
+
+const getStep2DefaultValues = (
+  draft?: CocktailPostDraft
+): CocktailPostStep2Form => {
+  if (!draft) return { description: '', photos: [] }
+  return {
     description: draft.description,
     photos: draft.photos.map(p => ({
       id: p.id,
       originURL: p.path,
       editedURL: p.path
-    })),
-    ingredients,
-    steps
+    }))
   }
 }
 
@@ -75,19 +82,71 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
   const storage = useLocalStorage()
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
-  const [activeStep, setActiveStep] = useState<number>(0)
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    setValue,
-    formState: { isDirty }
-  } = useForm<CocktailPostForm>({
-    defaultValues: getDefaultValues(draft)
-  })
   const { setLoading } = useWholePageSpinner()
+  const {
+    control: step1Control,
+    handleSubmit: handleStep1Submit,
+    getValues: getStep1Values,
+    formState: {
+      isDirty: isStep1Dirty,
+      isValid: isStep1Valid,
+      errors: step1Errors
+    }
+  } = useForm<CocktailPostStep1Form>({
+    mode: 'onChange',
+    defaultValues: getStep1DefaultValues(draft)
+  })
+  const {
+    control: step2Control,
+    handleSubmit: handleStep2Submit,
+    setValue: setStep2Value,
+    getValues: getStep2Values,
+    formState: {
+      isDirty: isStep2Dirty,
+      isValid: isStep2Valid,
+      errors: step2Errors
+    }
+  } = useForm<CocktailPostStep2Form>({
+    mode: 'onChange',
+    defaultValues: getStep2DefaultValues(draft)
+  })
+  const [activeStep, setActiveStep] = useState<number>(0)
 
   const isEditPost = Boolean(draft) && !isDraft
+  const isDirty = isStep1Dirty || isStep2Dirty
+  const isValid = isStep1Valid && isStep2Valid
+
+  const isStep1DraftValid = (() => {
+    if (step1Errors.title && step1Errors.title.type !== 'required') return false
+    if (
+      step1Errors.ingredients &&
+      step1Errors.ingredients.some?.(ingredient => {
+        if (!ingredient) return false
+        const { name, amount } = ingredient
+        return (
+          (name && name.type !== 'required') ||
+          (amount && amount.type !== 'required')
+        )
+      })
+    ) {
+      return false
+    }
+    if (
+      step1Errors.steps &&
+      step1Errors.steps.some?.(err => err && err.type !== 'required')
+    ) {
+      return false
+    }
+    return true
+  })()
+  const isStep2DraftValid = Object.values(step2Errors).every(
+    error => error.type === 'required'
+  )
+  const isDraftValid = isStep1DraftValid && isStep2DraftValid && isDirty
+
+  const getValues = (): CocktailPostForm => {
+    return { ...getStep1Values(), ...getStep2Values() }
+  }
 
   const goBack = () => {
     if (activeStep === 0) {
@@ -118,35 +177,42 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
   const handleImageToCover = (index: number) => {
     const values = getValues()
     const currentPhotos = values.photos
-    setValue('photos', move(index, 0, currentPhotos))
+    setStep2Value('photos', move(index, 0, currentPhotos))
   }
 
   const handleImageUpload = async (index: number, urls: string[]) => {
-    const originPhotos = getValues().photos
-    if (originPhotos.length > index) {
-      const url = urls[0]
-      const updated = {
+    setLoading(true)
+    try {
+      const originPhotos = getValues().photos
+      if (originPhotos.length > index) {
+        const url = urls[0]
+        const updated = {
+          originURL: url,
+          editedURL: await getDefaultCroppedImage(url)
+        }
+        setStep2Value('photos', update(index, updated, originPhotos))
+        return
+      }
+
+      const maxImageCount = 5
+      const availableImageCount = maxImageCount - originPhotos.length
+
+      if (urls.length > availableImageCount) {
+        urls = urls.slice(0, availableImageCount)
+        snackbar.warning(`最多只能上傳 ${availableImageCount} 張照片`)
+      }
+      const promiseObjs = urls.map(async url => ({
         originURL: url,
         editedURL: await getDefaultCroppedImage(url)
-      }
-      setValue('photos', update(index, updated, originPhotos))
-      return
+      }))
+
+      const photos: EditablePhoto[] = await Promise.all(promiseObjs)
+      setStep2Value('photos', [...originPhotos, ...photos])
+    } catch (err) {
+      snackbar.error('上傳照片失敗')
+    } finally {
+      setLoading(false)
     }
-
-    const maxImageCount = 5
-    const availableImageCount = maxImageCount - originPhotos.length
-
-    if (urls.length > availableImageCount) {
-      urls = urls.slice(0, availableImageCount)
-      snackbar.warning(`最多只能上傳 ${availableImageCount} 張照片`)
-    }
-    const promiseObjs = urls.map(async url => ({
-      originURL: url,
-      editedURL: await getDefaultCroppedImage(url)
-    }))
-
-    const photos: EditablePhoto[] = await Promise.all(promiseObjs)
-    setValue('photos', [...originPhotos, ...photos])
   }
 
   const handleImageEdit = (index: number, url: string) => {
@@ -154,13 +220,13 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     const currentPhotos = values.photos
     const origin = currentPhotos[index]
     const updated: EditablePhoto = { ...origin, editedURL: url }
-    setValue('photos', update(index, updated, currentPhotos))
+    setStep2Value('photos', update(index, updated, currentPhotos))
   }
 
   const handleImageDelete = (index: number) => {
     const values = getValues()
     const currentPhotos = values.photos
-    setValue('photos', remove(index, 1, currentPhotos))
+    setStep2Value('photos', remove(index, 1, currentPhotos))
   }
 
   const saveDraft = async () => {
@@ -192,7 +258,8 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     }
   }
 
-  const onSubmit = async (form: CocktailPostForm) => {
+  const submitPost = async () => {
+    const form = getValues()
     const token = storage.getToken()
     if (!token) return
 
@@ -233,18 +300,47 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     }
   }
 
-  const submit = handleSubmit(onSubmit)
+  const buttonAction = (() => {
+    switch (activeStep) {
+      case 0:
+        return {
+          label: '下一步',
+          type: 'button',
+          isValid: isStep1Valid,
+          onClick: handleStep1Submit(goNext)
+        }
+      case 1:
+        return {
+          label: '預覽',
+          type: 'button',
+          isValid: isStep2Valid,
+          onClick: handleStep2Submit(goNext)
+        }
+      case 2:
+        return {
+          label: draft ? '重新發佈' : '發布',
+          type: 'submit',
+          isValid,
+          onClick: submitPost
+        }
+      default:
+        throw new Error('unexpected active step')
+    }
+  })()
 
   return {
-    form: { control, isDirty, getValues },
+    isValid,
+    isDraftValid,
+    getValues,
+    step1Control,
+    step2Control,
+    buttonAction,
     isEditPost,
     totalStep,
     activeStep,
     goBack,
-    goNext,
     goPreview,
     saveDraft,
-    submit,
     handleImageUpload,
     handleImageToCover,
     handleImageEdit,

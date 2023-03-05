@@ -17,13 +17,20 @@ export interface Page<T> {
 
 export type CocktailListPage = Page<CocktailPostItem>
 
-export interface CocktailPostForm {
+export interface CocktailPostStep1Form {
   title: string
-  description: string
   ingredients: Ingredient[]
   steps: Step[]
-  photos: EditablePhoto[]
 }
+
+export interface CocktailPostStep2Form {
+  photos: EditablePhoto[]
+  description: string
+}
+
+export interface CocktailPostForm
+  extends CocktailPostStep1Form,
+    CocktailPostStep2Form {}
 
 export interface UpdateUserInfoForm {
   username?: string

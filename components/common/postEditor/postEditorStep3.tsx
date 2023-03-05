@@ -7,12 +7,12 @@ interface PostPreviewProps {
   cocktailPost: CocktailPostPreview
 }
 
-const PostPreview = ({ cocktailPost }: PostPreviewProps) => {
+const PostEditorStep3 = ({ cocktailPost }: PostPreviewProps) => {
   return (
     <Stack width={1}>
-      <Post cocktailPost={cocktailPost} isPreview></Post>
+      <Post cocktailPost={cocktailPost} isPreview />
     </Stack>
   )
 }
 
-export default PostPreview
+export default PostEditorStep3

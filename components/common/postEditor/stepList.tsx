@@ -7,7 +7,7 @@ import { clamp } from 'ramda'
 // @ts-ignore
 import swap from 'lodash-move'
 import { Control, useFieldArray } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/application/ports'
+import { CocktailPostStep1Form } from 'lib/application/ports'
 import IconButton from '../button/iconButton'
 import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import StepInput from './stepInput'
@@ -35,7 +35,7 @@ const fn =
         }
 
 interface StepListProps {
-  control: Control<CocktailPostForm>
+  control: Control<CocktailPostStep1Form>
 }
 
 const StepList = ({ control }: StepListProps) => {
