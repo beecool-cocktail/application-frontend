@@ -47,28 +47,30 @@ const getDefaultCroppedImage = async (src: string): Promise<string> => {
 }
 
 const getStep1DefaultValues = (
-  draft?: CocktailPostDraft
+  targetCocktail?: CocktailPostDraft
 ): CocktailPostStep1Form => {
-  if (!draft)
+  if (!targetCocktail)
     return { title: '', ingredients: defaultIngredients, steps: defaultSteps }
-  const ingredients = draft.ingredients.length
-    ? draft.ingredients
+  const ingredients = targetCocktail.ingredients.length
+    ? targetCocktail.ingredients
     : defaultIngredients
-  const steps = draft.steps.length ? draft.steps : defaultSteps
+  const steps = targetCocktail.steps.length
+    ? targetCocktail.steps
+    : defaultSteps
   return {
-    title: draft.title,
+    title: targetCocktail.title,
     ingredients,
     steps
   }
 }
 
 const getStep2DefaultValues = (
-  draft?: CocktailPostDraft
+  targetCocktail?: CocktailPostDraft
 ): CocktailPostStep2Form => {
-  if (!draft) return { description: '', photos: [] }
+  if (!targetCocktail) return { description: '', photos: [] }
   return {
-    description: draft.description,
-    photos: draft.photos.map(p => ({
+    description: targetCocktail.description,
+    photos: targetCocktail.photos.map(p => ({
       id: p.id,
       originURL: p.path,
       editedURL: p.path
@@ -76,7 +78,10 @@ const getStep2DefaultValues = (
   }
 }
 
-const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
+const usePostEditor = (
+  isDraft: boolean,
+  targetCocktail?: CocktailPostDraft
+) => {
   const router = useCornerRouter()
   const { createPost, updatePost, createDraft, updateDraft, toFormal } =
     usePostEditorService()
@@ -96,7 +101,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     }
   } = useForm<CocktailPostStep1Form>({
     mode: 'onChange',
-    defaultValues: getStep1DefaultValues(draft)
+    defaultValues: getStep1DefaultValues(targetCocktail)
   })
   const {
     control: step2Control,
@@ -110,11 +115,11 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     }
   } = useForm<CocktailPostStep2Form>({
     mode: 'onChange',
-    defaultValues: getStep2DefaultValues(draft)
+    defaultValues: getStep2DefaultValues(targetCocktail)
   })
   const [activeStep, setActiveStep] = useState<number>(0)
 
-  const isEditPost = Boolean(draft) && !isDraft
+  const isEditPost = Boolean(targetCocktail) && !isDraft
   const isDirty = isStep1Dirty || isStep2Dirty
   const isValid = isStep1Valid && isStep2Valid
 
@@ -239,10 +244,10 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     setLoading(true)
     try {
       const values = getValues()
-      if (draft) {
+      if (targetCocktail) {
         snackbarMessage = snackbarMessages.updateDraft
-        await updateDraft(draft.id, values, token)
-        mutate(`/cocktail-drafts/${draft.id}`)
+        await updateDraft(targetCocktail.id, values, token)
+        mutate(`/cocktail-drafts/${targetCocktail.id}`)
       } else {
         snackbarMessage = snackbarMessages.createDraft
         await createDraft(values, token)
@@ -269,26 +274,26 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
     let snackbarMessage = snackbarMessages.createPost
     try {
       if (isDraft) {
-        if (draft) {
+        if (targetCocktail) {
           snackbarMessage = snackbarMessages.updateDraft
-          await updateDraft(draft.id, form, token)
-          await toFormal(draft.id, token)
-          mutate(`/cocktails-drafts/${draft.id}`)
+          await updateDraft(targetCocktail.id, form, token)
+          await toFormal(targetCocktail.id, token)
+          mutate(`/cocktails-drafts/${targetCocktail.id}`)
         } else {
           snackbarMessage = snackbarMessages.createPost
           await createPost(form, token)
         }
         mutate('/cocktail-drafts')
       } else {
-        if (draft) {
+        if (targetCocktail) {
           snackbarMessage = snackbarMessages.updatePost
-          await updatePost(draft.id, form, token)
+          await updatePost(targetCocktail.id, form, token)
           mutate('/cocktails')
-          mutate(`/cocktails/${draft.id}`)
+          mutate(`/cocktails/${targetCocktail.id}`)
         }
       }
       snackbar.success(snackbarMessage.success)
-      const id = draft?.id
+      const id = targetCocktail?.id
       if (router.query.backToCocktailPage && id)
         router.push(paths.cocktailById(id))
       else router.push(paths.profile)
@@ -320,7 +325,7 @@ const usePostEditor = (isDraft: boolean, draft?: CocktailPostDraft) => {
         }
       case 2:
         return {
-          label: draft ? '重新發佈' : '發布',
+          label: targetCocktail ? '重新發佈' : '發布',
           type: 'submit',
           isValid,
           onClick: submitPost

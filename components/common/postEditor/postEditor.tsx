@@ -9,11 +9,11 @@ import PostEditorStep3 from './postEditorStep3'
 import PostEditorTopNavigation from './postEditorTopNavigation'
 
 export interface PostEditorProps {
-  draft?: CocktailPostDraft
+  cocktail?: CocktailPostDraft
   isDraft?: boolean
 }
 
-const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
+const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
   const { user } = userCurrentUser()
   const {
     getValues,
@@ -31,7 +31,7 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
     handleImageToCover,
     handleImageEdit,
     handleImageDelete
-  } = usePostEditor(isDraft, draft)
+  } = usePostEditor(isDraft, cocktail)
   if (!user) return null
 
   return (
@@ -66,7 +66,7 @@ const PostEditor = ({ draft, isDraft = false }: PostEditorProps) => {
             cocktailPost={(() => {
               const values = getValues()
               const cocktailPost: CocktailPostPreview = {
-                id: draft ? draft.id : 0,
+                id: cocktail ? cocktail.id : 0,
                 userId: user.id,
                 userName: user.username,
                 userPhoto: user.photo,

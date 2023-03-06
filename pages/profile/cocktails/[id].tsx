@@ -50,7 +50,7 @@ const CocktailEditPage = () => {
   const { cocktailPost, loading, isValidating } = useEditCocktail(id)
 
   if (loading || isValidating || !cocktailPost) return <Loading />
-  return <PostEditor draft={cocktailPost} />
+  return <PostEditor cocktail={cocktailPost} />
 }
 
 export default CocktailEditPage

@@ -10,7 +10,7 @@ const DraftById = () => {
   const { draft, loading, isValidating } = useDraft(id)
 
   if (loading || isValidating || !draft) return <Loading />
-  return <PostEditor isDraft draft={draft} />
+  return <PostEditor isDraft cocktail={draft} />
 }
 
 export default DraftById
