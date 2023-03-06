@@ -3,6 +3,7 @@ import { NextPage } from 'next'
 import Head from 'next/head'
 import { ThemeProvider } from '@mui/material'
 import { CssBaseline } from '@mui/material'
+import { ErrorBoundary } from 'react-error-boundary'
 import '@fontsource/noto-sans-tc/400.css'
 import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
@@ -35,7 +36,12 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return (
-    <>
+    <ErrorBoundary
+      FallbackComponent={() => <div>error</div>}
+      onError={() => {
+        console.error('error')
+      }}
+    >
       <Head>
         <meta
           name="viewport"
@@ -53,7 +59,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           <WholePageSpinner />
         </SWRConfigWrapper>
       </ThemeProvider>
-    </>
+    </ErrorBoundary>
   )
 }
 
