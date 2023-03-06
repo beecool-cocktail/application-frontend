@@ -5,11 +5,14 @@ import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import draftService from 'lib/services/draftAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
+import useSnackbar from '../ui/useSnackbar'
 
 const FETCH_KEY = 'DRAFTS'
 
 const useDraftList = () => {
+  const snackbar = useSnackbar()
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
@@ -41,7 +44,14 @@ const useDraftList = () => {
 
   const deleteSelected = async () => {
     const token = storage.getToken()
-    if (token) await draftService.deleteByIds(selectedIds, token)
+    if (token) {
+      try {
+        await draftService.deleteByIds(selectedIds, token)
+      } catch (err) {
+        console.error(err)
+        snackbar.error(snackbarMessages.deleteDraft.error)
+      }
+    }
     setBatchDeleteMode(false)
     setSelectedIds([])
     mutate()

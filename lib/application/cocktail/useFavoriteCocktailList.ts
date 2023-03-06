@@ -78,10 +78,10 @@ const useFavoriteCocktailList = (userId?: number) => {
       await favoriteCocktailService.collect(cocktail.id, token)
       mutate()
       if (!isVisitor) userMutate()
-      snackbar.success(snackbarMessages.collect.success)
+      snackbar.success(snackbarMessages.collectFavorite.success)
     } catch (err) {
       console.error(err)
-      snackbar.error(snackbarMessages.collect.error)
+      snackbar.error(snackbarMessages.collectFavorite.error)
     }
   }
 
@@ -89,7 +89,7 @@ const useFavoriteCocktailList = (userId?: number) => {
     const token = storage.getToken()
     if (!token) return
 
-    const snackbarMessage = snackbarMessages.remove
+    const snackbarMessage = snackbarMessages.removeFavorite
     const snackbarDuration = isVisitor
       ? DEFAULT_CONFIG.duration
       : DEFAULT_CONFIG.undoDuration

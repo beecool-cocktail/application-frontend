@@ -24,9 +24,9 @@ const useAuth = () => {
 
       storage.setToken(token)
       router.push(pathname.index)
-    } catch (e) {
-      snackbar.error('登入失敗')
-      if (e instanceof Error) console.error(e.message)
+    } catch (err) {
+      snackbar.error(snackbarMessages.login.error)
+      console.error(err)
     } finally {
       setLoading(false)
     }
@@ -41,9 +41,9 @@ const useAuth = () => {
           await authService.logout(userId)
           storage.removeToken()
           router.push(pathname.index)
-        } catch (e) {
+        } catch (err) {
           snackbar.error(snackbarMessages.logout.error)
-          if (e instanceof Error) console.error(e.message)
+          console.error(err)
         } finally {
           confirmDialog.destroy()
         }

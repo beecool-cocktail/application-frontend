@@ -257,9 +257,7 @@ const usePostEditor = (
       snackbar.success(snackbarMessage.success)
     } catch (err) {
       console.error(err)
-      if (err instanceof Error) {
-        snackbar.error(snackbarMessage.error)
-      }
+      snackbar.error(snackbarMessage.error)
     } finally {
       setLoading(false)
     }
@@ -299,9 +297,7 @@ const usePostEditor = (
       else router.push(paths.profile)
     } catch (err) {
       console.error(err)
-      if (err instanceof Error) {
-        snackbar.error(snackbarMessage.error)
-      }
+      snackbar.error(snackbarMessage.error)
     } finally {
       setLoading(false)
     }

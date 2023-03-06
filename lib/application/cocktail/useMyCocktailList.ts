@@ -63,11 +63,10 @@ const useMyCocktailList = (userId?: number) => {
       await myCocktailService.deleteById(id, token)
       mutate()
       userMutate()
-      snackbar.success(snackbarMessages.remove.success)
       confirmDialog.destroy()
     } catch (err) {
       console.error(err)
-      snackbar.success(snackbarMessages.remove.error)
+      snackbar.error(snackbarMessages.deletePost.error)
     } finally {
       confirmDialog.destroy()
     }
@@ -84,10 +83,10 @@ const useMyCocktailList = (userId?: number) => {
       await favoriteCocktailService.collect(cocktail.id, token)
       mutate()
       if (!isVisitor) userMutate()
-      snackbar.success(snackbarMessages.collect.success)
+      snackbar.success(snackbarMessages.collectFavorite.success)
     } catch (err) {
       console.error(err)
-      snackbar.success(snackbarMessages.collect.error)
+      snackbar.error(snackbarMessages.collectFavorite.error)
     }
   }
 
@@ -109,10 +108,10 @@ const useMyCocktailList = (userId?: number) => {
       await favoriteCocktailService.remove(cocktail.id, token)
       mutate()
       if (!isVisitor) userMutate()
-      snackbar.success(snackbarMessages.remove.success)
+      snackbar.success(snackbarMessages.removeFavorite.success)
     } catch (err) {
       console.error(err)
-      snackbar.error(snackbarMessages.remove.error)
+      snackbar.error(snackbarMessages.removeFavorite.error)
     }
   }
 

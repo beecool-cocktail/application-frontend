@@ -121,13 +121,13 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
 
     await mutate(optimisticData, false)
 
-    let snackbarMessage = snackbarMessages.collect
+    let snackbarMessage = snackbarMessages.collectFavorite
     try {
       if (isCollected) {
-        snackbarMessage = snackbarMessages.remove
+        snackbarMessage = snackbarMessages.removeFavorite
         await favoriteCocktailService.remove(id, token)
       } else {
-        snackbarMessage = snackbarMessages.collect
+        snackbarMessage = snackbarMessages.collectFavorite
         await favoriteCocktailService.collect(id, token)
       }
     } catch (err) {

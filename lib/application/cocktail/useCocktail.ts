@@ -60,15 +60,15 @@ const useCocktail = (id?: number) => {
       }
     }
 
-    let snackbarMessage = snackbarMessages.collect
+    let snackbarMessage = snackbarMessages.collectFavorite
     try {
       await mutate(async optimisticData => {
         if (!optimisticData) return
         if (optimisticData.isCollected) {
-          snackbarMessage = snackbarMessages.collect
+          snackbarMessage = snackbarMessages.collectFavorite
           await favoriteCocktailService.collect(id, token)
         } else {
-          snackbarMessage = snackbarMessages.remove
+          snackbarMessage = snackbarMessages.removeFavorite
           await favoriteCocktailService.remove(id, token)
         }
         return optimisticData
