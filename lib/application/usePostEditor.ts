@@ -17,6 +17,7 @@ import {
 import { EditablePhoto } from 'lib/domain/photo'
 import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
 import snackbarMessages from 'lib/constants/snackbarMessages'
+import dialogMessages from 'lib/constants/dialogMessages'
 import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
 import useConfirmDialog from './ui/useConfirmDialog'
@@ -159,8 +160,9 @@ const usePostEditor = (
     if (activeStep === 0) {
       if (!isDirty) return router.back()
       return confirmDialog.open({
-        title: isEditPost ? '放棄編輯' : '放棄發文',
-        content: '修改內容還沒儲存，是否要放棄編輯的內容？',
+        ...(isEditPost
+          ? dialogMessages.abortUpdatePost
+          : dialogMessages.abortCreatePost),
         primaryButton: 'cancel',
         onCancel: confirmDialog.destroy,
         onConfirm: () => {
@@ -231,9 +233,16 @@ const usePostEditor = (
   }
 
   const handleImageDelete = (index: number) => {
-    const values = getValues()
-    const currentPhotos = values.photos
-    setStep2Value('photos', remove(index, 1, currentPhotos))
+    confirmDialog.open({
+      ...dialogMessages.deleteCocktailPhoto,
+      onCancel: confirmDialog.destroy,
+      onConfirm: () => {
+        const values = getValues()
+        const currentPhotos = values.photos
+        setStep2Value('photos', remove(index, 1, currentPhotos))
+        confirmDialog.destroy()
+      }
+    })
   }
 
   const saveDraft = async () => {

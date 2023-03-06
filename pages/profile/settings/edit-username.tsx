@@ -11,6 +11,7 @@ import useCurrentUser from 'lib/application/user/useCurrentUser'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { pathname } from 'lib/configs/routes'
 import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
+import dialogMessages from 'lib/constants/dialogMessages'
 
 interface UserNameContentProps {
   username: string
@@ -42,8 +43,7 @@ const UserNameContent = ({
   const handleGoBack = () => {
     if (formState.isDirty)
       confirmDialog.open({
-        title: '尚未儲存',
-        content: '修改內容還沒儲存，是否要放棄編輯的內容？',
+        ...dialogMessages.abortUpdatePost,
         primaryButton: 'cancel',
         onConfirm: () => {
           router.push(pathname.settings)

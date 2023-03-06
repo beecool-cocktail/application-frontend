@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
+import dialogMessages from 'lib/constants/dialogMessages'
 import useAuthService from '../services/authAdapter'
 import { pathname } from '../configs/routes'
 import useSnackbar from './ui/useSnackbar'
@@ -34,8 +35,7 @@ const useAuth = () => {
 
   const logout = async (userId: number) => {
     confirmDialog.open({
-      title: '登出帳號',
-      content: '是否確定登出',
+      ...dialogMessages.logout,
       onConfirm: async () => {
         try {
           await authService.logout(userId)

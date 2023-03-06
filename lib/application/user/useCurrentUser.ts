@@ -3,6 +3,7 @@ import { FALLBACK_URL } from 'lib/constants/image'
 import userService from 'lib/services/userAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { UpdateUserAvatarForm } from 'lib/domain/user'
+import dialogMessages from 'lib/constants/dialogMessages'
 import useConfig from '../useConfig'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useSnackbar from '../ui/useSnackbar'
@@ -70,8 +71,7 @@ const useCurrentUser = () => {
 
   const deleteAvatar = () => {
     confirmDialog.open({
-      title: '刪除大頭貼',
-      content: '刪除後會將頭貼改為系統預設圖片',
+      ...dialogMessages.deleteAvatar,
       onConfirm: async () => {
         const token = storage.getToken()
         if (!token) throw new Error('token expired')

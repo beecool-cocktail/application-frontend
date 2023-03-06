@@ -10,6 +10,7 @@ import { MyCocktailItem, ProfileCocktailItem } from 'lib/domain/cocktail'
 import { paths } from 'lib/configs/routes'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
+import dialogMessages from 'lib/constants/dialogMessages'
 import useUser from '../user/useUser'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useLoginDialog from '../ui/useLoginDialog'
@@ -92,8 +93,7 @@ const useMyCocktailList = (userId?: number) => {
 
   const deleteCocktail = async (cocktail: ProfileCocktailItem) => {
     confirmDialog.open({
-      title: '刪除發文',
-      content: '確定刪除此發文，一旦刪除將無法復原？',
+      ...dialogMessages.deletePost,
       primaryButton: 'cancel',
       onConfirm: handleDeleteConfirm(cocktail.id),
       onCancel: () => confirmDialog.destroy()
