@@ -1,9 +1,9 @@
 import { CropResult } from 'components/common/imageEditor/avatarEditor'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
-import { UpdateUserAvatarForm } from 'lib/application/ports'
 import AvatarEditor from 'components/common/imageEditor/avatarEditor'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { paths } from 'lib/configs/routes'
+import { UpdateUserAvatarForm } from 'lib/domain/user'
 
 const EditAvatar = () => {
   const router = useCornerRouter()

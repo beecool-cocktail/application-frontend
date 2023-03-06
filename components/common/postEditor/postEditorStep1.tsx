@@ -1,9 +1,9 @@
 import React from 'react'
 import { Stack } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
-import { CocktailPostStep1Form } from 'lib/application/ports'
 import Input from 'components/common/input/input'
 import { excludeSpecialCharacter } from 'lib/helper/string'
+import { CocktailPostStep1Form } from 'lib/domain/cocktail'
 import IngredientList from './ingredientList'
 import StepList from './stepList'
 

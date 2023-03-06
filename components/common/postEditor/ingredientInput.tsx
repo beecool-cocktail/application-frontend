@@ -4,8 +4,8 @@ import { Box } from '@mui/system'
 import { Controller, Control } from 'react-hook-form'
 import Input from 'components/common/input/input'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
-import { CocktailPostStep1Form } from 'lib/application/ports'
 import { excludeSpecialCharacter } from 'lib/helper/string'
+import { CocktailPostStep1Form } from 'lib/domain/cocktail'
 import IconButton from '../button/iconButton'
 
 interface IngredientInputProps {

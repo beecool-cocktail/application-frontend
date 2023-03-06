@@ -17,3 +17,15 @@ export interface CurrentUser extends User {
   coordinate: Coordinate[]
   rotation: number
 }
+
+export interface UpdateUserInfoForm {
+  username?: string
+  isCollectionPublic?: boolean
+}
+
+export interface UpdateUserAvatarForm {
+  originAvatar: string // base64 object URL
+  croppedAvatar: string // base64 object URL
+  coordinate: Coordinate[]
+  rotation: number
+}

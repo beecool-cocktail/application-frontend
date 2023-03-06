@@ -1,48 +1,18 @@
 import {
+  CocktailListPage,
   CocktailPost,
   CocktailPostDraft,
   CocktailPostDraftList,
-  CocktailPostItem,
+  CocktailPostForm,
   FavoriteCocktailList,
   MyCocktailItem
 } from 'lib/domain/cocktail'
-import { Ingredient, Step } from 'lib/domain/cocktail'
-import { User, CurrentUser } from 'lib/domain/user'
-import { EditablePhoto, Coordinate } from 'lib/domain/photo'
-
-export interface Page<T> {
-  total: number
-  data: T[]
-}
-
-export type CocktailListPage = Page<CocktailPostItem>
-
-export interface CocktailPostStep1Form {
-  title: string
-  ingredients: Ingredient[]
-  steps: Step[]
-}
-
-export interface CocktailPostStep2Form {
-  photos: EditablePhoto[]
-  description: string
-}
-
-export interface CocktailPostForm
-  extends CocktailPostStep1Form,
-    CocktailPostStep2Form {}
-
-export interface UpdateUserInfoForm {
-  username?: string
-  isCollectionPublic?: boolean
-}
-
-export interface UpdateUserAvatarForm {
-  originAvatar: string // base64 object URL
-  croppedAvatar: string // base64 object URL
-  coordinate: Coordinate[]
-  rotation: number
-}
+import {
+  User,
+  CurrentUser,
+  UpdateUserInfoForm,
+  UpdateUserAvatarForm
+} from 'lib/domain/user'
 
 export interface LocalStorageService {
   setToken(token: string): void

@@ -14,10 +14,10 @@ import { PAGE_SIZE } from 'lib/constants/pagination'
 import useStore from 'lib/services/storeAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import useDebounce from 'lib/hooks/useDebounce'
+import { Page } from 'lib/domain/pagination'
 import useConfig from '../useConfig'
 import useSnackbar from '../ui/useSnackbar'
 import useLoginDialog from '../ui/useLoginDialog'
-import { Page } from '../ports'
 
 const useCocktailList = (pageSize: number, useSearch = false) => {
   const [fetchId, setFetchId] = useState(() => uuidv4())

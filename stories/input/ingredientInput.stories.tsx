@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import IngredientInput from 'components/common/postEditor/ingredientInput'
-import { CocktailPostStep1Form } from 'lib/application/ports'
+import { CocktailPostStep1Form } from 'lib/domain/cocktail'
 
 export default {
   title: 'input/Post Editor/Ingredient Input',

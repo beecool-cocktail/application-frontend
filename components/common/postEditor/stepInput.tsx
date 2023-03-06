@@ -3,7 +3,7 @@ import { Stack } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
 import Input from 'components/common/input/input'
-import { CocktailPostStep1Form } from 'lib/application/ports'
+import { CocktailPostStep1Form } from 'lib/domain/cocktail'
 import IconButton from '../button/iconButton'
 
 interface StepInputProps {

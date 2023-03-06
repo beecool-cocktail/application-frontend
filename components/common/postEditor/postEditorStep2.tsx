@@ -1,8 +1,8 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
-import { CocktailPostStep2Form } from 'lib/application/ports'
 import { getCharacterCount } from 'lib/helper/string'
+import { CocktailPostStep2Form } from 'lib/domain/cocktail'
 import Input from '../input/input'
 import ImageSelector, { ImageSelectorProps } from './imageSelector'
 

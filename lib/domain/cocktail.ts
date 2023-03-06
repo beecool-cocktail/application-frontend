@@ -1,8 +1,11 @@
-import { Photo, PhotoWithBlur } from './photo'
+import { Page } from './pagination'
+import { EditablePhoto, Photo, PhotoWithBlur } from './photo'
 
 export interface Step {
   description: string
 }
+
+export type CocktailListPage = Page<CocktailPostItem>
 
 export interface Ingredient {
   name: string
@@ -59,6 +62,21 @@ export interface CocktailPostDraft {
   ingredients: Ingredient[]
   steps: Step[]
 }
+
+export interface CocktailPostStep1Form {
+  title: string
+  ingredients: Ingredient[]
+  steps: Step[]
+}
+
+export interface CocktailPostStep2Form {
+  photos: EditablePhoto[]
+  description: string
+}
+
+export interface CocktailPostForm
+  extends CocktailPostStep1Form,
+    CocktailPostStep2Form {}
 
 export interface CocktailPostDraftItem {
   id: number

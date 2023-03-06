@@ -1,11 +1,12 @@
 import { AxiosRequestConfig } from 'axios'
 import { UpdateUserAvatarRequest, UpdateUserInfoRequest } from 'sdk'
+import { UserService } from 'lib/application/ports'
 import {
-  UpdateUserAvatarForm,
+  User,
+  CurrentUser,
   UpdateUserInfoForm,
-  UserService
-} from 'lib/application/ports'
-import { User, CurrentUser } from 'lib/domain/user'
+  UpdateUserAvatarForm
+} from 'lib/domain/user'
 import { userApi } from './api'
 
 const getCurrentUserInfo = async (token: string): Promise<CurrentUser> => {
