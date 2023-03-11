@@ -30,23 +30,23 @@ const Avatar = ({
   )
 
   const withBadge = (child: React.ReactNode) => {
+    const userIdDisplay = `#${String(userId).padStart(4, '0')}`
     return (
       <Badge
         color="primary"
-        badgeContent={`#${userId}`}
-        sx={{
+        badgeContent={userIdDisplay}
+        sx={theme => ({
           '& .MuiBadge-badge': {
             right: -12,
             top: 56,
             transform: 'none',
+            height: '18px',
             borderRadius: '20px',
             px: '5px',
-            color: theme => theme.palette.light1.main,
-            fontSize: theme => theme.typography.body3.fontSize,
-            fontWeight: theme => theme.typography.body3.fontWeight,
-            lineHeight: theme => theme.typography.body3.lineHeight
+            color: theme.palette.light1.main,
+            ...theme.typography.body3
           }
-        }}
+        })}
       >
         {child}
       </Badge>

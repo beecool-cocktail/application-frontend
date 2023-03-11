@@ -40,14 +40,28 @@ Outlined.parameters = {
   }
 }
 
-export const WithUserId = Template.bind({})
-WithUserId.args = {
+export const UserId = Template.bind({})
+UserId.args = {
   src: mockAvatar,
   userId: 1234,
   outlined: true,
   size: 70
 }
-WithUserId.parameters = {
+UserId.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=4284%3A10501'
+  }
+}
+
+export const PaddingUserId = Template.bind({})
+PaddingUserId.args = {
+  src: mockAvatar,
+  userId: 1,
+  outlined: true,
+  size: 70
+}
+PaddingUserId.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=4284%3A10501'
