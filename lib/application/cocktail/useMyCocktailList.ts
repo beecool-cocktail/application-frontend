@@ -96,7 +96,6 @@ const useMyCocktailList = (userId?: number) => {
   const deleteCocktail = async (cocktail: ProfileCocktailItem) => {
     confirmDialog.open({
       ...dialogMessages.deletePost,
-      primaryButton: 'cancel',
       onConfirm: handleDeleteConfirm(cocktail.id),
       onCancel: () => confirmDialog.destroy()
     })

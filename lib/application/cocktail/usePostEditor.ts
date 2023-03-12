@@ -165,7 +165,6 @@ const usePostEditor = (
         ...(isEditPost
           ? dialogMessages.abortUpdatePost
           : dialogMessages.abortCreatePost),
-        primaryButton: 'cancel',
         onCancel: confirmDialog.destroy,
         onConfirm: () => {
           confirmDialog.destroy()

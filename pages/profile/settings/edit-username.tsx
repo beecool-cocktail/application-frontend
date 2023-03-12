@@ -44,7 +44,6 @@ const UserNameContent = ({
     if (formState.isDirty)
       confirmDialog.open({
         ...dialogMessages.abortUpdatePost,
-        primaryButton: 'cancel',
         onConfirm: () => {
           router.push(pathname.settings)
           confirmDialog.destroy()
