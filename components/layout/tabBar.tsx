@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material'
-import useTabBar from 'lib/application/useTabBar'
+import useTabBar from 'lib/application/ui/useTabBar'
 import TabBarIcon from './tabBarIcon'
 
 export const TabBar = () => {
