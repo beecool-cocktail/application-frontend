@@ -2,7 +2,6 @@ import React from 'react'
 import { Stack } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import Input from 'components/common/input/input'
-import { excludeSpecialCharacter } from 'lib/helper/string'
 import { CocktailPostStep1Form } from 'lib/domain/cocktail'
 import IngredientList from './ingredientList'
 import StepList from './stepList'
@@ -17,14 +16,13 @@ const PostEditorStep1 = ({ control }: PostTutorialProps) => {
       <Controller
         name="title"
         control={control}
-        rules={{ required: true, pattern: excludeSpecialCharacter }}
-        render={({ field, fieldState }) => (
+        rules={{ required: true }}
+        render={({ field }) => (
           <Input
             label="調酒名稱*"
             placeholder="最多輸入30個字"
             fullWidth
             maxLength={30}
-            error={fieldState.error?.type === 'pattern'}
             {...field}
           />
         )}

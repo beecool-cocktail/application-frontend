@@ -4,7 +4,6 @@ import { Box } from '@mui/system'
 import { Controller, Control } from 'react-hook-form'
 import Input from 'components/common/input/input'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
-import { excludeSpecialCharacter } from 'lib/helper/string'
 import { CocktailPostStep1Form } from 'lib/domain/cocktail'
 import IconButton from '../button/iconButton'
 
@@ -38,15 +37,14 @@ const IngredientInput = ({
         <Controller
           control={control}
           name={ingredientName}
-          rules={{ required: true, pattern: excludeSpecialCharacter }}
-          render={({ field, fieldState }) => (
+          rules={{ required: true }}
+          render={({ field }) => (
             <Input
               placeholder="請輸入材料"
               maxLength={24}
               fullWidth
               multiline
               showLetterCount={false}
-              error={fieldState.error?.type === 'pattern'}
               {...field}
             />
           )}
@@ -56,15 +54,13 @@ const IngredientInput = ({
         <Controller
           control={control}
           name={amountName}
-          rules={{ pattern: excludeSpecialCharacter }}
-          render={({ field, fieldState }) => (
+          render={({ field }) => (
             <Input
               placeholder="數量/單位"
               maxLength={6}
               fullWidth
               multiline
               showLetterCount={false}
-              error={fieldState.error?.type === 'pattern'}
               {...field}
             />
           )}

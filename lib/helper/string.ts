@@ -5,8 +5,6 @@
 export const CJKCharacterPattern = /[\u4E00-\u9FFF]/g
 export const CJKPattern = /^[\u4E00-\u9FFF\w_.\s]+$/
 
-export const excludeSpecialCharacter = /^[^?/!@]*$/
-
 /**
  * 1.中文單一字元為一字，標點符號也算一字。
  * 2.英文以單字計算，半形空格為分隔計算一字，ex：Whispering Corner 中間以半形空格分開，總計兩字。
