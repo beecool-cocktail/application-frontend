@@ -16,16 +16,16 @@ import snackbarMessages from 'lib/constants/snackbarMessages'
 import useDebounce from 'lib/hooks/useDebounce'
 import { Page } from 'lib/domain/pagination'
 import useConfig from '../useConfig'
-import useSnackbar from '../ui/useSnackbar'
 import useLoginDialog from '../ui/useLoginDialog'
+import useErrorHandler from '../useErrorHandler'
 
 const useCocktailList = (pageSize: number, useSearch = false) => {
   const [fetchId, setFetchId] = useState(() => uuidv4())
   const storage = useLocalStorage()
   const keyword = useStore(state => state.searchBarInput)
   const debouncedKeyword = useDebounce(keyword, 500)
-  const snackbar = useSnackbar()
   const loginDialog = useLoginDialog()
+  const { handleError } = useErrorHandler()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
 
   const result = useSWRInfinite<Page<CocktailPostItem>>(
@@ -45,7 +45,9 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
     {
       shouldRetryOnError: false,
       revalidateOnFocus: false,
-      revalidateFirstPage: false
+      revalidateFirstPage: false,
+      onError: (error: unknown) =>
+        handleError(error, { useDefaultHandler: false })
     }
   )
   const { ref: bottomRef, inView } = useInView()
@@ -130,9 +132,8 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
         snackbarMessage = snackbarMessages.collectFavorite
         await favoriteCocktailService.collect(id, token)
       }
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessage.error)
+    } catch (error) {
+      handleError(error, { snackbarMessage: snackbarMessage.error })
       await mutate(pageData, false)
     }
   }

@@ -37,7 +37,8 @@ const snackbarMessages = {
   },
   copyUrl: {
     success: '已複製分享網址'
-  }
+  },
+  tokenExpired: '已超過登入時間，請重新登入'
 }
 
 export default snackbarMessages

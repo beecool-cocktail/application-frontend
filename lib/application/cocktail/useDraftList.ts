@@ -7,12 +7,12 @@ import draftService from 'lib/services/draftAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
-import useSnackbar from '../ui/useSnackbar'
+import useErrorHandler from '../useErrorHandler'
 
 const FETCH_KEY = 'DRAFTS'
 
 const useDraftList = () => {
-  const snackbar = useSnackbar()
+  const { handleError } = useErrorHandler()
   const storage = useLocalStorage()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
@@ -47,9 +47,10 @@ const useDraftList = () => {
     if (token) {
       try {
         await draftService.deleteByIds(selectedIds, token)
-      } catch (err) {
-        console.error(err)
-        snackbar.error(snackbarMessages.deleteDraft.error)
+      } catch (error) {
+        handleError(error, {
+          snackbarMessage: snackbarMessages.deleteDraft.error
+        })
       }
     }
     setBatchDeleteMode(false)

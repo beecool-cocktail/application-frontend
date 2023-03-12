@@ -3,7 +3,7 @@ import useLocalStorage from 'lib/services/localStorageAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import dialogMessages from 'lib/constants/dialogMessages'
 import useAuthService from '../services/authAdapter'
-import { pathname } from '../configs/routes'
+import { pathname, paths } from '../configs/routes'
 import useSnackbar from './ui/useSnackbar'
 import useConfirmDialog from './ui/useConfirmDialog'
 import useWholePageSpinner from './ui/useWholePageSpinner'
@@ -52,9 +52,16 @@ const useAuth = () => {
     })
   }
 
+  const handleTokenExpired = () => {
+    snackbar.error(snackbarMessages.tokenExpired)
+    storage.removeToken()
+    router.push(paths.index)
+  }
+
   return {
     logout,
     login,
+    handleTokenExpired,
     askUserPermission: authService.askUserPermission
   }
 }

@@ -10,14 +10,14 @@ import { paths } from 'lib/configs/routes'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
-import useSnackbar from '../ui/useSnackbar'
 import useCornerRouter from '../useCornerRouter'
+import useErrorHandler from '../useErrorHandler'
 
 const FETCH_KEY = 'COCKTAIL'
 
 const useCocktail = (id?: number) => {
+  const { handleError } = useErrorHandler()
   const storage = useLocalStorage()
-  const snackbar = useSnackbar()
   const router = useCornerRouter()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
@@ -73,9 +73,8 @@ const useCocktail = (id?: number) => {
         }
         return optimisticData
       }, mutateOpts)
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessage.error)
+    } catch (error) {
+      handleError(error, { snackbarMessage: snackbarMessage.error })
     }
   }
 

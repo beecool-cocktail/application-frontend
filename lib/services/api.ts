@@ -1,8 +1,7 @@
-import { CocktailApi, UserApi, LoginApi, CommandApi, Configuration } from 'sdk'
+import { CocktailApi, UserApi, LoginApi, CommandApi } from 'sdk'
+import cornerApi from './cornerApi'
 
-const config = new Configuration({ basePath: '/api' })
-
-export const cocktailApi = new CocktailApi(config)
-export const userApi = new UserApi(config)
-export const loginApi = new LoginApi(config)
-export const commandApi = new CommandApi(config)
+export const cocktailApi = new CocktailApi(undefined, undefined, cornerApi)
+export const userApi = new UserApi(undefined, undefined, cornerApi)
+export const loginApi = new LoginApi(undefined, undefined, cornerApi)
+export const commandApi = new CommandApi(undefined, undefined, cornerApi)

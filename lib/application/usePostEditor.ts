@@ -22,6 +22,7 @@ import useSnackbar from './ui/useSnackbar'
 import useCornerRouter from './useCornerRouter'
 import useConfirmDialog from './ui/useConfirmDialog'
 import useWholePageSpinner from './ui/useWholePageSpinner'
+import useErrorHandler from './useErrorHandler'
 
 const totalStep = 3
 
@@ -91,6 +92,7 @@ const usePostEditor = (
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
   const { setLoading } = useWholePageSpinner()
+  const { handleError } = useErrorHandler()
   const {
     control: step1Control,
     handleSubmit: handleStep1Submit,
@@ -217,8 +219,8 @@ const usePostEditor = (
 
       const photos: EditablePhoto[] = await Promise.all(promiseObjs)
       setStep2Value('photos', [...originPhotos, ...photos])
-    } catch (err) {
-      snackbar.error('上傳照片失敗')
+    } catch (error) {
+      handleError(error, { snackbarMessage: '上傳照片失敗' })
     } finally {
       setLoading(false)
     }
@@ -264,9 +266,8 @@ const usePostEditor = (
       mutate('/cocktail-drafts')
       router.push(paths.profile)
       snackbar.success(snackbarMessage.success)
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessage.error)
+    } catch (error) {
+      handleError(error, { snackbarMessage: snackbarMessage.error })
     } finally {
       setLoading(false)
     }
@@ -304,9 +305,8 @@ const usePostEditor = (
       if (router.query.backToCocktailPage && id)
         router.push(paths.cocktailById(id))
       else router.push(paths.profile)
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessage.error)
+    } catch (error) {
+      handleError(error, { snackbarMessage: snackbarMessage.error })
     } finally {
       setLoading(false)
     }

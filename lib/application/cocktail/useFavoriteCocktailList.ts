@@ -20,12 +20,14 @@ import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useLoginDialog from '../ui/useLoginDialog'
+import useErrorHandler from '../useErrorHandler'
 
 const FETCH_KEY = 'FAVORITE_COCKTAIL_LIST'
 
 const useFavoriteCocktailList = (userId?: number) => {
   const storage = useLocalStorage()
   const share = useShare()
+  const { handleError } = useErrorHandler()
   const router = useCornerRouter()
   const confirmDialog = useConfirmDialog()
   const loginDialog = useLoginDialog()
@@ -79,9 +81,10 @@ const useFavoriteCocktailList = (userId?: number) => {
       mutate()
       if (!isVisitor) userMutate()
       snackbar.success(snackbarMessages.collectFavorite.success)
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessages.collectFavorite.error)
+    } catch (error) {
+      handleError(error, {
+        snackbarMessage: snackbarMessages.collectFavorite.error
+      })
     }
   }
 
@@ -106,9 +109,8 @@ const useFavoriteCocktailList = (userId?: number) => {
             if (!isVisitor) userMutate()
           }
       snackbar.success(snackbarMessage.success, snackbarDuration, undoFn)
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessage.error)
+    } catch (error) {
+      handleError(error, { snackbarMessage: snackbarMessage.error })
     } finally {
       confirmDialog.destroy()
     }

@@ -30,7 +30,8 @@ const dialogMessages = {
   },
   networkIssue: {
     title: '無法存取',
-    content: '網路似乎出了點狀況...'
+    content: '網路似乎出了點狀況...',
+    confirmText: '重新整理'
   }
 }
 

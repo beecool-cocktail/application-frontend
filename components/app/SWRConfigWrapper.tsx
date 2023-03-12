@@ -1,8 +1,6 @@
 import { SWRConfig, Cache } from 'swr'
-import { AxiosError } from 'axios'
-import useSnackbar from 'lib/application/ui/useSnackbar'
 import fetcher from 'lib/helper/fetcher'
-import useLocalStorage from 'lib/services/localStorageAdapter'
+import useErrorHandler from 'lib/application/useErrorHandler'
 
 interface SWRConfigWrapperProps {
   provider?(): Cache
@@ -10,23 +8,16 @@ interface SWRConfigWrapperProps {
 }
 
 const SWRConfigWrapper = ({ provider, children }: SWRConfigWrapperProps) => {
-  const snackbar = useSnackbar()
-  const storage = useLocalStorage()
-
-  const handleError = (error: AxiosError) => {
-    console.error(error)
-
-    const statusCode = error.response?.status
-    if (statusCode === 401) {
-      snackbar.error('token expired, logged out.')
-      storage.removeToken()
-    } else {
-      snackbar.error(error.message)
-    }
-  }
+  const { handleError } = useErrorHandler()
 
   return (
-    <SWRConfig value={{ onError: handleError, fetcher, provider }}>
+    <SWRConfig
+      value={{
+        onError: (error: unknown) => handleError(error),
+        fetcher,
+        provider
+      }}
+    >
       {children}
     </SWRConfig>
   )

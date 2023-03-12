@@ -16,6 +16,7 @@ import useConfirmDialog from '../ui/useConfirmDialog'
 import useLoginDialog from '../ui/useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
+import useErrorHandler from '../useErrorHandler'
 
 const FETCH_KEY = Symbol('MY_COCKTAIL')
 
@@ -27,6 +28,7 @@ const useMyCocktailList = (userId?: number) => {
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
   const loginDialog = useLoginDialog()
+  const { handleError } = useErrorHandler()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
@@ -65,9 +67,8 @@ const useMyCocktailList = (userId?: number) => {
       mutate()
       userMutate()
       confirmDialog.destroy()
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessages.deletePost.error)
+    } catch (error) {
+      handleError(error, { snackbarMessage: snackbarMessages.deletePost.error })
     } finally {
       confirmDialog.destroy()
     }
@@ -85,9 +86,10 @@ const useMyCocktailList = (userId?: number) => {
       mutate()
       if (!isVisitor) userMutate()
       snackbar.success(snackbarMessages.collectFavorite.success)
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessages.collectFavorite.error)
+    } catch (error) {
+      handleError(error, {
+        snackbarMessage: snackbarMessages.collectFavorite.error
+      })
     }
   }
 
@@ -109,9 +111,10 @@ const useMyCocktailList = (userId?: number) => {
       mutate()
       if (!isVisitor) userMutate()
       snackbar.success(snackbarMessages.removeFavorite.success)
-    } catch (err) {
-      console.error(err)
-      snackbar.error(snackbarMessages.removeFavorite.error)
+    } catch (error) {
+      handleError(error, {
+        snackbarMessage: snackbarMessages.removeFavorite.error
+      })
     }
   }
 

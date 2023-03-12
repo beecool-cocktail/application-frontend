@@ -13,7 +13,7 @@ const fetcher = async (
   config.params = pagination
     ? { page: pagination.pageIndex, page_size: pagination.pageSize }
     : null
-  const res = await cornerApi.get<ApiResponse<never>>(path, config)
+  const res = await cornerApi.get<ApiResponse<unknown>>(path, config)
 
   return res.data.data
 }

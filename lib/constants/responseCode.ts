@@ -1,5 +1,5 @@
-enum responseCode {
+enum ResponseCode {
   'SUCCESS' = '00000'
 }
 
-export default responseCode
+export default ResponseCode

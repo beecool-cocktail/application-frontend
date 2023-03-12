@@ -17,6 +17,7 @@ import theme from 'lib/configs/theme'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
 import 'nprogress/nprogress.css'
+// import 'lib/mocks'
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
   require('../lib/mocks')
