@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material'
 import { CocktailPostPreview, CocktailPostDraft } from 'lib/domain/cocktail'
 import userCurrentUser from 'lib/application/user/useCurrentUser'
-import usePostEditor from 'lib/application/usePostEditor'
+import usePostEditor from 'lib/application/cocktail/usePostEditor'
 import BottomButton from 'components/common/button/bottomButton'
 import PostEditorStep1 from './postEditorStep1'
 import PostEditorStep2 from './postEditorStep2'

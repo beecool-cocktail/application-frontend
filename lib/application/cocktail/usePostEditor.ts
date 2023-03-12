@@ -18,11 +18,11 @@ import { EditablePhoto } from 'lib/domain/photo'
 import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import dialogMessages from 'lib/constants/dialogMessages'
-import useSnackbar from './ui/useSnackbar'
-import useCornerRouter from './useCornerRouter'
-import useConfirmDialog from './ui/useConfirmDialog'
-import useWholePageSpinner from './ui/useWholePageSpinner'
-import useErrorHandler from './useErrorHandler'
+import useSnackbar from '../ui/useSnackbar'
+import useCornerRouter from '../useCornerRouter'
+import useConfirmDialog from '../ui/useConfirmDialog'
+import useWholePageSpinner from '../ui/useWholePageSpinner'
+import useErrorHandler from '../useErrorHandler'
 
 const totalStep = 3
 
