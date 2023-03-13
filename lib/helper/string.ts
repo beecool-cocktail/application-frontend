@@ -36,3 +36,5 @@ export const getCharacterCount = (target: string) => {
     fullEnSingCount
   )
 }
+
+export const mergeSpaces = (str: string) => str.replace(/ {2,}/g, ' ')

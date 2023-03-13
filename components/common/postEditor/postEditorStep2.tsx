@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
-import { getCharacterCount } from 'lib/helper/string'
+import { getCharacterCount, mergeSpaces } from 'lib/helper/string'
 import { CocktailPostStep2Form } from 'lib/domain/cocktail'
 import Input from '../input/input'
 import ImageSelector, { ImageSelectorProps } from './imageSelector'
@@ -89,6 +89,10 @@ const PostEditorStep2 = ({
             maxLength={300}
             getLetterCount={getCharacterCount}
             {...field}
+            onBlur={() => {
+              field.onChange(mergeSpaces(field.value))
+              field.onBlur()
+            }}
           />
         )}
       ></Controller>
