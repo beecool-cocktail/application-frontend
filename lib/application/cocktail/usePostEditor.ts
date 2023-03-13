@@ -97,6 +97,7 @@ const usePostEditor = (
     control: step1Control,
     handleSubmit: handleStep1Submit,
     getValues: getStep1Values,
+    setValue: setStep1Value,
     formState: {
       isDirty: isStep1Dirty,
       isValid: isStep1Valid,
@@ -109,8 +110,8 @@ const usePostEditor = (
   const {
     control: step2Control,
     handleSubmit: handleStep2Submit,
-    setValue: setStep2Value,
     getValues: getStep2Values,
+    setValue: setStep2Value,
     formState: {
       isDirty: isStep2Dirty,
       isValid: isStep2Valid,
@@ -318,7 +319,21 @@ const usePostEditor = (
           label: '下一步',
           type: 'button',
           isValid: isStep1Valid,
-          onClick: handleStep1Submit(goNext)
+          onClick: handleStep1Submit(() => {
+            const removeEmptyField = () => {
+              const values = getStep1Values()
+              setStep1Value(
+                'ingredients',
+                values.ingredients.filter(i => i.name.length !== 0)
+              )
+              setStep1Value(
+                'steps',
+                values.steps.filter(s => s.description.length !== 0)
+              )
+            }
+            removeEmptyField()
+            goNext()
+          })
         }
       case 1:
         return {
