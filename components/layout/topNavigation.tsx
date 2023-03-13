@@ -14,7 +14,7 @@ export interface TopNavigationProps {
 export const NAV_HEIGHT = 40
 
 const TopNavigation = ({
-  position = 'sticky',
+  position = 'static',
   thresholdHeight = NAV_HEIGHT,
   bgcolor = 'transparent',
   title,
