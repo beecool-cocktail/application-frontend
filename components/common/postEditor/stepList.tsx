@@ -6,7 +6,7 @@ import { clamp } from 'ramda'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import swap from 'lodash-move'
-import { Control, useFieldArray } from 'react-hook-form'
+import { Control, useFieldArray, useWatch } from 'react-hook-form'
 import { CocktailPostStep1Form } from 'lib/domain/cocktail'
 import IconButton from '../button/iconButton'
 import AddIcon from '/lib/assets/plusAddOutlined.svg'
@@ -43,6 +43,7 @@ const StepList = ({ control }: StepListProps) => {
     name: 'steps',
     control
   })
+  const steps = useWatch({ control, name: 'steps' })
   const order = useRef(fields.map((_, index) => index))
   const [springs, api] = useSprings(fields.length, fn(order.current))
   const bind = useDrag(({ args: [originalIndex], active, movement: [, y] }) => {
@@ -56,6 +57,8 @@ const StepList = ({ control }: StepListProps) => {
     api.start(fn(newOrder, active, originalIndex, curIndex, y)) // Feed springs new style data, they'll animate the view without causing a single render
     if (!active) order.current = newOrder
   })
+
+  const required = steps.every(step => step.description.length === 0)
 
   const handleAdd = () => {
     append({ description: '' })
@@ -103,9 +106,10 @@ const StepList = ({ control }: StepListProps) => {
             <StepInput
               name={`steps.${index}.description`}
               control={control}
-              onRemove={handleRemove(index)}
               bind={bind(index)}
               removeDisabled={fields.length <= 1}
+              required={required}
+              onRemove={handleRemove(index)}
             />
           </animated.div>
         ))}

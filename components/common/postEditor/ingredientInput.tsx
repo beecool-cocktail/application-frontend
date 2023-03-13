@@ -12,6 +12,7 @@ interface IngredientInputProps {
   amountName: `ingredients.${number}.amount`
   control: Control<CocktailPostStep1Form>
   removeDisabled?: boolean
+  required: boolean
   onRemove(): void
 }
 
@@ -20,6 +21,7 @@ const IngredientInput = ({
   amountName,
   control,
   removeDisabled = false,
+  required,
   onRemove
 }: IngredientInputProps) => {
   return (
@@ -37,7 +39,7 @@ const IngredientInput = ({
         <Controller
           control={control}
           name={ingredientName}
-          rules={{ required: true }}
+          rules={{ required }}
           render={({ field }) => (
             <Input
               placeholder="請輸入材料"

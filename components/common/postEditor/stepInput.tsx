@@ -11,6 +11,7 @@ interface StepInputProps {
   control: Control<CocktailPostStep1Form>
   bind: React.DOMAttributes<HTMLElement>
   removeDisabled?: boolean
+  required: boolean
   onRemove(): void
 }
 
@@ -19,6 +20,7 @@ const StepInput = ({
   control,
   bind,
   removeDisabled = false,
+  required,
   onRemove
 }: StepInputProps) => {
   return (
@@ -35,7 +37,7 @@ const StepInput = ({
       <Controller
         control={control}
         name={name}
-        rules={{ required: true }}
+        rules={{ required }}
         render={({ field, fieldState }) => (
           <Input
             placeholder="請輸入教學步驟"

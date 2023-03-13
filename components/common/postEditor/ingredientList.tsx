@@ -1,5 +1,5 @@
 import React from 'react'
-import { Control } from 'react-hook-form'
+import { Control, useWatch } from 'react-hook-form'
 import { Box, Stack, Typography } from '@mui/material'
 import { useFieldArray } from 'react-hook-form'
 import { CocktailPostStep1Form } from 'lib/domain/cocktail'
@@ -16,6 +16,12 @@ const IngredientList = ({ control }: IngredientListProps) => {
     name: 'ingredients',
     control
   })
+  const ingredients = useWatch({ control, name: 'ingredients' })
+  const required =
+    ingredients.every(ingredient => ingredient.name.length === 0) ||
+    ingredients.some(ingredient => {
+      return ingredient.name.length === 0 && ingredient.amount.length !== 0
+    })
   const handleAdd = () => append({ name: '', amount: '' })
 
   return (
@@ -29,6 +35,7 @@ const IngredientList = ({ control }: IngredientListProps) => {
             ingredientName={`ingredients.${index}.name`}
             amountName={`ingredients.${index}.amount`}
             removeDisabled={fields.length <= 1}
+            required={required || field.amount.length !== 0}
             onRemove={() => remove(index)}
           />
         ))}
