@@ -155,6 +155,18 @@ const usePostEditor = (
   )
   const isDraftValid = isStep1DraftValid && isStep2DraftValid && isDirty
 
+  const removeStep1EmptyFields = () => {
+    const values = getStep1Values()
+    setStep1Value(
+      'ingredients',
+      values.ingredients.filter(i => i.name.length !== 0)
+    )
+    setStep1Value(
+      'steps',
+      values.steps.filter(s => s.description.length !== 0)
+    )
+  }
+
   const getValues = (): CocktailPostForm => {
     return { ...getStep1Values(), ...getStep2Values() }
   }
@@ -254,6 +266,7 @@ const usePostEditor = (
     let snackbarMessage = snackbarMessages.createDraft
     setLoading(true)
     try {
+      removeStep1EmptyFields()
       const values = getValues()
       if (targetCocktail) {
         snackbarMessage = snackbarMessages.updateDraft
@@ -320,18 +333,7 @@ const usePostEditor = (
           type: 'button',
           isValid: isStep1Valid,
           onClick: handleStep1Submit(() => {
-            const removeEmptyField = () => {
-              const values = getStep1Values()
-              setStep1Value(
-                'ingredients',
-                values.ingredients.filter(i => i.name.length !== 0)
-              )
-              setStep1Value(
-                'steps',
-                values.steps.filter(s => s.description.length !== 0)
-              )
-            }
-            removeEmptyField()
+            removeStep1EmptyFields()
             goNext()
           })
         }
