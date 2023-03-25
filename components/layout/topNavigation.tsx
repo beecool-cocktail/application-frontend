@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Stack, Typography } from '@mui/material'
 import throttle from 'lodash.throttle'
+import { MAX_WIDTH } from 'lib/constants/layout'
 
 export interface TopNavigationProps {
   position?: 'static' | 'fixed' | 'sticky'
@@ -50,12 +51,15 @@ const TopNavigation = ({
       direction="row"
       sx={{
         position,
+        margin: '0 auto',
         alignItems: 'center',
         justifyContent: 'space-between',
         zIndex: 'fab',
         top: 0,
         left: 0,
+        right: 0,
         width: '100%',
+        maxWidth: MAX_WIDTH,
         height: NAV_HEIGHT,
         px: '16px',
         bgcolor: theme => (concrete ? theme.palette.dark3.main : bgcolor)
