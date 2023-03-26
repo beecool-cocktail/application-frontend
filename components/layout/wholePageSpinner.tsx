@@ -15,8 +15,8 @@ const WholePageSpinner = () => {
       sx={{
         zIndex: 1500,
         position: 'fixed',
-        width: '100vw',
-        height: '100vh',
+        width: 1,
+        height: 1,
         top: 0,
         left: 0,
         background: 'rgba(24, 24, 24, 0.8)'

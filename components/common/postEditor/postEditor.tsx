@@ -35,12 +35,7 @@ const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
   if (!user) return null
 
   return (
-    <Stack
-      alignItems="stretch"
-      minHeight="100vh"
-      bgcolor={theme => theme.palette.dark3.main}
-      position="relative"
-    >
+    <Stack position="relative" alignItems="stretch" minHeight={1}>
       <PostEditorTopNavigation
         isEditPost={isEditPost}
         totalStep={totalStep}

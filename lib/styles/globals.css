@@ -1,8 +1,6 @@
 html,
 body {
   padding: 0;
-  margin: 0;
-  background-color: #0d0d0d;
 }
 
 a {
@@ -13,8 +11,4 @@ a {
 button {
   border: none;
   outline: none;
-}
-
-* {
-  box-sizing: border-box;
 }

@@ -87,8 +87,7 @@ const CocktailList = ({ useSearch }: CocktailListProps) => {
           spacing="24px"
           sx={{
             pt: '8px',
-            px: '32px',
-            backgroundColor: theme => theme.palette.dark3.main
+            px: '32px'
           }}
         >
           {renderContent()}

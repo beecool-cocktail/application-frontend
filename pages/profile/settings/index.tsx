@@ -30,15 +30,7 @@ const Settings = () => {
   if (!user || error) return <ErrorStatus />
 
   return (
-    <Stack
-      alignItems="stretch"
-      spacing={2}
-      sx={{
-        minHeight: '100vh',
-        backgroundColor: theme => theme.palette.dark3.main,
-        pb: '15px'
-      }}
-    >
+    <Stack alignItems="stretch" spacing={2} sx={{ pb: '15px' }}>
       <BasedTopNavigation
         position="static"
         thresholdHeight={185}

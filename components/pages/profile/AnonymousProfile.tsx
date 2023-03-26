@@ -15,15 +15,7 @@ const AnonymousProfile = () => {
   const auth = useAuth()
 
   return (
-    <Stack
-      alignItems="stretch"
-      spacing={2}
-      sx={{
-        minHeight: '100vh',
-        backgroundColor: theme => theme.palette.dark3.main,
-        pb: '15px'
-      }}
-    >
+    <Stack alignItems="stretch" spacing={2} sx={{ pb: '15px' }}>
       <Stack
         sx={{
           alignItems: 'stretch',

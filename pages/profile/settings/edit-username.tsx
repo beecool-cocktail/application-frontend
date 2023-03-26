@@ -54,11 +54,7 @@ const UserNameContent = ({
   }
 
   return (
-    <Stack
-      spacing="44px"
-      minHeight="100vh"
-      sx={{ backgroundColor: theme => theme.palette.dark3.main }}
-    >
+    <Stack spacing="44px">
       <BasedTopNavigation
         position="sticky"
         thresholdHeight={185}

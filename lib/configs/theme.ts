@@ -75,9 +75,21 @@ const fallbackFonts = ['Helvetica Neue', 'Arial', 'sans-serif']
 const normalFontFamily = ['Noto Sans TC', ...fallbackFonts].join(',')
 const logoFontFamily = ['Montserrat', ...fallbackFonts].join(',')
 
+const dark3Main = '#141414'
+
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 752,
+      md: 900,
+      lg: 1200,
+      xl: 1536
+    }
+  },
   palette: {
     mode: 'dark',
+    background: { default: dark3Main },
     primary: {
       main: '#2067F5',
       darker: '#053FB0',
@@ -90,7 +102,7 @@ const theme = createTheme({
     green: { main: '#30D158' },
     dark1: { main: '#000000' },
     dark2: { main: '#0D0D0D' },
-    dark3: { main: '#141414' },
+    dark3: { main: dark3Main },
     dark4: { main: '#1C1C1C' },
     dark5: { main: '#212121' },
     dark6: { main: '#292929' },
@@ -164,6 +176,19 @@ const theme = createTheme({
       fontWeight: 400,
       fontSize: 11,
       lineHeight: 1.5
+    }
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: () => ({
+        html: {
+          height: '100%'
+        },
+        body: {
+          height: '100%',
+          '> *': { width: '100%', height: ' 100%' }
+        }
+      })
     }
   }
 })

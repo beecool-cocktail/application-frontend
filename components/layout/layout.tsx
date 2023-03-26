@@ -17,13 +17,7 @@ const Layout = ({
 }: LayoutProps) => {
   return (
     <>
-      <Stack
-        justifyContent="flex-start"
-        alignItems="stretch"
-        width={1}
-        minHeight="100vh"
-        sx={{ backgroundColor: theme => theme.palette.dark3.main }}
-      >
+      <Stack justifyContent="flex-start" alignItems="stretch">
         <Box
           px="32px"
           display="flex"

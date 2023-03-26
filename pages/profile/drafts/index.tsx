@@ -19,7 +19,7 @@ const Drafts = () => {
 
   return (
     <>
-      <Stack width={1} gap="12px" minHeight="100vh">
+      <Stack gap="12px">
         <TopNavigation
           isEditMode={isBatchDeleteMode}
           isAllSelected={isAllSelected}

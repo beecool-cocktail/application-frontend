@@ -32,12 +32,7 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
   if (error) return <Error />
 
   return (
-    <Stack
-      sx={{
-        minHeight: '100vh',
-        bgcolor: theme => theme.palette.dark3.main
-      }}
-    >
+    <Stack>
       <TopNavigation isVisitor={Boolean(userId)} />
       <Stack
         sx={{

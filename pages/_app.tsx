@@ -13,10 +13,8 @@ import ConfirmDialog from 'components/common/dialog/confirmDialog'
 import Snackbar from 'components/common/snackbar/snackbar'
 import NProgress from 'components/layout/nprogress'
 import WholePageSpinner from 'components/layout/wholePageSpinner'
-import MaxWidthContainer from 'components/layout/maxWidthContainer'
-import MainBackground from 'components/layout/mainBackground'
+import MainContentContainer from 'components/layout/mainContentContainer'
 import theme from 'lib/configs/theme'
-import { MAX_WIDTH } from 'lib/constants/layout'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
 import 'nprogress/nprogress.css'
@@ -49,11 +47,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         <CssBaseline />
         <NProgress />
         <SWRConfigWrapper>
-          <MainBackground>
-            <MaxWidthContainer maxWidth={MAX_WIDTH}>
-              {getLayout(<Component {...pageProps} />)}
-            </MaxWidthContainer>
-          </MainBackground>
+          <MainContentContainer>
+            {getLayout(<Component {...pageProps} />)}
+          </MainContentContainer>
           <LoginDialog />
           <ConfirmDialog />
           <Snackbar />

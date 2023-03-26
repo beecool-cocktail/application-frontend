@@ -18,9 +18,7 @@ const StyledTypography = (props: TypographyProps) => {
 
 const AboutUs = () => {
   return (
-    <Stack
-      sx={{ bgcolor: theme => theme.palette.dark3.main, minHeight: '100vh' }}
-    >
+    <Stack sx={{ minHeight: 1 }}>
       <TopNavigation
         position="static"
         title="關於我們"
