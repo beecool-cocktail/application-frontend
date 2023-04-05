@@ -46,8 +46,13 @@ const CocktailSwiper = ({
         position="relative"
         sx={{
           '& .swiper-pagination': {
-            bottom: '8px',
-            lineHeight: 0
+            lineHeight: 0,
+            bottom: 0,
+            pt: '32px',
+            pb: '8px',
+            height: 44,
+            background:
+              'radial-gradient(147.73% 147.73% at 50.16% 118.18%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 56.25%)'
           },
           '& .swiper-pagination-bullet': {
             width: '4px',
