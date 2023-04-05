@@ -25,7 +25,6 @@ const ChangeAvatar = () => {
     <AvatarEditor
       type="change"
       imgSrc={user.originAvatar}
-      aspect={1 / 1}
       cropData={{
         originWidth: user.width,
         originHeight: user.height,

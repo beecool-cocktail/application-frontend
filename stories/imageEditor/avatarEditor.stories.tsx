@@ -1,32 +1,37 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import ImageEditor from 'components/common/imageEditor/imageEditor'
+import AvatarEditor from 'components/common/imageEditor/avatarEditor'
 
 export default {
-  title: 'image/Image Editor',
-  component: ImageEditor,
+  title: 'image/Avatar Editor',
+  component: AvatarEditor,
   argTypes: {
-    imgSrc: { type: 'string' },
-    aspect: { type: 'number' },
-    onConfirm: { action: 'confirm' },
-    onCancel: { action: 'cancel' }
+    type: {
+      options: ['change', 'edit'],
+      control: { type: 'select' }
+    }
   },
   parameters: {
     layout: 'fullscreen',
     design: {
       type: 'figma',
-      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=3745%3A7982'
+      url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=4898-14570&t=zPJZInZADoxLjd8j-4'
     }
   }
-} as ComponentMeta<typeof ImageEditor>
+} as ComponentMeta<typeof AvatarEditor>
 
-const Template: ComponentStory<typeof ImageEditor> = args => {
-  return <ImageEditor {...args} />
+const Template: ComponentStory<typeof AvatarEditor> = args => {
+  return <AvatarEditor {...args} />
 }
 
-export const PrimaryDefault = Template.bind({})
-PrimaryDefault.args = {
-  imgSrc: '/cocktail.jpg',
-  // aspect: 4 / 3
-  aspect: 1 / 1
+export const ChangeAvatar = Template.bind({})
+ChangeAvatar.args = {
+  type: 'change',
+  imgSrc: '/cocktail.jpg'
+}
+
+export const EditAvatar = Template.bind({})
+EditAvatar.args = {
+  type: 'edit',
+  imgSrc: '/cocktail.jpg'
 }

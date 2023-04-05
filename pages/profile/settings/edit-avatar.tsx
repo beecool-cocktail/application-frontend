@@ -31,7 +31,6 @@ const EditAvatar = () => {
         coordinate: user.coordinate,
         rotation: user.rotation
       }}
-      aspect={1 / 1}
       onConfirm={handleConfirm}
     />
   )

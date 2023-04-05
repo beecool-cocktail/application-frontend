@@ -1,10 +1,11 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { Box, Slider, Typography, Stack, useTheme } from '@mui/material'
 import Cropper, { Area } from 'react-easy-crop'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import { fileToDataURL, getCroppedImg, urlToDataURL } from 'lib/helper/image'
+import Button from '../button/button'
 import ConfirmButton from './confirmButton'
 import type { Coordinate } from 'lib/domain/photo'
 
@@ -22,9 +23,10 @@ const rotateMarks = [-180, -90, 0, 90, 180].map(value => ({
   label: `${value}°`
 }))
 
-interface ImageEditorProps {
+interface CocktailImageEditorProps {
   type: 'change' | 'edit'
   imgSrc: string
+  aspect: number
   cropData?: {
     originWidth: number
     originHeight: number
@@ -32,14 +34,17 @@ interface ImageEditorProps {
     rotation: number
   }
   onConfirm(result: CropResult): void
+  onCancel(): void
 }
 
-const ImageEditor = ({
+const CocktailImageEditor = ({
   type,
   imgSrc,
+  aspect,
   cropData,
-  onConfirm
-}: ImageEditorProps) => {
+  onConfirm,
+  onCancel
+}: CocktailImageEditorProps) => {
   const theme = useTheme()
   const snackbar = useSnackbar()
   const [selectedImage, setSelectedImage] = useState<string>(imgSrc)
@@ -57,9 +62,20 @@ const ImageEditor = ({
   })
   const imageInputRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    let ignore = false
+    if (!ignore) imageInputRef.current?.click()
+    return () => {
+      ignore = true
+    }
+  }, [])
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = async e => {
     if (!e.target.files) return
     const imgSrc = URL.createObjectURL(e.target.files[0])
+    window.alert(
+      `${e.target.files[0].name} (${e.target.files[0].size / 1024}kb)`
+    )
 
     const img = new Image()
     img.src = imgSrc
@@ -142,48 +158,47 @@ const ImageEditor = ({
   )
 
   return (
-    <Stack sx={{ alignItems: 'center' }}>
+    <Stack sx={{ position: 'fixed', top: 0, left: 0, alignItems: 'center' }}>
       <BasedTopNavigation
         position="sticky"
         thresholdHeight={185}
-        title={() => (type === 'change' ? '更換頭貼' : '編輯頭貼')}
-        leftSlot={() => <BackButton />}
-        rightSlot={() => {
-          if (type === 'change') {
-            return (
-              <>
-                <Typography
-                  variant="body2"
-                  color={theme => theme.palette.blue.main}
-                  sx={{ cursor: 'pointer' }}
-                  onClick={handleUpload}
-                >
-                  選取
-                </Typography>
-                <input
-                  id="upload"
-                  ref={imageInputRef}
-                  onChange={handleChange}
-                  accept="image/*"
-                  type="file"
-                  hidden
-                />
-              </>
-            )
-          }
-        }}
+        title={() => (type === 'change' ? '重新上傳' : '編輯照片')}
+        leftSlot={() => <BackButton onClick={onCancel} />}
+        // rightSlot={() => {
+        //   if (type === 'change') {
+        //     return (
+        //       <>
+        //         <Typography
+        //           variant="body2"
+        //           color={theme => theme.palette.blue.main}
+        //           sx={{ cursor: 'pointer' }}
+        //           onClick={handleUpload}
+        //         >
+        //           選取
+        //         </Typography>
+        //         <input
+        //           id="upload"
+        //           ref={imageInputRef}
+        //           onChange={handleChange}
+        //           accept="image/*"
+        //           type="file"
+        //           hidden
+        //         />
+        //       </>
+        //     )
+        //   }
+        // }}
       />
       <Box
-        sx={{
+        style={{
           position: 'relative',
-          mt: '12px',
           width: '100%',
           height: containerHeight
         }}
       >
         <Cropper
           image={selectedImage}
-          aspect={1}
+          aspect={aspect}
           crop={crop}
           zoom={zoom}
           rotation={rotation}
@@ -201,7 +216,7 @@ const ImageEditor = ({
                 }
               : undefined
           }
-          cropShape="round"
+          cropShape="rect"
           style={{
             cropAreaStyle: {
               border: `3px dashed ${theme.palette.light1.main}`
@@ -213,36 +228,58 @@ const ImageEditor = ({
           onZoomChange={setZoom}
         />
       </Box>
-      {type === 'edit' && (
-        <Box sx={{ p: '32px', width: 1 }}>
-          <Typography variant="body2">縮放</Typography>
-          <Slider
-            value={zoom}
-            min={1}
-            max={5}
-            step={0.1}
-            onChange={(_event: Event, newValue: number | number[]) => {
-              setZoom(newValue as number)
-            }}
-          />
-          <Typography variant="body2">旋轉</Typography>
-          <Slider
-            value={rotation}
-            min={-180}
-            max={180}
-            marks={rotateMarks}
-            step={90}
-            valueLabelDisplay="auto"
-            valueLabelFormat={v => `${v}°`}
-            onChange={(_event: Event, newValue: number | number[]) => {
-              setRotation(newValue as number)
-            }}
-          />
+      <Box sx={{ p: '32px', width: 1 }}>
+        <Typography variant="body2">縮放</Typography>
+        <Slider
+          value={zoom}
+          min={1}
+          max={5}
+          step={0.1}
+          onChange={(_event: Event, newValue: number | number[]) => {
+            setZoom(newValue as number)
+          }}
+        />
+        <Typography variant="body2">旋轉</Typography>
+        <Slider
+          value={rotation}
+          min={-180}
+          max={180}
+          marks={rotateMarks}
+          step={90}
+          valueLabelDisplay="auto"
+          valueLabelFormat={v => `${v}°`}
+          onChange={(_event: Event, newValue: number | number[]) => {
+            setRotation(newValue as number)
+          }}
+        />
+        <Box
+          sx={{
+            mt: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '12px',
+            '& > *': { flex: 1 }
+          }}
+        >
+          <ConfirmButton onClick={handleConfirm} />
         </Box>
+      </Box>
+      {type === 'change' && (
+        <>
+          <Button onClick={handleUpload}>上傳圖片</Button>
+          <input
+            id="upload"
+            ref={imageInputRef}
+            onChange={handleChange}
+            accept="image/*"
+            type="file"
+            hidden
+          />
+        </>
       )}
-      <ConfirmButton onClick={handleConfirm} />
     </Stack>
   )
 }
 
-export default ImageEditor
+export default CocktailImageEditor

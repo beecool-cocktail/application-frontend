@@ -6,7 +6,7 @@ interface ConfirmButtonProps {
 
 const ConfirmButton = ({ onClick }: ConfirmButtonProps) => {
   return (
-    <BottomButton sx={{ width: 1 }} onClick={onClick}>
+    <BottomButton position="fixed" sx={{ width: 1 }} onClick={onClick}>
       確認
     </BottomButton>
   )
