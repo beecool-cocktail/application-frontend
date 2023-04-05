@@ -6,24 +6,15 @@ import BackButton from 'components/common/button/backButton'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import { fileToDataURL, getCroppedImg, urlToDataURL } from 'lib/helper/image'
 import ConfirmButton from './confirmButton'
-import type { Coordinate } from 'lib/domain/photo'
-
-export interface CropResult {
-  originAvatar: string // base64 object URL
-  croppedAvatar: string // base64 object URL
-  width: number
-  height: number
-  coordinate: Coordinate[]
-  rotation: number
-}
+import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
 
 const rotateMarks = [-180, -90, 0, 90, 180].map(value => ({
   value,
   label: `${value}°`
 }))
 
-interface ImageEditorProps {
-  type: 'change' | 'edit'
+interface AvatarEditorProps {
+  type: EditorType
   imgSrc: string
   cropData?: {
     originWidth: number
@@ -34,12 +25,12 @@ interface ImageEditorProps {
   onConfirm(result: CropResult): void
 }
 
-const ImageEditor = ({
+const AvatarEditor = ({
   type,
   imgSrc,
   cropData,
   onConfirm
-}: ImageEditorProps) => {
+}: AvatarEditorProps) => {
   const theme = useTheme()
   const snackbar = useSnackbar()
   const [selectedImage, setSelectedImage] = useState<string>(imgSrc)
@@ -83,14 +74,14 @@ const ImageEditor = ({
     if (!croppedAreaPixels) return
 
     try {
-      const croppedAvatar = await getCroppedImg(
+      const croppedImage = await getCroppedImg(
         selectedImage,
         croppedAreaPixels,
         rotation
       )
-      if (!croppedAvatar) return
+      if (!croppedImage) return
 
-      const originAvatar = await urlToDataURL(selectedImage).then(
+      const originImage = await urlToDataURL(selectedImage).then(
         webpImageSrc => {
           return new Promise<string>(resolve => {
             const img = new window.Image()
@@ -118,8 +109,8 @@ const ImageEditor = ({
 
       const { width, height, x, y } = croppedAreaPixels
       onConfirm({
-        originAvatar,
-        croppedAvatar,
+        originImage,
+        croppedImage,
         width,
         height,
         coordinate: [
@@ -245,4 +236,4 @@ const ImageEditor = ({
   )
 }
 
-export default ImageEditor
+export default AvatarEditor

@@ -27,8 +27,9 @@ const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
     goBack,
     goPreview,
     saveDraft,
-    handleImageUpload,
     handleImageToCover,
+    handleImageUpload,
+    handleImageReUpload,
     handleImageEdit,
     handleImageDelete
   } = usePostEditor(isDraft, cocktail)
@@ -51,9 +52,10 @@ const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
         ) : activeStep === 1 ? (
           <PostEditorStep2
             control={step2Control}
-            onImageUpload={handleImageUpload}
-            onImageToCover={handleImageToCover}
             onImageEdit={handleImageEdit}
+            onImageUpload={handleImageUpload}
+            onImageReUpload={handleImageReUpload}
+            onImageToCover={handleImageToCover}
             onImageDelete={handleImageDelete}
           />
         ) : (

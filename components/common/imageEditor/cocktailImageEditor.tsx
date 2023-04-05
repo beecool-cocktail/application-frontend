@@ -1,22 +1,12 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { Box, Slider, Typography, Stack, useTheme } from '@mui/material'
 import Cropper, { Area } from 'react-easy-crop'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import { fileToDataURL, getCroppedImg, urlToDataURL } from 'lib/helper/image'
-import Button from '../button/button'
 import ConfirmButton from './confirmButton'
-import type { Coordinate } from 'lib/domain/photo'
-
-export interface CropResult {
-  originAvatar: string // base64 object URL
-  croppedAvatar: string // base64 object URL
-  width: number
-  height: number
-  coordinate: Coordinate[]
-  rotation: number
-}
+import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
 
 const rotateMarks = [-180, -90, 0, 90, 180].map(value => ({
   value,
@@ -24,9 +14,8 @@ const rotateMarks = [-180, -90, 0, 90, 180].map(value => ({
 }))
 
 interface CocktailImageEditorProps {
-  type: 'change' | 'edit'
+  type: EditorType
   imgSrc: string
-  aspect: number
   cropData?: {
     originWidth: number
     originHeight: number
@@ -40,7 +29,6 @@ interface CocktailImageEditorProps {
 const CocktailImageEditor = ({
   type,
   imgSrc,
-  aspect,
   cropData,
   onConfirm,
   onCancel
@@ -62,20 +50,9 @@ const CocktailImageEditor = ({
   })
   const imageInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    let ignore = false
-    if (!ignore) imageInputRef.current?.click()
-    return () => {
-      ignore = true
-    }
-  }, [])
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = async e => {
     if (!e.target.files) return
     const imgSrc = URL.createObjectURL(e.target.files[0])
-    window.alert(
-      `${e.target.files[0].name} (${e.target.files[0].size / 1024}kb)`
-    )
 
     const img = new Image()
     img.src = imgSrc
@@ -99,14 +76,14 @@ const CocktailImageEditor = ({
     if (!croppedAreaPixels) return
 
     try {
-      const croppedAvatar = await getCroppedImg(
+      const croppedImage = await getCroppedImg(
         selectedImage,
         croppedAreaPixels,
         rotation
       )
-      if (!croppedAvatar) return
+      if (!croppedImage) return
 
-      const originAvatar = await urlToDataURL(selectedImage).then(
+      const originImage = await urlToDataURL(selectedImage).then(
         webpImageSrc => {
           return new Promise<string>(resolve => {
             const img = new window.Image()
@@ -134,8 +111,8 @@ const CocktailImageEditor = ({
 
       const { width, height, x, y } = croppedAreaPixels
       onConfirm({
-        originAvatar,
-        croppedAvatar,
+        originImage,
+        croppedImage,
         width,
         height,
         coordinate: [
@@ -158,36 +135,49 @@ const CocktailImageEditor = ({
   )
 
   return (
-    <Stack sx={{ position: 'fixed', top: 0, left: 0, alignItems: 'center' }}>
+    <Stack
+      sx={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: 1,
+        height: 1,
+        alignItems: 'center',
+        bgcolor: theme => theme.palette.background.default
+      }}
+    >
       <BasedTopNavigation
         position="sticky"
         thresholdHeight={185}
         title={() => (type === 'change' ? '重新上傳' : '編輯照片')}
         leftSlot={() => <BackButton onClick={onCancel} />}
-        // rightSlot={() => {
-        //   if (type === 'change') {
-        //     return (
-        //       <>
-        //         <Typography
-        //           variant="body2"
-        //           color={theme => theme.palette.blue.main}
-        //           sx={{ cursor: 'pointer' }}
-        //           onClick={handleUpload}
-        //         >
-        //           選取
-        //         </Typography>
-        //         <input
-        //           id="upload"
-        //           ref={imageInputRef}
-        //           onChange={handleChange}
-        //           accept="image/*"
-        //           type="file"
-        //           hidden
-        //         />
-        //       </>
-        //     )
-        //   }
-        // }}
+        rightSlot={() => {
+          if (type === 'change') {
+            return (
+              <>
+                <Typography
+                  variant="body2"
+                  color={theme => theme.palette.blue.main}
+                  sx={{ cursor: 'pointer' }}
+                  onClick={handleUpload}
+                >
+                  選取
+                </Typography>
+                <input
+                  id="upload"
+                  ref={imageInputRef}
+                  onClick={e => {
+                    e.stopPropagation()
+                  }}
+                  onChange={handleChange}
+                  accept="image/*"
+                  type="file"
+                  hidden
+                />
+              </>
+            )
+          }
+        }}
       />
       <Box
         style={{
@@ -198,7 +188,6 @@ const CocktailImageEditor = ({
       >
         <Cropper
           image={selectedImage}
-          aspect={aspect}
           crop={crop}
           zoom={zoom}
           rotation={rotation}
@@ -228,56 +217,34 @@ const CocktailImageEditor = ({
           onZoomChange={setZoom}
         />
       </Box>
-      <Box sx={{ p: '32px', width: 1 }}>
-        <Typography variant="body2">縮放</Typography>
-        <Slider
-          value={zoom}
-          min={1}
-          max={5}
-          step={0.1}
-          onChange={(_event: Event, newValue: number | number[]) => {
-            setZoom(newValue as number)
-          }}
-        />
-        <Typography variant="body2">旋轉</Typography>
-        <Slider
-          value={rotation}
-          min={-180}
-          max={180}
-          marks={rotateMarks}
-          step={90}
-          valueLabelDisplay="auto"
-          valueLabelFormat={v => `${v}°`}
-          onChange={(_event: Event, newValue: number | number[]) => {
-            setRotation(newValue as number)
-          }}
-        />
-        <Box
-          sx={{
-            mt: '24px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '12px',
-            '& > *': { flex: 1 }
-          }}
-        >
-          <ConfirmButton onClick={handleConfirm} />
-        </Box>
-      </Box>
-      {type === 'change' && (
-        <>
-          <Button onClick={handleUpload}>上傳圖片</Button>
-          <input
-            id="upload"
-            ref={imageInputRef}
-            onChange={handleChange}
-            accept="image/*"
-            type="file"
-            hidden
+      {type === 'edit' && (
+        <Box sx={{ p: '32px', width: 1 }}>
+          <Typography variant="body2">縮放</Typography>
+          <Slider
+            value={zoom}
+            min={1}
+            max={5}
+            step={0.1}
+            onChange={(_event: Event, newValue: number | number[]) => {
+              setZoom(newValue as number)
+            }}
           />
-        </>
+          <Typography variant="body2">旋轉</Typography>
+          <Slider
+            value={rotation}
+            min={-180}
+            max={180}
+            marks={rotateMarks}
+            step={90}
+            valueLabelDisplay="auto"
+            valueLabelFormat={v => `${v}°`}
+            onChange={(_event: Event, newValue: number | number[]) => {
+              setRotation(newValue as number)
+            }}
+          />
+        </Box>
       )}
+      <ConfirmButton onClick={handleConfirm} />
     </Stack>
   )
 }

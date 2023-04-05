@@ -3,6 +3,7 @@ import { Stack, Typography } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
 import { getCharacterCount, mergeSpaces } from 'lib/helper/string'
 import { CocktailPostStep2Form } from 'lib/domain/cocktail'
+import { CropResult } from 'lib/domain/photo'
 import Input from '../input/input'
 import ImageSelector, { ImageSelectorProps } from './imageSelector'
 
@@ -10,7 +11,8 @@ interface PostImageBlockProps {
   control: Control<CocktailPostStep2Form>
   onImageToCover(index: number): void
   onImageUpload(index: number, urls: string[]): void
-  onImageEdit(index: number, url: string): void
+  onImageReUpload(index: number, cropResult: CropResult): void
+  onImageEdit(index: number, cropResult: CropResult): void
   onImageDelete(index: number): void
 }
 
@@ -18,6 +20,7 @@ const PostEditorStep2 = ({
   control,
   onImageToCover,
   onImageUpload,
+  onImageReUpload,
   onImageEdit,
   onImageDelete
 }: PostImageBlockProps) => {
@@ -55,7 +58,10 @@ const PostEditorStep2 = ({
                 onDelete: () => onImageDelete(index),
                 onToCover: () => onImageToCover(index),
                 onUpload: (urls: string[]) => onImageUpload(index, urls),
-                onEdit: (url: string) => onImageEdit(index, url)
+                onReUpload: (cropResult: CropResult) =>
+                  onImageReUpload(index, cropResult),
+                onEdit: (cropResult: CropResult) =>
+                  onImageEdit(index, cropResult)
               }
             }
 

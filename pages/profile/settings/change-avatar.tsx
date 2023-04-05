@@ -1,9 +1,9 @@
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import AvatarEditor from 'components/common/imageEditor/avatarEditor'
-import { CropResult } from 'components/common/imageEditor/avatarEditor'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { paths } from 'lib/configs/routes'
 import { UpdateUserAvatarForm } from 'lib/domain/user'
+import { CropResult } from 'lib/domain/photo'
 
 const ChangeAvatar = () => {
   const router = useCornerRouter()
@@ -12,8 +12,8 @@ const ChangeAvatar = () => {
 
   const handleConfirm = async (result: CropResult) => {
     const updateForm: UpdateUserAvatarForm = {
-      originAvatar: result.originAvatar,
-      croppedAvatar: result.croppedAvatar,
+      originAvatar: result.originImage,
+      croppedAvatar: result.croppedImage,
       coordinate: result.coordinate,
       rotation: result.rotation
     }

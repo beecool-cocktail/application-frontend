@@ -3,9 +3,10 @@ import Image from 'next/image'
 import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material'
 import MoreIcon from 'lib/assets/more.svg'
 import CameraPlusIcon from 'lib/assets/cameraPlus.svg'
-import { EditablePhoto } from 'lib/domain/photo'
+import { CropResult, EditablePhoto, EditorType } from 'lib/domain/photo'
 import { toBase64Photos } from 'lib/helper/image'
-import ImageEditor from '../imageEditor/imageEditor'
+import CocktailImageEditor from '../imageEditor/cocktailImageEditor'
+// import ImageEditor from '../imageEditor/legacyImageEditor'
 import IconButton from '../button/iconButton'
 
 export interface ImageSelectorProps {
@@ -14,7 +15,8 @@ export interface ImageSelectorProps {
   photo?: EditablePhoto
   onToCover(): void
   onUpload(urls: string[]): void
-  onEdit(url: string): void
+  onReUpload(cropResult: CropResult): void
+  onEdit(cropResult: CropResult): void
   onDelete(): void
 }
 
@@ -24,11 +26,14 @@ const ImageSelector = ({
   photo,
   onToCover,
   onUpload,
+  onReUpload,
   onEdit,
   onDelete
 }: ImageSelectorProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [imageEditorOpen, setImageEditorOpen] = useState(false)
+  const [imageEditorType, setImageEditorType] = useState<EditorType | null>(
+    null
+  )
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const fileInputId = `upload-${index}`
@@ -47,12 +52,12 @@ const ImageSelector = ({
 
   const handleUpload = () => {
     closeMenu()
-    inputRef.current?.click()
+    setImageEditorType('change')
   }
 
   const handleEdit = () => {
     closeMenu()
-    setImageEditorOpen(true)
+    setImageEditorType('edit')
   }
 
   const handleDelete = () => {
@@ -138,16 +143,28 @@ const ImageSelector = ({
               <MenuItem onClick={handleEdit}>編輯照片</MenuItem>
               <MenuItem onClick={handleDelete}>刪除</MenuItem>
             </Menu>
-            {imageEditorOpen && (
-              <ImageEditor
-                imgSrc={photo.originURL}
-                aspect={4 / 3}
-                onConfirm={url => {
-                  onEdit(url)
-                  setImageEditorOpen(false)
-                }}
-                onCancel={() => setImageEditorOpen(false)}
-              />
+            {imageEditorType && (
+              <Box zIndex={1200}>
+                <CocktailImageEditor
+                  type={imageEditorType}
+                  imgSrc={photo.originURL}
+                  cropData={
+                    photo.cropResult && {
+                      originWidth: photo.cropResult.width,
+                      originHeight: photo.cropResult.height,
+                      coordinate: photo.cropResult.coordinate,
+                      rotation: photo.cropResult.rotation
+                    }
+                  }
+                  onConfirm={result => {
+                    imageEditorType === 'change'
+                      ? onReUpload(result)
+                      : onEdit(result)
+                    setImageEditorType(null)
+                  }}
+                  onCancel={() => setImageEditorType(null)}
+                />
+              </Box>
             )}
           </>
         ) : (

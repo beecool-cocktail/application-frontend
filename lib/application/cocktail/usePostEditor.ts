@@ -14,7 +14,7 @@ import {
   Ingredient,
   Step
 } from 'lib/domain/cocktail'
-import { EditablePhoto } from 'lib/domain/photo'
+import { CropResult, EditablePhoto } from 'lib/domain/photo'
 import { centerAspectCrop, getCroppedImage } from 'lib/helper/image'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import dialogMessages from 'lib/constants/dialogMessages'
@@ -238,11 +238,28 @@ const usePostEditor = (
     }
   }
 
-  const handleImageEdit = (index: number, url: string) => {
+  const handleImageReUpload = (index: number, cropResult: CropResult) => {
     const values = getValues()
     const currentPhotos = values.photos
     const origin = currentPhotos[index]
-    const updated: EditablePhoto = { ...origin, editedURL: url }
+    const updated: EditablePhoto = {
+      ...origin,
+      originURL: cropResult.originImage,
+      editedURL: cropResult.croppedImage,
+      cropResult
+    }
+    setStep2Value('photos', update(index, updated, currentPhotos))
+  }
+
+  const handleImageEdit = (index: number, cropResult: CropResult) => {
+    const values = getValues()
+    const currentPhotos = values.photos
+    const origin = currentPhotos[index]
+    const updated: EditablePhoto = {
+      ...origin,
+      editedURL: cropResult.croppedImage,
+      cropResult
+    }
     setStep2Value('photos', update(index, updated, currentPhotos))
   }
 
@@ -370,6 +387,7 @@ const usePostEditor = (
     goPreview,
     saveDraft,
     handleImageUpload,
+    handleImageReUpload,
     handleImageToCover,
     handleImageEdit,
     handleImageDelete
