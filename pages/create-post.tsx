@@ -1,7 +1,7 @@
-import PostEditor from 'components/common/postEditor/postEditor'
+import PostCreate from 'components/common/postEditor/postCreate/postCreate'
 
 const CreatePost = () => {
-  return <PostEditor isDraft />
+  return <PostCreate />
 }
 
 export default CreatePost

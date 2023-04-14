@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import AnonymousProfile from 'components/pages/profile/AnonymousProfile'
+import AnonymousProfile from 'components/pages/profile/anonymousProfile'
 
 export default {
   title: 'pages/AnonymousProfile',

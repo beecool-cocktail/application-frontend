@@ -184,3 +184,22 @@ export const centerAspectCrop = (
     mediaWidth,
     mediaHeight
   )
+
+export const getDefaultCroppedImage = async (src: string): Promise<string> => {
+  return new Promise(resolve => {
+    const img = document.createElement('img')
+    img.src = src
+    img.onload = () => {
+      const crop = centerAspectCrop(img.width, img.height, 4 / 3)
+      const pixelCrop: Crop = {
+        x: Math.floor(crop.x * img.width * (1 / 100)),
+        y: Math.floor(crop.y * img.height * (1 / 100)),
+        width: Math.floor(crop.width * img.width * (1 / 100)),
+        height: Math.floor(crop.height * img.height * (1 / 100)),
+        unit: 'px'
+      }
+      const result = getCroppedImage(img, pixelCrop)
+      resolve(result)
+    }
+  })
+}

@@ -7,7 +7,7 @@ import PictureIcon from 'lib/assets/picture.svg'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
 
 export default {
-  title: 'postEditor/ActionSheet',
+  title: 'PostCreate/ActionSheet',
   component: ActionSheet,
   argTypes: {},
   parameters: {

@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 import usePermission from 'lib/application/usePermission'
 import Layout from 'components/layout/layout'
 import ProfileDetail from 'components/pages/profile/profileDetail'
-import AnonymousProfile from 'components/pages/profile/AnonymousProfile'
+import AnonymousProfile from 'components/pages/profile/anonymousProfile'
 
 const Profile = () => {
   const hasPermission = usePermission()

@@ -16,7 +16,7 @@ export const NAV_HEIGHT = 40
 
 const TopNavigation = ({
   position = 'static',
-  thresholdHeight = NAV_HEIGHT,
+  thresholdHeight = 0,
   bgcolor = 'transparent',
   title,
   leftSlot,

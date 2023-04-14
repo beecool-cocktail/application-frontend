@@ -1,19 +1,24 @@
 import { Stack } from '@mui/material'
-import { CocktailPostPreview, CocktailPostDraft } from 'lib/domain/cocktail'
+import { Control } from 'react-hook-form'
+import {
+  CocktailPostDraft,
+  CocktailPostForm,
+  CocktailPostPreview
+} from 'lib/domain/cocktail'
 import userCurrentUser from 'lib/application/user/useCurrentUser'
-import usePostEditor from 'lib/application/cocktail/usePostEditor'
+import usePostCreate from 'lib/application/cocktail/usePostCreate'
 import BottomButton from 'components/common/button/bottomButton'
-import PostEditorStep1 from './postEditorStep1'
-import PostEditorStep2 from './postEditorStep2'
-import PostEditorStep3 from './postEditorStep3'
-import PostEditorTopNavigation from './postEditorTopNavigation'
+import PostCreateStep1 from '../postCreate/postCreateStep1'
+import PostCreateStep2 from '../postCreate/postCreateStep2'
+import PostCreateStep3 from '../postCreate/postCreateStep3'
+import ProgressBar from '../progressBar'
+import PostCreatorTopNavigation from './postCreateTopNavigation'
 
-export interface PostEditorProps {
-  cocktail?: CocktailPostDraft
-  isDraft?: boolean
+interface PostCreateProps {
+  cocktailDraft?: CocktailPostDraft
 }
 
-const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
+const PostCreate = ({ cocktailDraft }: PostCreateProps) => {
   const { user } = userCurrentUser()
   const {
     getValues,
@@ -21,37 +26,42 @@ const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
     step1Control,
     step2Control,
     buttonAction,
-    isEditPost,
     totalStep,
     activeStep,
     goBack,
-    goPreview,
     saveDraft,
     handleImageToCover,
     handleImageUpload,
     handleImageReUpload,
     handleImageEdit,
     handleImageDelete
-  } = usePostEditor(isDraft, cocktail)
+  } = usePostCreate(cocktailDraft)
   if (!user) return null
 
   return (
     <Stack position="relative" alignItems="stretch" minHeight={1}>
-      <PostEditorTopNavigation
-        isEditPost={isEditPost}
-        totalStep={totalStep}
-        activeStep={activeStep}
-        savable={isDraftValid}
-        onBack={goBack}
-        onPreview={goPreview}
-        onSaveDraft={saveDraft}
-      />
+      <Stack
+        position="sticky"
+        top={0}
+        bgcolor={theme => theme.palette.background.default}
+        zIndex={1200}
+      >
+        <PostCreatorTopNavigation
+          activeStep={activeStep}
+          savable={isDraftValid}
+          onBack={goBack}
+          onSaveDraft={saveDraft}
+        />
+        <ProgressBar totalStep={totalStep} activeStep={activeStep} />
+      </Stack>
       <Stack alignItems="center" justifyContent="flex-start" flex={1} px={2}>
         {activeStep === 0 ? (
-          <PostEditorStep1 control={step1Control} />
+          <PostCreateStep1
+            control={step1Control as unknown as Control<CocktailPostForm>}
+          />
         ) : activeStep === 1 ? (
-          <PostEditorStep2
-            control={step2Control}
+          <PostCreateStep2
+            control={step2Control as unknown as Control<CocktailPostForm>}
             onImageEdit={handleImageEdit}
             onImageUpload={handleImageUpload}
             onImageReUpload={handleImageReUpload}
@@ -59,11 +69,11 @@ const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
             onImageDelete={handleImageDelete}
           />
         ) : (
-          <PostEditorStep3
+          <PostCreateStep3
             cocktailPost={(() => {
               const values = getValues()
               const cocktailPost: CocktailPostPreview = {
-                id: cocktail ? cocktail.id : 0,
+                id: 0,
                 userId: user.id,
                 userName: user.username,
                 userPhoto: user.photo,
@@ -80,7 +90,7 @@ const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
         )}
       </Stack>
       <BottomButton
-        position="static"
+        position="sticky"
         type={buttonAction.type}
         disabled={!buttonAction.isValid}
         onClick={buttonAction.onClick}
@@ -91,4 +101,4 @@ const PostEditor = ({ cocktail, isDraft = false }: PostEditorProps) => {
   )
 }
 
-export default PostEditor
+export default PostCreate

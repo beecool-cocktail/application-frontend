@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { useForm } from 'react-hook-form'
 import StepInput from 'components/common/postEditor/stepInput'
-import { CocktailPostStep1Form } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/domain/cocktail'
 
 export default {
   title: 'input/Post Editor/Step Input',
@@ -16,7 +16,7 @@ export default {
 } as ComponentMeta<typeof StepInput>
 
 const Template: ComponentStory<typeof StepInput> = args => {
-  const { control } = useForm<CocktailPostStep1Form>()
+  const { control } = useForm<CocktailPostForm>()
   return <StepInput {...args} name="steps.1.description" control={control} />
 }
 

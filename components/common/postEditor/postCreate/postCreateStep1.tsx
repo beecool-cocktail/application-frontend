@@ -2,15 +2,15 @@ import React from 'react'
 import { Stack } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import Input from 'components/common/input/input'
-import { CocktailPostStep1Form } from 'lib/domain/cocktail'
-import IngredientList from './ingredientList'
-import StepList from './stepList'
+import { CocktailPostForm } from 'lib/domain/cocktail'
+import IngredientList from '../ingredientList'
+import StepList from '../stepList'
 
-interface PostTutorialProps {
-  control: Control<CocktailPostStep1Form>
+interface PostCreateStep1Props {
+  control: Control<CocktailPostForm>
 }
 
-const PostEditorStep1 = ({ control }: PostTutorialProps) => {
+const PostCreateStep1 = ({ control }: PostCreateStep1Props) => {
   return (
     <Stack spacing={3} width={1}>
       <Controller
@@ -33,4 +33,4 @@ const PostEditorStep1 = ({ control }: PostTutorialProps) => {
   )
 }
 
-export default PostEditorStep1
+export default PostCreateStep1

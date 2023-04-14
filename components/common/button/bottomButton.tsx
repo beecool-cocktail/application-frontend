@@ -3,7 +3,7 @@ import Button, { ButtonProps } from 'components/common/button/button'
 import { MAX_WIDTH } from 'lib/constants/layout'
 
 interface BottomButton extends ButtonProps {
-  position?: 'static' | 'fixed'
+  position?: 'static' | 'fixed' | 'sticky'
 }
 
 const BottomButton = (props: BottomButton) => {

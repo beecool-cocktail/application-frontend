@@ -4,6 +4,7 @@ interface ProgressBarProps {
   totalStep: number
   activeStep: number
 }
+
 const ProgressBar = ({ totalStep, activeStep }: ProgressBarProps) => {
   return (
     <Stack

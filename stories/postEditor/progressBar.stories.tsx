@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import ProgressBar from 'components/common/postEditor/progressBar'
 
 export default {
-  title: 'postEditor/Progressbar',
+  title: 'PostCreate/Progressbar',
   component: ProgressBar,
   argTypes: {
     totalStep: { type: 'number' },

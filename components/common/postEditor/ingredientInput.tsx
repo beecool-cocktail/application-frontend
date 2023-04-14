@@ -4,13 +4,13 @@ import { Box } from '@mui/system'
 import { Controller, Control } from 'react-hook-form'
 import Input from 'components/common/input/input'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
-import { CocktailPostStep1Form } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/domain/cocktail'
 import IconButton from '../button/iconButton'
 
 interface IngredientInputProps {
   ingredientName: `ingredients.${number}.name`
   amountName: `ingredients.${number}.amount`
-  control: Control<CocktailPostStep1Form>
+  control: Control<CocktailPostForm>
   removeDisabled?: boolean
   required: boolean
   onRemove(): void
