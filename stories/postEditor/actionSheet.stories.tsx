@@ -1,5 +1,6 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
+import { Box, Typography } from '@mui/material'
 import ActionSheet from 'components/common/postEditor/actionSheet'
 import EditIcon from 'lib/assets/editOutlined.svg'
 import ReloadIcon from 'lib/assets/reloadBlueBgOutlined.svg'
@@ -20,7 +21,21 @@ export default {
 } as ComponentMeta<typeof ActionSheet>
 
 const Template: ComponentStory<typeof ActionSheet> = args => {
-  return <ActionSheet {...args} />
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      sx={{ bgcolor: '#141414' }}
+    >
+      <ActionSheet {...args} />
+      <Typography>
+        Hello
+      </Typography>
+    </Box>
+  )
 }
 
 const handleClick = () => {
