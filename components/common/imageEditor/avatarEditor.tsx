@@ -101,7 +101,7 @@ const AvatarEditor = ({
                   type: blob.type
                 })
                 resolve(fileToDataURL(myImage))
-              }, 'image/png')
+              }, 'image/jpeg')
             }
           })
         }

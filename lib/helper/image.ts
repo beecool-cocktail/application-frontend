@@ -108,7 +108,7 @@ export async function getCroppedImg(
   // paste generated rotate image at the top left corner
   ctx.putImageData(data, 0, 0)
 
-  return canvas.toDataURL('image/png', 1)
+  return canvas.toDataURL('image/jpeg')
 
   // return new Promise<string>((resolve, reject) => {
   //   canvas.toBlob(file => {
