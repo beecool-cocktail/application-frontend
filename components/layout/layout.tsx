@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { Box, Stack } from '@mui/material'
 import SearchBar from 'components/common/input/searchBar'
 import TabBar from './tabBar'
-import Logo from './logo'
+import LogoHeader from './logoHeader'
 
 type LayoutProps = {
   useLogo?: boolean
@@ -24,7 +24,7 @@ const Layout = ({
           flexDirection="column"
           alignItems="stretch"
         >
-          {useLogo && <Logo />}
+          {useLogo && <LogoHeader />}
           {useSearchBar && (
             <Box pt="12px">
               <SearchBar placeholder="找調酒..." autoFocus />
