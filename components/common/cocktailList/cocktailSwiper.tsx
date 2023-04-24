@@ -47,7 +47,8 @@ const CocktailSwiper = ({
         sx={{
           '& .swiper-pagination': {
             lineHeight: 0,
-            bottom: 0,
+            position: 'absolute',
+            bottom: '0 !important',
             pt: '32px',
             pb: '8px',
             height: 44,
