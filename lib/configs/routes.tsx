@@ -5,7 +5,8 @@ export interface Route {
   label: string
   icon?: string | React.ReactNode
   requireAuth?: boolean
-  inNavigationBar?: boolean
+  inTabBar?: boolean
+  showTabBar?: boolean
 }
 
 export const getUrlByQuery = (path: string, query: ParsedUrlQueryInput) => ({
@@ -50,26 +51,29 @@ const routes: Route[] = [
     path: pathname.index,
     label: 'Home',
     icon: 'Home Pressed',
-    inNavigationBar: true
+    inTabBar: true,
+    showTabBar: true
   },
   {
     path: pathname.search,
     label: 'Search',
     icon: 'Search Pressed',
-    inNavigationBar: true
+    inTabBar: true,
+    showTabBar: true
   },
   {
     path: pathname.createPost,
     label: 'Create Post',
     icon: 'Add Pressed',
     requireAuth: true,
-    inNavigationBar: true
+    inTabBar: true
   },
   {
     path: pathname.profile,
     label: 'Profile',
     icon: 'Profile Pressed',
-    inNavigationBar: true
+    inTabBar: true,
+    showTabBar: true
   },
   {
     path: pathname.drafts,

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import throttle from 'lodash.throttle'
-import routes, { pathname } from 'lib/configs/routes'
+import routes, { Route, pathname } from 'lib/configs/routes'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useLoginDialog from 'lib/application/ui/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
@@ -10,11 +10,19 @@ const useTabBar = () => {
   const [isVisible, setVisible] = useState(true)
   const lastScrollTop = useRef(0)
   const loginDialog = useLoginDialog()
+  const { user } = useCurrentUser()
   const router = useCornerRouter({
     onError: () => loginDialog.setOpen(true)
   })
-  let tabBarRoutes = routes.filter(r => r.inNavigationBar)
-  const { user } = useCurrentUser()
+  const currentRouterRef = useRef<Route | undefined>()
+
+  useEffect(() => {
+    currentRouterRef.current = routes.find(r => r.path === router.pathname)
+    if (currentRouterRef.current?.showTabBar) setVisible(true)
+    else setVisible(false)
+  }, [router.pathname])
+
+  let tabBarRoutes = routes.filter(r => r.inTabBar)
 
   if (user) {
     tabBarRoutes = tabBarRoutes.map(r => {
@@ -29,9 +37,13 @@ const useTabBar = () => {
 
   useEffect(() => {
     const scrollHandler = throttle(() => {
-      // Handle safari scrollY maybe negative number.
-      if (window.scrollY >= 0 && lastScrollTop.current >= 0)
+      if (
+        window.scrollY >= 0 &&
+        lastScrollTop.current >= 0 && // Handle safari scrollY maybe negative number.
+        currentRouterRef.current?.showTabBar
+      ) {
         setVisible(lastScrollTop.current > window.scrollY)
+      }
       lastScrollTop.current = window.scrollY
     }, 100)
 

@@ -23,9 +23,7 @@ export const TabBar = () => {
         overflow: 'hidden',
         alignItems: 'center',
         justifyContent: 'space-between',
-        transitionProperty: 'transform',
-        transitionTimingFunction: 'ease-in-out',
-        transitionDuration: '0.1s',
+        transition: 'transform 0.3s cubic-bezier(0.7, -0.4, 0.4, 1.4)',
         transform: isVisible ? '' : 'translateY(80px)'
       }}
     >

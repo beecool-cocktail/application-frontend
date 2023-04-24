@@ -11,6 +11,7 @@ import SWRConfigWrapper from 'components/app/SWRConfigWrapper'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
 import Snackbar from 'components/common/snackbar/snackbar'
+import TabBar from 'components/layout/tabBar'
 import NProgress from 'components/layout/nprogress'
 import WholePageSpinner from 'components/layout/wholePageSpinner'
 import MainContentContainer from 'components/layout/mainContentContainer'
@@ -54,6 +55,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           <ConfirmDialog />
           <Snackbar />
           <WholePageSpinner />
+          <TabBar />
         </SWRConfigWrapper>
       </ThemeProvider>
     </>

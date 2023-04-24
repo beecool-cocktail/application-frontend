@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Box, Stack } from '@mui/material'
 import SearchBar from 'components/common/input/searchBar'
-import TabBar from './tabBar'
 import LogoHeader from './logoHeader'
 
 type LayoutProps = {
@@ -33,7 +32,6 @@ const Layout = ({
         </Box>
         {children}
       </Stack>
-      <TabBar />
     </>
   )
 }
