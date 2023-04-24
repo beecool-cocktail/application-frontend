@@ -3,8 +3,8 @@ import { useSpring, animated } from 'react-spring'
 import { Box, Stack } from '@mui/material'
 import throttle from 'lodash.throttle'
 import LogoSVG from 'lib/assets/logo.svg'
-import CornerSVG from 'lib/assets/corner.svg'
-import BottomLineSVG from 'lib/assets/bottomLine.svg'
+import CornerIcon from 'lib/assets/corner.svg'
+import SmallLogoIcon from 'lib/assets/bottomLine.svg'
 
 const Logo = () => {
   const [useSmallLog, setUseSmallLogo] = useState(false)
@@ -86,10 +86,10 @@ const Logo = () => {
         >
           <Stack direction="row" columnGap="8px">
             <Box pt="10px" lineHeight={1}>
-              <BottomLineSVG width={25} height={25} />
+              <SmallLogoIcon width={25} height={25} />
             </Box>
             <Box pt="16px" lineHeight={1}>
-              <CornerSVG width={111} height={16} />
+              <CornerIcon width={111} height={16} />
             </Box>
           </Stack>
         </Box>

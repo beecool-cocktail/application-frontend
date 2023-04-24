@@ -11,7 +11,6 @@ const Search = () => {
         <meta name="description" content="Whispering Corner Search Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <CocktailList useSearch />
     </>
   )

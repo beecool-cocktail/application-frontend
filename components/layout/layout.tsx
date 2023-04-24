@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import { Box, Stack } from '@mui/material'
 import SearchBar from 'components/common/input/searchBar'
+import SmallLogoIcon from 'lib/assets/bottomLine.svg'
 import LogoHeader from './logoHeader'
 
 type LayoutProps = {
@@ -25,9 +26,15 @@ const Layout = ({
         >
           {useLogo && <LogoHeader />}
           {useSearchBar && (
-            <Box pt="12px">
+            <Stack
+              pt="12px"
+              direction="row"
+              alignItems="center"
+              columnGap="8px"
+            >
+              <SmallLogoIcon width={25} height={25} />
               <SearchBar placeholder="找調酒..." autoFocus />
-            </Box>
+            </Stack>
           )}
         </Box>
         {children}
