@@ -1,5 +1,6 @@
 import { Avatar as BaseAvatar, Box, Badge } from '@mui/material'
 import Image from 'next/image'
+import { getUserIdDisplay } from 'lib/domain/user'
 import type { AvatarProps as BaseAvatarProps } from '@mui/material'
 
 interface AvatarProps extends BaseAvatarProps {
@@ -30,7 +31,8 @@ const Avatar = ({
   )
 
   const withBadge = (child: React.ReactNode) => {
-    const userIdDisplay = `#${String(userId).padStart(4, '0')}`
+    if (!userId) throw new Error('userId undefined')
+    const userIdDisplay = getUserIdDisplay(userId)
     return (
       <Badge
         color="primary"

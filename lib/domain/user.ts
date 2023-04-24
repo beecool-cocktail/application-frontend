@@ -29,3 +29,6 @@ export interface UpdateUserAvatarForm {
   coordinate: Coordinate[]
   rotation: number
 }
+
+export const getUserIdDisplay = (userId: number) =>
+  `#${String(userId).padStart(4, '0')}`

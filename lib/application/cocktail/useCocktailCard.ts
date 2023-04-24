@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { getUrlById, pathname } from 'lib/configs/routes'
 import { CocktailPostItem } from 'lib/domain/cocktail'
+import { getUserIdDisplay } from 'lib/domain/user'
 
 const useCocktailCard = (
   cocktail: CocktailPostItem,
@@ -11,7 +12,7 @@ const useCocktailCard = (
   const [firstImageLoaded, setFirstImageLoaded] = useState<boolean>(false)
   const { id, title, userId, userName, ingredients, isCollected } = cocktail
 
-  const userDisplay = `@${userName}#${userId}`
+  const userDisplay = `@${userName}${getUserIdDisplay(userId)}`
   const getTitleDisplay = () => {
     if (title.length <= 30) return title
     return title.substring(0, 30) + '....'

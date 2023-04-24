@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import Avatar from 'components/common/image/avatar'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { paths } from 'lib/configs/routes'
+import { getUserIdDisplay } from 'lib/domain/user'
 
 export type CocktailDetailsHeaderProps = {
   title: string
@@ -41,7 +42,7 @@ const TitleUserInfo = ({
             sx={{ color: theme => theme.palette.light4.main }}
             onClick={handleUserClick}
           >
-            #{userId}
+            {getUserIdDisplay(userId)}
           </Typography>
         </Stack>
       </Stack>
