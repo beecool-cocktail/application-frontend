@@ -4,7 +4,7 @@ import Cropper, { Area } from 'react-easy-crop'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
 import useSnackbar from 'lib/application/ui/useSnackbar'
-import { fileToDataURL, getCroppedImg, urlToDataURL } from 'lib/helper/image'
+import { canvasToDataUrl, getCroppedImg, urlToDataURL } from 'lib/helper/image'
 import ConfirmButton from './confirmButton'
 import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
 
@@ -88,7 +88,7 @@ const CocktailImageEditor = ({
           return new Promise<string>(resolve => {
             const img = new window.Image()
             img.src = webpImageSrc
-            img.onload = () => {
+            img.onload = async () => {
               const canvas = document.createElement('canvas')
               canvas.width = img.naturalWidth
               canvas.height = img.naturalHeight
@@ -97,13 +97,8 @@ const CocktailImageEditor = ({
               if (!ctx) return
 
               ctx.drawImage(img, 0, 0)
-              canvas.toBlob(blob => {
-                if (!blob) return
-                const myImage = new File([blob], 'origin-avatar.png', {
-                  type: blob.type
-                })
-                resolve(fileToDataURL(myImage))
-              }, 'image/png')
+              const dataUrl = await canvasToDataUrl(canvas, 'origin.jpg')
+              resolve(dataUrl)
             }
           })
         }

@@ -1,7 +1,5 @@
 import { Area } from 'react-easy-crop'
-import { centerCrop, Crop, makeAspectCrop } from 'react-image-crop'
-
-const TO_RADIANS = Math.PI / 180
+import { centerCrop, makeAspectCrop } from 'react-image-crop'
 
 export const fileToDataURL = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -25,6 +23,22 @@ export const urlToDataURL = async (url: string) => {
     reader.onloadend = () => resolve(reader.result as string)
     reader.onerror = reject
     reader.readAsDataURL(blob)
+  })
+}
+
+export const canvasToDataUrl = (
+  canvas: HTMLCanvasElement,
+  filename: string,
+  type = 'image/jpeg'
+) => {
+  return new Promise<string>(resolve => {
+    canvas.toBlob(blob => {
+      if (!blob) return
+      const file = new File([blob], filename, {
+        type: blob.type
+      })
+      resolve(fileToDataURL(file))
+    }, type)
   })
 }
 
@@ -68,7 +82,7 @@ export async function getCroppedImg(
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
-  if (!ctx) return null
+  if (!ctx) throw new Error('get canvas 2d ctx failed')
 
   const rotRad = getRadianAngle(rotation)
 
@@ -108,70 +122,7 @@ export async function getCroppedImg(
   // paste generated rotate image at the top left corner
   ctx.putImageData(data, 0, 0)
 
-  return canvas.toDataURL('image/jpeg')
-
-  // return new Promise<string>((resolve, reject) => {
-  //   canvas.toBlob(file => {
-  //     if (!file) return reject()
-  //     resolve(URL.createObjectURL(file))
-  //   }, 'image/png')
-  // })
-}
-
-export const getCroppedImage = (
-  image: HTMLImageElement,
-  crop: Crop,
-  scale = 1,
-  rotate = 0
-): string => {
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-  if (!ctx) throw new Error('No 2d context')
-
-  const scaleX = image.naturalWidth / image.width
-  const scaleY = image.naturalHeight / image.height
-  // devicePixelRatio slightly increases sharpness on retina devices
-  // at the expense of slightly slower render times and needing to
-  // size the image back down if you want to download/upload and be
-  // true to the images natural size.
-  const pixelRatio = window.devicePixelRatio
-
-  canvas.width = Math.floor(crop.width * scaleX * pixelRatio)
-  canvas.height = Math.floor(crop.height * scaleY * pixelRatio)
-
-  ctx.scale(pixelRatio, pixelRatio)
-  ctx.imageSmoothingQuality = 'high'
-
-  const cropX = crop.x * scaleX
-  const cropY = crop.y * scaleY
-
-  const rotateRads = rotate * TO_RADIANS
-  const centerX = image.naturalWidth / 2
-  const centerY = image.naturalHeight / 2
-
-  // 5) Move the crop origin to the canvas origin (0,0)
-  ctx.translate(-cropX, -cropY)
-  // 4) Move the origin to the center of the original position
-  ctx.translate(centerX, centerY)
-  // 3) Rotate around the origin
-  ctx.rotate(rotateRads)
-  // 2) Scale the image
-  ctx.scale(scale, scale)
-  // 1) Move the center of the image to the origin (0,0)
-  ctx.translate(-centerX, -centerY)
-  ctx.drawImage(
-    image,
-    0,
-    0,
-    image.naturalWidth,
-    image.naturalHeight,
-    0,
-    0,
-    image.naturalWidth,
-    image.naturalHeight
-  )
-
-  return canvas.toDataURL('image/png', 1)
+  return canvasToDataUrl(canvas, 'cropped.jpg')
 }
 
 export const centerAspectCrop = (
@@ -189,17 +140,72 @@ export const getDefaultCroppedImage = async (src: string): Promise<string> => {
   return new Promise(resolve => {
     const img = document.createElement('img')
     img.src = src
-    img.onload = () => {
+    img.onload = async () => {
       const crop = centerAspectCrop(img.width, img.height, 4 / 3)
-      const pixelCrop: Crop = {
+      const pixelCrop: Area = {
         x: Math.floor(crop.x * img.width * (1 / 100)),
         y: Math.floor(crop.y * img.height * (1 / 100)),
         width: Math.floor(crop.width * img.width * (1 / 100)),
-        height: Math.floor(crop.height * img.height * (1 / 100)),
-        unit: 'px'
+        height: Math.floor(crop.height * img.height * (1 / 100))
       }
-      const result = getCroppedImage(img, pixelCrop)
+      const result = await getCroppedImg(src, pixelCrop)
       resolve(result)
     }
   })
 }
+
+// export const getCroppedImage = (
+//   image: HTMLImageElement,
+//   crop: Crop,
+//   scale = 1,
+//   rotate = 0
+// ): Promise<string> => {
+//   const canvas = document.createElement('canvas')
+//   const ctx = canvas.getContext('2d')
+//   if (!ctx) throw new Error('No 2d context')
+
+//   const scaleX = image.naturalWidth / image.width
+//   const scaleY = image.naturalHeight / image.height
+//   // devicePixelRatio slightly increases sharpness on retina devices
+//   // at the expense of slightly slower render times and needing to
+//   // size the image back down if you want to download/upload and be
+//   // true to the images natural size.
+//   const pixelRatio = window.devicePixelRatio
+
+//   canvas.width = Math.floor(crop.width * scaleX * pixelRatio)
+//   canvas.height = Math.floor(crop.height * scaleY * pixelRatio)
+
+//   ctx.scale(pixelRatio, pixelRatio)
+//   ctx.imageSmoothingQuality = 'high'
+
+//   const cropX = crop.x * scaleX
+//   const cropY = crop.y * scaleY
+
+//   const rotateRads = rotate * TO_RADIANS
+//   const centerX = image.naturalWidth / 2
+//   const centerY = image.naturalHeight / 2
+
+//   // 5) Move the crop origin to the canvas origin (0,0)
+//   ctx.translate(-cropX, -cropY)
+//   // 4) Move the origin to the center of the original position
+//   ctx.translate(centerX, centerY)
+//   // 3) Rotate around the origin
+//   ctx.rotate(rotateRads)
+//   // 2) Scale the image
+//   ctx.scale(scale, scale)
+//   // 1) Move the center of the image to the origin (0,0)
+//   ctx.translate(-centerX, -centerY)
+//   ctx.drawImage(
+//     image,
+//     0,
+//     0,
+//     image.naturalWidth,
+//     image.naturalHeight,
+//     0,
+//     0,
+//     image.naturalWidth,
+//     image.naturalHeight
+//   )
+
+//   return canvasToDataUrl(canvas, 'cropped.jpg')
+// }

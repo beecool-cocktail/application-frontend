@@ -6,7 +6,6 @@ import CameraPlusIcon from 'lib/assets/cameraPlus.svg'
 import { CropResult, EditablePhoto, EditorType } from 'lib/domain/photo'
 import { toBase64Photos } from 'lib/helper/image'
 import CocktailImageEditor from '../imageEditor/cocktailImageEditor'
-// import ImageEditor from '../imageEditor/legacyImageEditor'
 import IconButton from '../button/iconButton'
 
 export interface ImageSelectorProps {
