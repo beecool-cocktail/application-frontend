@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Box, Fab, Stack, Typography, Backdrop, ClickAwayListener } from '@mui/material'
+import { Box, Fab, Stack, Backdrop, ClickAwayListener } from '@mui/material'
 import CancelIcon from 'lib/assets/cancelCloseOutlined.svg'
 import MoreIcon from 'lib/assets/more.svg'
 import IconButton from '../button/iconButton'
 
 interface ActionSheetProps {
+  topOffset: number
   actions: ActionButtonProps[]
 }
 
@@ -18,24 +19,25 @@ interface MaskProps {
   open: boolean
 }
 
-interface ActionButtonDisplacement {
-  threeButtons: { top: number, left: number }[];
-  fourButtons: { top: number, left: number }[];
-}
+const threeButtonsTop = [
+  { left: 8, top: -82 },
+  { left: -53, top: -59 },
+  { left: -81, top: -6 }
+]
 
-const actionButtonDisplacement: ActionButtonDisplacement = {
-  threeButtons: [
-    { top: -67, left: -68 },
-    { top: -107, left: -1 },
-    { top: -67, left: 61 }
-  ],
-  fourButtons: [
-    { top: -26, left: -87 },
-    { top: -94, left: -41 },
-    { top: -94, left: 41 },
-    { top: -26, left: 87 }
-  ]
-}
+const fourButtonsTop = [
+  { left: 10, top: -79 },
+  { left: -42, top: -71 },
+  { left: -75, top: -29 },
+  { left: -78, top: 25 }
+]
+
+const fourButtonsDown = [
+  { left: -74, top: -31 },
+  { left: -78, top: 21 },
+  { left: -50, top: 64 },
+  { left: 0, top: 84 }
+]
 
 
 const Mask = ({ open }: MaskProps) => {
@@ -49,10 +51,9 @@ const Mask = ({ open }: MaskProps) => {
 }
 
 
-const ActionButton = ({ icon, text, onClick }: ActionButtonProps) => {
+const ActionButton = ({ icon, onClick }: ActionButtonProps) => {
   return (
     <Stack direction="row" alignItems="center" columnGap="4px">
-      <Typography variant="body3">{text}</Typography>
       <Fab
         color="primary"
         sx={{
@@ -69,7 +70,7 @@ const ActionButton = ({ icon, text, onClick }: ActionButtonProps) => {
   )
 }
 
-const ActionSheet = ({ actions }: ActionSheetProps) => {
+const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const [iconButtonRect, setIconButtonRect] = useState<DOMRect | undefined>(undefined)
@@ -90,29 +91,49 @@ const ActionSheet = ({ actions }: ActionSheetProps) => {
 
   let displacement: { top: number, left: number }[] = []
 
-  if (actions.length === 3) {
-    displacement = actionButtonDisplacement.threeButtons
-  } else if (actions.length === 4) {
-    displacement = actionButtonDisplacement.fourButtons
+  switch (actions.length) {
+    case 3:
+      displacement = threeButtonsTop
+      break
+    case 4:
+      displacement = topOffset < 230 ? fourButtonsDown : fourButtonsTop
+      break
+    default:
+      break
   }
 
   return (
     <>
       <ClickAwayListener onClickAway={handleClose}>
         <Box sx={{ zIndex: (theme) => theme.zIndex.drawer }}>
-          <Box>
-            <IconButton size={24} onClick={handleClick}>
-              {open ? <CancelIcon /> : <MoreIcon />}
-            </IconButton>
+          <Box sx={{ position: 'relative' }}>
+            <Box sx={{
+              opacity: open ? 0 : 1,
+            }}>
+              <IconButton size={24} onClick={handleClick}>
+                <MoreIcon />
+              </IconButton>
+            </Box>
+            <Box sx={{
+              transition: 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)',
+              transform: open ? 'scale(1)' : 'scale(0)',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+            }}>
+              <IconButton size={24} onClick={handleClick}>
+                <CancelIcon />
+              </IconButton>
+            </Box>
           </Box>
           {actions.map((action, index) => (
             <Box key={action.text}
               sx={{
                 position: 'absolute',
-                left: iconButtonLeft - 37,
-                top: iconButtonTop - 11,
-                transition: 'transform 300ms ease-out',
-                transform: open ? `translate(${displacement[index].top}px, ${displacement[index].left}px) scale(1)` : 'translate(0px, 0px) scale(0)',
+                left: iconButtonLeft - 12,
+                top: iconButtonTop - 12,
+                transition: open ? 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)' : 'transform 300ms ease-out',
+                transform: open ? `translate(${displacement[index].left}px, ${displacement[index].top}px) scale(1)` : 'translate(0px, 0px) scale(0)',
                 zIndex: (theme) => theme.zIndex.drawer,
               }}
             >

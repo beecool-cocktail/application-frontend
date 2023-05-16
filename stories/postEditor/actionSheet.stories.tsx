@@ -44,6 +44,7 @@ const handleClick = () => {
 
 export const Cover = Template.bind({})
 Cover.args = {
+  topOffset: 230,
   actions: [
     { text: '重新上傳', icon: <EditIcon />, onClick: handleClick },
     { text: '編輯照片', icon: <ReloadIcon />, onClick: handleClick },
@@ -51,8 +52,20 @@ Cover.args = {
   ]
 }
 
-export const Others = Template.bind({})
-Others.args = {
+export const OthersSmallOffset = Template.bind({})
+OthersSmallOffset.args = {
+  topOffset: 229,
+  actions: [
+    { text: '重新上傳', icon: <EditIcon />, onClick: handleClick },
+    { text: '編輯照片', icon: <ReloadIcon />, onClick: handleClick },
+    { text: '換成封面', icon: <PictureIcon />, onClick: handleClick },
+    { text: '刪除照片', icon: <TrashIcon />, onClick: handleClick }
+  ]
+}
+
+export const OthersNormalOffset = Template.bind({})
+OthersNormalOffset.args = {
+  topOffset: 230,
   actions: [
     { text: '重新上傳', icon: <EditIcon />, onClick: handleClick },
     { text: '編輯照片', icon: <ReloadIcon />, onClick: handleClick },
