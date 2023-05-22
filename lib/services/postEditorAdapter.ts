@@ -5,31 +5,34 @@ import {
   UpdateFormalArticleRequest
 } from 'sdk'
 import { PostEditorService } from 'lib/application/ports'
-import { CocktailPostForm } from 'lib/domain/cocktail'
+import {
+  CocktailPostCreateForm,
+  CocktailPostUpdateForm
+} from 'lib/domain/cocktail'
 import { cocktailApi } from './api'
 
 const getCreateReqPayload = async (
-  form: CocktailPostForm
+  form: CocktailPostCreateForm
 ): Promise<PostArticleRequest> => ({
   name: form.title,
   ingredient_list: form.ingredients,
   step_list: form.steps,
   description: form.description,
-  files: form.photos.map(p => p.editedURL)
+  files: form.photos
 })
 
 const getUpdateReqPayload = async (
-  form: CocktailPostForm
+  form: CocktailPostUpdateForm
 ): Promise<UpdateFormalArticleRequest> => ({
   name: form.title,
   ingredient_list: form.ingredients,
   step_list: form.steps,
   description: form.description,
-  photos: form.photos.map(p => ({ id: p.id, path: p.editedURL }))
+  photos: form.photos.map(p => ({ id: p.id, image_file: p.imageFile }))
 })
 
 const usePostEditorService = (): PostEditorService => {
-  const createPost = async (form: CocktailPostForm, token: string) => {
+  const createPost = async (form: CocktailPostCreateForm, token: string) => {
     const req: PostArticleRequest = await getCreateReqPayload(form)
     await cocktailApi.postArticleRequest(req, {
       headers: { Authorization: `Bearer ${token}` }
@@ -38,7 +41,7 @@ const usePostEditorService = (): PostEditorService => {
 
   const updatePost = async (
     id: number,
-    form: CocktailPostForm,
+    form: CocktailPostUpdateForm,
     token: string
   ) => {
     const req: UpdateFormalArticleRequest = await getUpdateReqPayload(form)
@@ -47,7 +50,7 @@ const usePostEditorService = (): PostEditorService => {
     })
   }
 
-  const createDraft = async (form: CocktailPostForm, token: string) => {
+  const createDraft = async (form: CocktailPostCreateForm, token: string) => {
     const req: PostDraftArticleRequest = await getCreateReqPayload(form)
     await cocktailApi.postDraftArticleRequest(req, {
       headers: { Authorization: `Bearer ${token}` }
@@ -56,7 +59,7 @@ const usePostEditorService = (): PostEditorService => {
 
   const updateDraft = async (
     id: number,
-    form: CocktailPostForm,
+    form: CocktailPostUpdateForm,
     token: string
   ) => {
     const req: UpdateDraftArticleRequest = await getUpdateReqPayload(form)

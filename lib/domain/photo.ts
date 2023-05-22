@@ -7,7 +7,13 @@ export interface EditablePhoto {
   id?: number
   originURL: string
   editedURL: string
+  shouldUploadImageFile: boolean
   cropResult?: CropResult
+}
+
+export interface UploadOrEditPhoto {
+  id?: number
+  imageFile?: string
 }
 
 export interface PhotoWithBlur {

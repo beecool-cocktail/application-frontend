@@ -1,5 +1,5 @@
 import { Page } from './pagination'
-import { EditablePhoto, Photo, PhotoWithBlur } from './photo'
+import { EditablePhoto, Photo, PhotoWithBlur, UploadOrEditPhoto } from './photo'
 
 export interface Step {
   description: string
@@ -78,6 +78,16 @@ export interface CocktailPostForm
   extends CocktailPostStep1Form,
     CocktailPostStep2Form {}
 
+export interface CocktailPostCreateForm
+  extends Omit<CocktailPostForm, 'photos'> {
+  photos: string[]
+}
+
+export interface CocktailPostUpdateForm
+  extends Omit<CocktailPostForm, 'photos'> {
+  photos: UploadOrEditPhoto[]
+}
+
 export interface CocktailPostDraftItem {
   id: number
   title: string
@@ -122,4 +132,23 @@ export const collectCocktailItem = (
 export const collectCocktail = (cocktail: CocktailPost): CocktailPost => ({
   ...cocktail,
   isCollected: !cocktail.isCollected
+})
+
+export const toCocktailCreateForm = (
+  form: CocktailPostForm
+): CocktailPostCreateForm => ({
+  ...form,
+  photos: form.photos.map(p => p.editedURL)
+})
+
+export const toCocktailUpdateForm = (
+  form: CocktailPostForm
+): CocktailPostUpdateForm => ({
+  ...form,
+  photos: form.photos.map(p => {
+    return {
+      id: p.id,
+      imageFile: p.shouldUploadImageFile ? p.editedURL : undefined
+    }
+  })
 })

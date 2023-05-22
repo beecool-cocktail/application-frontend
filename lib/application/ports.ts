@@ -3,7 +3,8 @@ import {
   CocktailPost,
   CocktailPostDraft,
   CocktailPostDraftList,
-  CocktailPostForm,
+  CocktailPostCreateForm,
+  CocktailPostUpdateForm,
   FavoriteCocktailList,
   MyCocktailItem
 } from 'lib/domain/cocktail'
@@ -54,10 +55,18 @@ export interface DraftService {
 }
 
 export interface PostEditorService {
-  createPost(draft: CocktailPostForm, token: string): Promise<void>
-  updatePost(id: number, post: CocktailPostForm, token: string): Promise<void>
-  createDraft(draft: CocktailPostForm, token: string): Promise<void>
-  updateDraft(id: number, draft: CocktailPostForm, token: string): Promise<void>
+  createPost(draft: CocktailPostCreateForm, token: string): Promise<void>
+  updatePost(
+    id: number,
+    post: CocktailPostUpdateForm,
+    token: string
+  ): Promise<void>
+  createDraft(draft: CocktailPostCreateForm, token: string): Promise<void>
+  updateDraft(
+    id: number,
+    draft: CocktailPostUpdateForm,
+    token: string
+  ): Promise<void>
   toFormal(id: number, token: string): Promise<void>
 }
 

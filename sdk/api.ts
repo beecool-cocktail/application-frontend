@@ -67,16 +67,16 @@ export interface CocktailIngredientWithoutIDInResponse {
 export interface CocktailPhotoWithIDInRequest {
     /**
      * 
+     * @type {string}
+     * @memberof CocktailPhotoWithIDInRequest
+     */
+    'image_file'?: string;
+    /**
+     * 
      * @type {number}
      * @memberof CocktailPhotoWithIDInRequest
      */
     'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CocktailPhotoWithIDInRequest
-     */
-    'path': string;
 }
 /**
  * 
@@ -86,16 +86,16 @@ export interface CocktailPhotoWithIDInRequest {
 export interface CocktailPhotoWithIDInResponse {
     /**
      * 
+     * @type {string}
+     * @memberof CocktailPhotoWithIDInResponse
+     */
+    'image_path': string;
+    /**
+     * 
      * @type {number}
      * @memberof CocktailPhotoWithIDInResponse
      */
     'id': number;
-    /**
-     * 
-     * @type {string}
-     * @memberof CocktailPhotoWithIDInResponse
-     */
-    'path': string;
 }
 /**
  * 
@@ -725,19 +725,19 @@ export interface GetPopularCocktailListRequest {
      * @type {string}
      * @memberof GetPopularCocktailListRequest
      */
-    'Keyword'?: string;
+    'keyword'?: string;
     /**
      * 
      * @type {number}
      * @memberof GetPopularCocktailListRequest
      */
-    'Page': number;
+    'page': number;
     /**
      * 
      * @type {number}
      * @memberof GetPopularCocktailListRequest
      */
-    'PageSize': number;
+    'pageSize': number;
 }
 /**
  * 

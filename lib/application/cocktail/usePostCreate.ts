@@ -11,7 +11,9 @@ import {
   CocktailPostStep1Form,
   CocktailPostStep2Form,
   Ingredient,
-  Step
+  Step,
+  toCocktailCreateForm,
+  toCocktailUpdateForm
 } from 'lib/domain/cocktail'
 import { CropResult, EditablePhoto } from 'lib/domain/photo'
 import { getDefaultCroppedImage } from 'lib/helper/image'
@@ -55,7 +57,8 @@ const getStep2DefaultValues = (
       photos: targetCocktail.photos.map(p => ({
         id: p.id,
         originURL: p.path,
-        editedURL: p.path
+        editedURL: p.path,
+        shouldUploadImageFile: false
       }))
     }
   }
@@ -191,7 +194,8 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
         const url = urls[0]
         const updated = {
           originURL: url,
-          editedURL: await getDefaultCroppedImage(url)
+          editedURL: await getDefaultCroppedImage(url),
+          shouldUploadImageFile: true
         }
         setStep2Value('photos', update(index, updated, originPhotos))
         return
@@ -206,7 +210,8 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
       }
       const promiseObjs = urls.map(async url => ({
         originURL: url,
-        editedURL: await getDefaultCroppedImage(url)
+        editedURL: await getDefaultCroppedImage(url),
+        shouldUploadImageFile: true
       }))
 
       const photos: EditablePhoto[] = await Promise.all(promiseObjs)
@@ -226,6 +231,7 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
       ...origin,
       originURL: cropResult.originImage,
       editedURL: cropResult.croppedImage,
+      shouldUploadImageFile: true,
       cropResult
     }
     setStep2Value('photos', update(index, updated, currentPhotos))
@@ -238,6 +244,7 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
     const updated: EditablePhoto = {
       ...origin,
       editedURL: cropResult.croppedImage,
+      shouldUploadImageFile: true,
       cropResult
     }
     setStep2Value('photos', update(index, updated, currentPhotos))
@@ -265,13 +272,16 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
     try {
       removeStep1EmptyFields()
       const values = getValues()
+
       if (cocktailDraft) {
         snackbarMessage = snackbarMessages.updateDraft
-        await updateDraft(cocktailDraft.id, values, token)
+        const updateForm = toCocktailUpdateForm(values)
+        await updateDraft(cocktailDraft.id, updateForm, token)
         await mutate(`/cocktail-drafts/${cocktailDraft.id}`)
       } else {
         snackbarMessage = snackbarMessages.createDraft
-        await createDraft(values, token)
+        const createForm = toCocktailCreateForm(values)
+        await createDraft(createForm, token)
       }
       mutate('/cocktail-drafts')
       router.push(paths.profile)
@@ -284,16 +294,18 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
   }
 
   const submitPost = async () => {
-    const form = getValues()
     const token = storage.getToken()
     if (!token) return
 
-    setLoading(true)
+    const values = getValues()
     let snackbarMessage = snackbarMessages.createPost
+
+    setLoading(true)
     try {
       if (cocktailDraft) {
         snackbarMessage = snackbarMessages.createPost
-        await updateDraft(cocktailDraft.id, form, token)
+        const updateForm = toCocktailUpdateForm(values)
+        await updateDraft(cocktailDraft.id, updateForm, token)
         await Promise.all([
           toFormal(cocktailDraft.id, token),
           mutate('/cocktail-drafts'),
@@ -301,7 +313,8 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
         ])
       } else {
         snackbarMessage = snackbarMessages.createPost
-        await createPost(form, token)
+        const createForm = toCocktailCreateForm(values)
+        await createPost(createForm, token)
         mutate('/cocktails')
       }
       snackbar.success(snackbarMessage.success)

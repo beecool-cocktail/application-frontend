@@ -9,7 +9,8 @@ import {
   CocktailPostDraft,
   CocktailPostForm,
   Ingredient,
-  Step
+  Step,
+  toCocktailUpdateForm
 } from 'lib/domain/cocktail'
 import { CropResult, EditablePhoto } from 'lib/domain/photo'
 import { getDefaultCroppedImage } from 'lib/helper/image'
@@ -42,7 +43,8 @@ const getDefaultValues = (
     photos: targetCocktail.photos.map(p => ({
       id: p.id,
       originURL: p.path,
-      editedURL: p.path
+      editedURL: p.path,
+      shouldUploadImageFile: false
     }))
   }
 }
@@ -114,7 +116,8 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
         const url = urls[0]
         const updated = {
           originURL: url,
-          editedURL: await getDefaultCroppedImage(url)
+          editedURL: await getDefaultCroppedImage(url),
+          shouldUploadImageFile: true
         }
         setValue('photos', update(index, updated, originPhotos))
         return
@@ -129,7 +132,8 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
       }
       const promiseObjs = urls.map(async url => ({
         originURL: url,
-        editedURL: await getDefaultCroppedImage(url)
+        editedURL: await getDefaultCroppedImage(url),
+        shouldUploadImageFile: true
       }))
 
       const photos: EditablePhoto[] = await Promise.all(promiseObjs)
@@ -149,6 +153,7 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
       ...origin,
       originURL: cropResult.originImage,
       editedURL: cropResult.croppedImage,
+      shouldUploadImageFile: true,
       cropResult
     }
     setValue('photos', update(index, updated, currentPhotos))
@@ -161,6 +166,7 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
     const updated: EditablePhoto = {
       ...origin,
       editedURL: cropResult.croppedImage,
+      shouldUploadImageFile: true,
       cropResult
     }
     setValue('photos', update(index, updated, currentPhotos))
@@ -180,14 +186,16 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
   }
 
   const submitPost = async () => {
-    const form = getValues()
+    const values = getValues()
     const token = storage.getToken()
     if (!token) return
+
+    const updateForm = toCocktailUpdateForm(values)
 
     setLoading(true)
     const snackbarMessage = snackbarMessages.updatePost
     try {
-      await updatePost(targetCocktail.id, form, token)
+      await updatePost(targetCocktail.id, updateForm, token)
       await Promise.all([
         mutate('/cocktails'),
         mutate(`/cocktails/${targetCocktail.id}`)

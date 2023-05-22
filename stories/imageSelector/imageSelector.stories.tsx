@@ -17,7 +17,8 @@ const Template: ComponentStory<typeof ImageSelector> = args => {
 
 const photo: EditablePhoto = {
   originURL: '/cocktail.jpg',
-  editedURL: '/cocktail.jpg'
+  editedURL: '/cocktail.jpg',
+  shouldUploadImageFile: false
 }
 
 export const NormalWithoutImage = Template.bind({})

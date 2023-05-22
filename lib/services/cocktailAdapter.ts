@@ -23,10 +23,7 @@ const getById = async (
     userPhoto: resData.user_photo,
     title: resData.title,
     description: resData.description,
-    photos: resData.photos.map(p => ({
-      id: p.id,
-      path: p.path
-    })),
+    photos: resData.photos.map(p => ({ id: p.id, path: p.image_path })),
     ingredients: resData.ingredient_list.map(i => ({
       name: i.name,
       amount: i.amount
