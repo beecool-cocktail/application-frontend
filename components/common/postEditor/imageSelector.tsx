@@ -1,12 +1,15 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
-import { Box, Menu, MenuItem, Stack, Typography } from '@mui/material'
-import MoreIcon from 'lib/assets/more.svg'
+import { Box, Stack, Typography } from '@mui/material'
 import CameraPlusIcon from 'lib/assets/cameraPlus.svg'
 import { CropResult, EditablePhoto, EditorType } from 'lib/domain/photo'
 import { toBase64Photos } from 'lib/helper/image'
+import EditIcon from 'lib/assets/editOutlined.svg'
+import ReloadIcon from 'lib/assets/reloadBlueBgOutlined.svg'
+import PictureIcon from 'lib/assets/picture.svg'
+import TrashIcon from 'lib/assets/trashOutlined.svg'
 import CocktailImageEditor from '../imageEditor/cocktailImageEditor'
-import IconButton from '../button/iconButton'
+import ActionSheet, { ActionButtonProps } from './actionSheet'
 
 export interface ImageSelectorProps {
   index: number
@@ -33,36 +36,46 @@ const ImageSelector = ({
   const [imageEditorType, setImageEditorType] = useState<EditorType | null>(
     null
   )
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
   const fileInputId = `upload-${index}`
 
-  const handleEditButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const closeMenu = () => setAnchorEl(null)
-
   const handleToCoverImage = () => {
-    closeMenu()
     onToCover()
   }
 
   const handleUpload = () => {
-    closeMenu()
     setImageEditorType('change')
   }
 
   const handleEdit = () => {
-    closeMenu()
     setImageEditorType('edit')
   }
 
   const handleDelete = () => {
-    closeMenu()
     onDelete()
   }
+
+  const actions = [
+    {
+      text: '重新上傳',
+      icon: <ReloadIcon />,
+      onClick: handleUpload
+    },
+    {
+      text: '編輯照片',
+      icon: <EditIcon />,
+      onClick: handleEdit
+    },
+    !isCover && {
+      text: '換成封面',
+      icon: <PictureIcon />,
+      onClick: handleToCoverImage
+    },
+    {
+      text: '刪除照片',
+      icon: <TrashIcon />,
+      onClick: handleDelete
+    }
+  ].filter(Boolean) as ActionButtonProps[]
 
   return (
     <Box width={1}>
@@ -76,8 +89,8 @@ const ImageSelector = ({
           cursor: 'pointer',
           aspectRatio: '4/3',
           bgcolor: theme => theme.palette.dark6.main,
-          borderRadius: '4px',
-          overflow: 'hidden'
+          borderRadius: '4px'
+          // overflow: 'hidden'
         }}
         htmlFor={fileInputId}
         component="label"
@@ -106,9 +119,7 @@ const ImageSelector = ({
                 lineHeight: 0
               }}
             >
-              <IconButton onClick={handleEditButtonClick}>
-                <MoreIcon />
-              </IconButton>
+              <ActionSheet topOffset={230} actions={actions} />
             </Box>
             {isCover && (
               <Box
@@ -134,14 +145,6 @@ const ImageSelector = ({
                 </Typography>
               </Box>
             )}
-            <Menu anchorEl={anchorEl} open={open} onClose={closeMenu}>
-              {!isCover && (
-                <MenuItem onClick={handleToCoverImage}>更換成封面照</MenuItem>
-              )}
-              <MenuItem onClick={handleUpload}>重新上傳</MenuItem>
-              <MenuItem onClick={handleEdit}>編輯照片</MenuItem>
-              <MenuItem onClick={handleDelete}>刪除</MenuItem>
-            </Menu>
             {imageEditorType && (
               <Box zIndex={1200}>
                 <CocktailImageEditor

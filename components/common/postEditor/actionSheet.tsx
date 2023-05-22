@@ -9,7 +9,7 @@ interface ActionSheetProps {
   actions: ActionButtonProps[]
 }
 
-interface ActionButtonProps {
+export interface ActionButtonProps {
   icon: React.ReactNode
   text: string
   onClick: () => void
@@ -39,17 +39,17 @@ const fourButtonsDown = [
   { left: 0, top: 84 }
 ]
 
-
 const Mask = ({ open }: MaskProps) => {
   return (
     <Backdrop
       open={open}
-      sx={{ bgcolor: 'rgba(0, 0, 0, 0.7)', zIndex: (theme) => theme.zIndex.drawer - 1 }}
-    >
-    </Backdrop>
+      sx={{
+        bgcolor: 'rgba(0, 0, 0, 0.7)',
+        zIndex: theme => theme.zIndex.drawer - 1
+      }}
+    ></Backdrop>
   )
 }
-
 
 const ActionButton = ({ icon, onClick }: ActionButtonProps) => {
   return (
@@ -60,7 +60,7 @@ const ActionButton = ({ icon, onClick }: ActionButtonProps) => {
           width: 46,
           height: 46,
           fontSize: 24,
-          color: theme => theme.palette.light1.main,
+          color: theme => theme.palette.light1.main
         }}
         onClick={onClick}
       >
@@ -71,7 +71,6 @@ const ActionButton = ({ icon, onClick }: ActionButtonProps) => {
 }
 
 const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
-
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -87,7 +86,7 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
   const halfOfIconButtonWidth = 12
   const halfOfIconButtonHeight = 12
 
-  let displacement: { top: number, left: number }[] = []
+  let displacement: { top: number; left: number }[] = []
 
   switch (actions.length) {
     case 3:
@@ -102,42 +101,54 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   return (
     <>
-
       <ClickAwayListener onClickAway={handleClose}>
-        <Box sx={{
-          zIndex: (theme) => theme.zIndex.drawer,
-          position: 'relative'
-        }}>
-          <Box sx={{
-            opacity: open ? 0 : 1,
-          }}>
+        <Box
+          sx={{
+            zIndex: theme => theme.zIndex.drawer,
+            position: 'relative'
+          }}
+        >
+          <Box
+            sx={{
+              opacity: open ? 0 : 1
+            }}
+          >
             <IconButton onClick={handleClick}>
               <MoreIcon />
             </IconButton>
           </Box>
-          <Box sx={{
-            transition: 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)',
-            transform: open ? 'scale(1)' : 'scale(0)',
-            position: 'absolute',
-            left: 0,
-            top: 0,
-          }}>
+          <Box
+            sx={{
+              transition:
+                'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)',
+              transform: open ? 'scale(1)' : 'scale(0)',
+              position: 'absolute',
+              left: 0,
+              top: 0
+            }}
+          >
             <IconButton onClick={handleClick}>
               <CancelIcon />
             </IconButton>
           </Box>
           {actions.map((action, index) => (
-            <Box key={action.text}
+            <Box
+              key={action.text}
               sx={{
                 position: 'absolute',
                 left: 0 - halfOfIconButtonWidth,
                 top: 0 - halfOfIconButtonHeight,
-                transition: open ? 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)' : 'transform 300ms ease-out',
-                transform: open ? `translate(${displacement[index].left}px, ${displacement[index].top}px) scale(1)` : 'translate(0px, 0px) scale(0)',
-                zIndex: (theme) => theme.zIndex.drawer,
+                transition: open
+                  ? 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)'
+                  : 'transform 300ms ease-out',
+                transform: open
+                  ? `translate(${displacement[index].left}px, ${displacement[index].top}px) scale(1)`
+                  : 'translate(0px, 0px) scale(0)',
+                zIndex: theme => theme.zIndex.drawer
               }}
             >
-              <ActionButton {...action}
+              <ActionButton
+                {...action}
                 onClick={() => {
                   action.onClick()
                   handleClose()
