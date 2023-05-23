@@ -53,7 +53,7 @@ DefaultBehavior.parameters = {
   msw: {
     handlers: [
       configHandler,
-      rest.get('/api/cocktails', (req, res, ctx) => {
+      rest.get(/\/api\/cocktails/, (req, res, ctx) => {
         const data: GetPopularCocktailListResponse = {
           popular_cocktail_list: generateMockCocktailList(
             Number(req.url.searchParams.get('page')),

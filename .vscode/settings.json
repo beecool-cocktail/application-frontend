@@ -17,12 +17,15 @@
     "Plaiceholder",
     "prebuild",
     "preconnect",
+    "preinstall",
     "Pullable",
     "Roboto",
     "svgr",
     "swiper",
     "unoptimized",
     "uuidv",
+    "whisperingcorner",
+    "zapto",
     "zustand"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"

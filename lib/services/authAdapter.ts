@@ -1,5 +1,7 @@
+import env from '@beam-australia/react-env'
 import { GoogleAuthenticateRequest, LogoutRequest } from 'sdk'
 import { AuthService } from 'lib/application/ports'
+import { join } from 'lib/helper/url'
 import { loginApi } from './api'
 
 const useAuthService = (): AuthService => {
@@ -15,7 +17,7 @@ const useAuthService = (): AuthService => {
   }
 
   const askUserPermission = () => {
-    location.href = '/api/auth/google-login'
+    location.href = join(env('API_BASE_URL'), '/api/auth/google-login')
   }
 
   return {

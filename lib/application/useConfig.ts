@@ -1,20 +1,18 @@
-import useSWR from 'swr'
-import Config from 'lib/types/config'
+import env from '@beam-australia/react-env'
 import { join } from 'lib/helper/url'
 
 const useConfig = () => {
-  const { data: config, error } = useSWR<Config>('/config', {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
-  })
+  const config = {
+    apiBaseUrl: env('API_BASE_URL'),
+    staticBaseUrl: env('IMAGE_DOMAIN')
+  }
 
   const toAbsolutePath = (path: string) => {
     if (!config) return path
     return join(config.staticBaseUrl, path)
   }
 
-  return { config: config, loading: !config && !error, error, toAbsolutePath }
+  return { config, loading: false, error: false, toAbsolutePath }
 }
 
 export default useConfig

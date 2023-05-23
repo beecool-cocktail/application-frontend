@@ -4,7 +4,12 @@ import Cropper, { Area } from 'react-easy-crop'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
 import useSnackbar from 'lib/application/ui/useSnackbar'
-import { canvasToDataUrl, getCroppedImg, urlToDataURL } from 'lib/helper/image'
+import {
+  canvasToDataUrl,
+  getCroppedImg,
+  toNextImageUrlFormat,
+  urlToDataURL
+} from 'lib/helper/image'
 import ConfirmButton from './confirmButton'
 import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
 
@@ -33,7 +38,9 @@ const AvatarEditor = ({
 }: AvatarEditorProps) => {
   const theme = useTheme()
   const snackbar = useSnackbar()
-  const [selectedImage, setSelectedImage] = useState<string>(imgSrc)
+  const [selectedImage, setSelectedImage] = useState<string>(
+    toNextImageUrlFormat(imgSrc)
+  )
   const [zoom, setZoom] = useState(1)
   const [rotation, setRotation] = useState(cropData?.rotation || 0)
   const [crop, setCrop] = useState({ x: 0, y: 0 })

@@ -65,13 +65,10 @@ const CocktailCardSmall = ({
         onClick={handleCardClick}
       >
         <Image
-          style={{ borderRadius: '6px' }}
-          layout="fill"
-          objectFit="cover"
+          fill
           src={cocktail.photoUrl}
           alt="favorite cocktail image"
-          width={400}
-          height={300}
+          style={{ objectFit: 'cover', borderRadius: '6px' }}
         />
         {isEditMode && (
           <Stack

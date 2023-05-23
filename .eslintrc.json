@@ -26,6 +26,7 @@
       "error",
       { "ignoreRestSiblings": true }
     ],
+    "@next/next/no-sync-scripts": "off",
     "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-var": "error",
     "quotes": ["error", "single", { "avoidEscape": true }]

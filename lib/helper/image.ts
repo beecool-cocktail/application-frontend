@@ -1,5 +1,6 @@
 import { Area } from 'react-easy-crop'
 import { centerCrop, makeAspectCrop } from 'react-image-crop'
+import env from '@beam-australia/react-env'
 
 export const fileToDataURL = (file: File) =>
   new Promise<string>((resolve, reject) => {
@@ -152,6 +153,15 @@ export const getDefaultCroppedImage = async (src: string): Promise<string> => {
       resolve(result)
     }
   })
+}
+
+export const toNextImageUrlFormat = (src: string) => {
+  if (env('OUTSIDE_IMAGE_HOST')) {
+    const urlObject = new URL(src)
+    urlObject.host = env('OUTSIDE_IMAGE_HOST')
+    return urlObject.href
+  }
+  return src
 }
 
 // export const getCroppedImage = (

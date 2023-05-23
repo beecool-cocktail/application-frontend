@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import env from '@beam-australia/react-env'
 import ResponseCode from 'lib/constants/responseCode'
 import {
   HttpStatusError,
@@ -15,7 +16,7 @@ const validateStatus = (status: number) => {
 }
 
 const cornerApi = axios.create({
-  baseURL: '/api',
+  baseURL: env('API_BASE_URL'),
   validateStatus
 })
 
