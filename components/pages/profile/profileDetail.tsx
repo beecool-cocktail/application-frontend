@@ -61,7 +61,7 @@ const ProfileDetail = ({ userId }: ProfileDetailProps) => {
                 mt: '2px'
               }}
             >
-              {`${user.username}#${user.id}`}
+              {user.username}
             </Typography>
             <CounterRow
               collectionCount={user.collectionCount}
