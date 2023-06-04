@@ -4,13 +4,9 @@ const withPWA = require('next-pwa')({
   disable: process.env.NODE_ENV === 'development'
 })
 
-const imageDomains = []
-if (process.env.IMAGE_DOMAIN) imageDomains.push(process.env.IMAGE_DOMAIN)
-
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  swcMinify: true,
   serverRuntimeConfig: {
     apiBaseUrl: process.env.API_BASE_URL,
     staticBaseUrl: process.env.API_BASE_URL
@@ -20,9 +16,25 @@ const config = {
     let destination = source
     if (process.env.API_BASE_URL)
       destination = process.env.API_BASE_URL + source
+
     return [{ source, destination }]
   },
-  images: { domains: imageDomains },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost'
+      },
+      {
+        protocol: 'http',
+        hostname: 'whispering-server'
+      },
+      {
+        protocol: 'https',
+        hostname: 'whisperingcorner2.zapto.org'
+      }
+    ]
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

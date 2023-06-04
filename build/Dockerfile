@@ -1,14 +1,13 @@
-########## deps ##########
-FROM node:18.2-alpine AS deps
+########## builder ##########
+FROM node:18.16-alpine AS deps
 
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --ignore-scripts
+COPY package.json pnpm-lock.yaml ./
+RUN corepack pnpm@8.6.0 install --frozen-lockfile --ignore-scripts
 
 
 ########## builder ##########
-FROM node:18.2-alpine AS builder
+FROM node:18.16-alpine AS builder
 
 WORKDIR /app
 COPY . .
@@ -17,7 +16,7 @@ RUN yarn build
 
 
 ########## runner ##########
-FROM node:18.2-alpine AS runner
+FROM node:18.16-alpine AS runner
 
 ARG REVISION_ID
 LABEL revision_id=${REVISION_ID}
