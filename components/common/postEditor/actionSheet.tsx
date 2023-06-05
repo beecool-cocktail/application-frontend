@@ -50,7 +50,7 @@ const ActionSheet = ({ actions }: ActionSheetProps) => {
 
   return (
     <>
-      <IconButton size={24} onClick={handleClick}>
+      <IconButton onClick={handleClick}>
         {open ? <CancelIcon /> : <MoreIcon />}
       </IconButton>
       <Popover

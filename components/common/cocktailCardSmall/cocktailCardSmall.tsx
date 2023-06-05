@@ -131,7 +131,7 @@ const CocktailCardSmall = ({
             >
               {cocktail.title}
             </Typography>
-            <IconButton size={18} onClick={handleClickMoreAction}>
+            <IconButton onClick={handleClickMoreAction}>
               {isEditMode ? <CloseIcon /> : <MoreIcon />}
             </IconButton>
           </Stack>

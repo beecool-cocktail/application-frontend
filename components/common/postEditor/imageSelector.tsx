@@ -106,7 +106,7 @@ const ImageSelector = ({
                 lineHeight: 0
               }}
             >
-              <IconButton size={18} onClick={handleEditButtonClick}>
+              <IconButton onClick={handleEditButtonClick}>
                 <MoreIcon />
               </IconButton>
             </Box>

@@ -1,43 +1,68 @@
-import { IconButton as BaseIconButton } from '@mui/material'
+import { Box } from '@mui/system'
 import React from 'react'
 
 export interface IconButtonProps {
   children: React.ReactNode
-  contained?: boolean
-  size?: number
-  fontSize?: number
   disabled?: boolean
+  active?: boolean
   onClick?(e: React.MouseEvent): void
 }
 
+const size = 24
+const outerSize = 28
+
 const IconButton = ({
   children,
-  contained,
-  size = 28,
   onClick,
-  disabled
+  disabled,
+  active
 }: IconButtonProps) => {
   return (
-    <BaseIconButton
-      disabled={disabled}
+    <Box
       sx={{
+        position: 'relative',
+        cursor: disabled ? 'default' : 'pointer',
         width: size,
         height: size,
-        padding: 0,
-        lineHeight: 0,
-        backgroundColor: theme => {
-          if (contained) return theme.palette.light4.main
-        },
-        color: theme => theme.palette.light1.main,
-        fontSize: size,
-        '&:disabled': {
-          color: theme => theme.palette.light4.main
+        color: theme => {
+          if (disabled) return theme.palette.light4.main
+          if (active) return theme.palette.primary.main
+          theme.palette.light2.main
         }
       }}
-      onClick={onClick}
     >
-      {children}
-    </BaseIconButton>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: (size - outerSize) / 2,
+          left: (size - outerSize) / 2,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '50%',
+          width: outerSize,
+          height: outerSize,
+          padding: 0,
+          lineHeight: 0,
+          fontSize: size,
+          '&:hover': {
+            bgcolor: theme => !disabled && theme.palette.dark6.main,
+            boxShadow: !disabled
+              ? 'box-shadow: 0px 1.5px 2.5px rgba(13, 13, 13, 0.2)'
+              : undefined
+          },
+          '&:active': {
+            bgcolor: theme => !disabled && theme.palette.light4.main,
+            boxShadow: !disabled
+              ? 'box-shadow: 0px 1.5px 2.5px rgba(13, 13, 13, 0.2)'
+              : undefined
+          }
+        }}
+        onClick={e => !disabled && onClick?.(e)}
+      >
+        {children}
+      </Box>
+    </Box>
   )
 }
 

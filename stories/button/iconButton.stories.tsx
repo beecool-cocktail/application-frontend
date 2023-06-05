@@ -11,6 +11,7 @@ import TrashIcon from 'lib/assets/trashOutlined.svg'
 import SettingIcon from 'lib/assets/settingOutlined.svg'
 import DraftIcon from 'lib/assets/draftOutlined.svg'
 import EditIcon from 'lib/assets/editOutlined.svg'
+import LikeIcon from 'lib/assets/like.svg'
 
 export default {
   title: 'button/Icon Button',
@@ -36,7 +37,8 @@ const Template: ComponentStory<typeof IconButton> = args => {
     DraftIcon,
     SettingIcon,
     TrashIcon,
-    ConfirmIcon
+    ConfirmIcon,
+    LikeIcon
   ]
   return (
     <Box
@@ -58,8 +60,6 @@ const Template: ComponentStory<typeof IconButton> = args => {
 
 export const Normal = Template.bind({})
 Normal.args = {
-  size: 28,
-  fontSize: 24,
-  contained: false,
-  disabled: false
+  disabled: false,
+  active: false
 }

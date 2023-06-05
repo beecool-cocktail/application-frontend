@@ -1,6 +1,8 @@
 import useShare from 'lib/application/ui/useShare'
 import ShareIcon from 'lib/assets/shareOutlined.svg'
+import ShareBgIcon from 'lib/assets/shareGrayBgOutlined.svg'
 import IconButton from './iconButton'
+import ContainedIconButton from './containedIconButton'
 
 export interface ShareButtonProps {
   contained?: boolean
@@ -10,8 +12,18 @@ export interface ShareButtonProps {
 const ShareButton = ({ contained, title }: ShareButtonProps) => {
   const share = useShare()
 
+  const handleClick = () => share(title)
+
+  if (contained) {
+    return (
+      <ContainedIconButton onClick={handleClick}>
+        <ShareBgIcon />
+      </ContainedIconButton>
+    )
+  }
+
   return (
-    <IconButton contained={contained} onClick={() => share(title)}>
+    <IconButton onClick={handleClick}>
       <ShareIcon />
     </IconButton>
   )

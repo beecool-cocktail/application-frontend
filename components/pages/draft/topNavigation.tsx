@@ -1,14 +1,38 @@
 import { Typography } from '@mui/material'
 import BackButton from 'components/common/button/backButton'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
+import TrashBgIcon from 'lib/assets/trashGrayBgOutlined.svg'
 import IconButton from 'components/common/button/iconButton'
 import BasedTopNavigation from 'components/layout/topNavigation'
+import ContainedIconButton from 'components/common/button/containedIconButton'
 
 interface TopNavigationProps {
   isEditMode: boolean
   isAllSelected: boolean
   onSelectAll(): void
   onDelete(): void
+}
+
+const TrashButton = ({
+  contained,
+  onClick
+}: {
+  contained?: boolean
+  onClick?: () => void
+}) => {
+  if (contained) {
+    return (
+      <ContainedIconButton onClick={onClick}>
+        <TrashBgIcon />
+      </ContainedIconButton>
+    )
+  }
+
+  return (
+    <IconButton onClick={onClick}>
+      <TrashIcon />
+    </IconButton>
+  )
 }
 
 const TopNavigation = ({
@@ -36,9 +60,7 @@ const TopNavigation = ({
         )
       }}
       rightSlot={() => (
-        <IconButton contained={isEditMode} onClick={onDelete}>
-          <TrashIcon />
-        </IconButton>
+        <TrashButton contained={isEditMode} onClick={onDelete} />
       )}
     />
   )

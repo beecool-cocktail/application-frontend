@@ -1,7 +1,9 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
 import BackIcon from 'lib/assets/backReturn.svg'
+import BackBgIcon from 'lib/assets/backReturnGrayBgOutlined.svg'
 import IconButton from './iconButton'
+import ContainedIconButton from './containedIconButton'
 
 export interface BackButtonProps {
   contained?: boolean
@@ -15,8 +17,16 @@ const BackButton = ({ contained, onClick }: BackButtonProps) => {
     router.back()
   }, [onClick, router])
 
+  if (contained) {
+    return (
+      <ContainedIconButton onClick={handleClick}>
+        <BackBgIcon />
+      </ContainedIconButton>
+    )
+  }
+
   return (
-    <IconButton contained={contained} onClick={handleClick}>
+    <IconButton onClick={handleClick}>
       <BackIcon />
     </IconButton>
   )
