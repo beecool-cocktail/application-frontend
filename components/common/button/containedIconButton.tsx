@@ -16,6 +16,8 @@ const ContainedIconButton = ({
 }: IconButtonProps) => {
   return (
     <Box
+      component="button"
+      disabled={disabled}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -35,13 +37,17 @@ const ContainedIconButton = ({
         },
         fontSize: size,
         '&:hover': {
-          bgcolor: theme => theme.palette.light3.main,
-          boxShadow: 'box-shadow: 0px 1.5px 2.5px rgba(13, 13, 13, 0.2)'
+          bgcolor: theme => !disabled && theme.palette.light3.main,
+          boxShadow: !disabled
+            ? 'box-shadow: 0px 1.5px 2.5px rgba(13, 13, 13, 0.2)'
+            : undefined
         },
         '&:active': {
-          bgcolor: theme => theme.palette.dark6.main,
-          color: theme => theme.palette.light3.main,
-          boxShadow: 'box-shadow: 0px 1.5px 2.5px rgba(13, 13, 13, 0.2)'
+          bgcolor: theme => !disabled && theme.palette.dark6.main,
+          color: theme => !disabled && theme.palette.light3.main,
+          boxShadow: !disabled
+            ? 'box-shadow: 0px 1.5px 2.5px rgba(13, 13, 13, 0.2)'
+            : undefined
         }
       }}
       onClick={e => !disabled && onClick?.(e)}

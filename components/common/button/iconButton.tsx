@@ -19,15 +19,18 @@ const IconButton = ({
 }: IconButtonProps) => {
   return (
     <Box
+      component="button"
+      disabled={disabled}
       sx={{
         position: 'relative',
         cursor: disabled ? 'default' : 'pointer',
         width: size,
         height: size,
+        bgcolor: 'transparent',
         color: theme => {
           if (disabled) return theme.palette.light4.main
           if (active) return theme.palette.primary.main
-          theme.palette.light2.main
+          return theme.palette.light2.main
         }
       }}
     >
