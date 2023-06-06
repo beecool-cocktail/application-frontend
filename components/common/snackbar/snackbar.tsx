@@ -5,6 +5,7 @@ import {
   Slide,
   SlideProps
 } from '@mui/material'
+import { TouchEventHandler } from 'react'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import UndoCountDown from './undoCountDown'
 
@@ -22,7 +23,7 @@ const Snackbar = () => {
     onUndo?.()
   }
 
-  const handleTouchMove = () => close()
+  const handleTouchMove: TouchEventHandler<HTMLElement> = () => close()
 
   return (
     <BaseSnackbar
@@ -37,6 +38,7 @@ const Snackbar = () => {
       autoHideDuration={duration}
       onClose={close}
       sx={{
+        touchAction: 'none',
         width: `calc(100% - ${mx * 2}px)`,
         maxWidth: 785,
         top: '8px !important',
