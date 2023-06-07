@@ -21,7 +21,7 @@ const EditButton = ({
 }) => {
   if (contained) {
     return (
-      <ContainedIconButton onClick={onClick}>
+      <ContainedIconButton size={28} onClick={onClick}>
         <EditBgIcon />
       </ContainedIconButton>
     )

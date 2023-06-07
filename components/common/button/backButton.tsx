@@ -19,7 +19,7 @@ const BackButton = ({ contained, onClick }: BackButtonProps) => {
 
   if (contained) {
     return (
-      <ContainedIconButton onClick={handleClick}>
+      <ContainedIconButton size={28} onClick={handleClick}>
         <BackBgIcon />
       </ContainedIconButton>
     )

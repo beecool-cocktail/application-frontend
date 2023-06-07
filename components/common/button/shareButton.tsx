@@ -16,7 +16,7 @@ const ShareButton = ({ contained, title }: ShareButtonProps) => {
 
   if (contained) {
     return (
-      <ContainedIconButton onClick={handleClick}>
+      <ContainedIconButton size={28} onClick={handleClick}>
         <ShareBgIcon />
       </ContainedIconButton>
     )

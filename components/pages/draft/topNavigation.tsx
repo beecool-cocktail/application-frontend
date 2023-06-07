@@ -22,7 +22,7 @@ const TrashButton = ({
 }) => {
   if (contained) {
     return (
-      <ContainedIconButton onClick={onClick}>
+      <ContainedIconButton size={28} onClick={onClick}>
         <TrashBgIcon />
       </ContainedIconButton>
     )

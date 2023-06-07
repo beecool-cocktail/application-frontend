@@ -2,17 +2,17 @@ import { Box } from '@mui/system'
 import React from 'react'
 
 export interface IconButtonProps {
-  children: React.ReactNode
+  size?: number
   disabled?: boolean
+  children: React.ReactNode
   onClick?(e: React.MouseEvent): void
 }
 
-const size = 24
-
 const ContainedIconButton = ({
+  size = 24,
+  disabled,
   children,
-  onClick,
-  disabled
+  onClick
 }: IconButtonProps) => {
   return (
     <Box

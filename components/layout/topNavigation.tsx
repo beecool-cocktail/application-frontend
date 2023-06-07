@@ -88,7 +88,7 @@ const TopNavigation = ({
       </Stack>
       <Stack
         direction="row"
-        columnGap="8px"
+        columnGap="16px"
         flex={1}
         display="flex"
         alignItems="center"
