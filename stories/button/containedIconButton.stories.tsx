@@ -63,5 +63,6 @@ const Template: ComponentStory<typeof ContainedIconButton> = args => {
 
 export const Normal = Template.bind({})
 Normal.args = {
+  size: 24,
   disabled: false
 }
