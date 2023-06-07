@@ -30,6 +30,7 @@ const CocktailCardSmall = ({
 
   const handleClose = () => {
     setEditMode(false)
+    preventOpenCocktailRef.current = false
   }
 
   const handleClickMoreAction = () => {
