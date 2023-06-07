@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { Box, Stack, Typography, ClickAwayListener } from '@mui/material'
 import { ProfileCocktailItem } from 'lib/domain/cocktail'
@@ -26,27 +26,25 @@ const CocktailCardSmall = ({
   defaultEditMode = false
 }: FavoriteCocktailCardProps) => {
   const [isEditMode, setEditMode] = useState(defaultEditMode)
-  const preventOpenCocktailRef = useRef(false)
 
   const handleClose = () => {
     setEditMode(false)
-    preventOpenCocktailRef.current = false
   }
 
-  const handleClickMoreAction = () => {
+  const handleClickMoreAction = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     setEditMode(editMode => !editMode)
-    preventOpenCocktailRef.current = true
   }
 
   const handleCardClick = () => {
-    if (preventOpenCocktailRef.current) return
     onClick(cocktail.id)
-    preventOpenCocktailRef.current = false
   }
 
   const buttonActions = actions.map(action => ({
     ...action,
-    onClick: () => {
+    onClick: (e: React.MouseEvent) => {
+      e.stopPropagation()
       handleClose()
       action.onClick(cocktail)
     }
