@@ -1,4 +1,5 @@
 import { Preview } from '@storybook/react'
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import { initialize, mswDecorator } from 'msw-storybook-addon'
 import '@fontsource/noto-sans-tc/400.css'
 import '@fontsource/noto-sans-tc/500.css'
@@ -29,6 +30,9 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/
       }
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS
     }
   }
 }

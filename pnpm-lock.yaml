@@ -139,6 +139,9 @@ devDependencies:
   '@storybook/addon-links':
     specifier: ^7.0.18
     version: 7.0.18(react-dom@18.2.0)(react@18.2.0)
+  '@storybook/addon-viewport':
+    specifier: ^7.0.18
+    version: 7.0.18(react-dom@18.2.0)(react@18.2.0)
   '@storybook/nextjs':
     specifier: ^7.0.18
     version: 7.0.18(@babel/core@7.18.2)(@swc/core@1.3.60)(esbuild@0.17.19)(next@13.4.4)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.4)(webpack@5.75.0)

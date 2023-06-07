@@ -64,6 +64,7 @@
     "@storybook/addon-actions": "^7.0.18",
     "@storybook/addon-essentials": "^7.0.18",
     "@storybook/addon-links": "^7.0.18",
+    "@storybook/addon-viewport": "^7.0.18",
     "@storybook/nextjs": "^7.0.18",
     "@storybook/react": "^7.0.18",
     "@svgr/webpack": "^6.2.1",
