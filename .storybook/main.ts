@@ -1,4 +1,10 @@
-module.exports = {
+import { StorybookConfig } from '@storybook/nextjs'
+
+const config: StorybookConfig = {
+  framework: {
+    name: '@storybook/nextjs',
+    options: {}
+  },
   stories: [
     '../stories/**/*.stories.mdx',
     '../stories/**/*.stories.@(js|jsx|ts|tsx)'
@@ -8,18 +14,13 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-addon-pseudo-states'
   ],
-  features: {
-    emotionAlias: false
-  },
-  framework: {
-    name: '@storybook/nextjs',
-    options: {}
-  },
   staticDirs: ['../public'],
   typescript: {
     reactDocgen: 'react-docgen'
   },
   webpackFinal: webpackConfig => {
+    if (!webpackConfig.module?.rules) return webpackConfig
+
     // This modifies the existing image rule to exclude `.svg` files
     // since we handle those with `@svgr/webpack`.
     const imageRule = webpackConfig.module.rules.find(rule => {
@@ -27,6 +28,9 @@ module.exports = {
         return rule.test.test('.svg')
       }
     })
+
+    if (!imageRule) return webpackConfig
+
     if (typeof imageRule !== 'string') {
       imageRule.exclude = /\.svg$/
     }
@@ -39,3 +43,5 @@ module.exports = {
     return webpackConfig
   }
 }
+
+export default config
