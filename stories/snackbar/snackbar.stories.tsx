@@ -25,7 +25,11 @@ Normal.decorators = [
       toInitialState({
         snackbarOpen: true,
         snackbarMessage: '已存成草稿',
-        snackbarDuration: null
+        snackbarDuration: 3000,
+        snackbarOnClick: () => {
+          // eslint-disable-next-line no-console
+          console.log('click')
+        }
       })
     )
     return story()
@@ -41,6 +45,10 @@ Undo.decorators = [
         snackbarOpen: true,
         snackbarMessage: '已從收藏移除',
         snackbarDuration: 5000,
+        snackbarOnClick: () => {
+          // eslint-disable-next-line no-console
+          console.log('click')
+        },
         snackbarOnUndo: () => {
           // eslint-disable-next-line no-console
           console.log('undo')

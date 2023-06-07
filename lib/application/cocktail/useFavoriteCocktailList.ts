@@ -108,7 +108,12 @@ const useFavoriteCocktailList = (userId?: number) => {
             mutate()
             if (!isVisitor) userMutate()
           }
-      snackbar.success(snackbarMessage.success, snackbarDuration, undoFn)
+      snackbar.success(
+        snackbarMessage.success,
+        snackbarDuration,
+        undefined,
+        undoFn
+      )
     } catch (error) {
       handleError(error, { snackbarMessage: snackbarMessage.error })
     } finally {

@@ -16,7 +16,7 @@ const TransitionDown = (props: SlideProps) => {
 }
 
 const Snackbar = () => {
-  const { open, duration, message, close, onUndo } = useSnackbar()
+  const { open, duration, message, close, onClick, onUndo } = useSnackbar()
 
   const handleUndo = () => {
     close()
@@ -36,6 +36,11 @@ const Snackbar = () => {
         horizontal: 'center'
       }}
       autoHideDuration={duration}
+      onClick={() => {
+        if (!onClick) return
+        onClick()
+        close()
+      }}
       onClose={close}
       sx={{
         touchAction: 'none',

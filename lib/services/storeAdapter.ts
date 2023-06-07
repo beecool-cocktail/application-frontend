@@ -22,6 +22,7 @@ export interface CornerState {
   snackbarDuration: number | null
   snackbarSeverity: AlertColor
   snackbarMessage: string
+  snackbarOnClick?: () => void
   snackbarOnUndo?: () => void
 }
 
@@ -66,6 +67,7 @@ export interface CornerStore extends CornerState {
     severity: AlertColor
     duration: number
     message: string
+    onClick?: () => void
     onUndo?: () => void
   }) => void
   toInitialState: (mergeState?: Partial<CornerState>) => void
@@ -100,12 +102,20 @@ const useStore = create<CornerStore>(
       }),
     destroyConfirmDialog: () => set({ confirmDialogOpen: false }),
     setSnackbarOpen: value => set({ snackbarOpen: value }),
-    setSnackbarState: ({ open, severity, duration, message, onUndo }) =>
+    setSnackbarState: ({
+      open,
+      severity,
+      duration,
+      message,
+      onClick,
+      onUndo
+    }) =>
       set({
         snackbarOpen: open,
         snackbarSeverity: severity,
         snackbarDuration: duration,
         snackbarMessage: message,
+        snackbarOnClick: onClick,
         snackbarOnUndo: onUndo
       }),
     toInitialState: mergeState => set({ ...initialState, ...mergeState })

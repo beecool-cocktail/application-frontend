@@ -3,19 +3,28 @@ import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
 import useStore from 'lib/services/storeAdapter'
 
 const useSnackbar = () => {
-  const { open, severity, duration, message, setOpen, setState, onUndo } =
-    useStore(
-      state => ({
-        open: state.snackbarOpen,
-        duration: state.snackbarDuration,
-        severity: state.snackbarSeverity,
-        message: state.snackbarMessage,
-        setOpen: state.setSnackbarOpen,
-        setState: state.setSnackbarState,
-        onUndo: state.snackbarOnUndo
-      }),
-      shallow
-    )
+  const {
+    open,
+    severity,
+    duration,
+    message,
+    setOpen,
+    setState,
+    onClick,
+    onUndo
+  } = useStore(
+    state => ({
+      open: state.snackbarOpen,
+      duration: state.snackbarDuration,
+      severity: state.snackbarSeverity,
+      message: state.snackbarMessage,
+      setOpen: state.setSnackbarOpen,
+      setState: state.setSnackbarState,
+      onClick: state.snackbarOnClick,
+      onUndo: state.snackbarOnUndo
+    }),
+    shallow
+  )
   const close = () => setOpen(false)
 
   const info = (message: string, duration?: number) => {
@@ -26,12 +35,18 @@ const useSnackbar = () => {
       message: message || 'info'
     })
   }
-  const success = (message: string, duration?: number, onUndo?: () => void) => {
+  const success = (
+    message: string,
+    duration?: number,
+    onClick?: () => void,
+    onUndo?: () => void
+  ) => {
     setState({
       open: true,
       severity: 'success',
       duration: duration || DEFAULT_CONFIG.duration,
       message: message || 'success',
+      onClick,
       onUndo
     })
   }
@@ -62,6 +77,7 @@ const useSnackbar = () => {
     warning,
     error,
     close,
+    onClick,
     onUndo
   }
 }
