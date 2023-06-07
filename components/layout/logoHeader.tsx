@@ -6,7 +6,7 @@ import LogoSVG from 'lib/assets/logo.svg'
 import CornerIcon from 'lib/assets/corner.svg'
 import SmallLogoIcon from 'lib/assets/bottomLine.svg'
 
-const Logo = () => {
+const LogoHeader = () => {
   const [useSmallLog, setUseSmallLogo] = useState(false)
   const prevUseSmallLogRef = useRef(useSmallLog)
   const [springs, api] = useSpring(() => {
@@ -52,6 +52,7 @@ const Logo = () => {
         position="relative"
         width="100%"
         sx={{
+          pb: '12px',
           transitionDuration: '0.1s',
           opacity: useSmallLog ? 0 : 1
         }}
@@ -98,4 +99,4 @@ const Logo = () => {
   )
 }
 
-export default Logo
+export default LogoHeader

@@ -83,13 +83,7 @@ const CocktailList = ({ useSearch }: CocktailListProps) => {
       onRefresh={retry}
     >
       <Stack justifyContent="flex-start" alignItems="stretch">
-        <Stack
-          spacing="24px"
-          sx={{
-            pt: '8px',
-            px: '32px'
-          }}
-        >
+        <Stack spacing="24px" sx={{ px: '32px' }}>
           {renderContent()}
           <Box height={100}>{renderBottom()}</Box>
         </Stack>

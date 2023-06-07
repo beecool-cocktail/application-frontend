@@ -23,11 +23,15 @@ const Layout = ({
           display="flex"
           flexDirection="column"
           alignItems="stretch"
+          position="sticky"
+          bgcolor={theme => theme.palette.background.default}
+          top={0}
+          left={0}
+          zIndex={100}
         >
-          {useLogo && <LogoHeader />}
           {useSearchBar && (
             <Stack
-              pt="12px"
+              py="12px"
               direction="row"
               alignItems="center"
               columnGap="8px"
@@ -36,6 +40,14 @@ const Layout = ({
               <SearchBar placeholder="找調酒..." autoFocus />
             </Stack>
           )}
+        </Box>
+        <Box
+          px="32px"
+          display="flex"
+          flexDirection="column"
+          alignItems="stretch"
+        >
+          {useLogo && <LogoHeader />}
         </Box>
         {children}
       </Stack>

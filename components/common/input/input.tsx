@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import {
+  Box,
   FormControl,
   InputBase,
   Stack,
@@ -200,10 +201,6 @@ const RawInput = (props: InputProps) => {
                 return theme.palette.light1.main
               return theme.palette.light2.main
             },
-            '& svg': {
-              p: 0,
-              fontSize: '24px'
-            },
             '& svg *': {
               color: theme => {
                 const { light1, light2, light4 } = theme.palette
@@ -269,7 +266,21 @@ const RawInput = (props: InputProps) => {
 const Input = (props: InputProps) => {
   return (
     <FormControl fullWidth={props.fullWidth} error={props.error}>
-      <RawInput {...props} />
+      <RawInput
+        {...props}
+        startAdornment={
+          props.startAdornment && (
+            <Box sx={{ fontSize: 24, lineHeight: 0 }}>
+              {props.startAdornment}
+            </Box>
+          )
+        }
+        endAdornment={
+          props.endAdornment && (
+            <Box sx={{ fontSize: 18, lineHeight: 0 }}>{props.endAdornment}</Box>
+          )
+        }
+      />
     </FormControl>
   )
 }
