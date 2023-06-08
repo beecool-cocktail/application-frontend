@@ -200,7 +200,9 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
         mutate('/cocktails'),
         mutate(`/cocktails/${targetCocktail.id}`)
       ])
-      snackbar.success(snackbarMessage.success)
+      snackbar.success(snackbarMessage.success, undefined, () => {
+        router.push(paths.cocktailById(id))
+      })
       const id = targetCocktail.id
       if (router.query.backToCocktailPage) router.push(paths.cocktailById(id))
       else router.push(paths.profile)
