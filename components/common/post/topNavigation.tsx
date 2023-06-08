@@ -1,3 +1,4 @@
+import { Stack } from '@mui/material'
 import BasedTopNavigation, { NAV_HEIGHT } from 'components/layout/topNavigation'
 import EditIcon from 'lib/assets/editOutlined.svg'
 import EditBgIcon from 'lib/assets/editGrayBgOutlined.svg'
@@ -49,10 +50,11 @@ const PostTopNavigation = ({
       thresholdHeight={thresholdHeight}
       leftSlot={concrete => <BackButton contained={!concrete} />}
       rightSlot={concrete => (
-        <>
+        // eslint-disable-next-line react/jsx-no-undef
+        <Stack direction="row" columnGap="12px" alignItems="center">
           <ShareButton title={title} contained={!concrete} />
           {editable && <EditButton contained={!concrete} onClick={onEdit} />}
-        </>
+        </Stack>
       )}
     />
   )
