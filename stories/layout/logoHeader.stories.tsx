@@ -5,7 +5,10 @@ import LogoHeader from 'components/layout/logoHeader'
 
 export default {
   title: 'Layout/LogoHeader',
-  component: LogoHeader
+  component: LogoHeader,
+  parameters: {
+    layout: 'fullscreen'
+  }
 } as ComponentMeta<typeof LogoHeader>
 
 const Template: ComponentStory<typeof LogoHeader> = () => (

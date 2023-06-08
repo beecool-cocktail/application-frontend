@@ -32,6 +32,7 @@ const preview: Preview = {
       }
     },
     viewport: {
+      defaultViewport: 'iphone12promax',
       viewports: INITIAL_VIEWPORTS
     }
   }

@@ -7,6 +7,7 @@ export default {
   title: 'Layout/Segmented Control',
   component: SegmentedControl,
   parameters: {
+    layout: 'fullscreen',
     design: {
       type: 'figma',
       url: 'https://www.figma.com/file/9BFjANqSdCCk0cV8obeMCs/Whispering-Corner-Mobile?node-id=4607%3A11980'

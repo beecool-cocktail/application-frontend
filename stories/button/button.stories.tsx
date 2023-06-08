@@ -1,5 +1,4 @@
 import React from 'react'
-import { Box } from '@mui/system'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import Button from 'components/common/button/button'
 
@@ -28,19 +27,7 @@ export default {
 } as ComponentMeta<typeof Button>
 
 const Template: ComponentStory<typeof Button> = args => {
-  return (
-    <Box
-      width={1}
-      height={300}
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      margin="auto"
-      sx={{ backgroundColor: theme => theme.palette.dark6.main }}
-    >
-      <Button {...args} />
-    </Box>
-  )
+  return <Button {...args} />
 }
 
 export const PrimaryDefault = Template.bind({})

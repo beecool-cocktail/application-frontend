@@ -10,6 +10,7 @@ const config: StorybookConfig = {
     '../stories/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   addons: [
+    '@storybook/addon-viewport',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     'storybook-addon-pseudo-states'
