@@ -73,11 +73,11 @@ const ActionButton = ({ icon, onClick }: ActionButtonProps) => {
 const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  const [iconButtonRect, setIconButtonRect] = useState<DOMRect | undefined>(undefined)
+  // const [iconButtonRect, setIconButtonRect] = useState<DOMRect | undefined>(undefined)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(open ? null : event.currentTarget)
-    setIconButtonRect(event.currentTarget.getBoundingClientRect())
+    // setIconButtonRect(event.currentTarget.getBoundingClientRect())
   }
 
   const handleClose = () => {
@@ -86,8 +86,8 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   const open = Boolean(anchorEl)
 
-  const iconButtonTop = iconButtonRect ? iconButtonRect.top : 0
-  const iconButtonLeft = iconButtonRect ? iconButtonRect.left : 0
+  const halfOfIconButtonWidth = 12
+  const halfOfIconButtonHeight = 12
 
   let displacement: { top: number, left: number }[] = []
 
@@ -104,34 +104,36 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   return (
     <>
+
       <ClickAwayListener onClickAway={handleClose}>
-        <Box sx={{ zIndex: (theme) => theme.zIndex.drawer }}>
-          <Box sx={{ position: 'relative' }}>
-            <Box sx={{
-              opacity: open ? 0 : 1,
-            }}>
-              <IconButton size={24} onClick={handleClick}>
-                <MoreIcon />
-              </IconButton>
-            </Box>
-            <Box sx={{
-              transition: 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)',
-              transform: open ? 'scale(1)' : 'scale(0)',
-              position: 'absolute',
-              left: 0,
-              top: 0,
-            }}>
-              <IconButton size={24} onClick={handleClick}>
-                <CancelIcon />
-              </IconButton>
-            </Box>
+        <Box sx={{
+          zIndex: (theme) => theme.zIndex.drawer,
+          position: 'relative'
+        }}>
+          <Box sx={{
+            opacity: open ? 0 : 1,
+          }}>
+            <IconButton size={24} onClick={handleClick}>
+              <MoreIcon />
+            </IconButton>
+          </Box>
+          <Box sx={{
+            transition: 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)',
+            transform: open ? 'scale(1)' : 'scale(0)',
+            position: 'absolute',
+            left: 0,
+            top: 0,
+          }}>
+            <IconButton size={24} onClick={handleClick}>
+              <CancelIcon />
+            </IconButton>
           </Box>
           {actions.map((action, index) => (
             <Box key={action.text}
               sx={{
                 position: 'absolute',
-                left: iconButtonLeft - 12,
-                top: iconButtonTop - 12,
+                left: 0 - halfOfIconButtonWidth,
+                top: 0 - halfOfIconButtonHeight,
                 transition: open ? 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)' : 'transform 300ms ease-out',
                 transform: open ? `translate(${displacement[index].left}px, ${displacement[index].top}px) scale(1)` : 'translate(0px, 0px) scale(0)',
                 zIndex: (theme) => theme.zIndex.drawer,
@@ -144,7 +146,6 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
       </ClickAwayListener>
 
       <Mask open={open}></Mask>
-
     </>
   )
 }
