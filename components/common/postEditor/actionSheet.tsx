@@ -111,7 +111,7 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
           <Box sx={{
             opacity: open ? 0 : 1,
           }}>
-            <IconButton size={24} onClick={handleClick}>
+            <IconButton onClick={handleClick}>
               <MoreIcon />
             </IconButton>
           </Box>
@@ -122,7 +122,7 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
             left: 0,
             top: 0,
           }}>
-            <IconButton size={24} onClick={handleClick}>
+            <IconButton onClick={handleClick}>
               <CancelIcon />
             </IconButton>
           </Box>
