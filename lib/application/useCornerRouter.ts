@@ -1,6 +1,7 @@
 import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
-import routes from 'lib/configs/routes'
+// import { useEffect, useState } from 'react'
+import routes, { pathname } from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 
 export interface useGotoProps {
@@ -8,7 +9,7 @@ export interface useGotoProps {
 }
 
 const useCornerRouter = (props?: useGotoProps) => {
-  const nextRouter = useRouter()
+  const router = useRouter()
   const storage = useLocalStorage()
 
   const push = (url: string | UrlObject) => {
@@ -18,10 +19,22 @@ const useCornerRouter = (props?: useGotoProps) => {
     })
     if (!route) return
     if (route.requireAuth && !storage.getToken()) return props?.onError?.()
-    nextRouter.push(url)
+    router.push(url)
   }
 
-  return { ...nextRouter, push }
+  const canGoBack = () => {
+    if (typeof window === 'undefined') return false
+    return !window.history.state.options._shouldResolveHref
+  }
+
+  const back = (fallbackPath = pathname.index) => {
+    if (canGoBack()) {
+      return router.back()
+    }
+    router.push(fallbackPath)
+  }
+
+  return { ...router, back, push }
 }
 
 export default useCornerRouter
