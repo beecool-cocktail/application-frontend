@@ -73,11 +73,9 @@ const ActionButton = ({ icon, onClick }: ActionButtonProps) => {
 const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-  // const [iconButtonRect, setIconButtonRect] = useState<DOMRect | undefined>(undefined)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(open ? null : event.currentTarget)
-    // setIconButtonRect(event.currentTarget.getBoundingClientRect())
   }
 
   const handleClose = () => {
@@ -139,7 +137,12 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
                 zIndex: (theme) => theme.zIndex.drawer,
               }}
             >
-              <ActionButton {...action} />
+              <ActionButton {...action}
+                onClick={() => {
+                  action.onClick()
+                  handleClose()
+                }}
+              />
             </Box>
           ))}
         </Box>
