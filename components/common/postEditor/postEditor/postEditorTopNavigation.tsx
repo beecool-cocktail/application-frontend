@@ -10,7 +10,7 @@ interface PostEditorHeaderProps {
   onPreview(): void
 }
 
-const PostCreatorTopNavigation = ({
+const PostEditorHeaderProps = ({
   activeStep,
   savable,
   onBack,
@@ -38,4 +38,4 @@ const PostCreatorTopNavigation = ({
   )
 }
 
-export default PostCreatorTopNavigation
+export default PostEditorHeaderProps

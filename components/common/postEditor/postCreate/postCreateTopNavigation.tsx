@@ -7,7 +7,7 @@ interface PostCreateTopNavigationProps {
   activeStep: number
   savable: boolean
   onBack(): void
-  onSaveDraft(): void
+  onSaveDraft?(): void
 }
 
 const PostCreateTopNavigation = ({

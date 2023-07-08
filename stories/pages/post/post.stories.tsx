@@ -28,7 +28,7 @@ const cocktailPost = {
   id: 1,
   userId: 1234,
   userName: '剛之鍊金術師剛之鍊金術師鍊剛之金術師剛之',
-  userPhoto: 'https://pbs.twimg.com/media/EVn2XrjUMAEfpMY.jpg',
+  userPhoto: '/avatar.png',
   title: '經典威士忌經典經典威士忌經典經典威士忌經',
   description:
     '關於威士忌的起源有點模糊，沒有精準的時點，但一般公認是受到世紀鍊金術影響。據說在一個偶然的機會下，煉金術師將某種發酵液體放進煉金術用的溶爐中，發現竟然會產生可口的液體，這便是人類初次獲得蒸餾酒的初體驗。當時，鍊金術師將蒸餾酒當作維持生命的祕藥，就把這種酒用拉丁語稱作Aquavitae（生命之水），可以使人長生不老。',
