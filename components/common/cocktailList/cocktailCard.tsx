@@ -28,6 +28,7 @@ const CocktailCard = ({ cocktail, onCollect }: CocktailCardProps) => {
       onClick={gotoCocktailDetails}
     >
       <CocktailSwiper
+        isCard
         title={titleDisplay}
         images={cocktail.photos}
         isCollected={isCollected}

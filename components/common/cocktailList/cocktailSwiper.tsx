@@ -12,6 +12,7 @@ export interface CocktailSwiperProps {
   title: string
   images: PhotoWithBlur[]
   isCollected: boolean
+  isCard?: boolean
   preloadAmount?: number
   rounded?: boolean
   onCollect(): void
@@ -22,6 +23,7 @@ const CocktailSwiper = ({
   title,
   images,
   isCollected,
+  isCard,
   preloadAmount = 1,
   rounded = false,
   onCollect,
@@ -32,6 +34,8 @@ const CocktailSwiper = ({
     if (index !== 0) return
     onFirstImageLoadingComplete?.()
   }
+
+  const favoriteButtonMargin = isCard ? '12px' : '16px'
 
   return (
     <Box
@@ -45,6 +49,9 @@ const CocktailSwiper = ({
         overflow="hidden"
         position="relative"
         sx={{
+          '& .swiper-slide': {
+            lineHeight: 0
+          },
           '& .swiper-pagination': {
             lineHeight: 0,
             position: 'absolute',
@@ -82,17 +89,20 @@ const CocktailSwiper = ({
           {images.map((image, index) => (
             <SwiperSlide key={index}>
               {index <= preloadIndex && (
-                <Image
-                  style={{ borderRadius: rounded ? 10 : 0 }}
-                  layout="responsive"
-                  placeholder={image.blurPath ? 'blur' : 'empty'}
-                  src={image.path}
-                  blurDataURL={image.blurPath}
-                  width={400}
-                  height={300}
-                  alt={title}
-                  onLoadingComplete={handleLoadingComplete(index)}
-                />
+                <Box sx={{ width: '100%', aspectRatio: '4/3' }}>
+                  <Image
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      borderRadius: rounded ? 10 : 0
+                    }}
+                    placeholder={image.blurPath ? 'blur' : 'empty'}
+                    src={image.path}
+                    blurDataURL={image.blurPath}
+                    alt={title}
+                    onLoadingComplete={handleLoadingComplete(index)}
+                  />
+                </Box>
               )}
             </SwiperSlide>
           ))}
@@ -100,8 +110,8 @@ const CocktailSwiper = ({
       </Box>
       <Box
         position="absolute"
-        right="16px"
-        bottom="16px"
+        right={favoriteButtonMargin}
+        bottom={favoriteButtonMargin}
         onClick={e => {
           e.preventDefault()
           e.stopPropagation()
