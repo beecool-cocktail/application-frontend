@@ -7,6 +7,7 @@ import LikeIcon from 'lib/assets/like.svg'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { PhotoWithBlur } from 'lib/domain/photo'
+import FallbackCocktailImage from './fallbackCocktailImage'
 
 export interface CocktailSwiperProps {
   title: string
@@ -15,7 +16,7 @@ export interface CocktailSwiperProps {
   isCard?: boolean
   preloadAmount?: number
   rounded?: boolean
-  onCollect(): void
+  onCollect?(): void
   onFirstImageLoadingComplete?(): void
 }
 
@@ -36,6 +37,37 @@ const CocktailSwiper = ({
   }
 
   const favoriteButtonMargin = isCard ? '12px' : '16px'
+
+  const renderFallbackImage = () => {
+    return (
+      <FallbackCocktailImage onLoadingComplete={handleLoadingComplete(0)} />
+    )
+  }
+
+  const renderSwiperImages = () => {
+    return images.map((image, index) => {
+      return (
+        <SwiperSlide key={index}>
+          {index <= preloadIndex && (
+            <Box sx={{ width: '100%', aspectRatio: '4/3' }}>
+              <Image
+                src={image.path}
+                blurDataURL={image.blurPath}
+                alt={title}
+                fill
+                placeholder="blur"
+                style={{
+                  objectFit: 'cover',
+                  borderRadius: rounded ? 10 : 0
+                }}
+                onLoadingComplete={handleLoadingComplete(index)}
+              />
+            </Box>
+          )}
+        </SwiperSlide>
+      )
+    })
+  }
 
   return (
     <Box
@@ -86,26 +118,7 @@ const CocktailSwiper = ({
             setPreloadIndex(swiper.activeIndex + preloadAmount)
           }}
         >
-          {images.map((image, index) => (
-            <SwiperSlide key={index}>
-              {index <= preloadIndex && (
-                <Box sx={{ width: '100%', aspectRatio: '4/3' }}>
-                  <Image
-                    fill
-                    style={{
-                      objectFit: 'cover',
-                      borderRadius: rounded ? 10 : 0
-                    }}
-                    placeholder={image.blurPath ? 'blur' : 'empty'}
-                    src={image.path}
-                    blurDataURL={image.blurPath}
-                    alt={title}
-                    onLoadingComplete={handleLoadingComplete(index)}
-                  />
-                </Box>
-              )}
-            </SwiperSlide>
-          ))}
+          {images.length !== 0 ? renderSwiperImages() : renderFallbackImage()}
         </Swiper>
       </Box>
       <Box
@@ -115,7 +128,7 @@ const CocktailSwiper = ({
         onClick={e => {
           e.preventDefault()
           e.stopPropagation()
-          onCollect()
+          onCollect?.()
         }}
       >
         <IconButton

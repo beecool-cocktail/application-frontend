@@ -19,7 +19,7 @@ export interface CocktailPost {
   userPhoto: string
   title: string
   description: string
-  photos: Photo[]
+  photos: PhotoWithBlur[]
   ingredients: Ingredient[]
   steps: Step[]
   isCollected: boolean

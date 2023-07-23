@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer'
 import produce from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { last } from 'ramda'
-import { FALLBACK_URL } from 'lib/constants/image'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { CocktailPostItem, collectCocktailItem } from 'lib/domain/cocktail'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
@@ -100,9 +99,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
           path: toAbsolutePath(photo.path),
           blurPath: toAbsolutePath(photo.blurPath)
         })
-        draft.photos = draft.photos.length
-          ? draft.photos.map(getAbsoluteUrl)
-          : [{ path: FALLBACK_URL, blurPath: '' }]
+        draft.photos = draft.photos.map(getAbsoluteUrl)
       })
     )
   } else {

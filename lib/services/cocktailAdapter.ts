@@ -15,22 +15,26 @@ const getById = async (
     headers: { ...(token && { Authorization: `Bearer ${token}` }) }
   }
   const res = await cocktailApi.getCocktailByIDRequest(id, config)
-  const resData = res.data.data
+  const cocktail = res.data.data
   const result: CocktailPost = {
-    id: resData.cocktail_id,
-    userId: resData.user_id,
-    userName: resData.user_name,
-    userPhoto: resData.user_photo,
-    title: resData.title,
-    description: resData.description,
-    photos: resData.photos.map(p => ({ id: p.id, path: p.image_path })),
-    ingredients: resData.ingredient_list.map(i => ({
+    id: cocktail.cocktail_id,
+    userId: cocktail.user_id,
+    userName: cocktail.user_name,
+    userPhoto: cocktail.user_photo,
+    title: cocktail.title,
+    description: cocktail.description,
+    photos: cocktail.photos.map((p, index) => ({
+      id: p.id,
+      path: p.image_path,
+      blurPath: cocktail.low_quality_photos[index]
+    })),
+    ingredients: cocktail.ingredient_list.map(i => ({
       name: i.name,
       amount: i.amount
     })),
-    steps: resData.step_list.map(s => ({ description: s.description })),
-    isCollected: resData.is_collected,
-    createdDate: resData.created_date
+    steps: cocktail.step_list.map(s => ({ description: s.description })),
+    isCollected: cocktail.is_collected,
+    createdDate: cocktail.created_date
   }
 
   return result
@@ -61,6 +65,7 @@ const getList = async (
         userName: cocktail.user_name,
         title: cocktail.title,
         photos: cocktail.photos.map((p, index) => ({
+          id: index,
           path: p,
           blurPath: cocktail.low_quality_photos[index]
         })),

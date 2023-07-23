@@ -1,11 +1,11 @@
 import { Divider, Stack } from '@mui/material'
-import { FALLBACK_URL } from 'lib/constants/image'
 import { CocktailPost, CocktailPostPreview } from 'lib/domain/cocktail'
+import { PhotoWithBlur } from 'lib/domain/photo'
+import CocktailSwiper from '../cocktailSwiper/cocktailSwiper'
 import TitleUserInfo from './titleUserInfo'
 import Description from './description'
 import IngredientList from './ingredientList'
 import StepList from './stepList'
-import Swiper from './swiper'
 import TopNavigation from './topNavigation'
 
 export type PostProps = {
@@ -23,11 +23,13 @@ const Post = ({
   onCollect,
   onEdit
 }: PostProps) => {
-  const getPhotoUrls = (): string[] => {
-    if (!cocktailPost.photos.length) return [FALLBACK_URL]
-    if ('createdDate' in cocktailPost)
-      return cocktailPost.photos.map(p => p.path)
-    return cocktailPost.photos
+  const getImages = (): PhotoWithBlur[] => {
+    if ('createdDate' in cocktailPost) return cocktailPost.photos
+    return cocktailPost.photos.map((p, index) => ({
+      id: index,
+      path: p,
+      blurPath: ''
+    }))
   }
 
   return (
@@ -39,10 +41,10 @@ const Post = ({
           onEdit={onEdit}
         />
       )}
-      <Swiper
+      <CocktailSwiper
         title={cocktailPost.title}
         isCollected={cocktailPost.isCollected}
-        photoUrls={getPhotoUrls().map(p => ({ path: p, blurPath: '' }))}
+        images={getImages()}
         onCollect={onCollect}
       />
       <Stack sx={{ px: '32px', pt: '12px' }}>

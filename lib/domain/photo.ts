@@ -17,7 +17,7 @@ export interface UploadOrEditPhoto {
 }
 
 export interface PhotoWithBlur {
-  id?: number
+  id: number
   path: string
   blurPath: string
 }
