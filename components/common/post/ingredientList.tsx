@@ -1,13 +1,6 @@
-import {
-  Box,
-  Stack,
-  Typography,
-  Paper,
-  FormGroup,
-  FormControlLabel
-} from '@mui/material'
+import { Box, Stack, Typography, Paper, FormGroup } from '@mui/material'
 import IngredientListIcon from 'lib/assets/listOutlined.svg'
-import Checkbox from '../input/checkbox'
+import IngredientItem from './ingredientItem'
 import type { Ingredient } from 'lib/domain/cocktail'
 
 interface IngredientListProps {
@@ -55,34 +48,7 @@ const IngredientList = ({ ingredients }: IngredientListProps) => {
         <FormGroup>
           <Stack p="12px" spacing="24px">
             {ingredients.map((ingredient, index) => (
-              <FormControlLabel
-                key={index}
-                control={<Checkbox />}
-                sx={{
-                  margin: 0,
-                  '.MuiFormControlLabel-label': { flex: 1 }
-                }}
-                label={
-                  <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    ml="12px"
-                  >
-                    <Typography
-                      variant="body2"
-                      sx={{ color: theme => theme.palette.light2.main }}
-                    >
-                      {ingredient.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ color: theme => theme.palette.light2.main }}
-                    >
-                      {ingredient.amount}
-                    </Typography>
-                  </Stack>
-                }
-              />
+              <IngredientItem key={index} ingredient={ingredient} />
             ))}
           </Stack>
         </FormGroup>

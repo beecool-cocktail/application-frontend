@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material'
 import useTabBar from 'lib/application/ui/useTabBar'
-import TabBarIcon from './tabBarIcon'
+import AnimationToggleIcon from '../common/animationToggleIcon'
 
 export const TabBar = () => {
   const { router, routes, isVisible } = useTabBar()
@@ -70,13 +70,13 @@ export const TabBar = () => {
             cursor: 'pointer'
           }}
         >
-          {typeof route.icon === 'string' ? (
-            <TabBarIcon
-              artboard={route.icon}
+          {typeof route.tabBarIcon === 'string' ? (
+            <AnimationToggleIcon
+              artboard={route.tabBarIcon}
               pressed={router.asPath === route.path}
             />
           ) : (
-            route.icon
+            route.tabBarIcon
           )}
         </Box>
       ))}

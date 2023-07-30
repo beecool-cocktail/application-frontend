@@ -1,8 +1,7 @@
 import React from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import NextIcon from 'lib/assets/next.svg'
-import SwitchOnIcon from 'lib/assets/switchControlOn.svg'
-import SwitchOffIcon from 'lib/assets/switchControlOff.svg'
+import AnimationToggleIcon from 'components/common/animationToggleIcon'
 
 interface SettingItemProps {
   actionType?: 'normal' | 'link' | 'switch' | 'danger' | 'primary'
@@ -38,7 +37,10 @@ const SettingItem = ({
               switchValue ? theme.palette.blue.main : theme.palette.light3.main
             }
           >
-            {switchValue ? <SwitchOnIcon /> : <SwitchOffIcon />}
+            <AnimationToggleIcon
+              artboard="Switch Control"
+              pressed={switchValue || false}
+            />
           </Box>
         )
     }

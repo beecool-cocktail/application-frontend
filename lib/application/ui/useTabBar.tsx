@@ -22,14 +22,14 @@ const useTabBar = () => {
     else setVisible(false)
   }, [router.pathname])
 
-  let tabBarRoutes = routes.filter(r => r.inTabBar)
+  let tabBarRoutes = routes.filter(r => r.tabBarIcon != null)
 
   if (user) {
     tabBarRoutes = tabBarRoutes.map(r => {
       if (r.path === pathname.profile)
         return {
           ...r,
-          icon: <Avatar src={user.photo} size={24} />
+          tabBarIcon: <Avatar src={user.photo} size={24} />
         }
       return r
     })

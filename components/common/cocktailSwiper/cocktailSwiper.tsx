@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { Box, IconButton } from '@mui/material'
+import { Box } from '@mui/material'
 import { Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import LikeIcon from 'lib/assets/like.svg'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { PhotoWithBlur } from 'lib/domain/photo'
+import AnimationToggleIcon from '../animationToggleIcon'
 import FallbackCocktailImage from './fallbackCocktailImage'
 
 export interface CocktailSwiperProps {
@@ -125,25 +125,14 @@ const CocktailSwiper = ({
         position="absolute"
         right={favoriteButtonMargin}
         bottom={favoriteButtonMargin}
+        zIndex={1}
         onClick={e => {
           e.preventDefault()
           e.stopPropagation()
           onCollect?.()
         }}
       >
-        <IconButton
-          sx={{
-            p: 0,
-            zIndex: 1,
-            fontSize: '24px',
-            color: theme => {
-              if (isCollected) return theme.palette.primary.main
-              return theme.palette.light3.main
-            }
-          }}
-        >
-          <LikeIcon />
-        </IconButton>
+        <AnimationToggleIcon artboard="Like" pressed={isCollected} />
       </Box>
     </Box>
   )

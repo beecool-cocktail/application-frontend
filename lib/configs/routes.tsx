@@ -1,12 +1,12 @@
 import { ParsedUrlQueryInput } from 'querystring'
+import { ToggleIconArtboard } from 'components/common/animationToggleIcon'
 
 export interface Route {
   path: string
   label: string
-  icon?: string | React.ReactNode
   requireAuth?: boolean
-  inTabBar?: boolean
   showTabBar?: boolean
+  tabBarIcon?: ToggleIconArtboard | JSX.Element
 }
 
 export const getUrlByQuery = (path: string, query: ParsedUrlQueryInput) => ({
@@ -50,29 +50,25 @@ const routes: Route[] = [
   {
     path: pathname.index,
     label: 'Home',
-    icon: 'Home Pressed',
-    inTabBar: true,
+    tabBarIcon: 'Home Pressed',
     showTabBar: true
   },
   {
     path: pathname.search,
     label: 'Search',
-    icon: 'Search Pressed',
-    inTabBar: true,
+    tabBarIcon: 'Search Pressed',
     showTabBar: true
   },
   {
     path: pathname.createPost,
     label: 'Create Post',
-    icon: 'Add Pressed',
     requireAuth: true,
-    inTabBar: true
+    tabBarIcon: 'Add Pressed'
   },
   {
     path: pathname.profile,
     label: 'Profile',
-    icon: 'Profile Pressed',
-    inTabBar: true,
+    tabBarIcon: 'Profile Pressed',
     showTabBar: true
   },
   {

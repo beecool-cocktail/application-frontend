@@ -8,10 +8,10 @@ export default {
 } as ComponentMeta<typeof Checkbox>
 
 const Template: ComponentStory<typeof Checkbox> = args => {
-  const [checked, setChecked] = useState(args.checked || false)
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setChecked(event.target.checked)
-  return <Checkbox {...args} checked={checked} onChange={handleChange} />
+  const [checked, setChecked] = useState(args.checked)
+  return (
+    <Checkbox {...args} checked={checked} onClick={() => setChecked(v => !v)} />
+  )
 }
 
 export const Normal = Template.bind({})

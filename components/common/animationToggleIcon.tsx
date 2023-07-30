@@ -2,15 +2,28 @@ import React, { useEffect } from 'react'
 import { useRive, useStateMachineInput } from '@rive-app/react-canvas'
 import { Box } from '@mui/material'
 
-interface TabBarIconProps {
+export type ToggleIconArtboard =
+  | 'Like'
+  | 'Switch Control'
+  | 'Checkbox'
+  | 'Home Pressed'
+  | 'Search Pressed'
+  | 'Add Pressed'
+  | 'Profile Pressed'
+
+interface AnimationToggleIconProps {
   pressed: boolean
-  artboard: string
+  artboard: ToggleIconArtboard
 }
 
 const size = 24
 const stateMachineName = 'State Machine 1'
+const inputName = 'Pressed'
 
-const TabBarIcon = ({ pressed, artboard }: TabBarIconProps) => {
+const AnimationToggleIcon = ({
+  artboard,
+  pressed
+}: AnimationToggleIconProps) => {
   const { rive, RiveComponent } = useRive({
     src: '/tabBar.riv',
     artboard,
@@ -18,7 +31,7 @@ const TabBarIcon = ({ pressed, artboard }: TabBarIconProps) => {
     autoplay: true
   })
 
-  const input = useStateMachineInput(rive, stateMachineName, 'Pressed')
+  const input = useStateMachineInput(rive, stateMachineName, inputName, pressed)
 
   useEffect(() => {
     if (!input) return
@@ -36,4 +49,4 @@ const TabBarIcon = ({ pressed, artboard }: TabBarIconProps) => {
   )
 }
 
-export default TabBarIcon
+export default AnimationToggleIcon
