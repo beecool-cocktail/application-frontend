@@ -45,7 +45,7 @@ const Mask = ({ open }: MaskProps) => {
       open={open}
       sx={{
         bgcolor: 'rgba(0, 0, 0, 0.7)',
-        zIndex: theme => theme.zIndex.drawer - 1
+        zIndex: theme => theme.zIndex.modal
       }}
     ></Backdrop>
   )
@@ -109,10 +109,10 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   return (
     <>
+      <Mask open={open}></Mask>
       <ClickAwayListener onClickAway={handleClose}>
         <Box
           sx={{
-            zIndex: theme => theme.zIndex.drawer,
             position: 'relative'
           }}
         >
@@ -132,7 +132,8 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
               transform: open ? 'scale(1)' : 'scale(0)',
               position: 'absolute',
               left: 0,
-              top: 0
+              top: 0,
+              zIndex: theme => theme.zIndex.modal,
             }}
           >
             <IconButton onClick={handleClick}>
@@ -166,8 +167,6 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
           ))}
         </Box>
       </ClickAwayListener>
-
-      <Mask open={open}></Mask>
     </>
   )
 }
