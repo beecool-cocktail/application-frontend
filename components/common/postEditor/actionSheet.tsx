@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Fab, Stack, Backdrop, ClickAwayListener } from '@mui/material'
 import CancelIcon from 'lib/assets/cancelCloseOutlined.svg'
 import MoreIcon from 'lib/assets/more.svg'
@@ -75,11 +75,19 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(open ? null : event.currentTarget)
+    document.documentElement.style.overflow = open ? 'auto' : 'hidden'
   }
 
   const handleClose = () => {
     setAnchorEl(null)
+    document.documentElement.style.overflow = 'auto'
   }
+
+  useEffect(() => {
+    return () => {
+      document.documentElement.style.overflow = 'auto'
+    }
+  }, [])
 
   const open = Boolean(anchorEl)
 
