@@ -94,18 +94,37 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
   const halfOfIconButtonWidth = 12
   const halfOfIconButtonHeight = 12
 
-  let displacement: { top: number; left: number }[] = []
-
-  switch (actions.length) {
-    case 3:
-      displacement = threeButtonsTop
-      break
-    case 4:
-      displacement = topOffset < 230 ? fourButtonsDown : fourButtonsTop
-      break
-    default:
-      break
+  const buttonDisplacements: { [key: number]: { top: number; left: number }[] } = {
+    3: threeButtonsTop,
+    4: topOffset < 230 ? fourButtonsDown : fourButtonsTop,
   }
+
+  const actionButtons = actions.map((action, index) => (
+    <Box
+      key={action.text}
+      sx={{
+        position: 'absolute',
+        left: 0 - halfOfIconButtonWidth,
+        top: 0 - halfOfIconButtonHeight,
+        transition: open
+          ? 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)'
+          : 'transform 300ms ease-out',
+        transform: open
+          ? `translate(${buttonDisplacements[actions.length][index].left}px,
+            ${buttonDisplacements[actions.length][index].top}px) scale(1)`
+          : 'translate(0px, 0px) scale(0)',
+        zIndex: theme => theme.zIndex.modal,
+      }}
+    >
+      <ActionButton
+        {...action}
+        onClick={() => {
+          action.onClick()
+          handleClose()
+        }}
+      />
+    </Box>
+  ))
 
   return (
     <>
@@ -140,31 +159,7 @@ const ActionSheet = ({ topOffset, actions }: ActionSheetProps) => {
               <CancelIcon />
             </IconButton>
           </Box>
-          {actions.map((action, index) => (
-            <Box
-              key={action.text}
-              sx={{
-                position: 'absolute',
-                left: 0 - halfOfIconButtonWidth,
-                top: 0 - halfOfIconButtonHeight,
-                transition: open
-                  ? 'transform 400ms cubic-bezier(0.71, 0.84, 0.29, 1.37)'
-                  : 'transform 300ms ease-out',
-                transform: open
-                  ? `translate(${displacement[index].left}px, ${displacement[index].top}px) scale(1)`
-                  : 'translate(0px, 0px) scale(0)',
-                zIndex: theme => theme.zIndex.drawer
-              }}
-            >
-              <ActionButton
-                {...action}
-                onClick={() => {
-                  action.onClick()
-                  handleClose()
-                }}
-              />
-            </Box>
-          ))}
+          {actionButtons}
         </Box>
       </ClickAwayListener>
     </>
