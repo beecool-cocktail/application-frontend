@@ -1,10 +1,11 @@
 import React from 'react'
-import { Grid, GridProps } from '@mui/material'
+import { Box, Grid, GridProps } from '@mui/material'
 import useMyCocktailList from 'lib/application/cocktail/useMyCocktailList'
+import cryDogIllustration from 'public/illustrations/meme_cryDog.png'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
 import CocktailCardSmallSkeleton from '../cocktailCardSmall/cocktailCardSmallSkeleton'
-import ProfileEmptyBlock from '../block/profileBlock'
+import IllustrationWithText from '../image/illustrationWithText'
 
 export interface MyCocktailListProps {
   userId?: number
@@ -37,8 +38,16 @@ const MyCocktailList = ({ userId }: MyCocktailListProps) => {
 
   if (error) return <Error />
   if (!data || loading) return renderSkeletonList()
-  if (data.length === 0)
-    return <ProfileEmptyBlock text="沒有！甚麼都沒有！" imageSrc="/post.png" />
+  if (data.length === 0) {
+    return (
+      <Box mt="40px" px="40px" alignItems="center" justifyContent="center">
+        <IllustrationWithText
+          imgSrc={cryDogIllustration}
+          text="還沒有任何發文哦！"
+        />
+      </Box>
+    )
+  }
 
   return (
     <CardGridContainer>

@@ -1,9 +1,10 @@
-import { Grid, GridProps } from '@mui/material'
+import { Box, Grid, GridProps } from '@mui/material'
 import useFavoriteCocktailList from 'lib/application/cocktail/useFavoriteCocktailList'
+import noWayDeerIllustration from 'public/illustrations/meme_nowayDeer.png'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
 import CocktailCardSmallSkeleton from '../cocktailCardSmall/cocktailCardSmallSkeleton'
-import ProfileEmptyBlock from '../block/profileBlock'
+import IllustrationWithText from '../image/illustrationWithText'
 
 export interface FavoriteCocktailCardListProps {
   userId?: number
@@ -45,11 +46,23 @@ const FavoriteCocktailCardList = ({
   if (!list || loading) return renderSkeletonList()
   if (!list.isPublic && userId) {
     return (
-      <ProfileEmptyBlock text="該用戶未開放收藏" imageSrc="/incognito.png" />
+      <Box mt="40px" px="40px" alignItems="center" justifyContent="center">
+        <IllustrationWithText
+          imgSrc={noWayDeerIllustration}
+          text="該用戶未開放收藏"
+        />
+      </Box>
     )
   }
   if (list.data.length === 0)
-    return <ProfileEmptyBlock text="沒有收藏" imageSrc="/post.png" />
+    return (
+      <Box mt="40px" px="40px" alignItems="center" justifyContent="center">
+        <IllustrationWithText
+          imgSrc={noWayDeerIllustration}
+          text="還沒有任何收藏喔！"
+        />
+      </Box>
+    )
 
   return (
     <CardGridContainer>

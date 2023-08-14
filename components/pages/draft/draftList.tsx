@@ -1,10 +1,8 @@
-import Image from 'next/image'
 import { Box, Stack, StackProps } from '@mui/material'
 import { range } from 'ramda'
-import Button from 'components/common/button/button'
 import { CocktailPostDraftItem } from 'lib/domain/cocktail'
-import useCornerRouter from 'lib/application/useCornerRouter'
-import { paths } from 'lib/configs/routes'
+import ahIllustration from 'public/illustrations/meme_ahhhh.png'
+import IllustrationWithText from 'components/common/image/illustrationWithText'
 import DraftCard from './draftCard'
 import DraftCardSkeleton from './draftCardSkeleton'
 
@@ -29,9 +27,6 @@ const DraftList = ({
   isEditMode,
   onCheck
 }: DraftListProps) => {
-  const router = useCornerRouter()
-  const gotoCreatePost = () => router.push(paths.createPost)
-
   if (loading) {
     return (
       <DraftCardContainer>
@@ -58,20 +53,13 @@ const DraftList = ({
       <Stack
         flex={1}
         width={1}
-        padding={2}
+        padding="24px"
         alignItems="center"
         justifyContent="center"
         gap="28px"
-        pt="177px"
+        mt="153px"
       >
-        <Image
-          src="/draft.png"
-          alt="draft"
-          layout="fixed"
-          width={128}
-          height={128}
-        />
-        <Button onClick={gotoCreatePost}>快去發文</Button>
+        <IllustrationWithText imgSrc={ahIllustration} text="尚無草稿" />
       </Stack>
     )
   }

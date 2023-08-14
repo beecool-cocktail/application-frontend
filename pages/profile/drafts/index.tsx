@@ -1,10 +1,14 @@
 import { Box, Stack } from '@mui/material'
 import TopNavigation from 'components/pages/draft/topNavigation'
 import DraftList from 'components/pages/draft/draftList'
+import useCornerRouter from 'lib/application/useCornerRouter'
 import useDraftList from 'lib/application/cocktail/useDraftList'
 import ConfirmButton from 'components/pages/draft/confirmButton'
+import BottomButton from 'components/common/button/bottomButton'
+import { paths } from 'lib/configs/routes'
 
 const Drafts = () => {
+  const router = useCornerRouter()
   const {
     drafts = [],
     loading,
@@ -16,6 +20,8 @@ const Drafts = () => {
     selectAll,
     deleteSelected
   } = useDraftList()
+
+  const gotoCreatePost = () => router.push(paths.createPost)
 
   return (
     <>
@@ -36,6 +42,11 @@ const Drafts = () => {
           />
         </Box>
       </Stack>
+      {!loading && drafts.length === 0 && (
+        <BottomButton position="fixed" onClick={gotoCreatePost}>
+          快去發文
+        </BottomButton>
+      )}
       {isBatchDeleteMode && (
         <ConfirmButton
           selectedCount={selectedIds.length}

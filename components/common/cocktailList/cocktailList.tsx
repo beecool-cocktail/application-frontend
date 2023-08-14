@@ -1,10 +1,12 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import PullToRefresh from 'react-simple-pull-to-refresh'
+import cocktailIllustration from 'public/illustrations/meme_cocktail.png'
+import notFoundIllustration from 'public/illustrations/meme_confusedNY.png'
 import useCocktailList from 'lib/application/cocktail/useCocktailList'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import Loading from 'components/common/status/loading'
 import Empty from 'components/common/status/empty'
-import NotFound from 'components/common/status/notFound'
+import IllustrationWithText from '../image/illustrationWithText'
 import CocktailCard from './cocktailCard'
 import CocktailSkeleton from './cocktailSkeleton'
 import ErrorRetry from './errorRetry'
@@ -37,21 +39,28 @@ const CocktailList = ({ useSearch }: CocktailListProps) => {
 
   const renderNotFound = () => {
     return (
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <NotFound />
+      <Box sx={{ mt: '131px', px: '8px' }}>
+        <IllustrationWithText
+          textFirst
+          imgSrc={notFoundIllustration}
+          text="查無結果"
+        />
       </Box>
     )
   }
 
-  const renderSearchPrompt = () => {
-    return (
-      <Typography variant="h1" textAlign="center" sx={{ color: 'white' }}>
-        快來搜尋(･8･)
-      </Typography>
-    )
-  }
+  const renderSearchPrompt = () => (
+    <Box sx={{ mt: '131px', px: '8px' }}>
+      <IllustrationWithText
+        textFirst
+        imgSrc={cocktailIllustration}
+        text="快來搜尋(･8･)"
+      />
+    </Box>
+  )
 
   const renderContent = () => {
+    return <ErrorRetry onRetry={retry} />
     if (useSearch) {
       if (!keyword) return renderSearchPrompt()
     }
