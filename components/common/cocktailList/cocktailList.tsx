@@ -60,7 +60,6 @@ const CocktailList = ({ useSearch }: CocktailListProps) => {
   )
 
   const renderContent = () => {
-    return <ErrorRetry onRetry={retry} />
     if (useSearch) {
       if (!keyword) return renderSearchPrompt()
     }
