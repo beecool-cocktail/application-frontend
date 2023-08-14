@@ -55,7 +55,7 @@ const CocktailSwiper = ({
                 blurDataURL={image.blurPath}
                 alt={title}
                 fill
-                placeholder="blur"
+                placeholder={image.blurPath ? 'blur' : 'empty'}
                 style={{
                   objectFit: 'cover',
                   borderRadius: rounded ? 10 : 0
