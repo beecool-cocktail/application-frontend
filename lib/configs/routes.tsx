@@ -50,25 +50,25 @@ const routes: Route[] = [
   {
     path: pathname.index,
     label: 'Home',
-    tabBarIcon: 'Home Pressed',
+    tabBarIcon: 'Home',
     showTabBar: true
   },
   {
     path: pathname.search,
     label: 'Search',
-    tabBarIcon: 'Search Pressed',
+    tabBarIcon: 'Search',
     showTabBar: true
   },
   {
     path: pathname.createPost,
     label: 'Create Post',
     requireAuth: true,
-    tabBarIcon: 'Add Pressed'
+    tabBarIcon: 'Add'
   },
   {
     path: pathname.profile,
     label: 'Profile',
-    tabBarIcon: 'Profile Pressed',
+    tabBarIcon: 'Profile',
     showTabBar: true
   },
   {

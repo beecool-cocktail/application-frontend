@@ -6,37 +6,37 @@ export type ToggleIconArtboard =
   | 'Like'
   | 'Switch Control'
   | 'Checkbox'
-  | 'Home Pressed'
-  | 'Search Pressed'
-  | 'Add Pressed'
-  | 'Profile Pressed'
+  | 'Home'
+  | 'Search'
+  | 'Add'
+  | 'Profile'
 
 interface AnimationToggleIconProps {
-  pressed: boolean
+  active: boolean
   artboard: ToggleIconArtboard
 }
 
 const size = 24
 const stateMachineName = 'State Machine 1'
-const inputName = 'Pressed'
+const inputName = 'Actived'
 
 const AnimationToggleIcon = ({
   artboard,
-  pressed
+  active
 }: AnimationToggleIconProps) => {
   const { rive, RiveComponent } = useRive({
-    src: '/tabBar.riv',
+    src: '/toggleIcon.riv',
     artboard,
     stateMachines: stateMachineName,
     autoplay: true
   })
 
-  const input = useStateMachineInput(rive, stateMachineName, inputName, pressed)
+  const input = useStateMachineInput(rive, stateMachineName, inputName, active)
 
   useEffect(() => {
     if (!input) return
-    input.value = pressed
-  }, [input, pressed])
+    input.value = active
+  }, [input, active])
 
   return (
     <Box>

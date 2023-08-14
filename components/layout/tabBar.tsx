@@ -73,7 +73,7 @@ export const TabBar = () => {
           {typeof route.tabBarIcon === 'string' ? (
             <AnimationToggleIcon
               artboard={route.tabBarIcon}
-              pressed={router.asPath === route.path}
+              active={router.asPath === route.path}
             />
           ) : (
             route.tabBarIcon

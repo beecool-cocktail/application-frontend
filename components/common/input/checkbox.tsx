@@ -9,7 +9,7 @@ export interface CheckboxProps {
 const Checkbox = ({ checked, onClick }: CheckboxProps) => {
   return (
     <Box sx={{ cursor: 'pointer' }} onClick={onClick}>
-      <AnimationToggleIcon artboard="Checkbox" pressed={checked} />
+      <AnimationToggleIcon artboard="Checkbox" active={checked} />
     </Box>
   )
 }

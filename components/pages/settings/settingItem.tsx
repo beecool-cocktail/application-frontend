@@ -39,7 +39,7 @@ const SettingItem = ({
           >
             <AnimationToggleIcon
               artboard="Switch Control"
-              pressed={switchValue || false}
+              active={switchValue || false}
             />
           </Box>
         )

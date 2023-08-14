@@ -132,7 +132,7 @@ const CocktailSwiper = ({
           onCollect?.()
         }}
       >
-        <AnimationToggleIcon artboard="Like" pressed={isCollected} />
+        <AnimationToggleIcon artboard="Like" active={isCollected} />
       </Box>
     </Box>
   )
