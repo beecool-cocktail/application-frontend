@@ -5,13 +5,9 @@ import BasedTopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import { canvasToDataUrl, getCroppedImg, urlToDataURL } from 'lib/helper/image'
+import { EDIT_CONFIG } from 'lib/constants/image'
 import ConfirmButton from './confirmButton'
 import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
-
-const rotateMarks = [-180, -90, 0, 90, 180].map(value => ({
-  value,
-  label: `${value}°`
-}))
 
 interface AvatarEditorProps {
   type: EditorType
@@ -204,9 +200,7 @@ const AvatarEditor = ({
           <Typography variant="body2">縮放</Typography>
           <Slider
             value={zoom}
-            min={1}
-            max={5}
-            step={0.1}
+            {...EDIT_CONFIG.scale}
             onChange={(_event: Event, newValue: number | number[]) => {
               setZoom(newValue as number)
             }}
@@ -214,12 +208,9 @@ const AvatarEditor = ({
           <Typography variant="body2">旋轉</Typography>
           <Slider
             value={rotation}
-            min={-180}
-            max={180}
-            marks={rotateMarks}
-            step={90}
             valueLabelDisplay="auto"
             valueLabelFormat={v => `${v}°`}
+            {...EDIT_CONFIG.rotation}
             onChange={(_event: Event, newValue: number | number[]) => {
               setRotation(newValue as number)
             }}
