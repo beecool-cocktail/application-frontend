@@ -6,6 +6,8 @@ import BackButton from 'components/common/button/backButton'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import { canvasToDataUrl, getCroppedImg, urlToDataURL } from 'lib/helper/image'
 import { EDIT_CONFIG } from 'lib/constants/image'
+import useCornerRouter from 'lib/application/useCornerRouter'
+import { pathname } from 'lib/configs/routes'
 import ConfirmButton from './confirmButton'
 import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
 
@@ -28,6 +30,7 @@ const AvatarEditor = ({
   onConfirm
 }: AvatarEditorProps) => {
   const theme = useTheme()
+  const router = useCornerRouter()
   const snackbar = useSnackbar()
   const [selectedImage, setSelectedImage] = useState<string>(imgSrc)
   const [zoom, setZoom] = useState(1)
@@ -129,7 +132,9 @@ const AvatarEditor = ({
         position="sticky"
         thresholdHeight={185}
         title={() => (type === 'change' ? '更換頭貼' : '編輯頭貼')}
-        leftSlot={() => <BackButton />}
+        leftSlot={() => (
+          <BackButton onClick={() => router.push(pathname.settings)} />
+        )}
         rightSlot={() => {
           if (type === 'change') {
             return (

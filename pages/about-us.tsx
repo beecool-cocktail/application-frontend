@@ -3,6 +3,8 @@ import { Box, Stack, Typography, TypographyProps } from '@mui/material'
 import TopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
 import GmailIcon from 'lib/assets/google-gmail.svg'
+import useCornerRouter from 'lib/application/useCornerRouter'
+import { pathname } from 'lib/configs/routes'
 
 const StyledTypography = (props: TypographyProps) => {
   return (
@@ -17,12 +19,15 @@ const StyledTypography = (props: TypographyProps) => {
 }
 
 const AboutUs = () => {
+  const router = useCornerRouter()
   return (
     <Stack sx={{ minHeight: 1 }}>
       <TopNavigation
         position="static"
         title="關於我們"
-        leftSlot={() => <BackButton />}
+        leftSlot={() => (
+          <BackButton onClick={() => router.push(pathname.settings)} />
+        )}
       />
       <Stack alignItems="stretch" px="24px" py="16px">
         <StyledTypography>哈囉！</StyledTypography>

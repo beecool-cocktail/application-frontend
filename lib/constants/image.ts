@@ -14,7 +14,7 @@ export const EDIT_CONFIG = {
   rotation: {
     min: -180,
     max: 180,
-    marks: rotateMarks,
-    step: 90
+    step: 90,
+    marks: rotateMarks
   }
 }
