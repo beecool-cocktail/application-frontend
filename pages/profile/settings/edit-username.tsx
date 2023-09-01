@@ -35,8 +35,11 @@ const UserNameContent = ({
     router.back()
   })
 
-  const handleCancel = () => () => {
-    setValue('username', '')
+  const handleCancel = () => {
+    setValue('username', '', {
+      shouldDirty: true,
+      shouldValidate: true
+    })
     usernameRef.current?.focus()
   }
 
