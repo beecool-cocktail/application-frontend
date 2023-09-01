@@ -36,6 +36,7 @@ const useDraftList = () => {
   }
   const drafts = resData?.data
   const isAllSelected = (drafts || []).length === selectedIds.length
+  const canToggleBatchDeleteMode = drafts != null && drafts.length > 0
 
   const toggleDeleteMode = () => {
     setBatchDeleteMode(mode => !mode)
@@ -78,6 +79,7 @@ const useDraftList = () => {
     drafts,
     error,
     loading: (!resData && !error) || configLoading,
+    canToggleBatchDeleteMode,
     toggleDeleteMode,
     select,
     selectAll,

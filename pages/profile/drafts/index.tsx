@@ -15,6 +15,7 @@ const Drafts = () => {
     isBatchDeleteMode,
     isAllSelected,
     selectedIds,
+    canToggleBatchDeleteMode,
     toggleDeleteMode,
     select,
     selectAll,
@@ -27,7 +28,8 @@ const Drafts = () => {
     <>
       <Stack gap="12px">
         <TopNavigation
-          isEditMode={isBatchDeleteMode}
+          canToggleBatchDeleteMode={canToggleBatchDeleteMode}
+          isBatchDeleteMode={isBatchDeleteMode}
           isAllSelected={isAllSelected}
           onSelectAll={selectAll}
           onDelete={toggleDeleteMode}

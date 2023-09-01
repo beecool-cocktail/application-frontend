@@ -9,7 +9,8 @@ import useCornerRouter from 'lib/application/useCornerRouter'
 import { pathname } from 'lib/configs/routes'
 
 interface TopNavigationProps {
-  isEditMode: boolean
+  canToggleBatchDeleteMode: boolean
+  isBatchDeleteMode: boolean
   isAllSelected: boolean
   onSelectAll(): void
   onDelete(): void
@@ -17,28 +18,31 @@ interface TopNavigationProps {
 
 const TrashButton = ({
   contained,
+  disabled,
   onClick
 }: {
-  contained?: boolean
-  onClick?: () => void
+  contained: boolean
+  disabled: boolean
+  onClick: () => void
 }) => {
   if (contained) {
     return (
-      <ContainedIconButton size={28} onClick={onClick}>
+      <ContainedIconButton size={28} disabled={disabled} onClick={onClick}>
         <TrashBgIcon />
       </ContainedIconButton>
     )
   }
 
   return (
-    <IconButton onClick={onClick}>
+    <IconButton onClick={onClick} disabled={disabled}>
       <TrashIcon />
     </IconButton>
   )
 }
 
 const TopNavigation = ({
-  isEditMode,
+  canToggleBatchDeleteMode,
+  isBatchDeleteMode,
   isAllSelected,
   onSelectAll,
   onDelete
@@ -50,7 +54,7 @@ const TopNavigation = ({
       position="sticky"
       title={() => '草稿夾'}
       leftSlot={() => {
-        return isEditMode ? (
+        return isBatchDeleteMode ? (
           <Typography
             variant="body1"
             color={isAllSelected ? 'primary' : 'light2'}
@@ -64,7 +68,11 @@ const TopNavigation = ({
         )
       }}
       rightSlot={() => (
-        <TrashButton contained={isEditMode} onClick={onDelete} />
+        <TrashButton
+          disabled={!canToggleBatchDeleteMode}
+          contained={isBatchDeleteMode}
+          onClick={onDelete}
+        />
       )}
     />
   )
