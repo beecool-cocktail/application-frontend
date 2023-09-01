@@ -1,6 +1,5 @@
 import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
-// import { useEffect, useState } from 'react'
 import routes, { pathname } from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 

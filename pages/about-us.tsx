@@ -20,6 +20,9 @@ const StyledTypography = (props: TypographyProps) => {
 
 const AboutUs = () => {
   const router = useCornerRouter()
+  const mailTo = 'marc.jr2021@gmall.com'
+  const mailToHref = `mailto:${mailTo}`
+
   return (
     <Stack sx={{ minHeight: 1 }}>
       <TopNavigation
@@ -74,9 +77,9 @@ const AboutUs = () => {
           </Box>
           <Stack alignItems="stretch" rowGap={1} mt="155px">
             <StyledTypography>聯絡我們</StyledTypography>
-            <Typography sx={{ fontSize: 26 }}>
+            <Box component="a" sx={{ fontSize: '32px' }} href={mailToHref}>
               <GmailIcon />
-            </Typography>
+            </Box>
             <StyledTypography>Marc jr. 歡迎你的回饋與建議！</StyledTypography>
           </Stack>
         </Stack>
