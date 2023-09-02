@@ -4,7 +4,7 @@ import { Box } from '@mui/material'
 import LogoHeader from 'components/layout/logoHeader'
 
 export default {
-  title: 'Layout/LogoHeader',
+  title: 'Layout/Logo Header',
   component: LogoHeader,
   parameters: {
     layout: 'fullscreen'

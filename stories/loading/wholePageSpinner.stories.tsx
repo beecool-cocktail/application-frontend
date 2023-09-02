@@ -4,7 +4,7 @@ import useWholePageSpinner from 'lib/application/ui/useWholePageSpinner'
 import useOnce from 'lib/hooks/useOnce'
 
 export default {
-  title: 'status/WholePageSpinner',
+  title: 'status/Whole Page Spinner',
   component: WholePageSpinner,
   parameters: {
     layout: 'fullscreen',

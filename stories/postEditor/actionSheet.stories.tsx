@@ -8,7 +8,7 @@ import PictureIcon from 'lib/assets/picture.svg'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
 
 export default {
-  title: 'PostCreate/ActionSheet',
+  title: 'PostCreate/Action Sheet',
   component: ActionSheet,
   argTypes: {},
   parameters: {
@@ -31,9 +31,7 @@ const Template: ComponentStory<typeof ActionSheet> = args => {
       sx={{ bgcolor: '#141414' }}
     >
       <ActionSheet {...args} />
-      <Typography>
-        Hello
-      </Typography>
+      <Typography>Hello</Typography>
     </Box>
   )
 }
