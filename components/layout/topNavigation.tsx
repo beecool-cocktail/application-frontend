@@ -82,7 +82,10 @@ const TopNavigation = ({
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="body1" color="light1">
+        <Typography
+          variant="body1"
+          sx={{ color: theme => theme.palette.light2.main }}
+        >
           {renderTitle()}
         </Typography>
       </Stack>
