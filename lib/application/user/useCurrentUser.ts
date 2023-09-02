@@ -36,7 +36,7 @@ const useCurrentUser = () => {
       )
       await mutate()
     } catch (error) {
-      snackbar.error('change collection permission failed')
+      snackbar.error(snackbarMessages.updateUserInfo.error)
       console.error(error)
     }
   }
@@ -49,7 +49,7 @@ const useCurrentUser = () => {
       await userService.updateCurrentUserInfo({ username }, token)
       await mutate()
     } catch (error) {
-      snackbar.error('edit username failed')
+      snackbar.error(snackbarMessages.updateUserInfo.error)
       console.error(error)
     }
   }
