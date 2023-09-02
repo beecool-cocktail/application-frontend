@@ -24,7 +24,12 @@ const TitleUserInfo = ({
 
   return (
     <Stack alignItems="flex-start" spacing="16px">
-      <Typography variant="h2">{title}</Typography>
+      <Typography
+        variant="h2"
+        sx={{ color: theme => theme.palette.light1.main }}
+      >
+        {title}
+      </Typography>
       <Stack direction="row" spacing="8px">
         <Box p="3px">
           <Avatar size={30} src={userPhoto} onClick={handleUserClick}></Avatar>
