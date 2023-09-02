@@ -5,16 +5,19 @@ import useLocalStorage from 'lib/services/localStorageAdapter'
 import { UpdateUserAvatarForm } from 'lib/domain/user'
 import dialogMessages from 'lib/constants/dialogMessages'
 import snackbarMessages from 'lib/constants/snackbarMessages'
+import { paths } from 'lib/configs/routes'
 import useConfig from '../useConfig'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useSnackbar from '../ui/useSnackbar'
 import useWholePageSpinner from '../ui/useWholePageSpinner'
+import useCornerRouter from '../useCornerRouter'
 
 const FETCH_KEY = 'CURRENT_USER'
 
 const useCurrentUser = () => {
   const confirmDialog = useConfirmDialog()
   const snackbar = useSnackbar()
+  const router = useCornerRouter()
   const { setLoading: setWholePageLoading } = useWholePageSpinner()
   const storage = useLocalStorage()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
@@ -48,6 +51,7 @@ const useCurrentUser = () => {
     try {
       await userService.updateCurrentUserInfo({ username }, token)
       await mutate()
+      router.push(paths.settings)
     } catch (error) {
       snackbar.error(snackbarMessages.updateUserInfo.error)
       console.error(error)
@@ -62,6 +66,7 @@ const useCurrentUser = () => {
     try {
       await userService.updateCurrentUserAvatar(form, token)
       await mutate()
+      router.push(paths.settings)
     } catch (e) {
       snackbar.error(snackbarMessages.updateUserInfo.error)
       console.error(e)

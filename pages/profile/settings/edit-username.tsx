@@ -32,7 +32,6 @@ const UserNameContent = ({
 
   const handleConfirm = handleSubmit(async data => {
     await updateUsername(data.username)
-    router.back()
   })
 
   const handleCancel = () => {
