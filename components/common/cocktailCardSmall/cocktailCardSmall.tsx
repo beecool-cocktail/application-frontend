@@ -109,12 +109,12 @@ const CocktailCardSmall = ({
               width: 1,
               alignItems: 'center',
               justifyContent: 'space-between',
-              p: '4px',
-              pr: '8px'
+              p: '8px',
+              pt: '12px'
             }}
           >
             <Typography
-              variant="body3"
+              variant="body2"
               sx={{
                 width: 1,
                 display: 'flex',
