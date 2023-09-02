@@ -57,8 +57,13 @@ const TopNavigation = ({
         return isBatchDeleteMode ? (
           <Typography
             variant="body1"
-            color={isAllSelected ? 'primary' : 'light2'}
-            sx={{ cursor: 'pointer' }}
+            sx={{
+              cursor: 'pointer',
+              color: theme =>
+                isAllSelected
+                  ? theme.palette.primary.main
+                  : theme.palette.light1.main
+            }}
             onClick={onSelectAll}
           >
             {isAllSelected ? '取消全選' : '全選'}

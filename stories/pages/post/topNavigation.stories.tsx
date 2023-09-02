@@ -14,7 +14,7 @@ import EditIcon from 'lib/assets/editOutlined.svg'
 import BackButton from 'components/common/button/backButton'
 
 export default {
-  title: 'layout/TopNavigation',
+  title: 'layout/Top Navigation',
   component: TopNavigation,
   argTypes: {
     position: {
@@ -126,7 +126,7 @@ export const RightIconLeftTextWithTitle = Template.bind({})
 RightIconLeftTextWithTitle.args = {
   ...baseArgs,
   leftSlot: () => (
-    <Typography variant="body2" color={theme => theme.palette.light4.main}>
+    <Typography variant="body2" color={theme => theme.palette.light1.main}>
       Text
     </Typography>
   ),
