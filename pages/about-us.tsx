@@ -5,6 +5,7 @@ import BackButton from 'components/common/button/backButton'
 import GmailIcon from 'lib/assets/google-gmail.svg'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { pathname } from 'lib/configs/routes'
+import useCurrentUser from 'lib/application/user/useCurrentUser'
 
 const StyledTypography = (props: TypographyProps) => {
   return (
@@ -19,6 +20,7 @@ const StyledTypography = (props: TypographyProps) => {
 }
 
 const AboutUs = () => {
+  const { user } = useCurrentUser()
   const router = useCornerRouter()
   const mailTo = 'marc.jr2021@gmall.com'
   const mailToHref = `mailto:${mailTo}`
@@ -29,7 +31,11 @@ const AboutUs = () => {
         position="static"
         title="關於我們"
         leftSlot={() => (
-          <BackButton onClick={() => router.push(pathname.settings)} />
+          <BackButton
+            onClick={() =>
+              router.push(user != null ? pathname.settings : pathname.profile)
+            }
+          />
         )}
       />
       <Stack alignItems="stretch" px="24px" py="16px">
