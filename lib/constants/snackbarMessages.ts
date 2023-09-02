@@ -5,6 +5,9 @@ const snackbarMessages = {
   logout: {
     error: '登出失敗'
   },
+  updateUserInfo: {
+    error: '儲存失敗'
+  },
   createPost: {
     success: '發布成功',
     error: '發佈失敗'

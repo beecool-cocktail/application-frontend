@@ -4,6 +4,7 @@ import userService from 'lib/services/userAdapter'
 import useLocalStorage from 'lib/services/localStorageAdapter'
 import { UpdateUserAvatarForm } from 'lib/domain/user'
 import dialogMessages from 'lib/constants/dialogMessages'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useSnackbar from '../ui/useSnackbar'
@@ -62,7 +63,7 @@ const useCurrentUser = () => {
       await userService.updateCurrentUserAvatar(form, token)
       await mutate()
     } catch (e) {
-      snackbar.error('update avatar failed')
+      snackbar.error(snackbarMessages.updateUserInfo.error)
       console.error(e)
     } finally {
       setWholePageLoading(false)
@@ -80,7 +81,7 @@ const useCurrentUser = () => {
           await userService.deleteCurrentUserAvatar(token)
           await mutate()
         } catch (error) {
-          snackbar.success('delete failed')
+          snackbar.error(snackbarMessages.updateUserInfo.error)
           console.error(error)
         } finally {
           confirmDialog.destroy()

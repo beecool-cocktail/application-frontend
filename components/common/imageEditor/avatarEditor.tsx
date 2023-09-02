@@ -8,6 +8,7 @@ import { canvasToDataUrl, getCroppedImg, urlToDataURL } from 'lib/helper/image'
 import { EDIT_CONFIG } from 'lib/constants/image'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { pathname } from 'lib/configs/routes'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 import ConfirmButton from './confirmButton'
 import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
 
@@ -115,7 +116,7 @@ const AvatarEditor = ({
       })
     } catch (e) {
       console.error(e)
-      snackbar.error('crop failed')
+      snackbar.error(snackbarMessages.updateUserInfo.error)
     }
   }
 
