@@ -81,7 +81,7 @@ const AboutUs = () => {
               height={183}
             />
           </Box>
-          <Stack alignItems="stretch" rowGap={1} mt="155px">
+          <Stack position="relative" alignItems="stretch" rowGap={1} mt="155px">
             <StyledTypography>聯絡我們</StyledTypography>
             <Box component="a" sx={{ fontSize: '32px' }} href={mailToHref}>
               <GmailIcon />
