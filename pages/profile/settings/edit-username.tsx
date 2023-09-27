@@ -10,8 +10,6 @@ import { CJKPattern } from 'lib/helper/string'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { pathname } from 'lib/configs/routes'
-import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
-import dialogMessages from 'lib/constants/dialogMessages'
 
 interface UserNameContentProps {
   username: string
@@ -28,7 +26,6 @@ const UserNameContent = ({
   })
   const usernameRef = useRef<HTMLInputElement>()
   const router = useCornerRouter()
-  const confirmDialog = useConfirmDialog()
 
   const handleConfirm = handleSubmit(async data => {
     await updateUsername(data.username)
@@ -42,18 +39,7 @@ const UserNameContent = ({
     usernameRef.current?.focus()
   }
 
-  const handleGoBack = () => {
-    if (formState.isDirty)
-      confirmDialog.open({
-        ...dialogMessages.abortUpdatePost,
-        onConfirm: () => {
-          router.push(pathname.settings)
-          confirmDialog.destroy()
-        },
-        onCancel: () => confirmDialog.destroy()
-      })
-    else router.push(pathname.settings)
-  }
+  const handleGoBack = () => router.push(pathname.settings)
 
   return (
     <Stack spacing="44px">
