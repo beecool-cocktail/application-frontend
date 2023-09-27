@@ -70,7 +70,7 @@ const CounterRow = ({
       <Divider
         orientation="vertical"
         flexItem
-        sx={{ color: theme => theme.palette.dark6.main }}
+        sx={{ borderColor: theme => theme.palette.dark6.main }}
       />
       <CounterStack title="收藏數" loading={loading} count={collectionCount} />
     </Stack>
