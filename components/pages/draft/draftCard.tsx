@@ -1,12 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
 import { Stack, Typography } from '@mui/material'
-import { ArrowForwardIos } from '@mui/icons-material'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import { CocktailPostDraftItem } from 'lib/domain/cocktail'
 import { pathname, getUrlById } from 'lib/configs/routes'
 import IconButton from 'components/common/button/iconButton'
 import Checkbox from 'components/common/input/checkbox'
+import NextIcon from 'lib/assets/next.svg'
 
 export interface DraftCardProps {
   isEditMode: boolean
@@ -98,7 +98,7 @@ const DraftCard = ({
       </Stack>
       {!isEditMode && (
         <IconButton>
-          <ArrowForwardIos />
+          <NextIcon />
         </IconButton>
       )}
     </Stack>
