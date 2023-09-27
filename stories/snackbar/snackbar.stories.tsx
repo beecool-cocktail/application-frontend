@@ -3,6 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import Snackbar from 'components/common/snackbar/snackbar'
 import useOnce from 'lib/hooks/useOnce'
 import useStore from 'lib/services/storeAdapter'
+import snackbarMessages from 'lib/constants/snackbarMessages'
 
 export default {
   title: 'Snackbar/Snackbar',
@@ -24,7 +25,7 @@ Normal.decorators = [
     useOnce(() =>
       toInitialState({
         snackbarOpen: true,
-        snackbarMessage: '已存成草稿',
+        snackbarMessage: snackbarMessages.createDraft.success,
         snackbarDuration: 3000,
         snackbarOnClick: () => {
           // eslint-disable-next-line no-console
@@ -43,7 +44,7 @@ Undo.decorators = [
     useOnce(() =>
       toInitialState({
         snackbarOpen: true,
-        snackbarMessage: '已從收藏移除',
+        snackbarMessage: snackbarMessages.removeFavorite.success,
         snackbarDuration: 5000,
         snackbarOnClick: () => {
           // eslint-disable-next-line no-console

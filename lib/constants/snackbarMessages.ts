@@ -20,7 +20,7 @@ const snackbarMessages = {
     error: '刪除失敗'
   },
   createDraft: {
-    success: '已存成草稿',
+    success: '儲存成功',
     error: '儲存失敗'
   },
   updateDraft: {
