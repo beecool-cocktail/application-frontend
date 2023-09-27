@@ -347,7 +347,7 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
         }
       case 2:
         return {
-          label: cocktailDraft ? '重新發佈' : '發布',
+          label: '發布',
           type: 'submit',
           isValid,
           onClick: submitPost
