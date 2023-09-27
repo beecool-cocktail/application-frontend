@@ -54,7 +54,8 @@ const LogoHeader = () => {
         sx={{
           pb: '12px',
           transitionDuration: '0.1s',
-          opacity: useSmallLog ? 0 : 1
+          opacity: useSmallLog ? 0 : 1,
+          lineHeight: 0
         }}
       >
         <LogoSVG width="100%" height={77} />
