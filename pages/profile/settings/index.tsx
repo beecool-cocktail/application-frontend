@@ -63,7 +63,7 @@ const Settings = () => {
                 actionType="link"
                 icon={<AccountIcon />}
                 text={user.username}
-                onClick={() => router.push(pathname.editUsername)}
+                onClick={() => router.push(pathname.editName)}
               />
             </SettingItemGroup>
             <SettingItemGroup>

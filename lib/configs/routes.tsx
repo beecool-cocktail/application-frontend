@@ -22,7 +22,7 @@ export const pathname = {
   search: '/search',
   profile: '/profile',
   settings: '/profile/settings',
-  editUsername: '/profile/settings/edit-username',
+  editName: '/profile/settings/edit-name',
   changeAvatar: '/profile/settings/change-avatar',
   editAvatar: '/profile/settings/edit-avatar',
   drafts: '/profile/drafts',
@@ -90,7 +90,7 @@ const routes: Route[] = [
     requireAuth: true
   },
   {
-    path: pathname.editUsername,
+    path: pathname.editName,
     label: 'Edit Username',
     requireAuth: true
   },

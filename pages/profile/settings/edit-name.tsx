@@ -105,7 +105,7 @@ const UserNameContent = ({
   )
 }
 
-const EditUsername = () => {
+const EditName = () => {
   const { user, loading, updateUsername } = useCurrentUser()
   if (!user || loading) return null
   return (
@@ -113,4 +113,4 @@ const EditUsername = () => {
   )
 }
 
-export default EditUsername
+export default EditName
