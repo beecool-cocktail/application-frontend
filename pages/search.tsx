@@ -1,10 +1,18 @@
 import { ReactElement } from 'react'
 import Head from 'next/head'
+import useSearchBar from 'lib/application/ui/useSearchBar'
 import Layout from 'components/layout/layout'
 import CocktailList from 'components/common/cocktailList/cocktailList'
 
 const Search = () => {
-  const websiteTitle = '搜尋 - Corner'
+  const { input } = useSearchBar()
+
+  const getWebsiteTitle = () => {
+    if (input) return `${input} - Corner`
+    return '搜尋 - Corner'
+  }
+
+  const websiteTitle = getWebsiteTitle()
 
   return (
     <>
