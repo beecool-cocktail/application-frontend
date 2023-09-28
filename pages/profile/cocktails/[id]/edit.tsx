@@ -1,4 +1,4 @@
-import React from 'react'
+import Head from 'next/head'
 import { Button } from '@mui/material'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useEditCocktail from 'lib/application/cocktail/useEditCocktail'
@@ -12,9 +12,16 @@ const CocktailEditPage = () => {
   const id = Number(router.query.id as string)
   const { cocktailPost, loading, isValidating } = useEditCocktail(id)
 
+  const websiteTitle = `${cocktailPost?.title} 編輯 - Corner`
+
   if (loading || isValidating || !cocktailPost)
     return (
       <>
+        <Head>
+          <title>{websiteTitle}</title>
+          <meta name="description" content={websiteTitle} />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <TopNavigation
           position="sticky"
           leftSlot={() => <BackButton />}
@@ -23,7 +30,17 @@ const CocktailEditPage = () => {
         <PostEditorSkeleton />
       </>
     )
-  return <PostEditor cocktail={cocktailPost} />
+
+  return (
+    <>
+      <Head>
+        <title>{websiteTitle}</title>
+        <meta name="description" content={websiteTitle} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <PostEditor cocktail={cocktailPost} />
+    </>
+  )
 }
 
 export default CocktailEditPage

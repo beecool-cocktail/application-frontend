@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { Box, Stack } from '@mui/material'
 import TopNavigation from 'components/pages/draft/topNavigation'
 import DraftList from 'components/pages/draft/draftList'
@@ -8,6 +9,8 @@ import BottomButton from 'components/common/button/bottomButton'
 import { paths } from 'lib/configs/routes'
 
 const Drafts = () => {
+  const websiteTitle = '草稿夾 - Corner'
+
   const router = useCornerRouter()
   const {
     drafts = [],
@@ -26,6 +29,11 @@ const Drafts = () => {
 
   return (
     <>
+      <Head>
+        <title>{websiteTitle}</title>
+        <meta name="description" content={websiteTitle} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Stack gap="12px">
         <TopNavigation
           canToggleBatchDeleteMode={canToggleBatchDeleteMode}

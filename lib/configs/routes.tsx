@@ -29,7 +29,7 @@ export const pathname = {
   draftById: '/profile/drafts/[id]',
   cocktailById: '/cocktails/[id]',
   createPost: '/create-post',
-  editPost: '/profile/cocktails/[id]',
+  editPost: '/profile/cocktails/[id]/edit',
   userById: '/users/[id]',
   aboutUs: '/about-us'
 }

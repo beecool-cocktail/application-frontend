@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { Box, Stack } from '@mui/material'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
@@ -21,6 +22,7 @@ import GoogleIcon from 'lib/assets/googleLogo.svg'
 import BackButton from 'components/common/button/backButton'
 
 const Settings = () => {
+  const websiteTitle = '設定 - Corner'
   const router = useCornerRouter()
   const { logout } = useAuth()
   const { user, loading, error, deleteAvatar, updateCollectionPublic } =
@@ -30,90 +32,100 @@ const Settings = () => {
   if (!user || error) return <ErrorStatus />
 
   return (
-    <Stack alignItems="stretch" spacing={2} sx={{ pb: '15px' }}>
-      <BasedTopNavigation
-        position="static"
-        thresholdHeight={185}
-        leftSlot={() => (
-          <BackButton onClick={() => router.push(pathname.profile)} />
-        )}
-        title={() => '個人設定'}
-      />
-      <Stack
-        sx={{
-          alignItems: 'stretch',
-          spacing: '8px',
-          px: '16px'
-        }}
-      >
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <Avatar size={84} userId={user.id} src={user.photo} outlined />
-        </Box>
-        <Stack spacing="24px" sx={{ mt: '24px' }}>
-          <SettingItemGroup title="更改名稱">
-            <SettingItem
-              actionType="link"
-              icon={<AccountIcon />}
-              text={user.username}
-              onClick={() => router.push(pathname.editUsername)}
-            />
-          </SettingItemGroup>
-          <SettingItemGroup>
-            <SettingItem
-              actionType="link"
-              icon={<CameraIcon />}
-              text="更換大頭貼"
-              onClick={() => router.push(pathname.changeAvatar)}
-            />
-            <SettingItem
-              actionType="link"
-              icon={<EditIcon />}
-              text="編輯大頭貼"
-              onClick={() => router.push(pathname.editAvatar)}
-            />
-            <SettingItem
-              icon={<DeleteIcon />}
-              text="刪除大頭貼"
-              onClick={deleteAvatar}
-            />
-          </SettingItemGroup>
-          <SettingItemGroup>
-            <SettingItem
-              actionType="switch"
-              icon={<LikeIcon />}
-              text="公開我的收藏"
-              switchValue={user.isCollectionPublic}
-              onClick={updateCollectionPublic}
-            />
-            <SettingItem icon={<GoogleIcon />} text={user.email} />
-          </SettingItemGroup>
-          <SettingItemGroup>
-            <SettingItem
-              actionType="link"
-              icon={<AboutUsIcon />}
-              text="關於我們"
-              onClick={() => router.push(pathname.aboutUs)}
-            />
-            <SettingItem
-              actionType="link"
-              icon={<DonateIcon />}
-              text="買一杯調酒給我們"
-              onClick={() => {
-                window.open('https://www.buymeacoffee.com/whispering', '_blank')
-              }}
-            />
-          </SettingItemGroup>
-          <SettingItemGroup>
-            <SettingItem
-              actionType="danger"
-              icon={<LogoutIcon />}
-              text="登出"
-              onClick={() => logout(user.id)}
-            />
-          </SettingItemGroup>
+    <>
+      <Head>
+        <title>{websiteTitle}</title>
+        <meta name="description" content={websiteTitle} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Stack alignItems="stretch" spacing={2} sx={{ pb: '15px' }}>
+        <BasedTopNavigation
+          position="static"
+          thresholdHeight={185}
+          leftSlot={() => (
+            <BackButton onClick={() => router.push(pathname.profile)} />
+          )}
+          title={() => '個人設定'}
+        />
+        <Stack
+          sx={{
+            alignItems: 'stretch',
+            spacing: '8px',
+            px: '16px'
+          }}
+        >
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <Avatar size={84} userId={user.id} src={user.photo} outlined />
+          </Box>
+          <Stack spacing="24px" sx={{ mt: '24px' }}>
+            <SettingItemGroup title="更改名稱">
+              <SettingItem
+                actionType="link"
+                icon={<AccountIcon />}
+                text={user.username}
+                onClick={() => router.push(pathname.editUsername)}
+              />
+            </SettingItemGroup>
+            <SettingItemGroup>
+              <SettingItem
+                actionType="link"
+                icon={<CameraIcon />}
+                text="更換大頭貼"
+                onClick={() => router.push(pathname.changeAvatar)}
+              />
+              <SettingItem
+                actionType="link"
+                icon={<EditIcon />}
+                text="編輯大頭貼"
+                onClick={() => router.push(pathname.editAvatar)}
+              />
+              <SettingItem
+                icon={<DeleteIcon />}
+                text="刪除大頭貼"
+                onClick={deleteAvatar}
+              />
+            </SettingItemGroup>
+            <SettingItemGroup>
+              <SettingItem
+                actionType="switch"
+                icon={<LikeIcon />}
+                text="公開我的收藏"
+                switchValue={user.isCollectionPublic}
+                onClick={updateCollectionPublic}
+              />
+              <SettingItem icon={<GoogleIcon />} text={user.email} />
+            </SettingItemGroup>
+            <SettingItemGroup>
+              <SettingItem
+                actionType="link"
+                icon={<AboutUsIcon />}
+                text="關於我們"
+                onClick={() => router.push(pathname.aboutUs)}
+              />
+              <SettingItem
+                actionType="link"
+                icon={<DonateIcon />}
+                text="買一杯調酒給我們"
+                onClick={() => {
+                  window.open(
+                    'https://www.buymeacoffee.com/whispering',
+                    '_blank'
+                  )
+                }}
+              />
+            </SettingItemGroup>
+            <SettingItemGroup>
+              <SettingItem
+                actionType="danger"
+                icon={<LogoutIcon />}
+                text="登出"
+                onClick={() => logout(user.id)}
+              />
+            </SettingItemGroup>
+          </Stack>
         </Stack>
       </Stack>
-    </Stack>
+    </>
   )
 }
 

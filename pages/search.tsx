@@ -1,14 +1,16 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import Head from 'next/head'
 import Layout from 'components/layout/layout'
 import CocktailList from 'components/common/cocktailList/cocktailList'
 
 const Search = () => {
+  const websiteTitle = '搜尋 - Corner'
+
   return (
     <>
       <Head>
-        <title>Whispering Corner Search Page</title>
-        <meta name="description" content="Whispering Corner Search Page" />
+        <title>{websiteTitle}</title>
+        <meta name="description" content={websiteTitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CocktailList useSearch />
