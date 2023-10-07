@@ -27,10 +27,6 @@ const dialogMessages = {
     title: '刪除大頭貼',
     content: '刪除後會將頭貼改為系統預設圖片'
   },
-  deleteCocktailPhoto: {
-    title: '刪除照片',
-    content: '確定刪除此照片？'
-  },
   networkIssue: {
     title: '無法存取',
     content: '網路似乎出了點狀況...',

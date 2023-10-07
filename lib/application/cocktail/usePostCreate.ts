@@ -251,16 +251,9 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
   }
 
   const handleImageDelete = (index: number) => {
-    confirmDialog.open({
-      ...dialogMessages.deleteCocktailPhoto,
-      onCancel: confirmDialog.destroy,
-      onConfirm: () => {
-        const values = getValues()
-        const currentPhotos = values.photos
-        setStep2Value('photos', remove(index, 1, currentPhotos))
-        confirmDialog.destroy()
-      }
-    })
+    const values = getValues()
+    const currentPhotos = values.photos
+    setStep2Value('photos', remove(index, 1, currentPhotos))
   }
 
   const saveDraft = async () => {
