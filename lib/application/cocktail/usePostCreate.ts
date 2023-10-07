@@ -277,7 +277,7 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
         await createDraft(createForm, token)
       }
       mutate('/cocktail-drafts')
-      router.push(paths.profile)
+      router.push(paths.drafts)
       snackbar.success(snackbarMessage.success)
     } catch (error) {
       handleError(error, { snackbarMessage: snackbarMessage.error })
