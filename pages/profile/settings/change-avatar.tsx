@@ -30,12 +30,16 @@ const ChangeAvatar = () => {
       <AvatarEditor
         type="change"
         imgSrc={user.originAvatar}
-        cropData={{
-          originWidth: user.width,
-          originHeight: user.height,
-          coordinate: user.coordinate,
-          rotation: user.rotation
-        }}
+        cropData={
+          user.isDefaultAvatar
+            ? undefined
+            : {
+                originWidth: user.width,
+                originHeight: user.height,
+                coordinate: user.coordinate,
+                rotation: user.rotation
+              }
+        }
         onConfirm={handleConfirm}
       />
     </>

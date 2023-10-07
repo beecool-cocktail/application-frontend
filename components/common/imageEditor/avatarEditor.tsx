@@ -38,27 +38,57 @@ const AvatarEditor = ({
   const [rotation, setRotation] = useState(cropData?.rotation || 0)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
-  const [raw, setRaw] = useState(true)
+  const [isOriginImageFile, setIsOriginImageFile] = useState(true)
   const [containerHeight, setContainerHeight] = useState(() => {
-    return cropData &&
-      cropData.coordinate[1].x !== 0 &&
-      cropData.coordinate[1].y !== 0
+    return cropData
       ? window.innerWidth * (cropData.originHeight / cropData.originWidth)
       : window.innerWidth * (1280 / 1920)
   })
   const imageInputRef = useRef<HTMLInputElement>(null)
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = async e => {
+  const initialCroppedAreaPixels = useRef(
+    cropData
+      ? {
+          width: cropData.coordinate[1].x - cropData.coordinate[0].x,
+          height: cropData.coordinate[1].x - cropData.coordinate[0].x,
+          x: cropData.coordinate[0].x,
+          y: cropData.coordinate[0].y
+        }
+      : undefined
+  )
+
+  const getIsValid = () => {
+    if (!isOriginImageFile) return true
+    if (cropData && initialCroppedAreaPixels.current) {
+      if (!croppedAreaPixels) return false
+      if (rotation !== cropData.rotation) return true
+      return (
+        initialCroppedAreaPixels.current.x !== croppedAreaPixels.x ||
+        initialCroppedAreaPixels.current.y !== croppedAreaPixels.y ||
+        initialCroppedAreaPixels.current.width !== croppedAreaPixels.width ||
+        initialCroppedAreaPixels.current.height !== croppedAreaPixels.height
+      )
+    } else {
+      if (zoom !== 1) return true
+      if (rotation !== 0) return true
+      return crop.x !== 0 || crop.y !== 0
+    }
+  }
+
+  const valid = getIsValid()
+
+  const handleImageFileChange: React.ChangeEventHandler<
+    HTMLInputElement
+  > = async e => {
     if (!e.target.files) return
     const imgSrc = URL.createObjectURL(e.target.files[0])
 
     const img = new Image()
     img.src = imgSrc
     img.onload = () => {
-      img.naturalWidth
       const height = window.innerWidth * (img.naturalHeight / img.naturalWidth)
       setContainerHeight(height)
-      setRaw(false)
+      setIsOriginImageFile(false)
       setSelectedImage(imgSrc)
       setZoom(1)
       setRotation(0)
@@ -151,7 +181,7 @@ const AvatarEditor = ({
                 <input
                   id="upload"
                   ref={imageInputRef}
-                  onChange={handleChange}
+                  onChange={handleImageFileChange}
                   accept="image/*"
                   type="file"
                   hidden
@@ -176,19 +206,7 @@ const AvatarEditor = ({
           zoom={zoom}
           rotation={rotation}
           showGrid={false}
-          initialCroppedAreaPixels={
-            cropData &&
-            raw &&
-            cropData.coordinate[1].x !== 0 &&
-            cropData.coordinate[1].y !== 0
-              ? {
-                  width: cropData.coordinate[1].x - cropData.coordinate[0].x,
-                  height: cropData.coordinate[1].x - cropData.coordinate[0].x,
-                  x: cropData.coordinate[0].x,
-                  y: cropData.coordinate[0].y
-                }
-              : undefined
-          }
+          initialCroppedAreaPixels={initialCroppedAreaPixels.current}
           cropShape="round"
           style={{
             cropAreaStyle: {
@@ -223,7 +241,7 @@ const AvatarEditor = ({
           />
         </Box>
       )}
-      <ConfirmButton onClick={handleConfirm} />
+      <ConfirmButton disabled={!valid} onClick={handleConfirm} />
     </Stack>
   )
 }

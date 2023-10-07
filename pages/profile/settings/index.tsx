@@ -55,7 +55,12 @@ const Settings = () => {
           }}
         >
           <Box display="flex" alignItems="center" justifyContent="center">
-            <Avatar size={84} userId={user.id} src={user.photo} outlined />
+            <Avatar
+              size={84}
+              userId={user.id}
+              src={user.croppedAvatar}
+              outlined
+            />
           </Box>
           <Stack spacing="24px" sx={{ mt: '24px' }}>
             <SettingItemGroup title="更改名稱">

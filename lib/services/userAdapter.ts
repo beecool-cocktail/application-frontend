@@ -19,8 +19,9 @@ const getCurrentUserInfo = async (token: string): Promise<CurrentUser> => {
     id: resData.user_id,
     username: resData.user_name,
     email: resData.email,
-    photo: resData.crop_avatar,
+    croppedAvatar: resData.crop_avatar,
     originAvatar: resData.origin_avatar,
+    isDefaultAvatar: !resData.crop_avatar,
     width: resData.width,
     height: resData.height,
     coordinate: resData.coordinate,
@@ -39,7 +40,7 @@ const getOtherUserInfo = async (id: number): Promise<User> => {
   const result: User = {
     id: resData.user_id,
     username: resData.user_name,
-    photo: resData.crop_avatar,
+    croppedAvatar: resData.crop_avatar,
     collectionCount: resData.number_of_collection,
     postCount: resData.number_of_post,
     isCollectionPublic: resData.is_collection_public

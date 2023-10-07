@@ -29,7 +29,7 @@ const useTabBar = () => {
       if (r.path === pathname.profile)
         return {
           ...r,
-          tabBarIcon: <Avatar src={user.photo} size={24} />
+          tabBarIcon: <Avatar src={user.croppedAvatar} size={24} />
         }
       return r
     })

@@ -55,7 +55,7 @@ const PostEditor = ({ cocktail }: PostCreatorProps) => {
                 id: cocktail.id,
                 userId: user.id,
                 userName: user.username,
-                userPhoto: user.photo,
+                userPhoto: user.croppedAvatar,
                 title: values.title,
                 description: values.description,
                 photos: values.photos.map(p => p.editedURL),

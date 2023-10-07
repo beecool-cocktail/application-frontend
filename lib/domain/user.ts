@@ -3,13 +3,14 @@ import { Coordinate } from './photo'
 export interface User {
   id: number
   username: string
-  photo: string
+  croppedAvatar: string
   collectionCount: number
   postCount: number
   isCollectionPublic: boolean
 }
 
 export interface CurrentUser extends User {
+  isDefaultAvatar: boolean
   email: string
   originAvatar: string
   width: number

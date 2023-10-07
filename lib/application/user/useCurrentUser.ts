@@ -98,12 +98,16 @@ const useCurrentUser = () => {
 
   let user = data
   if (data && config) {
-    if (!data.photo)
-      user = { ...data, photo: FALLBACK_URL, originAvatar: FALLBACK_URL }
+    if (!data.croppedAvatar)
+      user = {
+        ...data,
+        croppedAvatar: FALLBACK_URL,
+        originAvatar: FALLBACK_URL
+      }
     else
       user = {
         ...data,
-        photo: toAbsolutePath(data.photo),
+        croppedAvatar: toAbsolutePath(data.croppedAvatar),
         originAvatar: toAbsolutePath(data.originAvatar)
       }
   } else {

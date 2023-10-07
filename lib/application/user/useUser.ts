@@ -21,8 +21,8 @@ const useUser = (id?: number) => {
 
   let user = data
   if (data && config) {
-    if (!data.photo) user = { ...data, photo: FALLBACK_URL }
-    else user = { ...data, photo: toAbsolutePath(data.photo) }
+    if (!data.croppedAvatar) user = { ...data, croppedAvatar: FALLBACK_URL }
+    else user = { ...data, croppedAvatar: toAbsolutePath(data.croppedAvatar) }
   } else {
     user = undefined
   }
