@@ -23,10 +23,10 @@ const getById = async (
     userPhoto: cocktail.user_photo,
     title: cocktail.title,
     description: cocktail.description,
-    photos: cocktail.photos.map((p, index) => ({
+    photos: cocktail.photos.map(p => ({
       id: p.id,
       path: p.image_path,
-      blurPath: cocktail.low_quality_photos[index]
+      blurPath: p.blur_image_data_url
     })),
     ingredients: cocktail.ingredient_list.map(i => ({
       name: i.name,
@@ -64,10 +64,10 @@ const getList = async (
         userId: cocktail.user_id,
         userName: cocktail.user_name,
         title: cocktail.title,
-        photos: cocktail.photos.map((p, index) => ({
-          id: index,
-          path: p,
-          blurPath: cocktail.low_quality_photos[index]
+        photos: cocktail.photos.map(p => ({
+          id: p.id,
+          path: p.image_path,
+          blurPath: p.blur_image_data_url
         })),
         ingredients: cocktail.ingredient_list.map(i => ({
           name: i.name,

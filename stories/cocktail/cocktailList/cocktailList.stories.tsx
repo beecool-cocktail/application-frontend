@@ -27,8 +27,11 @@ const generateMockCocktail = (id: number): PopularCocktailList => {
   return {
     ...mockCocktail,
     cocktail_id: id,
-    photos: photos.map(p => p.path),
-    low_quality_photos: photos.map(p => p.blurPath)
+    photos: photos.map(p => ({
+      id: p.id,
+      image_path: p.path,
+      blur_image_data_url: p.blurPath
+    }))
   }
 }
 

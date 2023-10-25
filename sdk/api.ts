@@ -98,6 +98,12 @@ export interface CocktailPhotoWithIDInResponse {
      * @memberof CocktailPhotoWithIDInResponse
      */
     'id': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CocktailPhotoWithIDInResponse
+     */
+    'blur_image_data_url': string;
 }
 /**
  * 
@@ -232,6 +238,25 @@ export interface DraftCocktailList {
      * @memberof DraftCocktailList
      */
     'title': string;
+}
+/**
+ * 
+ * @export
+ * @interface DraftCocktailPhotoWithIDInResponse
+ */
+export interface DraftCocktailPhotoWithIDInResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof DraftCocktailPhotoWithIDInResponse
+     */
+    'image_path': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof DraftCocktailPhotoWithIDInResponse
+     */
+    'id': number;
 }
 /**
  * 
@@ -394,12 +419,6 @@ export interface GetCocktailByIDResponse {
      */
     'photos': Array<CocktailPhotoWithIDInResponse>;
     /**
-     * 
-     * @type {Array<string>}
-     * @memberof GetCocktailByIDResponse
-     */
-    'low_quality_photos': Array<string>;
-    /**
      * 旋轉角度
      * @type {number}
      * @memberof GetCocktailByIDResponse
@@ -537,10 +556,10 @@ export interface GetCocktailDraftByIDResponse {
     'ingredient_list': Array<CocktailIngredientWithoutIDInResponse>;
     /**
      * 
-     * @type {Array<CocktailPhotoWithIDInResponse>}
+     * @type {Array<DraftCocktailPhotoWithIDInResponse>}
      * @memberof GetCocktailDraftByIDResponse
      */
-    'photos': Array<CocktailPhotoWithIDInResponse>;
+    'photos': Array<DraftCocktailPhotoWithIDInResponse>;
     /**
      * 
      * @type {Array<CocktailStepWithoutIDInResponse>}
@@ -1072,16 +1091,10 @@ export interface PopularCocktailList {
     'is_collected': boolean;
     /**
      * 
-     * @type {Array<string>}
+     * @type {Array<CocktailPhotoWithIDInResponse>}
      * @memberof PopularCocktailList
      */
-    'low_quality_photos': Array<string>;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof PopularCocktailList
-     */
-    'photos': Array<string>;
+    'photos': Array<CocktailPhotoWithIDInResponse>;
     /**
      * 
      * @type {string}
