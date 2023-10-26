@@ -27,7 +27,7 @@ const useDraftList = () => {
     resData = produce(resData, base => {
       base.data = base.data.map(d => ({
         ...d,
-        title: d.title || 'Untitled',
+        title: d.title || '未收藏',
         coverPhotoUrl: d.coverPhotoUrl
           ? join(config.staticBaseUrl, d.coverPhotoUrl)
           : FALLBACK_URL
