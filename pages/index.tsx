@@ -11,7 +11,6 @@ const Home = () => {
       <Head>
         <title>{websiteTitle}</title>
         <meta name="description" content={websiteTitle} />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <CocktailList />
     </>
