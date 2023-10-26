@@ -21,16 +21,18 @@ export const pathname = {
   index: '/',
   search: '/search',
   profile: '/profile',
-  settings: '/profile/settings',
-  editName: '/profile/settings/edit-name',
-  changeAvatar: '/profile/settings/change-avatar',
-  editAvatar: '/profile/settings/edit-avatar',
+  collections: '/profile/collections',
+  settings: '/settings',
+  editName: '/settings/edit-name',
+  changeAvatar: '/settings/change-avatar',
+  editAvatar: '/settings/edit-avatar',
   drafts: '/profile/drafts',
   draftById: '/profile/drafts/[id]',
   cocktailById: '/cocktails/[id]',
   createPost: '/create-post',
   editPost: '/profile/cocktails/[id]/edit',
   userById: '/users/[id]',
+  userCollectionsById: '/users/[id]/collections',
   aboutUs: '/about-us'
 }
 
@@ -43,7 +45,9 @@ export const paths = {
     if (backToCocktailPage) query.backToCocktailPage = true
     return getUrlByQuery(pathname.editPost, query)
   },
-  userById: (id: number) => getUrlById(pathname.userById, id)
+  userById: (id: number) => getUrlById(pathname.userById, id),
+  userCollectionsById: (id: number) =>
+    getUrlById(pathname.userCollectionsById, id)
 }
 
 const routes: Route[] = [
@@ -68,6 +72,12 @@ const routes: Route[] = [
   {
     path: pathname.profile,
     label: 'Profile',
+    tabBarIcon: 'Profile',
+    showTabBar: true
+  },
+  {
+    path: pathname.collections,
+    label: 'Collections',
     tabBarIcon: 'Profile',
     showTabBar: true
   },
@@ -111,6 +121,10 @@ const routes: Route[] = [
   {
     path: pathname.userById,
     label: 'User'
+  },
+  {
+    path: pathname.userCollectionsById,
+    label: 'User Collection'
   },
   {
     path: pathname.aboutUs,

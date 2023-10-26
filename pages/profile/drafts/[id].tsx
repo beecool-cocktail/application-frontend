@@ -16,7 +16,7 @@ const DraftById = () => {
 
   const getWebsiteTitle = () => {
     if (!draft) return 'Corner - 找到屬於你的一杯酒'
-    if (!draft.title) return '未命名草稿 - Corner'
+    if (!draft.title) return '未命名 草稿 - Corner'
     return `${draft.title} 草稿 - Corner`
   }
 

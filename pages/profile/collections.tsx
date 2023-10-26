@@ -6,7 +6,9 @@ import ProfileDetail from 'components/pages/profile/profileDetail'
 
 const Profile = () => {
   const { user } = useUser()
-  const websiteTitle = user ? `${user.username} - Corner` : '登入 - Corner'
+  const websiteTitle = user
+    ? `${user.username} 的收藏 - Corner`
+    : '登入 - Corner'
 
   return (
     <>
@@ -15,7 +17,7 @@ const Profile = () => {
         <meta name="description" content={websiteTitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ProfileDetail tab={0} />
+      <ProfileDetail tab={1} />
     </>
   )
 }

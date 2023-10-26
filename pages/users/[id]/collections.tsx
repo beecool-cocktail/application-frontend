@@ -10,7 +10,7 @@ const UserPage: NextPage = () => {
   const { user } = useUser(userId)
 
   const websiteTitle = user
-    ? `${user.username} - Corner`
+    ? `${user.username} 的收藏 - Corner`
     : 'Corner - 找到屬於你的一杯酒'
 
   return (
@@ -20,7 +20,7 @@ const UserPage: NextPage = () => {
         <meta name="description" content={websiteTitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ProfileDetail userId={userId} />
+      <ProfileDetail userId={userId} tab={1} />
     </>
   )
 }

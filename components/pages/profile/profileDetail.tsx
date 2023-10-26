@@ -1,35 +1,51 @@
-import React, { useState, useEffect } from 'react'
 import { Skeleton, Stack, Typography } from '@mui/material'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import Avatar from 'components/common/image/avatar'
 import Error from 'components/common/status/error'
 import useUser from 'lib/application/user/useUser'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import { paths } from 'lib/configs/routes'
-import CounterRow from './counterRow'
-import CollectionTabPanel from './collectionTabPanel'
-import PostTabPanel from './postTabPanel'
-import SegmentedControl from './segmentedControl'
-import TopNavigation from './topNavigation'
+import CounterRow from 'components/pages/profile/counterRow'
+import SegmentedControl from 'components/pages/profile/segmentedControl'
+import PostTabPanel from 'components/pages/profile/postTabPanel'
+import CollectionTabPanel from 'components/pages/profile/collectionTabPanel'
+import TopNavigation from 'components/pages/profile/topNavigation'
+import AnonymousProfile from './anonymousProfile'
 
 interface ProfileDetailProps {
   userId?: number
+  tab: 0 | 1
 }
 
-const ProfileDetail = ({ userId }: ProfileDetailProps) => {
-  const storage = useLocalStorage()
+const ProfileDetail = ({ userId, tab }: ProfileDetailProps) => {
   const router = useCornerRouter()
+
   const { user, loading, error } = useUser(userId)
-  const [tab, setTab] = useState(0)
-
-  const handleChange = (_e: React.SyntheticEvent, newValue: number) =>
-    setTab(newValue)
-
-  useEffect(() => {
-    if (!userId && !storage.getToken()) router.push(paths.index)
-  }, [router, storage, userId])
+  const handleChange = (_e: React.SyntheticEvent, newValue: number) => {
+    if (newValue === 0) {
+      if (userId) {
+        return router.replace(paths.userById(userId), undefined, {
+          scroll: false
+        })
+      }
+      router.replace(paths.profile, undefined, { scroll: false })
+    } else {
+      if (userId) {
+        return router.replace(paths.userCollectionsById(userId), undefined, {
+          scroll: false
+        })
+      }
+      router.replace(paths.collections, undefined, { scroll: false })
+    }
+  }
 
   if (error) return <Error />
+
+  if (!loading && !userId && !user) {
+    if (tab === 1) {
+      router.replace(paths.profile)
+    }
+    return <AnonymousProfile />
+  }
 
   return (
     <Stack>
