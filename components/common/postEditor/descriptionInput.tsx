@@ -18,7 +18,7 @@ const DescriptionInput = ({ control }: DescriptionInputProps) => {
           label="介紹調酒"
           multiline
           rows={5}
-          maxLength={300}
+          maxLength={500}
           getLetterCount={getCharacterCount}
           {...field}
           onBlur={() => {
