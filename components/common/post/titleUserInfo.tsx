@@ -10,13 +10,15 @@ export type CocktailDetailsHeaderProps = {
   userId: number
   userName: string
   userPhoto: string
+  isPreview: boolean
 }
 
 const TitleUserInfo = ({
   title,
   userId,
   userName,
-  userPhoto
+  userPhoto,
+  isPreview
 }: CocktailDetailsHeaderProps) => {
   const router = useCornerRouter()
 
@@ -32,20 +34,30 @@ const TitleUserInfo = ({
       </Typography>
       <Stack direction="row" spacing="8px">
         <Box p="3px">
-          <Avatar size={30} src={userPhoto} onClick={handleUserClick}></Avatar>
+          <Avatar
+            size={30}
+            src={userPhoto}
+            onClick={isPreview ? undefined : handleUserClick}
+          ></Avatar>
         </Box>
         <Stack>
           <Typography
             variant="body3"
-            sx={{ color: theme => theme.palette.light2.main }}
-            onClick={handleUserClick}
+            sx={{
+              color: theme => theme.palette.light2.main,
+              cursor: isPreview ? 'default' : 'pointer'
+            }}
+            onClick={isPreview ? undefined : handleUserClick}
           >
             {userName}
           </Typography>
           <Typography
             variant="body4"
-            sx={{ color: theme => theme.palette.light4.main }}
-            onClick={handleUserClick}
+            sx={{
+              color: theme => theme.palette.light4.main,
+              cursor: isPreview ? 'default' : 'pointer'
+            }}
+            onClick={isPreview ? undefined : handleUserClick}
           >
             {getUserIdDisplay(userId)}
           </Typography>

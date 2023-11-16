@@ -53,6 +53,7 @@ const Post = ({
           userId={cocktailPost.userId}
           userName={cocktailPost.userName}
           userPhoto={cocktailPost.userPhoto}
+          isPreview={isPreview}
         />
         <Description content={cocktailPost.description} />
         <Divider sx={{ mt: '24px' }} variant="fullWidth" />
