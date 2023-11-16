@@ -18,7 +18,6 @@ import snackbarMessages from 'lib/constants/snackbarMessages'
 import useUser from '../user/useUser'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
-import useConfirmDialog from '../ui/useConfirmDialog'
 import useLoginDialog from '../ui/useLoginDialog'
 import useErrorHandler from '../useErrorHandler'
 
@@ -29,7 +28,6 @@ const useFavoriteCocktailList = (userId?: number) => {
   const share = useShare()
   const { handleError } = useErrorHandler()
   const router = useCornerRouter()
-  const confirmDialog = useConfirmDialog()
   const loginDialog = useLoginDialog()
   const snackbar = useSnackbar()
   const { config, loading: configLoading } = useConfig()
@@ -116,8 +114,6 @@ const useFavoriteCocktailList = (userId?: number) => {
       )
     } catch (error) {
       handleError(error, { snackbarMessage: snackbarMessage.error })
-    } finally {
-      confirmDialog.destroy()
     }
   }
 
