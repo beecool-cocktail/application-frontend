@@ -10,6 +10,10 @@ const BottomButton = (props: BottomButton) => {
   return (
     <Box
       sx={{
+        zIndex:
+          props.position === 'sticky' || props.position === 'fixed'
+            ? 'fab'
+            : 'auto',
         position: props.position,
         margin: '0 auto',
         display: 'flex',
