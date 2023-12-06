@@ -10,17 +10,17 @@ const dialogMessages = {
   },
   deletePost: {
     title: '刪除發文',
-    content: '確定刪除此發文，一旦刪除將無法復原？',
+    content: '確定刪除此發文，\n旦刪除將無法復原？',
     primaryButton: 'cancel' as const
   },
   abortCreatePost: {
     title: '放棄發文',
-    content: '確定放棄此發文，一旦放棄將無法復原？',
+    content: '確定放棄此發文，\n一旦放棄將無法復原？',
     primaryButton: 'cancel' as const
   },
-  abortUpdatePost: {
+  abortUpdatePostOrDraft: {
     title: '尚未儲存',
-    content: '修改內容還沒儲存，是否要放棄編輯的內容？',
+    content: '修改內容還沒儲存，\n是否要放棄編輯的內容？',
     primaryButton: 'cancel' as const
   },
   deleteAvatar: {

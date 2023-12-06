@@ -159,8 +159,11 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
   const goBack = () => {
     if (activeStep === 0) {
       if (!isDirty) return router.back()
+      const dialogMessage = isDraft
+        ? dialogMessages.abortUpdatePostOrDraft
+        : dialogMessages.abortCreatePost
       return confirmDialog.open({
-        ...dialogMessages.abortCreatePost,
+        ...dialogMessage,
         onCancel: confirmDialog.destroy,
         onConfirm: () => {
           confirmDialog.destroy()

@@ -86,7 +86,7 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
     if (activeStep === 0) {
       if (!isDirty) return router.back()
       return confirmDialog.open({
-        ...dialogMessages.abortUpdatePost,
+        ...dialogMessages.abortUpdatePostOrDraft,
         onCancel: confirmDialog.destroy,
         onConfirm: () => {
           confirmDialog.destroy()
