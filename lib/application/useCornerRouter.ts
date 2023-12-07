@@ -1,7 +1,9 @@
 import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
+import shallow from 'zustand/shallow'
 import routes, { pathname } from 'lib/configs/routes'
 import useLocalStorage from 'lib/services/localStorageAdapter'
+import useStore from 'lib/services/storeAdapter'
 
 export interface useGotoProps {
   onError?: () => void
@@ -10,6 +12,12 @@ export interface useGotoProps {
 const useCornerRouter = (props?: useGotoProps) => {
   const router = useRouter()
   const storage = useLocalStorage()
+  const { history, setHistory } = useStore(state => {
+    return {
+      history: state.history,
+      setHistory: state.setHistory
+    }
+  }, shallow)
 
   const push = (url: string | UrlObject) => {
     const route = routes.find(r => {
@@ -18,19 +26,21 @@ const useCornerRouter = (props?: useGotoProps) => {
     })
     if (!route) return
     if (route.requireAuth && !storage.getToken()) return props?.onError?.()
+
+    if (typeof url === 'string') setHistory([...history, url])
+    else if (url.pathname) {
+      setHistory([...history, url.pathname])
+    }
     router.push(url)
   }
 
-  const canGoBack = () => {
-    if (typeof window === 'undefined') return false
-    return !window.history.state.options._shouldResolveHref
-  }
+  const canGoBack = history.length > 1
 
   const back = (fallbackPath = pathname.index) => {
-    if (canGoBack()) {
+    if (canGoBack) {
       return router.back()
     }
-    router.push(fallbackPath)
+    router.replace(fallbackPath)
   }
 
   return { ...router, back, push }

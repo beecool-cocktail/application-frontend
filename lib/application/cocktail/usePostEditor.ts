@@ -183,8 +183,7 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
         router.push(paths.cocktailById(id))
       })
       const id = targetCocktail.id
-      if (router.query.backToCocktailPage) router.push(paths.cocktailById(id))
-      else router.push(paths.profile)
+      router.back()
     } catch (error) {
       handleError(error, { snackbarMessage: snackbarMessage.error })
     } finally {

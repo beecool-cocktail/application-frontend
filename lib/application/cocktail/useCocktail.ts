@@ -80,7 +80,7 @@ const useCocktail = (id?: number) => {
 
   const handleEdit = () => {
     if (!cocktail) return
-    router.push(paths.editPost(cocktail.id, true))
+    router.push(paths.editPost(cocktail.id))
   }
 
   return {

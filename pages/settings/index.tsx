@@ -42,9 +42,7 @@ const Settings = () => {
         <BasedTopNavigation
           position="static"
           thresholdHeight={185}
-          leftSlot={() => (
-            <BackButton onClick={() => router.push(pathname.profile)} />
-          )}
+          leftSlot={() => <BackButton />}
           title={() => '個人設定'}
         />
         <Stack

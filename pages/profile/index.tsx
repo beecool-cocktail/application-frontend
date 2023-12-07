@@ -1,5 +1,5 @@
-import Head from 'next/head'
 import { ReactElement } from 'react'
+import Head from 'next/head'
 import useUser from 'lib/application/user/useUser'
 import Layout from 'components/layout/layout'
 import ProfileDetail from 'components/pages/profile/profileDetail'

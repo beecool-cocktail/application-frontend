@@ -30,9 +30,7 @@ export const TabBar = () => {
       {routes.map(route => (
         <Box
           key={route.path}
-          onClick={() => {
-            router.push(route.path)
-          }}
+          onClick={() => router.push(route.path)}
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -56,7 +54,7 @@ export const TabBar = () => {
               }
             },
             '&::before':
-              router.asPath === route.path
+              router.pathname === route.path
                 ? {
                     content: '""',
                     position: 'absolute',
@@ -73,7 +71,7 @@ export const TabBar = () => {
           {typeof route.tabBarIcon === 'string' ? (
             <AnimationToggleIcon
               artboard={route.tabBarIcon}
-              active={router.asPath === route.path}
+              active={router.pathname === route.path}
             />
           ) : (
             route.tabBarIcon

@@ -5,8 +5,6 @@ import TrashBgIcon from 'lib/assets/trashGrayBgOutlined.svg'
 import IconButton from 'components/common/button/iconButton'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import ContainedIconButton from 'components/common/button/containedIconButton'
-import useCornerRouter from 'lib/application/useCornerRouter'
-import { pathname } from 'lib/configs/routes'
 
 interface TopNavigationProps {
   canToggleBatchDeleteMode: boolean
@@ -47,8 +45,6 @@ const TopNavigation = ({
   onSelectAll,
   onDelete
 }: TopNavigationProps) => {
-  const router = useCornerRouter()
-
   return (
     <BasedTopNavigation
       position="sticky"
@@ -69,7 +65,7 @@ const TopNavigation = ({
             {isAllSelected ? '取消全選' : '全選'}
           </Typography>
         ) : (
-          <BackButton onClick={() => router.push(pathname.profile)} />
+          <BackButton />
         )
       }}
       rightSlot={() => (

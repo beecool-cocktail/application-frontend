@@ -40,11 +40,7 @@ export const paths = {
   ...pathname,
   draftById: (id: number) => getUrlById(pathname.draftById, id),
   cocktailById: (id: number) => getUrlById(pathname.cocktailById, id),
-  editPost: (id: number, backToCocktailPage?: boolean) => {
-    const query: { id: number; backToCocktailPage?: true } = { id }
-    if (backToCocktailPage) query.backToCocktailPage = true
-    return getUrlByQuery(pathname.editPost, query)
-  },
+  editPost: (id: number) => getUrlById(pathname.editPost, id),
   userById: (id: number) => getUrlById(pathname.userById, id),
   userCollectionsById: (id: number) =>
     getUrlById(pathname.userCollectionsById, id)

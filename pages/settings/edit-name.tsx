@@ -9,8 +9,6 @@ import Close from 'lib/assets/cancelClose.svg'
 import SubmitButton from 'components/common/button/submitButton'
 import { CJKPattern } from 'lib/helper/string'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
-import useCornerRouter from 'lib/application/useCornerRouter'
-import { pathname } from 'lib/configs/routes'
 
 interface UserNameContentProps {
   username: string
@@ -28,7 +26,6 @@ const UserNameContent = ({
     defaultValues: { username }
   })
   const usernameRef = useRef<HTMLInputElement>()
-  const router = useCornerRouter()
 
   const handleConfirm = handleSubmit(async data => {
     await updateUsername(data.username)
@@ -42,8 +39,6 @@ const UserNameContent = ({
     usernameRef.current?.focus()
   }
 
-  const handleGoBack = () => router.push(pathname.settings)
-
   return (
     <>
       <Head>
@@ -56,7 +51,7 @@ const UserNameContent = ({
           position="sticky"
           thresholdHeight={185}
           title={() => '更改名稱'}
-          leftSlot={() => <BackButton onClick={handleGoBack} />}
+          leftSlot={() => <BackButton />}
           rightSlot={() => (
             <SubmitButton
               onClick={handleConfirm}
