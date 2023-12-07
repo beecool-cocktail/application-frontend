@@ -6,6 +6,7 @@ import { AlertColor } from '@mui/material'
 type ConfirmDialogPrimaryButton = 'confirm' | 'cancel'
 
 export interface CornerState {
+  history: string[]
   loading: boolean
   searchBarInput: string
   loginDialogOpen: boolean
@@ -27,6 +28,7 @@ export interface CornerState {
 }
 
 export const initialState: CornerState = {
+  history: [],
   loading: false,
   searchBarInput: '',
   loginDialogOpen: false,
@@ -47,7 +49,9 @@ export const initialState: CornerState = {
 }
 
 export interface CornerStore extends CornerState {
+  setHistory: (v: string[]) => void
   setLoading: (v: boolean) => void
+
   setSearchBarInput: (v: string) => void
   setLoginDialogOpen: (v: boolean) => void
   openConfirmDialog: (v: {
@@ -76,6 +80,7 @@ export interface CornerStore extends CornerState {
 const useStore = create<CornerStore>(
   devtools(set => ({
     ...initialState,
+    setHistory: value => set({ history: value }),
     setLoading: value => set({ loading: value }),
     setSearchBarInput: value => set({ searchBarInput: value }),
     setLoginDialogOpen: value => set({ loginDialogOpen: value }),
