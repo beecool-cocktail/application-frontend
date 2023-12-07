@@ -10,7 +10,6 @@ interface PostCreateStep2Props {
   control: Control<CocktailPostForm>
   onImageToCover(index: number): void
   onImageUpload(index: number, urls: string[]): void
-  onImageReUpload(index: number, cropResult: CropResult): void
   onImageEdit(index: number, cropResult: CropResult): void
   onImageDelete(index: number): void
 }

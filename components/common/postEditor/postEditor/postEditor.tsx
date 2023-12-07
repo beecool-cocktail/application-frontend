@@ -23,7 +23,6 @@ const PostEditor = ({ cocktail }: PostCreatorProps) => {
     goPreview,
     handleImageToCover,
     handleImageUpload,
-    handleImageReUpload,
     handleImageEdit,
     handleImageDelete
   } = usePostCreate(cocktail)
@@ -43,7 +42,6 @@ const PostEditor = ({ cocktail }: PostCreatorProps) => {
             control={control}
             onImageEdit={handleImageEdit}
             onImageUpload={handleImageUpload}
-            onImageReUpload={handleImageReUpload}
             onImageToCover={handleImageToCover}
             onImageDelete={handleImageDelete}
           />

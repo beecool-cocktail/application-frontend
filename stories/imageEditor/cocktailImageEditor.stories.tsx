@@ -5,12 +5,6 @@ import CocktailImageEditor from 'components/common/imageEditor/cocktailImageEdit
 export default {
   title: 'image/Cocktail Image Editor',
   component: CocktailImageEditor,
-  argTypes: {
-    type: {
-      options: ['change', 'edit'],
-      control: { type: 'select' }
-    }
-  },
   parameters: {
     design: {
       type: 'figma',
@@ -23,14 +17,7 @@ const Template: ComponentStory<typeof CocktailImageEditor> = args => {
   return <CocktailImageEditor {...args} />
 }
 
-export const ChangeCocktailImage = Template.bind({})
-ChangeCocktailImage.args = {
-  type: 'change',
-  imgSrc: '/cocktail.jpg'
-}
-
 export const EditCocktailImage = Template.bind({})
 EditCocktailImage.args = {
-  type: 'edit',
   imgSrc: '/cocktail.jpg'
 }

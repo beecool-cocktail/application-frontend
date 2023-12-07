@@ -145,20 +145,6 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
     }
   }
 
-  const handleImageReUpload = (index: number, cropResult: CropResult) => {
-    const values = getValues()
-    const currentPhotos = values.photos
-    const origin = currentPhotos[index]
-    const updated: EditablePhoto = {
-      ...origin,
-      originURL: cropResult.originImage,
-      editedURL: cropResult.croppedImage,
-      shouldUploadImageFile: true,
-      cropResult
-    }
-    setValue('photos', update(index, updated, currentPhotos))
-  }
-
   const handleImageEdit = (index: number, cropResult: CropResult) => {
     const values = getValues()
     const currentPhotos = values.photos
@@ -223,7 +209,6 @@ const usePostEditor = (targetCocktail: CocktailPostDraft) => {
     goBack,
     goPreview,
     handleImageUpload,
-    handleImageReUpload,
     handleImageToCover,
     handleImageEdit,
     handleImageDelete

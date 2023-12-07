@@ -8,7 +8,6 @@ export interface PostTutorialProps {
   control: Control<CocktailPostForm>
   onImageToCover(index: number): void
   onImageUpload(index: number, urls: string[]): void
-  onImageReUpload(index: number, cropResult: CropResult): void
   onImageEdit(index: number, cropResult: CropResult): void
   onImageDelete(index: number): void
 }
@@ -17,7 +16,6 @@ const ImagesEditBlock = ({
   control,
   onImageToCover,
   onImageUpload,
-  onImageReUpload,
   onImageEdit,
   onImageDelete
 }: PostTutorialProps) => {
@@ -48,8 +46,6 @@ const ImagesEditBlock = ({
               onDelete: () => onImageDelete(index),
               onToCover: () => onImageToCover(index),
               onUpload: (urls: string[]) => onImageUpload(index, urls),
-              onReUpload: (cropResult: CropResult) =>
-                onImageReUpload(index, cropResult),
               onEdit: (cropResult: CropResult) => onImageEdit(index, cropResult)
             }
           }

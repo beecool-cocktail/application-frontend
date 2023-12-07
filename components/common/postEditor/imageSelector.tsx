@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import { Box, Stack, Typography } from '@mui/material'
 import CameraPlusIcon from 'lib/assets/cameraPlus.svg'
-import { CropResult, EditablePhoto, EditorType } from 'lib/domain/photo'
+import { CropResult, EditablePhoto } from 'lib/domain/photo'
 import { toBase64Photos } from 'lib/helper/image'
 import EditIcon from 'lib/assets/editOutlined.svg'
 import ReloadIcon from 'lib/assets/reloadBlueBgOutlined.svg'
@@ -17,7 +17,6 @@ export interface ImageSelectorProps {
   photo?: EditablePhoto
   onToCover(): void
   onUpload(urls: string[]): void
-  onReUpload(cropResult: CropResult): void
   onEdit(cropResult: CropResult): void
   onDelete(): void
 }
@@ -28,26 +27,23 @@ const ImageSelector = ({
   photo,
   onToCover,
   onUpload,
-  onReUpload,
   onEdit,
   onDelete
 }: ImageSelectorProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [imageEditorType, setImageEditorType] = useState<EditorType | null>(
-    null
-  )
+  const [imageEditing, setImageEditing] = useState(false)
   const fileInputId = `upload-${index}`
+
+  const handleReUpload = () => {
+    inputRef.current?.click()
+  }
 
   const handleToCoverImage = () => {
     onToCover()
   }
 
-  const handleUpload = () => {
-    setImageEditorType('change')
-  }
-
   const handleEdit = () => {
-    setImageEditorType('edit')
+    setImageEditing(true)
   }
 
   const handleDelete = () => {
@@ -58,7 +54,7 @@ const ImageSelector = ({
     {
       text: '重新上傳',
       icon: <ReloadIcon />,
-      onClick: handleUpload
+      onClick: handleReUpload
     },
     {
       text: '編輯照片',
@@ -145,10 +141,9 @@ const ImageSelector = ({
                 </Typography>
               </Box>
             )}
-            {imageEditorType && (
+            {imageEditing && (
               <Box zIndex={1200}>
                 <CocktailImageEditor
-                  type={imageEditorType}
                   imgSrc={photo.originURL}
                   cropData={
                     photo.cropResult && {
@@ -159,12 +154,10 @@ const ImageSelector = ({
                     }
                   }
                   onConfirm={result => {
-                    imageEditorType === 'change'
-                      ? onReUpload(result)
-                      : onEdit(result)
-                    setImageEditorType(null)
+                    onEdit(result)
+                    setImageEditing(false)
                   }}
-                  onCancel={() => setImageEditorType(null)}
+                  onCancel={() => setImageEditing(false)}
                 />
               </Box>
             )}

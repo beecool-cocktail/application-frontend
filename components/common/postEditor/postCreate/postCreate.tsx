@@ -32,7 +32,6 @@ const PostCreate = ({ cocktailDraft }: PostCreateProps) => {
     saveDraft,
     handleImageToCover,
     handleImageUpload,
-    handleImageReUpload,
     handleImageEdit,
     handleImageDelete
   } = usePostCreate(cocktailDraft)
@@ -64,7 +63,6 @@ const PostCreate = ({ cocktailDraft }: PostCreateProps) => {
             control={step2Control as unknown as Control<CocktailPostForm>}
             onImageEdit={handleImageEdit}
             onImageUpload={handleImageUpload}
-            onImageReUpload={handleImageReUpload}
             onImageToCover={handleImageToCover}
             onImageDelete={handleImageDelete}
           />
