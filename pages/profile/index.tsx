@@ -3,9 +3,10 @@ import Head from 'next/head'
 import useUser from 'lib/application/user/useUser'
 import Layout from 'components/layout/layout'
 import ProfileDetail from 'components/pages/profile/profileDetail'
+import AnonymousProfile from 'components/pages/profile/anonymousProfile'
 
 const Profile = () => {
-  const { user } = useUser()
+  const { user, loading } = useUser()
   const websiteTitle = user ? `${user.username} - Corner` : '登入 - Corner'
 
   return (
@@ -15,7 +16,7 @@ const Profile = () => {
         <meta name="description" content={websiteTitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ProfileDetail tab={0} />
+      {user || loading ? <ProfileDetail tab={0} /> : <AnonymousProfile />}
     </>
   )
 }

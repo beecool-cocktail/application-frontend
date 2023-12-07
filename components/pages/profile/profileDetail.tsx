@@ -9,7 +9,7 @@ import SegmentedControl from 'components/pages/profile/segmentedControl'
 import PostTabPanel from 'components/pages/profile/postTabPanel'
 import CollectionTabPanel from 'components/pages/profile/collectionTabPanel'
 import TopNavigation from 'components/pages/profile/topNavigation'
-import AnonymousProfile from './anonymousProfile'
+// import AnonymousProfile from './anonymousProfile'
 
 interface ProfileDetailProps {
   userId?: number
@@ -40,12 +40,12 @@ const ProfileDetail = ({ userId, tab }: ProfileDetailProps) => {
 
   if (error) return <Error />
 
-  if (!loading && !userId && !user) {
-    if (tab === 1) {
-      router.replace(paths.profile)
-    }
-    return <AnonymousProfile />
-  }
+  // if (!loading && !userId && !user) {
+  //   if (tab === 1) {
+  //     router.replace(paths.profile)
+  //   }
+  //   return <AnonymousProfile />
+  // }
 
   return (
     <Stack>
@@ -91,13 +91,15 @@ const ProfileDetail = ({ userId, tab }: ProfileDetailProps) => {
           </>
         )}
       </Stack>
-      <SegmentedControl
-        tabIndex={tab}
-        tabs={['我的發文', '收藏文章']}
-        onChange={handleChange}
-      />
-      <PostTabPanel userId={userId} value={tab} index={0} />
-      <CollectionTabPanel userId={userId} value={tab} index={1} />
+      <Stack direction="column" rowGap="8px">
+        <SegmentedControl
+          tabIndex={tab}
+          tabs={['我的發文', '收藏文章']}
+          onChange={handleChange}
+        />
+        <PostTabPanel userId={userId} value={tab} index={0} />
+        <CollectionTabPanel userId={userId} value={tab} index={1} />
+      </Stack>
     </Stack>
   )
 }
