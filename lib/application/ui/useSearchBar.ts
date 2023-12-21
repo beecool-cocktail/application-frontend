@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import Router from 'next/router'
 import useStore from 'lib/services/storeAdapter'
 import useCornerRouter from '../useCornerRouter'
 
@@ -22,9 +21,10 @@ const useSearchBar = () => {
   useEffect(() => {
     if (!initialized.current) return
     if (!input) {
-      Router.replace({ query: {} }, undefined)
+      router.replace({ query: {} }, undefined)
     }
-    Router.replace({ query: { keyword: input } }, undefined, { shallow: true })
+    router.replace({ query: { keyword: input } }, undefined, { shallow: true })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input])
 
   const handleCancel = () => {
