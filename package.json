@@ -18,7 +18,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
+    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.10.5",
     "@fontsource/montserrat": "^4.5.13",
     "@fontsource/noto-sans-tc": "^4.5.12",
@@ -58,7 +58,6 @@
     "zustand": "3.7.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.2",
     "@galtz-library/eslint-config": "^0.2.0",
     "@galtz-library/prettier-config": "0.1.5",
     "@hookform/devtools": "^4.3.1",
@@ -77,8 +76,7 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
-    "babel-loader": "^8.2.5",
-    "chromatic": "^6.5.4",
+    "chromatic": "^10.1.0",
     "eslint": "8.56.0",
     "eslint-config-next": "^14.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -91,7 +89,6 @@
     "storybook": "^7.6.6",
     "storybook-addon-designs": "7.0.0-beta.2",
     "storybook-addon-pseudo-states": "^2.1.2",
-    "storybook-addon-swc": "^1.2.0",
     "svgo": "^2.8.0",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
     "typescript": "5.3.3",

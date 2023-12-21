@@ -3,7 +3,11 @@ import { StorybookConfig } from '@storybook/nextjs'
 const config: StorybookConfig = {
   framework: {
     name: '@storybook/nextjs',
-    options: {}
+    options: {
+      builder: {
+        useSWC: true,
+      },
+    }
   },
   stories: [
     '../stories/**/*.stories.mdx',
