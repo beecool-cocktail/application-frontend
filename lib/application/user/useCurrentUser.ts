@@ -48,7 +48,7 @@ const useCurrentUser = () => {
     try {
       await userService.updateCurrentUserInfo({ username }, token)
       await mutate()
-      router.push(paths.settings)
+      router.back(paths.settings)
     } catch (error) {
       snackbar.error(snackbarMessages.updateUserInfo.error)
       console.error(error)
@@ -62,7 +62,7 @@ const useCurrentUser = () => {
     try {
       await userService.updateCurrentUserAvatar(form, token)
       await mutate()
-      router.push(paths.settings)
+      router.back(paths.settings)
     } catch (e) {
       snackbar.error(snackbarMessages.updateUserInfo.error)
       console.error(e)
