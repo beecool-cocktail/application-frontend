@@ -62,6 +62,7 @@ const useAuth = () => {
 
   return {
     isAuthenticated,
+    isTokenReady: tokenService.isTokenReady,
     token: tokenService.token,
     logout,
     login,

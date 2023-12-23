@@ -9,7 +9,6 @@ import SegmentedControl from 'components/pages/profile/segmentedControl'
 import PostTabPanel from 'components/pages/profile/postTabPanel'
 import CollectionTabPanel from 'components/pages/profile/collectionTabPanel'
 import TopNavigation from 'components/pages/profile/topNavigation'
-// import AnonymousProfile from './anonymousProfile'
 
 interface ProfileDetailProps {
   userId?: number
@@ -39,13 +38,6 @@ const ProfileDetail = ({ userId, tab }: ProfileDetailProps) => {
   }
 
   if (error) return <Error />
-
-  // if (!loading && !userId && !user) {
-  //   if (tab === 1) {
-  //     router.replace(paths.profile)
-  //   }
-  //   return <AnonymousProfile />
-  // }
 
   return (
     <Stack>

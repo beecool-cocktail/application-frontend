@@ -1,7 +1,6 @@
 import useAuthGuard from 'lib/application/useAuthGuard'
 
 interface AuthGuardProps {
-  // children: JSX.Element
   children: React.ReactNode
 }
 

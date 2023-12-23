@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import { Token, TOKEN_KEY } from 'lib/services/localStorageAdapter'
 
 const useToken = () => {
-  const [token, rawSetToken] = useState(
-    typeof window !== 'undefined' ? localStorage.getItem(TOKEN_KEY) : null
-  )
+  const [token, rawSetToken] = useState<string | null>(null)
+  const [isTokenReady, setIsTokenReady] = useState(false)
 
   const setToken = (token: Token) => {
     if (typeof window === 'undefined') return
@@ -19,12 +18,21 @@ const useToken = () => {
   }
 
   useEffect(() => {
+    const initialToken = localStorage.getItem(TOKEN_KEY)
+    if (initialToken) {
+      setToken(initialToken)
+    }
+    setIsTokenReady(true)
+  }, [])
+
+  useEffect(() => {
     window.addEventListener('storage', () => {
       rawSetToken(localStorage.getItem(TOKEN_KEY))
     })
   })
 
   return {
+    isTokenReady,
     token,
     setToken,
     removeToken

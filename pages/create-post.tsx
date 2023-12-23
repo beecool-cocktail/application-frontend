@@ -6,15 +6,23 @@ const CreatePost = () => {
   const websiteTitle = '新增酒譜 - Corner'
 
   return (
-    <AuthGuard>
+    <>
       <Head>
         <title>{websiteTitle}</title>
         <meta name="description" content={websiteTitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PostCreate />
+    </>
+  )
+}
+
+const CreatePostWithAuthGuard = () => {
+  return (
+    <AuthGuard>
+      <CreatePost />
     </AuthGuard>
   )
 }
 
-export default CreatePost
+export default CreatePostWithAuthGuard

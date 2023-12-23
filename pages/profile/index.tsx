@@ -8,7 +8,7 @@ import useAuth from 'lib/application/useAuth'
 
 const Profile = () => {
   const { user } = useUser()
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isTokenReady } = useAuth()
 
   const getWebsiteTitle = () => {
     if (!isAuthenticated) return '登入 - Corner'
@@ -17,6 +17,8 @@ const Profile = () => {
   }
 
   const websiteTitle = getWebsiteTitle()
+
+  if (!isTokenReady) return null
 
   return (
     <>
