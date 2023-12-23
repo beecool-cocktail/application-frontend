@@ -1,6 +1,6 @@
 import { Control, Controller } from 'react-hook-form'
 import { CocktailPostForm } from 'lib/domain/cocktail'
-import { getCharacterCount, mergeSpaces } from 'lib/helper/string'
+import { mergeSpaces } from 'lib/helper/string'
 import Input from '../input/input'
 
 interface DescriptionInputProps {
@@ -18,8 +18,7 @@ const DescriptionInput = ({ control }: DescriptionInputProps) => {
           label="介紹調酒"
           multiline
           rows={5}
-          maxLength={500}
-          getLetterCount={getCharacterCount}
+          maxLength={2000}
           {...field}
           onBlur={() => {
             field.onChange(mergeSpaces(field.value))
