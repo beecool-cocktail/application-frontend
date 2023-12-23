@@ -1,5 +1,5 @@
 ########## builder ##########
-FROM node:18.16-alpine AS deps
+FROM node:20.10-alpine AS deps
 
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
@@ -7,7 +7,7 @@ RUN corepack pnpm@8.6.0 install --frozen-lockfile --ignore-scripts
 
 
 ########## builder ##########
-FROM node:18.16-alpine AS builder
+FROM node:20.10-alpine AS builder
 
 WORKDIR /app
 COPY . .
@@ -16,7 +16,7 @@ RUN yarn build
 
 
 ########## runner ##########
-FROM node:18.16-alpine AS runner
+FROM node:20.10-alpine AS runner
 
 ARG REVISION_ID
 LABEL revision_id=${REVISION_ID}
