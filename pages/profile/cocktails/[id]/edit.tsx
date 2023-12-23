@@ -6,6 +6,7 @@ import PostEditorSkeleton from 'components/common/postEditor/postEditor/postEdit
 import PostEditor from 'components/common/postEditor/postEditor/postEditor'
 import TopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
+import AuthGuard from 'components/app/authGuard'
 
 const CocktailEditPage = () => {
   const router = useCornerRouter()
@@ -43,4 +44,10 @@ const CocktailEditPage = () => {
   )
 }
 
-export default CocktailEditPage
+const CocktailEditPageWithAuthGuard = () => (
+  <AuthGuard>
+    <CocktailEditPage />
+  </AuthGuard>
+)
+
+export default CocktailEditPageWithAuthGuard

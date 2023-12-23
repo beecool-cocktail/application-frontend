@@ -77,7 +77,9 @@ const Template: ComponentStory<typeof ProfileDetail> = args => (
 )
 
 export const Profile = Template.bind({})
-Profile.args = {}
+Profile.args = {
+  tab: 0
+}
 Profile.parameters = {
   msw: {
     handlers: [
@@ -98,7 +100,9 @@ Profile.parameters = {
 Profile.decorators = [loggedInDecorator]
 
 export const ProfileWithNoPost = Template.bind({})
-ProfileWithNoPost.args = {}
+ProfileWithNoPost.args = {
+  tab: 0
+}
 ProfileWithNoPost.parameters = {
   msw: {
     handlers: [
@@ -127,7 +131,9 @@ ProfileWithNoPost.parameters = {
 ProfileWithNoPost.decorators = [loggedInDecorator]
 
 export const Skeleton = Template.bind({})
-Skeleton.args = {}
+Skeleton.args = {
+  tab: 0
+}
 Skeleton.parameters = {
   msw: {
     handlers: [
@@ -149,7 +155,7 @@ Skeleton.decorators = [loggedInDecorator]
 const userId = 1234
 
 export const Visitor = Template.bind({})
-Visitor.args = { userId }
+Visitor.args = { tab: 0, userId }
 Visitor.parameters = {
   msw: {
     handlers: [
@@ -169,7 +175,7 @@ Visitor.parameters = {
 }
 
 export const VisitorWithPrivateCollection = Template.bind({})
-VisitorWithPrivateCollection.args = { userId }
+VisitorWithPrivateCollection.args = { tab: 0, userId }
 VisitorWithPrivateCollection.parameters = {
   msw: {
     handlers: [

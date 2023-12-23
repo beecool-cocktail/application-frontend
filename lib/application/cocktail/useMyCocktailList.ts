@@ -1,7 +1,6 @@
 import produce from 'immer'
 import useSWR from 'swr'
 import myCocktailService from 'lib/services/myCocktailListAdapter'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
@@ -17,12 +16,13 @@ import useLoginDialog from '../ui/useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 import useErrorHandler from '../useErrorHandler'
+import useAuth from '../useAuth'
 
 const FETCH_KEY = Symbol('MY_COCKTAIL')
 
 const useMyCocktailList = (userId?: number) => {
   const { mutate: userMutate } = useUser(userId)
-  const storage = useLocalStorage()
+  const { token } = useAuth()
   const share = useShare()
   const router = useCornerRouter()
   const snackbar = useSnackbar()
@@ -32,7 +32,6 @@ const useMyCocktailList = (userId?: number) => {
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
-      const token = storage.getToken()
       if (userId) return [userId, token, FETCH_KEY]
       if (!token) return null
       return [token, FETCH_KEY]
@@ -59,7 +58,6 @@ const useMyCocktailList = (userId?: number) => {
   const isVisitor = userId != null
 
   const handleDeleteConfirm = (id: number) => async () => {
-    const token = storage.getToken()
     if (!token) return
 
     try {
@@ -75,7 +73,6 @@ const useMyCocktailList = (userId?: number) => {
   }
 
   const collectCocktail = async (cocktail: ProfileCocktailItem) => {
-    const token = storage.getToken()
     if (!token) {
       loginDialog.setOpen(true)
       return
@@ -102,7 +99,6 @@ const useMyCocktailList = (userId?: number) => {
   }
 
   const removeCocktail = async (cocktail: ProfileCocktailItem) => {
-    const token = storage.getToken()
     if (!token) return
 
     try {

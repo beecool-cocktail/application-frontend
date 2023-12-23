@@ -3,7 +3,6 @@ import { useSWRConfig } from 'swr'
 import { useForm } from 'react-hook-form'
 import { move, update, remove } from 'ramda'
 import { paths } from 'lib/configs/routes'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import usePostEditorService from 'lib/services/postEditorAdapter'
 import {
   CocktailPostDraft,
@@ -24,6 +23,7 @@ import useCornerRouter from '../useCornerRouter'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useWholePageSpinner from '../ui/useWholePageSpinner'
 import useErrorHandler from '../useErrorHandler'
+import useAuth from '../useAuth'
 
 const totalStep = 3
 
@@ -73,7 +73,7 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
   const { createPost, createDraft, updateDraft, toFormal } =
     usePostEditorService()
   const { mutate } = useSWRConfig()
-  const storage = useLocalStorage()
+  const { token } = useAuth()
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
   const { setLoading } = useWholePageSpinner()
@@ -246,7 +246,6 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
   }
 
   const saveDraft = async () => {
-    const token = storage.getToken()
     if (!token) return
 
     let snackbarMessage = snackbarMessages.createDraft
@@ -279,7 +278,6 @@ const usePostCreate = (cocktailDraft?: CocktailPostDraft) => {
   }
 
   const submitPost = async () => {
-    const token = storage.getToken()
     if (!token) return
 
     const values = getValues()

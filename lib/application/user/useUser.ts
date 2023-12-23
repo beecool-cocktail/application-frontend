@@ -1,20 +1,19 @@
 import useSWR from 'swr'
 import { FALLBACK_URL } from 'lib/constants/image'
 import userService from 'lib/services/userAdapter'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
+import useAuth from '../useAuth'
 
 const FETCH_KEY = 'USER'
 
 const useUser = (id?: number) => {
-  const storage = useLocalStorage()
+  const { token } = useAuth()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
       if (id) return [id, FETCH_KEY]
-      const token = storage.getToken()
       if (!token) return null
-      return [storage.getToken(), FETCH_KEY]
+      return [token, FETCH_KEY]
     },
     id ? userService.getOtherUserInfo : userService.getCurrentUserInfo
   )

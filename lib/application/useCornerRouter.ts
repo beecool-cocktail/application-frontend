@@ -2,16 +2,10 @@ import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
 import shallow from 'zustand/shallow'
 import routes, { pathname } from 'lib/configs/routes'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import useStore from 'lib/services/storeAdapter'
 
-export interface useGotoProps {
-  onError?: () => void
-}
-
-const useCornerRouter = (props?: useGotoProps) => {
+const useCornerRouter = () => {
   const router = useRouter()
-  const storage = useLocalStorage()
   const { history, setHistory } = useStore(state => {
     return {
       history: state.history,
@@ -25,7 +19,6 @@ const useCornerRouter = (props?: useGotoProps) => {
       return r.path === url.pathname
     })
     if (!route) return
-    if (route.requireAuth && !storage.getToken()) return props?.onError?.()
 
     if (typeof url === 'string') setHistory([...history, url])
     else if (url.pathname) {

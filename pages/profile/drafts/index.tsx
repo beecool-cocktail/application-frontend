@@ -7,6 +7,7 @@ import useDraftList from 'lib/application/cocktail/useDraftList'
 import ConfirmButton from 'components/pages/draft/confirmButton'
 import BottomButton from 'components/common/button/bottomButton'
 import { paths } from 'lib/configs/routes'
+import AuthGuard from 'components/app/authGuard'
 
 const Drafts = () => {
   const websiteTitle = '草稿夾 - Corner'
@@ -67,4 +68,10 @@ const Drafts = () => {
   )
 }
 
-export default Drafts
+const DraftsWithAuthGuard = () => (
+  <AuthGuard>
+    <Drafts />
+  </AuthGuard>
+)
+
+export default DraftsWithAuthGuard

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import dialogMessages from 'lib/constants/dialogMessages'
 import useAuthService from '../services/authAdapter'
@@ -7,14 +6,17 @@ import { pathname, paths } from '../configs/routes'
 import useSnackbar from './ui/useSnackbar'
 import useConfirmDialog from './ui/useConfirmDialog'
 import useWholePageSpinner from './ui/useWholePageSpinner'
+import useToken from './useToken'
 
 const useAuth = () => {
   const router = useRouter()
-  const storage = useLocalStorage()
+  const tokenService = useToken()
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
   const authService = useAuthService()
   const { setLoading } = useWholePageSpinner()
+
+  const isAuthenticated = tokenService.token != null
 
   const login = async (code: string) => {
     try {
@@ -23,7 +25,7 @@ const useAuth = () => {
       const token = await authService.login(code)
       if (!token) return snackbar.error(snackbarMessages.login.error)
 
-      storage.setToken(token)
+      tokenService.setToken(token)
       router.push(pathname.index)
     } catch (err) {
       snackbar.error(snackbarMessages.login.error)
@@ -39,7 +41,7 @@ const useAuth = () => {
       onConfirm: async () => {
         try {
           await authService.logout(userId)
-          storage.removeToken()
+          tokenService.removeToken()
           router.push(pathname.index)
         } catch (err) {
           snackbar.error(snackbarMessages.logout.error)
@@ -54,11 +56,13 @@ const useAuth = () => {
 
   const handleTokenExpired = () => {
     snackbar.error(snackbarMessages.tokenExpired)
-    storage.removeToken()
+    tokenService.removeToken()
     router.push(paths.index)
   }
 
   return {
+    isAuthenticated,
+    token: tokenService.token,
     logout,
     login,
     handleTokenExpired,

@@ -1,11 +1,11 @@
 import useSWR from 'swr'
 import { FALLBACK_URL } from 'lib/constants/image'
 import userService from 'lib/services/userAdapter'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import { UpdateUserAvatarForm } from 'lib/domain/user'
 import dialogMessages from 'lib/constants/dialogMessages'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import { paths } from 'lib/configs/routes'
+import useAuth from '../useAuth'
 import useConfig from '../useConfig'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useSnackbar from '../ui/useSnackbar'
@@ -18,17 +18,15 @@ const useCurrentUser = () => {
   const confirmDialog = useConfirmDialog()
   const snackbar = useSnackbar()
   const router = useCornerRouter()
+  const { token } = useAuth()
   const { setLoading: setWholePageLoading } = useWholePageSpinner()
-  const storage = useLocalStorage()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
   const { data, error, mutate } = useSWR(() => {
-    const token = storage.getToken()
     if (!token) return null
     return [token, FETCH_KEY]
   }, userService.getCurrentUserInfo)
 
   const updateCollectionPublic = async () => {
-    const token = storage.getToken()
     if (!token) return
     if (!user) return
 
@@ -45,7 +43,6 @@ const useCurrentUser = () => {
   }
 
   const updateUsername = async (username: string) => {
-    const token = storage.getToken()
     if (!token) return
 
     try {
@@ -59,7 +56,6 @@ const useCurrentUser = () => {
   }
 
   const updateAvatar = async (form: UpdateUserAvatarForm) => {
-    const token = storage.getToken()
     if (!token) return
 
     setWholePageLoading(true)
@@ -79,7 +75,6 @@ const useCurrentUser = () => {
     confirmDialog.open({
       ...dialogMessages.deleteAvatar,
       onConfirm: async () => {
-        const token = storage.getToken()
         if (!token) throw new Error('token expired')
 
         try {

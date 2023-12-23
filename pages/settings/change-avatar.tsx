@@ -3,6 +3,7 @@ import useCurrentUser from 'lib/application/user/useCurrentUser'
 import AvatarEditor from 'components/common/imageEditor/avatarEditor'
 import { UpdateUserAvatarForm } from 'lib/domain/user'
 import { CropResult } from 'lib/domain/photo'
+import AuthGuard from 'components/app/authGuard'
 
 const ChangeAvatar = () => {
   const websiteTitle = '更換大頭貼 - Corner'
@@ -46,4 +47,12 @@ const ChangeAvatar = () => {
   )
 }
 
-export default ChangeAvatar
+const ChangeAvatarWithAuthGuard = () => {
+  return (
+    <AuthGuard>
+      <ChangeAvatar />
+    </AuthGuard>
+  )
+}
+
+export default ChangeAvatarWithAuthGuard

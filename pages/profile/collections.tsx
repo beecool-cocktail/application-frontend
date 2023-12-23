@@ -3,12 +3,11 @@ import { ReactElement } from 'react'
 import useUser from 'lib/application/user/useUser'
 import Layout from 'components/layout/layout'
 import ProfileDetail from 'components/pages/profile/profileDetail'
+import AuthGuard from 'components/app/authGuard'
 
 const Profile = () => {
   const { user } = useUser()
-  const websiteTitle = user
-    ? `${user.username} 的收藏 - Corner`
-    : '登入 - Corner'
+  const websiteTitle = user ? `${user.username} 的收藏 - Corner` : ' Corner'
 
   return (
     <>
@@ -24,4 +23,10 @@ const Profile = () => {
 
 Profile.getLayout = (page: ReactElement) => <Layout>{page}</Layout>
 
-export default Profile
+const ProfileWithAuthGuard = () => (
+  <AuthGuard>
+    <Profile />
+  </AuthGuard>
+)
+
+export default ProfileWithAuthGuard

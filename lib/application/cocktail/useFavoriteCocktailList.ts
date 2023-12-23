@@ -2,7 +2,6 @@ import produce from 'immer'
 import useSWR from 'swr'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import commandService from 'lib/services/commandAdapter'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import useSnackbar from 'lib/application/ui/useSnackbar'
 import useConfig from 'lib/application/useConfig'
 import { join } from 'lib/helper/url'
@@ -20,11 +19,12 @@ import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 import useLoginDialog from '../ui/useLoginDialog'
 import useErrorHandler from '../useErrorHandler'
+import useAuth from '../useAuth'
 
 const FETCH_KEY = 'FAVORITE_COCKTAIL_LIST'
 
 const useFavoriteCocktailList = (userId?: number) => {
-  const storage = useLocalStorage()
+  const { token } = useAuth()
   const share = useShare()
   const { handleError } = useErrorHandler()
   const router = useCornerRouter()
@@ -33,7 +33,6 @@ const useFavoriteCocktailList = (userId?: number) => {
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
     () => {
-      const token = storage.getToken()
       if (userId) return [userId, token, FETCH_KEY]
       return [token, FETCH_KEY]
     },
@@ -68,7 +67,6 @@ const useFavoriteCocktailList = (userId?: number) => {
   const isVisitor = userId != null
 
   const collectCocktail = async (cocktail: ProfileCocktailItem) => {
-    const token = storage.getToken()
     if (!token) {
       loginDialog.setOpen(true)
       return
@@ -87,7 +85,6 @@ const useFavoriteCocktailList = (userId?: number) => {
   }
 
   const removeCocktail = async (cocktail: ProfileCocktailItem) => {
-    const token = storage.getToken()
     if (!token) return
 
     const snackbarMessage = snackbarMessages.removeFavorite

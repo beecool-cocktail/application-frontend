@@ -5,8 +5,8 @@ import { rest } from 'msw'
 import FavoriteCocktailCardList from 'components/common/favoriteCocktailList/favoriteCocktailList'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import { GetUserFavoriteCocktailListResponse } from 'sdk'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import useOnce from 'lib/hooks/useOnce'
+import useToken from 'lib/application/useToken'
 
 const genDate = (index: number) =>
   `2022-11-09 11:07:${index.toString().padStart(2, '0')}`
@@ -64,8 +64,8 @@ export default {
   },
   decorators: [
     story => {
-      const storage = useLocalStorage()
-      useOnce(() => storage.setToken('mock login token'))
+      const tokenService = useToken()
+      useOnce(() => tokenService.setToken('mock login token'))
       return story()
     }
   ]

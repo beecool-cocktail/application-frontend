@@ -8,6 +8,7 @@ import BottomButton from 'components/common/button/bottomButton'
 import ProgressBar from 'components/common/postEditor/progressBar'
 import TopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
+import AuthGuard from 'components/app/authGuard'
 
 const DraftById = () => {
   const router = useRouter()
@@ -33,7 +34,7 @@ const DraftById = () => {
 
   if (loading || isValidating || !draft)
     return (
-      <>
+      <AuthGuard>
         {renderHead()}
         <Stack position="relative" alignItems="stretch" minHeight={1}>
           <Stack
@@ -54,7 +55,7 @@ const DraftById = () => {
             下一步
           </BottomButton>
         </Stack>
-      </>
+      </AuthGuard>
     )
 
   return (
@@ -65,4 +66,10 @@ const DraftById = () => {
   )
 }
 
-export default DraftById
+const DraftByIdWithAuthGuard = () => (
+  <AuthGuard>
+    <DraftById />
+  </AuthGuard>
+)
+
+export default DraftByIdWithAuthGuard

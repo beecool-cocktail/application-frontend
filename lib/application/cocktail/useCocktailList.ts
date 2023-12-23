@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer'
 import produce from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { last } from 'ramda'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import { CocktailPostItem, collectCocktailItem } from 'lib/domain/cocktail'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import { PhotoWithBlur } from 'lib/domain/photo'
@@ -17,10 +16,11 @@ import { Page } from 'lib/domain/pagination'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useErrorHandler from '../useErrorHandler'
+import useAuth from '../useAuth'
 
 const useCocktailList = (pageSize: number, useSearch = false) => {
   const [fetchId, setFetchId] = useState(() => uuidv4())
-  const storage = useLocalStorage()
+  const { token } = useAuth()
   const keyword = useStore(state => state.searchBarInput)
   const debouncedKeyword = useDebounce(keyword, 500)
   const loginDialog = useLoginDialog()
@@ -35,7 +35,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
         index + 1,
         PAGE_SIZE,
         useSearch ? debouncedKeyword : '',
-        storage.getToken(),
+        token,
         useSearch,
         fetchId
       ]
@@ -107,7 +107,6 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
   }
 
   const collect = async (id: number, isCollected: boolean) => {
-    const token = storage.getToken()
     if (!token || !pageData) return loginDialog.setOpen(true)
 
     const optimisticData = pageData.map(page => ({

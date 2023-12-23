@@ -2,18 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import throttle from 'lodash.throttle'
 import routes, { Route, pathname } from 'lib/configs/routes'
 import useCornerRouter from 'lib/application/useCornerRouter'
+import useCurrentUser from 'lib/application/user/useCurrentUser'
 import useLoginDialog from 'lib/application/ui/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
-import useCurrentUser from 'lib/application/user/useCurrentUser'
+import useAuth from '../useAuth'
 
 const useTabBar = () => {
   const [isVisible, setVisible] = useState(true)
   const lastScrollTop = useRef(0)
   const loginDialog = useLoginDialog()
+  const { token } = useAuth()
   const { user } = useCurrentUser()
-  const router = useCornerRouter({
-    onError: () => loginDialog.setOpen(true)
-  })
+  const router = useCornerRouter()
   const currentRouterRef = useRef<Route | undefined>()
 
   useEffect(() => {
@@ -22,7 +22,19 @@ const useTabBar = () => {
     else setVisible(false)
   }, [router.pathname])
 
-  let tabBarRoutes = routes.filter(r => r.tabBarIcon != null)
+  let tabBarRoutes = routes
+    .filter(r => r.tabBarIcon != null)
+    .map(r => ({
+      ...r,
+      isActive: router.pathname === r.path,
+      onClick: () => {
+        if (r.requireAuth && !token) {
+          loginDialog.setOpen(true)
+          return
+        }
+        router.push(r.path)
+      }
+    }))
 
   if (user) {
     tabBarRoutes = tabBarRoutes.map(r => {
@@ -54,7 +66,7 @@ const useTabBar = () => {
     }
   }, [])
 
-  return { router, routes: tabBarRoutes, isVisible }
+  return { routes: tabBarRoutes, isVisible }
 }
 
 export default useTabBar

@@ -4,10 +4,10 @@ import { rest } from 'msw'
 import { Stack } from '@mui/material'
 import TabBar from 'components/layout/tabBar'
 import { pathname } from 'lib/configs/routes'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import useOnce from 'lib/hooks/useOnce'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import loggedInDecorator from 'stories/decorators/loggedInDecorator'
+import useToken from 'lib/application/useToken'
 
 export default {
   title: 'layout/Tab Bar',
@@ -55,8 +55,8 @@ Home.parameters = {
 
 Home.decorators = [
   story => {
-    const storage = useLocalStorage()
-    useOnce(() => storage.removeToken())
+    const tokenService = useToken()
+    useOnce(() => tokenService.removeToken())
     return story()
   }
 ]

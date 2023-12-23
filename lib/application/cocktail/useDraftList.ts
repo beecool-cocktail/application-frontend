@@ -4,19 +4,19 @@ import useSWR from 'swr'
 import { join } from 'lib/helper/url'
 import { FALLBACK_URL } from 'lib/constants/image'
 import draftService from 'lib/services/draftAdapter'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
 import useErrorHandler from '../useErrorHandler'
+import useAuth from '../useAuth'
 
 const FETCH_KEY = 'DRAFTS'
 
 const useDraftList = () => {
   const { handleError } = useErrorHandler()
-  const storage = useLocalStorage()
+  const { token } = useAuth()
   const { config, loading: configLoading } = useConfig()
   const { data, error, mutate } = useSWR(
-    () => [storage.getToken(), FETCH_KEY],
+    () => [token, FETCH_KEY],
     draftService.getList
   )
   const [selectedIds, setSelectedIds] = useState<number[]>([])
@@ -44,7 +44,6 @@ const useDraftList = () => {
   }
 
   const deleteSelected = async () => {
-    const token = storage.getToken()
     if (token) {
       try {
         await draftService.deleteByIds(selectedIds, token)

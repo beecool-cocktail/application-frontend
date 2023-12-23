@@ -20,6 +20,7 @@ import DonateIcon from 'lib/assets/donateOutlined.svg'
 import LogoutIcon from 'lib/assets/logOutOutlined.svg'
 import GoogleIcon from 'lib/assets/googleLogo.svg'
 import BackButton from 'components/common/button/backButton'
+import AuthGuard from 'components/app/authGuard'
 
 const Settings = () => {
   const websiteTitle = '設定 - Corner'
@@ -132,4 +133,12 @@ const Settings = () => {
   )
 }
 
-export default Settings
+const SettingsWithAuthGuard = () => {
+  return (
+    <AuthGuard>
+      <Settings />
+    </AuthGuard>
+  )
+}
+
+export default SettingsWithAuthGuard

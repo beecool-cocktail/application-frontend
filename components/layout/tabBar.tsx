@@ -3,7 +3,7 @@ import useTabBar from 'lib/application/ui/useTabBar'
 import AnimationToggleIcon from '../common/animationToggleIcon'
 
 export const TabBar = () => {
-  const { router, routes, isVisible } = useTabBar()
+  const { routes, isVisible } = useTabBar()
 
   return (
     <Stack
@@ -30,7 +30,7 @@ export const TabBar = () => {
       {routes.map(route => (
         <Box
           key={route.path}
-          onClick={() => router.push(route.path)}
+          onClick={route.onClick}
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -53,25 +53,24 @@ export const TabBar = () => {
                 fill: theme => theme.palette.light4.main
               }
             },
-            '&::before':
-              router.pathname === route.path
-                ? {
-                    content: '""',
-                    position: 'absolute',
-                    top: '40px',
-                    height: '4px',
-                    width: '4px',
-                    borderRadius: '50%',
-                    backgroundColor: theme => theme.palette.brandWhite.main
-                  }
-                : undefined,
+            '&::before': route.isActive
+              ? {
+                  content: '""',
+                  position: 'absolute',
+                  top: '40px',
+                  height: '4px',
+                  width: '4px',
+                  borderRadius: '50%',
+                  backgroundColor: theme => theme.palette.brandWhite.main
+                }
+              : undefined,
             cursor: 'pointer'
           }}
         >
           {typeof route.tabBarIcon === 'string' ? (
             <AnimationToggleIcon
               artboard={route.tabBarIcon}
-              active={router.pathname === route.path}
+              active={route.isActive}
             />
           ) : (
             route.tabBarIcon

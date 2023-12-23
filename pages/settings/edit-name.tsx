@@ -9,6 +9,7 @@ import Close from 'lib/assets/cancelClose.svg'
 import SubmitButton from 'components/common/button/submitButton'
 import { CJKPattern } from 'lib/helper/string'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
+import AuthGuard from 'components/app/authGuard'
 
 interface UserNameContentProps {
   username: string
@@ -40,7 +41,7 @@ const UserNameContent = ({
   }
 
   return (
-    <>
+    <AuthGuard>
       <Head>
         <title>{websiteTitle}</title>
         <meta name="description" content={websiteTitle} />
@@ -96,7 +97,7 @@ const UserNameContent = ({
           ></Controller>
         </Box>
       </Stack>
-    </>
+    </AuthGuard>
   )
 }
 
@@ -108,4 +109,12 @@ const EditName = () => {
   )
 }
 
-export default EditName
+const EditNameWithAuthGuard = () => {
+  return (
+    <AuthGuard>
+      <EditName />
+    </AuthGuard>
+  )
+}
+
+export default EditNameWithAuthGuard

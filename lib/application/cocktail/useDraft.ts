@@ -1,20 +1,19 @@
 import useSWR from 'swr'
 import draftService from 'lib/services/draftAdapter'
 import { join } from 'lib/helper/url'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import useConfig from '../useConfig'
+import useAuth from '../useAuth'
 
 const FETCH_KEY = 'DRAFT'
 
 const useDraft = (id?: number) => {
-  const storage = useLocalStorage()
+  const auth = useAuth()
   const { config, loading: configLoading } = useConfig()
   const { data, error, isValidating } = useSWR(
     () => {
       if (!id) return null
-      const token = storage.getToken()
-      if (!token) return null
-      return [id, token, FETCH_KEY]
+      if (!auth.token) return null
+      return [id, auth.token, FETCH_KEY]
     },
     draftService.getById,
     { revalidateOnFocus: false }

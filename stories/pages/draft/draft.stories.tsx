@@ -3,6 +3,7 @@ import { rest } from 'msw'
 import { GetDraftCocktailListResponse, DraftCocktailList } from 'sdk'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import Draft from 'pages/profile/drafts/index'
+import loggedInDecorator from 'stories/decorators/loggedInDecorator'
 
 export default {
   title: 'Pages/Draft',
@@ -51,6 +52,7 @@ Default.parameters = {
     ]
   }
 }
+Default.decorators = [loggedInDecorator]
 
 export const Skeleton = Template.bind({})
 Skeleton.parameters = {
@@ -63,6 +65,7 @@ Skeleton.parameters = {
     ]
   }
 }
+Skeleton.decorators = [loggedInDecorator]
 
 export const NoDraft = Template.bind({})
 NoDraft.parameters = {
@@ -79,3 +82,4 @@ NoDraft.parameters = {
     ]
   }
 }
+NoDraft.decorators = [loggedInDecorator]

@@ -1,7 +1,6 @@
 import produce from 'immer'
 import useSWR, { MutatorOptions } from 'swr'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
-import useLocalStorage from 'lib/services/localStorageAdapter'
 import { FALLBACK_URL } from 'lib/constants/image'
 import { CocktailPost, collectCocktail } from 'lib/domain/cocktail'
 import cocktailService from 'lib/services/cocktailAdapter'
@@ -12,12 +11,13 @@ import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
 import useErrorHandler from '../useErrorHandler'
+import useAuth from '../useAuth'
 
 const FETCH_KEY = 'COCKTAIL'
 
 const useCocktail = (id?: number) => {
   const { handleError } = useErrorHandler()
-  const storage = useLocalStorage()
+  const { token } = useAuth()
   const router = useCornerRouter()
   const loginDialog = useLoginDialog()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
@@ -25,7 +25,6 @@ const useCocktail = (id?: number) => {
   const { data, error, mutate } = useSWR(
     () => {
       if (!id) return null
-      const token = storage.getToken()
       return [id, token, FETCH_KEY]
     },
     cocktailService.getById,
@@ -48,8 +47,6 @@ const useCocktail = (id?: number) => {
 
   const collect = async () => {
     if (!id) return
-
-    const token = storage.getToken()
     if (!token) return loginDialog.setOpen(true)
 
     const mutateOpts: MutatorOptions<CocktailPost> = {
