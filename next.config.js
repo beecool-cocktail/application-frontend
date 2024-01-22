@@ -31,7 +31,7 @@ const config = {
       },
       {
         protocol: 'https',
-        hostname: 'whisperingcorner2.zapto.org'
+        hostname: 'whispering.serveblog.net'
       }
     ]
   },
