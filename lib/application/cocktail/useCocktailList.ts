@@ -107,7 +107,11 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
   }
 
   const collect = async (id: number, isCollected: boolean) => {
-    if (!token || !pageData) return loginDialog.setOpen(true)
+    if (!token || !pageData)
+      return loginDialog.open({
+        collectAfterLogin: true,
+        redirectPath: `/cocktails/${id}`
+      })
 
     const optimisticData = pageData.map(page => ({
       total: page.total,

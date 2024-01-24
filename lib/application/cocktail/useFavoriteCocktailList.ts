@@ -68,7 +68,10 @@ const useFavoriteCocktailList = (userId?: number) => {
 
   const collectCocktail = async (cocktail: ProfileCocktailItem) => {
     if (!token) {
-      loginDialog.setOpen(true)
+      loginDialog.open({
+        collectAfterLogin: true,
+        redirectPath: `/cocktails/${cocktail.id}`
+      })
       return
     }
 

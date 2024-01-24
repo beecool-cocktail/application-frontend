@@ -1,20 +1,16 @@
-import useAuth from 'lib/application/useAuth'
 import useLoginDialog from 'lib/application/ui/useLoginDialog'
 import dialogMessages from 'lib/constants/dialogMessages'
 import BaseDialog from './baseDialog'
 
 const LoginDialog = () => {
-  const { open, setOpen } = useLoginDialog()
-  const { askUserPermission } = useAuth()
-
-  const handleClose = () => setOpen(false)
+  const { isOpen, close, confirm } = useLoginDialog()
 
   return (
     <BaseDialog
-      open={open}
+      open={isOpen}
       primaryButton="confirm"
-      onCancel={handleClose}
-      onConfirm={askUserPermission}
+      onCancel={close}
+      onConfirm={confirm}
       {...dialogMessages.login}
     />
   )

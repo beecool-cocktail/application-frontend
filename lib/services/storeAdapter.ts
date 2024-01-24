@@ -2,14 +2,17 @@ import create from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { noop } from 'ramda-adjunct'
 import { AlertColor } from '@mui/material'
+import { LoginState } from 'lib/domain/auth'
 
 type ConfirmDialogPrimaryButton = 'confirm' | 'cancel'
 
 export interface CornerState {
   history: string[]
   loading: boolean
+  collectAfterLogin: boolean
   searchBarInput: string
   loginDialogOpen: boolean
+  loginDialogLoginState: LoginState | null
   confirmDialogOpen: boolean
   confirmDialogTitle: string
   confirmDialogContent: string
@@ -30,8 +33,10 @@ export interface CornerState {
 export const initialState: CornerState = {
   history: [],
   loading: false,
+  collectAfterLogin: false,
   searchBarInput: '',
   loginDialogOpen: false,
+  loginDialogLoginState: null,
   confirmDialogOpen: false,
   confirmDialogTitle: '',
   confirmDialogContent: '',
@@ -51,9 +56,10 @@ export const initialState: CornerState = {
 export interface CornerStore extends CornerState {
   setHistory: (v: string[]) => void
   setLoading: (v: boolean) => void
-
   setSearchBarInput: (v: string) => void
-  setLoginDialogOpen: (v: boolean) => void
+  setCollectAfterLogin: (v: boolean) => void
+  openLoginDialog: (v?: LoginState) => void
+  closeLoginDialog: () => void
   openConfirmDialog: (v: {
     title: string
     content: string
@@ -82,8 +88,14 @@ const useStore = create<CornerStore>(
     ...initialState,
     setHistory: value => set({ history: value }),
     setLoading: value => set({ loading: value }),
+    setCollectAfterLogin: value => set({ collectAfterLogin: value }),
     setSearchBarInput: value => set({ searchBarInput: value }),
-    setLoginDialogOpen: value => set({ loginDialogOpen: value }),
+    openLoginDialog: value =>
+      set({
+        loginDialogOpen: true,
+        loginDialogLoginState: value ?? null
+      }),
+    closeLoginDialog: () => set({ loginDialogOpen: false }),
     openConfirmDialog: ({
       title,
       content,

@@ -1,3 +1,4 @@
+import { LoginResult, LoginState } from 'lib/domain/auth'
 import {
   CocktailListPage,
   CocktailPost,
@@ -22,9 +23,9 @@ export interface LocalStorageService {
 }
 
 export interface AuthService {
-  login(code: string): Promise<string | undefined>
+  login(code: string, state: string): Promise<LoginResult>
   logout(userId: number): Promise<void>
-  askUserPermission(): void
+  askUserPermission(state: LoginState): void
 }
 
 export interface UserService {

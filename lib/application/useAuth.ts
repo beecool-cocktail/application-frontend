@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import dialogMessages from 'lib/constants/dialogMessages'
+import useStore from 'lib/services/storeAdapter'
+import { LoginState } from 'lib/domain/auth'
 import useAuthService from '../services/authAdapter'
 import { pathname, paths } from '../configs/routes'
 import useSnackbar from './ui/useSnackbar'
@@ -15,18 +17,30 @@ const useAuth = () => {
   const confirmDialog = useConfirmDialog()
   const authService = useAuthService()
   const { setLoading } = useWholePageSpinner()
+  const store = useStore(state => ({
+    setCollectAfterLogin: state.setCollectAfterLogin
+  }))
 
   const isAuthenticated = tokenService.token != null
 
-  const login = async (code: string) => {
+  const askUserPermission = async (loginState?: LoginState) => {
+    return authService.askUserPermission({
+      collectAfterLogin: loginState?.collectAfterLogin || false,
+      redirectPath: loginState?.redirectPath || router.asPath
+    })
+  }
+
+  const login = async (code: string, state: string) => {
     try {
-      if (!code) return
+      if (!code || !state) return
       setLoading(true)
-      const token = await authService.login(code)
+      const { token, redirectPath, collectAfterLogin } =
+        await authService.login(code, state)
       if (!token) return snackbar.error(snackbarMessages.login.error)
 
       tokenService.setToken(token)
-      router.push(pathname.index)
+      router.push(redirectPath || pathname.index)
+      if (collectAfterLogin) store.setCollectAfterLogin(collectAfterLogin)
     } catch (err) {
       snackbar.error(snackbarMessages.login.error)
       console.error(err)
@@ -67,7 +81,7 @@ const useAuth = () => {
     logout,
     login,
     handleTokenExpired,
-    askUserPermission: authService.askUserPermission
+    askUserPermission
   }
 }
 

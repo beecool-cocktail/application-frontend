@@ -7,6 +7,7 @@ import cocktailService from 'lib/services/cocktailAdapter'
 import useUser from 'lib/application/user/useUser'
 import { paths } from 'lib/configs/routes'
 import snackbarMessages from 'lib/constants/snackbarMessages'
+import useStore from 'lib/services/storeAdapter'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
@@ -16,6 +17,10 @@ import useAuth from '../useAuth'
 const FETCH_KEY = 'COCKTAIL'
 
 const useCocktail = (id?: number) => {
+  const store = useStore(state => ({
+    collectAfterLogin: state.collectAfterLogin,
+    setCollectAfterLogin: state.setCollectAfterLogin
+  }))
   const { handleError } = useErrorHandler()
   const { token } = useAuth()
   const router = useCornerRouter()
@@ -31,23 +36,13 @@ const useCocktail = (id?: number) => {
     { revalidateOnFocus: false }
   )
 
-  let cocktail = data
-  if (cocktail && config) {
-    cocktail = produce(cocktail, draft => {
-      draft.photos = draft.photos.map(p => ({
-        ...p,
-        path: toAbsolutePath(p.path)
-      }))
-      if (draft.userPhoto) draft.userPhoto = toAbsolutePath(draft.userPhoto)
-      else draft.userPhoto = FALLBACK_URL
-    })
-  } else {
-    cocktail = undefined
-  }
-
   const collect = async () => {
     if (!id) return
-    if (!token) return loginDialog.setOpen(true)
+    if (!token)
+      return loginDialog.open({
+        collectAfterLogin: true,
+        redirectPath: router.asPath
+      })
 
     const mutateOpts: MutatorOptions<CocktailPost> = {
       rollbackOnError: true,
@@ -78,6 +73,24 @@ const useCocktail = (id?: number) => {
   const handleEdit = () => {
     if (!cocktail) return
     router.push(paths.editPost(cocktail.id))
+  }
+
+  let cocktail = data
+  if (cocktail && config) {
+    if (store.collectAfterLogin) {
+      store.setCollectAfterLogin(false)
+      collect()
+    }
+    cocktail = produce(cocktail, draft => {
+      draft.photos = draft.photos.map(p => ({
+        ...p,
+        path: toAbsolutePath(p.path)
+      }))
+      if (draft.userPhoto) draft.userPhoto = toAbsolutePath(draft.userPhoto)
+      else draft.userPhoto = FALLBACK_URL
+    })
+  } else {
+    cocktail = undefined
   }
 
   return {
