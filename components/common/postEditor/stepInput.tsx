@@ -1,35 +1,54 @@
 import React from 'react'
 import { Stack } from '@mui/material'
 import { Controller, Control } from 'react-hook-form'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
 import Input from 'components/common/input/input'
 import { CocktailPostForm } from 'lib/domain/cocktail'
 import IconButton from '../button/iconButton'
 
 interface StepInputProps {
+  id: string
   name: `steps.${number}.description`
   control: Control<CocktailPostForm>
-  bind: React.DOMAttributes<HTMLElement>
   removeDisabled?: boolean
   required: boolean
   onRemove(): void
 }
 
 const StepInput = ({
+  id,
   name,
   control,
-  bind,
   removeDisabled = false,
   required,
   onRemove
 }: StepInputProps) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
+
   return (
     <Stack
+      ref={setNodeRef}
+      style={style}
       spacing={1}
       direction="row"
       alignItems="center"
-      {...bind}
-      style={{ touchAction: 'none' }}
+      {...attributes}
+      {...listeners}
+      sx={{ opacity: isDragging ? 0.4 : 1 }}
     >
       <IconButton disabled={removeDisabled} onClick={onRemove}>
         <DeleteIcon />

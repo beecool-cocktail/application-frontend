@@ -1,77 +1,59 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
-import { useSprings, animated, config } from 'react-spring'
-import { useDrag } from '@use-gesture/react'
-import { clamp } from 'ramda'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import swap from 'lodash-move'
+import {
+  DndContext,
+  closestCenter,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent
+} from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Control, useFieldArray, useWatch } from 'react-hook-form'
 import { CocktailPostForm } from 'lib/domain/cocktail'
 import IconButton from '../button/iconButton'
 import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import StepInput from './stepInput'
 
-const HEIGHT = 50
-
-const fn =
-  (order: number[], active = false, originalIndex = 0, curIndex = 0, y = 0) =>
-  (index: number) =>
-    active && index === originalIndex
-      ? {
-          y: curIndex * HEIGHT + y + curIndex * 6,
-          scale: 1.005,
-          zIndex: 1,
-          shadow: 15,
-          immediate: (key: string) => key === 'zIndex',
-          config: (key: string) => (key === 'y' ? config.stiff : config.default)
-        }
-      : {
-          y: order.indexOf(index) * HEIGHT + order.indexOf(index) * 6,
-          scale: 1,
-          zIndex: 0,
-          shadow: 1,
-          immediate: false
-        }
-
 interface StepListProps {
   control: Control<CocktailPostForm>
 }
 
 const StepList = ({ control }: StepListProps) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, move, remove } = useFieldArray({
     name: 'steps',
     control
   })
   const steps = useWatch({ control, name: 'steps' })
-  const order = useRef(fields.map((_, index) => index))
-  const [springs, api] = useSprings(fields.length, fn(order.current))
-  const bind = useDrag(({ args: [originalIndex], active, movement: [, y] }) => {
-    const curIndex = order.current.indexOf(originalIndex)
-    const curRow = clamp(
-      0,
-      Math.max(0, Math.round((curIndex * HEIGHT + y) / HEIGHT)),
-      fields.length - 1
-    )
-    const newOrder = swap(order.current, curIndex, curRow)
-    api.start(fn(newOrder, active, originalIndex, curIndex, y)) // Feed springs new style data, they'll animate the view without causing a single render
-    if (!active) order.current = newOrder
-  })
-
   const required = steps.every(step => step.description.length === 0)
 
-  const handleAdd = () => {
-    append({ description: '' })
-    const newOrder = [...order.current, fields.length]
-    order.current = newOrder
-  }
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const activeIndex = fields.findIndex(f => f.id === activeId)
+  const sensors = useSensors(
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 150, tolerance: 5 }
+    }),
+    useSensor(MouseSensor, {
+      activationConstraint: { delay: 150, tolerance: 5 }
+    })
+  )
 
-  const handleRemove = (index: number) => () => {
-    const newOrder = order.current.slice()
-    newOrder.splice(index, 1)
-    for (let i = index; i < newOrder.length; i++) newOrder[i]--
-    order.current = newOrder
-    remove(index)
+  const handleAdd = () => append({ description: '' })
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event
+    setActiveId(active.id as string)
+  }
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (active && over && active.id !== over.id) {
+      const oldIndex = fields.findIndex(f => f.id === active.id)
+      const newIndex = fields.findIndex(f => f.id === over.id)
+      move(oldIndex, newIndex)
+      setActiveId(null)
+    }
   }
 
   return (
@@ -82,38 +64,43 @@ const StepList = ({ control }: StepListProps) => {
           長按拖曳可調整順序
         </Typography>
       </Stack>
-      <Box
-        width={1}
-        height={fields.length * HEIGHT + (fields.length - 1) * 6}
-        position="relative"
-        mt="4px"
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
       >
-        {springs.map(({ zIndex, shadow, y, scale }, index) => (
-          <animated.div
-            key={index}
-            style={{
-              position: 'absolute',
-              width: '100%',
-              zIndex,
-              boxShadow: shadow.to(
-                s => `rgba(0, 0, 0, 0.15) 0px ${s}px ${2 * s}px 0px`
-              ),
-              y,
-              scale,
-              height: HEIGHT
-            }}
-          >
-            <StepInput
-              name={`steps.${index}.description`}
-              control={control}
-              bind={bind(index)}
-              removeDisabled={fields.length <= 1}
-              required={required}
-              onRemove={handleRemove(index)}
-            />
-          </animated.div>
-        ))}
-      </Box>
+        <SortableContext items={fields} strategy={verticalListSortingStrategy}>
+          <Stack width={1} spacing="6px" position="relative" mt="4px">
+            {fields.map((field, index) => (
+              <StepInput
+                key={field.id}
+                id={field.id}
+                name={`steps.${index}.description`}
+                control={control}
+                removeDisabled={fields.length <= 1}
+                required={required}
+                onRemove={() => remove(index)}
+              />
+            ))}
+          </Stack>
+          <DragOverlay>
+            {activeIndex != -1 && activeId ? (
+              <Box sx={{ transform: 'scale(1.015)' }}>
+                <StepInput
+                  key={activeId}
+                  id={activeId}
+                  name={`steps.${activeIndex}.description`}
+                  control={control}
+                  removeDisabled={fields.length <= 1}
+                  required={required}
+                  onRemove={() => remove(activeIndex)}
+                />
+              </Box>
+            ) : null}
+          </DragOverlay>
+        </SortableContext>
+      </DndContext>
       <Box display="flex" justifyContent="center" mt="12px">
         <IconButton onClick={handleAdd}>
           <AddIcon />
