@@ -3,8 +3,8 @@ import { Stack } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import Input from 'components/common/input/input'
 import { CocktailPostForm } from 'lib/domain/cocktail'
-import IngredientList from '../ingredientList'
-import StepList from '../stepList'
+import IngredientList from '../ingredientList2'
+import StepList from '../stepList2'
 
 interface PostCreateStep1Props {
   control: Control<CocktailPostForm>

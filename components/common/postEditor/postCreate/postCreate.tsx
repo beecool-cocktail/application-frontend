@@ -5,7 +5,7 @@ import {
   CocktailPostForm,
   CocktailPostPreview
 } from 'lib/domain/cocktail'
-import userCurrentUser from 'lib/application/user/useCurrentUser'
+// import userCurrentUser from 'lib/application/user/useCurrentUser'
 import usePostCreate from 'lib/application/cocktail/usePostCreate'
 import BottomButton from 'components/common/button/bottomButton'
 import PostCreateStep1 from '../postCreate/postCreateStep1'
@@ -19,7 +19,7 @@ interface PostCreateProps {
 }
 
 const PostCreate = ({ cocktailDraft }: PostCreateProps) => {
-  const { user } = userCurrentUser()
+  // const { user } = userCurrentUser()
   const {
     getValues,
     isDraftValid,
@@ -35,7 +35,7 @@ const PostCreate = ({ cocktailDraft }: PostCreateProps) => {
     handleImageEdit,
     handleImageDelete
   } = usePostCreate(cocktailDraft)
-  if (!user) return null
+  // if (!user) return null
 
   return (
     <Stack position="relative" alignItems="stretch" minHeight={1}>

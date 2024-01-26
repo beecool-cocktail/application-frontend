@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import PostCreate from 'components/common/postEditor/postCreate/postCreate'
-import AuthGuard from 'components/app/authGuard'
+// import AuthGuard from 'components/app/authGuard'
 
 const CreatePost = () => {
   const websiteTitle = '新增酒譜 - Corner'
@@ -18,11 +18,12 @@ const CreatePost = () => {
 }
 
 const CreatePostWithAuthGuard = () => {
-  return (
-    <AuthGuard>
-      <CreatePost />
-    </AuthGuard>
-  )
+  return <CreatePost />
+  // return (
+  //   <AuthGuard>
+  //     <CreatePost />
+  //   </AuthGuard>
+  // )
 }
 
 export default CreatePostWithAuthGuard

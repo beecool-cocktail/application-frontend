@@ -130,6 +130,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
         await favoriteCocktailService.remove(id, token)
       } else {
         snackbarMessage = snackbarMessages.collectFavorite
+
         await favoriteCocktailService.collect(id, token)
       }
     } catch (error) {
