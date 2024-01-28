@@ -3,8 +3,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { Box, Typography } from '@mui/material'
 import ActionSheet from 'components/common/postEditor/actionSheet'
 import EditIcon from 'lib/assets/editOutlined.svg'
-import ReloadIcon from 'lib/assets/reloadBlueBgOutlined.svg'
-import PictureIcon from 'lib/assets/picture.svg'
+import ReloadIcon from 'lib/assets/reloadBlueBg.svg'
+import PinIcon from 'lib/assets/pictureBlueBg.svg'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
 
 export default {
@@ -56,7 +56,7 @@ OthersSmallOffset.args = {
   actions: [
     { text: '重新上傳', icon: <EditIcon />, onClick: handleClick },
     { text: '編輯照片', icon: <ReloadIcon />, onClick: handleClick },
-    { text: '換成封面', icon: <PictureIcon />, onClick: handleClick },
+    { text: '換成封面', icon: <PinIcon />, onClick: handleClick },
     { text: '刪除照片', icon: <TrashIcon />, onClick: handleClick }
   ]
 }
@@ -67,7 +67,7 @@ OthersNormalOffset.args = {
   actions: [
     { text: '重新上傳', icon: <EditIcon />, onClick: handleClick },
     { text: '編輯照片', icon: <ReloadIcon />, onClick: handleClick },
-    { text: '換成封面', icon: <PictureIcon />, onClick: handleClick },
+    { text: '換成封面', icon: <PinIcon />, onClick: handleClick },
     { text: '刪除照片', icon: <TrashIcon />, onClick: handleClick }
   ]
 }
