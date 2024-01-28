@@ -1,4 +1,4 @@
-import shallow from 'zustand/shallow'
+import { useShallow } from 'zustand/react/shallow'
 import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
 import useStore from 'lib/services/storeAdapter'
 
@@ -13,7 +13,7 @@ const useSnackbar = () => {
     onClick,
     onUndo
   } = useStore(
-    state => ({
+    useShallow(state => ({
       open: state.snackbarOpen,
       duration: state.snackbarDuration,
       severity: state.snackbarSeverity,
@@ -22,8 +22,7 @@ const useSnackbar = () => {
       setState: state.setSnackbarState,
       onClick: state.snackbarOnClick,
       onUndo: state.snackbarOnUndo
-    }),
-    shallow
+    }))
   )
   const close = () => setOpen(false)
 

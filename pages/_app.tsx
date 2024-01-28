@@ -7,7 +7,7 @@ import '@fontsource/noto-sans-tc/400.css'
 import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
 import '@fontsource/montserrat/800.css'
-import shallow from 'zustand/shallow'
+import { useShallow } from 'zustand/react/shallow'
 import SWRConfigWrapper from 'components/app/SWRConfigWrapper'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
@@ -41,10 +41,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
   const router = useCornerRouter()
   const { setHistory } = useStore(
-    state => ({
-      setHistory: state.setHistory
-    }),
-    shallow
+    useShallow(state => ({ setHistory: state.setHistory }))
   )
 
   const initialized = useRef(false)

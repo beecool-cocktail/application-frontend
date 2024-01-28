@@ -1,4 +1,4 @@
-import shallow from 'zustand/shallow'
+import { useShallow } from 'zustand/react/shallow'
 import useStore from 'lib/services/storeAdapter'
 
 const useConfirmDialog = () => {
@@ -15,7 +15,7 @@ const useConfirmDialog = () => {
     open,
     destroy
   } = useStore(
-    state => ({
+    useShallow(state => ({
       isOpen: state.confirmDialogOpen,
       title: state.confirmDialogTitle,
       content: state.confirmDialogContent,
@@ -27,8 +27,7 @@ const useConfirmDialog = () => {
       onCancel: state.confirmDialogOnCancel,
       open: state.openConfirmDialog,
       destroy: state.destroyConfirmDialog
-    }),
-    shallow
+    }))
   )
 
   return {

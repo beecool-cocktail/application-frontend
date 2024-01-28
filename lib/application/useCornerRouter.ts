@@ -1,17 +1,19 @@
 import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
-import shallow from 'zustand/shallow'
+import { useShallow } from 'zustand/react/shallow'
 import routes, { pathname } from 'lib/configs/routes'
 import useStore from 'lib/services/storeAdapter'
 
 const useCornerRouter = () => {
   const router = useRouter()
-  const { history, setHistory } = useStore(state => {
-    return {
-      history: state.history,
-      setHistory: state.setHistory
-    }
-  }, shallow)
+  const { history, setHistory } = useStore(
+    useShallow(state => {
+      return {
+        history: state.history,
+        setHistory: state.setHistory
+      }
+    })
+  )
 
   const push = (url: string | UrlObject) => {
     const route = routes.find(r => {
