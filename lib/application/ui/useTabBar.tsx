@@ -29,7 +29,10 @@ const useTabBar = () => {
       isActive: router.pathname === r.path,
       onClick: () => {
         if (r.requireAuth && !token) {
-          loginDialog.open()
+          loginDialog.open({
+            redirectPath: r.path,
+            collectAfterLogin: false
+          })
 
           return
         }
