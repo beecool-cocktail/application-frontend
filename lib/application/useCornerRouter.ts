@@ -3,9 +3,11 @@ import { useRouter } from 'next/router'
 import { useShallow } from 'zustand/react/shallow'
 import routes, { pathname } from 'lib/configs/routes'
 import useStore from 'lib/services/storeAdapter'
+import useScrollRestoration from './useScrollRestoration'
 
 const useCornerRouter = () => {
   const router = useRouter()
+  useScrollRestoration(router)
   const { history, setHistory } = useStore(
     useShallow(state => {
       return {
