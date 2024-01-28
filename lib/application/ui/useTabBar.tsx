@@ -26,7 +26,13 @@ const useTabBar = () => {
     .filter(r => r.tabBarIcon != null)
     .map(r => ({
       ...r,
-      isActive: router.pathname === r.path,
+      isActive: (() => {
+        const profilePaths = [pathname.profile, pathname.collections]
+        if (profilePaths.includes(r.path))
+          return profilePaths.includes(router.pathname)
+
+        return router.pathname === r.path
+      })(),
       onClick: () => {
         if (r.requireAuth && !token) {
           loginDialog.open({
