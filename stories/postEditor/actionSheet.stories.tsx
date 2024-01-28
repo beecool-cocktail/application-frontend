@@ -6,6 +6,7 @@ import EditIcon from 'lib/assets/editOutlined.svg'
 import ReloadIcon from 'lib/assets/reloadBlueBg.svg'
 import PinIcon from 'lib/assets/pictureBlueBg.svg'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
+import theme from 'lib/configs/theme'
 
 export default {
   title: 'PostCreate/Action Sheet',
@@ -28,7 +29,7 @@ const Template: ComponentStory<typeof ActionSheet> = args => {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      sx={{ bgcolor: '#141414' }}
+      sx={{ bgcolor: theme.palette.background.default }}
     >
       <ActionSheet {...args} />
       <Typography>Hello</Typography>

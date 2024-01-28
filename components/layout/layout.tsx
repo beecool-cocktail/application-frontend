@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import { Box, Stack } from '@mui/material'
 import SearchBar from 'components/common/input/searchBar'
 import SmallLogoIcon from 'lib/assets/bottomLine.svg'
+import { isMobile } from 'lib/helper/ua'
 import LogoHeader from './logoHeader'
 
 type LayoutProps = {
@@ -37,7 +38,7 @@ const Layout = ({
               columnGap="8px"
             >
               <SmallLogoIcon width={25} height={25} />
-              <SearchBar placeholder="找調酒..." autoFocus />
+              <SearchBar placeholder="找調酒..." autoFocus={!isMobile} />
             </Stack>
           )}
         </Box>

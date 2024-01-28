@@ -142,8 +142,8 @@ const RawInput = (props: InputProps) => {
           formControl?.error
             ? theme.palette.red.main
             : formControl?.focused
-            ? theme.palette.light2.main
-            : theme.palette.light4.main
+              ? theme.palette.light2.main
+              : theme.palette.light4.main
       }}
     >
       {`${letterCount}/${maxLength}`}
