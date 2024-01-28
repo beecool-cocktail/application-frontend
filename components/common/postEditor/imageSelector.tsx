@@ -5,8 +5,8 @@ import CameraPlusIcon from 'lib/assets/cameraPlus.svg'
 import { CropResult, EditablePhoto } from 'lib/domain/photo'
 import { toBase64Photos } from 'lib/helper/image'
 import EditIcon from 'lib/assets/editOutlined.svg'
-import ReloadIcon from 'lib/assets/reloadBlueBgOutlined.svg'
-import PictureIcon from 'lib/assets/picture.svg'
+import ReloadIcon from 'lib/assets/reloadBlueBg.svg'
+import PinIcon from 'lib/assets/pictureBlueBg.svg'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
 import CocktailImageEditor from '../imageEditor/cocktailImageEditor'
 import ActionSheet, { ActionButtonProps } from './actionSheet'
@@ -63,7 +63,7 @@ const ImageSelector = ({
     },
     !isCover && {
       text: '換成封面',
-      icon: <PictureIcon />,
+      icon: <PinIcon />,
       onClick: handleToCoverImage
     },
     {
