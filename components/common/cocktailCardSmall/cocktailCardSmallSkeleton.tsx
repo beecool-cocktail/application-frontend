@@ -1,4 +1,5 @@
 import { Skeleton } from '@mui/material'
+import { COCKTAIL_CARD_SMALL_RATIO } from 'lib/constants/layout'
 
 const CocktailCardSmallSkeleton = () => {
   return (
@@ -6,7 +7,7 @@ const CocktailCardSmallSkeleton = () => {
       variant="rectangular"
       height="unset"
       width="100%"
-      sx={{ borderRadius: '6px', aspectRatio: '176/171' }}
+      sx={{ borderRadius: '6px', aspectRatio: COCKTAIL_CARD_SMALL_RATIO }}
     />
   )
 }

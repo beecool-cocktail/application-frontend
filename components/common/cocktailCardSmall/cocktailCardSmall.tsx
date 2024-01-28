@@ -5,7 +5,7 @@ import { ProfileCocktailItem } from 'lib/domain/cocktail'
 import MoreIcon from 'lib/assets/more.svg'
 import CloseIcon from 'lib/assets/cancelClose.svg'
 import IconButton from '../button/iconButton'
-import ActionButton from '../myCocktailList/actionButton'
+import ActionButton from './actionButton'
 
 interface CardAction {
   text: string

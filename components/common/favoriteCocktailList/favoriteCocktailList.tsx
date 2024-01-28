@@ -1,25 +1,15 @@
-import { Box, Grid, GridProps } from '@mui/material'
+import { Box } from '@mui/material'
 import useFavoriteCocktailList from 'lib/application/cocktail/useFavoriteCocktailList'
 import noWayDeerIllustration from 'public/illustrations/meme_nowayDeer.png'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'
-import CocktailCardSmallSkeleton from '../cocktailCardSmall/cocktailCardSmallSkeleton'
 import IllustrationWithText from '../image/illustrationWithText'
+import CocktailCardSmallContainerSkeleton from '../cocktailCardSmall/cocktailCardSmallContainerSkeleton'
+import CardGridContainer from '../cocktailCardSmall/cocktailCardSmallContainer'
 
 export interface FavoriteCocktailCardListProps {
   userId?: number
 }
-
-const CardGridContainer = (props: GridProps) => (
-  <Grid
-    {...props}
-    container
-    alignItems="flex-start"
-    rowSpacing="8px"
-    columnSpacing="8px"
-    sx={{ p: '8px' }}
-  />
-)
 
 const FavoriteCocktailCardList = ({
   userId
@@ -32,18 +22,8 @@ const FavoriteCocktailCardList = ({
     getCardActions
   } = useFavoriteCocktailList(userId)
 
-  const renderSkeletonList = () => (
-    <CardGridContainer>
-      {Array.from(new Array(6)).map((_item, index) => (
-        <Grid item xs={6} key={index} sx={{ aspectRatio: '176/171' }}>
-          <CocktailCardSmallSkeleton />
-        </Grid>
-      ))}
-    </CardGridContainer>
-  )
-
   if (error) return <Error />
-  if (!list || loading) return renderSkeletonList()
+  if (!list || loading) return <CocktailCardSmallContainerSkeleton />
   if (!list.isPublic && userId) {
     return (
       <Box mt="40px" px="40px" alignItems="center" justifyContent="center">
@@ -67,13 +47,13 @@ const FavoriteCocktailCardList = ({
   return (
     <CardGridContainer>
       {list.data.map(cocktail => (
-        <Grid item xs={6} key={cocktail.id} sx={{ aspectRatio: '176/171' }}>
+        <CardGridContainer.Item key={cocktail.id}>
           <CocktailCardSmall
             cocktail={cocktail}
             actions={getCardActions(cocktail.collected)}
             onClick={gotoCocktailPage}
           />
-        </Grid>
+        </CardGridContainer.Item>
       ))}
     </CardGridContainer>
   )
