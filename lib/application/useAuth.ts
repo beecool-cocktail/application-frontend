@@ -1,4 +1,6 @@
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import dialogMessages from 'lib/constants/dialogMessages'
 import useStore from 'lib/services/storeAdapter'
@@ -11,15 +13,22 @@ import useConfirmDialog from './ui/useConfirmDialog'
 import useWholePageSpinner from './ui/useWholePageSpinner'
 
 const useAuth = () => {
+  const [isTokenReady, setTokenReady] = useState(false)
   const router = useRouter()
-  const tokenStore = useTokenStore()
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
   const authService = useAuthService()
   const { setLoading } = useWholePageSpinner()
-  const store = useStore(state => ({
-    setCollectAfterLogin: state.setCollectAfterLogin
-  }))
+  const store = useStore(
+    useShallow(state => ({
+      setCollectAfterLogin: state.setCollectAfterLogin
+    }))
+  )
+
+  const tokenStore = useTokenStore()
+  useEffect(() => {
+    setTokenReady(true)
+  }, [tokenStore.token])
 
   const isAuthenticated = tokenStore.token != null
 
@@ -76,7 +85,7 @@ const useAuth = () => {
 
   return {
     isAuthenticated,
-    isTokenReady: true,
+    isTokenReady,
     token: tokenStore.token,
     logout,
     login,
