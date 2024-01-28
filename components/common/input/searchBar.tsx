@@ -22,7 +22,6 @@ const SearchBar = (props: SearchBarProps) => {
       value={input}
       onChange={setInput}
       startAdornment={<Search />}
-      inputProps={{ enterKeyHint: 'search' }}
       endAdornment={
         input ? (
           <Box sx={{ cursor: 'pointer' }} onClick={handleCancel}>
