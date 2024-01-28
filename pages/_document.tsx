@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import theme from 'lib/configs/theme'
 
 export default function Document() {
   return (
@@ -27,7 +28,7 @@ export default function Document() {
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content={theme.palette.background.default} />
       </Head>
       <body>
         <Main />
