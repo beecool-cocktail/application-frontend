@@ -14,7 +14,7 @@ const NProgress = () => {
       styles={{
         '& #nprogress .track': {
           position: 'fixed',
-          zIndex: 1031,
+          zIndex: theme.zIndex.tooltip,
           top: 0,
           left: 0,
           width: '100%',
