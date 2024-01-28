@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { noop } from 'ramda-adjunct'
 import { AlertColor } from '@mui/material'
@@ -83,7 +83,7 @@ export interface CornerStore extends CornerState {
   toInitialState: (mergeState?: Partial<CornerState>) => void
 }
 
-const useStore = create<CornerStore>(
+const useStore = create<CornerStore>()(
   devtools(set => ({
     ...initialState,
     setHistory: value => set({ history: value }),

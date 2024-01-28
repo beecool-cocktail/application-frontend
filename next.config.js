@@ -32,6 +32,10 @@ const config = {
       {
         protocol: 'https',
         hostname: 'whispering.serveblog.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'application-frontend-mhkzpmkvca-de.a.run.app'
       }
     ]
   },

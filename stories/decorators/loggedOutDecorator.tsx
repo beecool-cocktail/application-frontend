@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { DecoratorFn } from '@storybook/react'
-import useToken from 'lib/application/useToken'
 import useOnce from 'lib/hooks/useOnce'
+import useTokenStore from 'lib/services/useTokenStore'
 
 const loggedOutDecorator: DecoratorFn = story => {
-  const tokenService = useToken()
+  const tokenService = useTokenStore()
   useOnce(() => tokenService.removeToken())
   return story()
 }

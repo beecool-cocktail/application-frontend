@@ -77,9 +77,9 @@ const useCocktail = (id?: number) => {
 
   let cocktail = data
   if (cocktail && config) {
-    if (store.collectAfterLogin) {
+    if (token && store.collectAfterLogin) {
       store.setCollectAfterLogin(false)
-      collect()
+      if (!cocktail.isCollected) collect()
     }
     cocktail = produce(cocktail, draft => {
       draft.photos = draft.photos.map(p => ({

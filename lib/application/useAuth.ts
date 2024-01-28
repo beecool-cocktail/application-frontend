@@ -5,14 +5,14 @@ import useStore from 'lib/services/storeAdapter'
 import { LoginState } from 'lib/domain/auth'
 import useAuthService from '../services/authAdapter'
 import { pathname, paths } from '../configs/routes'
+import useTokenStore from '../services/useTokenStore'
 import useSnackbar from './ui/useSnackbar'
 import useConfirmDialog from './ui/useConfirmDialog'
 import useWholePageSpinner from './ui/useWholePageSpinner'
-import useToken from './useToken'
 
 const useAuth = () => {
   const router = useRouter()
-  const tokenService = useToken()
+  const tokenStore = useTokenStore()
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
   const authService = useAuthService()
@@ -21,7 +21,7 @@ const useAuth = () => {
     setCollectAfterLogin: state.setCollectAfterLogin
   }))
 
-  const isAuthenticated = tokenService.token != null
+  const isAuthenticated = tokenStore.token != null
 
   const askUserPermission = async (loginState?: LoginState) => {
     return authService.askUserPermission({
@@ -38,7 +38,7 @@ const useAuth = () => {
         await authService.login(code, state)
       if (!token) return snackbar.error(snackbarMessages.login.error)
 
-      tokenService.setToken(token)
+      tokenStore.setToken(token)
       router.push(redirectPath || pathname.index)
       if (collectAfterLogin) store.setCollectAfterLogin(collectAfterLogin)
     } catch (err) {
@@ -55,7 +55,7 @@ const useAuth = () => {
       onConfirm: async () => {
         try {
           await authService.logout(userId)
-          tokenService.removeToken()
+          tokenStore.removeToken()
           router.push(pathname.index)
         } catch (err) {
           snackbar.error(snackbarMessages.logout.error)
@@ -70,14 +70,14 @@ const useAuth = () => {
 
   const handleTokenExpired = () => {
     snackbar.error(snackbarMessages.tokenExpired)
-    tokenService.removeToken()
+    tokenStore.removeToken()
     router.push(paths.index)
   }
 
   return {
     isAuthenticated,
-    isTokenReady: tokenService.isTokenReady,
-    token: tokenService.token,
+    isTokenReady: true,
+    token: tokenStore.token,
     logout,
     login,
     handleTokenExpired,

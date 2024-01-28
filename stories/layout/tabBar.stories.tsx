@@ -7,7 +7,7 @@ import { pathname } from 'lib/configs/routes'
 import useOnce from 'lib/hooks/useOnce'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import loggedInDecorator from 'stories/decorators/loggedInDecorator'
-import useToken from 'lib/application/useToken'
+import useTokenStore from 'lib/services/useTokenStore'
 
 export default {
   title: 'layout/Tab Bar',
@@ -55,7 +55,7 @@ Home.parameters = {
 
 Home.decorators = [
   story => {
-    const tokenService = useToken()
+    const tokenService = useTokenStore()
     useOnce(() => tokenService.removeToken())
     return story()
   }
