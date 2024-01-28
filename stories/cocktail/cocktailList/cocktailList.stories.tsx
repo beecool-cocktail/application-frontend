@@ -8,6 +8,7 @@ import mockCocktail from 'lib/mocks/data/cocktail'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import { GetPopularCocktailListResponse, PopularCocktailList } from 'sdk'
 import mockPhotos from 'lib/mocks/data/photos'
+import useCocktailListStore from 'lib/services/useCocktailListStore'
 
 export default {
   title: 'Cocktail/Cocktail List/Normal Cocktail List',
@@ -44,9 +45,10 @@ const generateMockCocktailList = (pageIndex: number, pageSize: number) => {
 }
 
 const Template: ComponentStory<typeof CocktailList> = () => {
+  const cocktailListStore = useCocktailListStore()
   return (
     <Box width={400} margin="0 auto">
-      <CocktailList />
+      <CocktailList cocktailListStore={cocktailListStore} />
     </Box>
   )
 }

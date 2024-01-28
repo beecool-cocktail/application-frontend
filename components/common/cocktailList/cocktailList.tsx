@@ -6,6 +6,7 @@ import useCocktailList from 'lib/application/cocktail/useCocktailList'
 import { PAGE_SIZE } from 'lib/constants/pagination'
 import Loading from 'components/common/status/loading'
 import Empty from 'components/common/status/empty'
+import { CocktailListStore } from 'lib/services/useCocktailListStore'
 import IllustrationWithText from '../image/illustrationWithText'
 import CocktailCard from './cocktailCard'
 import CocktailSkeleton from './cocktailSkeleton'
@@ -14,9 +15,10 @@ import NoMoreHint from './noMoreHint'
 
 interface CocktailListProps {
   useSearch?: boolean
+  cocktailListStore: CocktailListStore
 }
 
-const CocktailList = ({ useSearch }: CocktailListProps) => {
+const CocktailList = ({ useSearch, cocktailListStore }: CocktailListProps) => {
   const {
     bottomRef,
     keyword,
@@ -29,7 +31,7 @@ const CocktailList = ({ useSearch }: CocktailListProps) => {
     isReachingEnd,
     collect,
     retry
-  } = useCocktailList(PAGE_SIZE, useSearch)
+  } = useCocktailList(PAGE_SIZE, useSearch, cocktailListStore)
 
   const renderSkeletonList = () => {
     return Array.from(new Array(PAGE_SIZE)).map((_item, index) => (

@@ -3,9 +3,11 @@ import Head from 'next/head'
 import useSearchBar from 'lib/application/ui/useSearchBar'
 import Layout from 'components/layout/layout'
 import CocktailList from 'components/common/cocktailList/cocktailList'
+import useCocktailSearchListStore from 'lib/services/useCocktailSearchListStore'
 
 const Search = () => {
   const { input } = useSearchBar()
+  const cocktailListStore = useCocktailSearchListStore()
 
   const getWebsiteTitle = () => {
     if (input) return `${input} - Corner`
@@ -21,7 +23,7 @@ const Search = () => {
         <meta name="description" content={websiteTitle} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <CocktailList useSearch />
+      <CocktailList useSearch cocktailListStore={cocktailListStore} />
     </>
   )
 }

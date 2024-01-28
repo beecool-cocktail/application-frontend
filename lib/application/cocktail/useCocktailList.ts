@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import useSWRInfinite from 'swr/infinite'
 import { useInView } from 'react-intersection-observer'
 import produce from 'immer'
-import { v4 as uuidv4 } from 'uuid'
 import { last } from 'ramda'
 import { CocktailPostItem, collectCocktailItem } from 'lib/domain/cocktail'
 import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
@@ -13,13 +13,18 @@ import useStore from 'lib/services/storeAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import useDebounce from 'lib/hooks/useDebounce'
 import { Page } from 'lib/domain/pagination'
+import { CocktailListStore } from 'lib/services/useCocktailListStore'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useErrorHandler from '../useErrorHandler'
 import useAuth from '../useAuth'
 
-const useCocktailList = (pageSize: number, useSearch = false) => {
-  const [fetchId, setFetchId] = useState(() => uuidv4())
+const useCocktailList = (
+  pageSize: number,
+  useSearch = false,
+  cocktailListStore: CocktailListStore
+) => {
+  const router = useRouter()
   const { token } = useAuth()
   const keyword = useStore(state => state.searchBarInput)
   const debouncedKeyword = useDebounce(keyword, 500)
@@ -37,7 +42,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
         useSearch ? debouncedKeyword : '',
         token,
         useSearch,
-        fetchId
+        cocktailListStore.fetchId
       ]
     },
     cocktailService.getList,
@@ -76,7 +81,7 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
   const resolveRef = useRef<((value: unknown) => void) | null>(null)
 
   const retry = async () => {
-    setFetchId(uuidv4())
+    cocktailListStore.regenerateFetchId()
     await new Promise(resolve => {
       resolveRef.current = resolve
     })
@@ -158,6 +163,27 @@ const useCocktailList = (pageSize: number, useSearch = false) => {
     isRefreshing,
     setSize
   ])
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, cocktailListStore.scrollPosition)
+  }, [cocktailListStore.scrollPosition])
+
+  useEffect(() => {
+    if (isLoadingInitialData) {
+      window.scrollTo(0, 0)
+    }
+  }, [isLoadingInitialData])
+
+  const retainScrollPosition = useCallback(() => {
+    cocktailListStore.setScrollPosition(window.scrollY)
+  }, [cocktailListStore])
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', retainScrollPosition)
+    return () => {
+      router.events.off('routeChangeStart', retainScrollPosition)
+    }
+  }, [retainScrollPosition, router.events])
 
   return {
     ...result,
