@@ -1,14 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import throttle from 'lodash.throttle'
 import routes, { Route, pathname } from 'lib/configs/routes'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import useLoginDialog from 'lib/application/ui/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
+import useTabBarStore from 'lib/services/useTabBarStore'
 import useAuth from '../useAuth'
 
 const useTabBar = () => {
-  const [isVisible, setVisible] = useState(true)
+  const { isVisible, setVisible } = useTabBarStore()
   const lastScrollTop = useRef(0)
   const loginDialog = useLoginDialog()
   const { token } = useAuth()
@@ -20,7 +21,7 @@ const useTabBar = () => {
     currentRouterRef.current = routes.find(r => r.path === router.pathname)
     if (currentRouterRef.current?.showTabBar) setVisible(true)
     else setVisible(false)
-  }, [router.pathname])
+  }, [router.pathname, setVisible])
 
   let tabBarRoutes = routes
     .filter(r => r.tabBarIcon != null)
@@ -74,7 +75,7 @@ const useTabBar = () => {
       scrollHandler.cancel()
       window.removeEventListener('scroll', scrollHandler)
     }
-  }, [])
+  }, [setVisible])
 
   return { routes: tabBarRoutes, isVisible }
 }

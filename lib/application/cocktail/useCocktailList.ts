@@ -14,6 +14,7 @@ import snackbarMessages from 'lib/constants/snackbarMessages'
 import useDebounce from 'lib/hooks/useDebounce'
 import { Page } from 'lib/domain/pagination'
 import { CocktailListStore } from 'lib/services/useCocktailListStore'
+import useTabBarStore from 'lib/services/useTabBarStore'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useErrorHandler from '../useErrorHandler'
@@ -24,6 +25,7 @@ const useCocktailList = (
   useSearch = false,
   cocktailListStore: CocktailListStore
 ) => {
+  const { setVisible } = useTabBarStore()
   const router = useRouter()
   const { token } = useAuth()
   const keyword = useStore(state => state.searchBarInput)
@@ -166,7 +168,8 @@ const useCocktailList = (
 
   useLayoutEffect(() => {
     window.scrollTo(0, cocktailListStore.scrollPosition)
-  }, [cocktailListStore.scrollPosition])
+    setTimeout(() => setVisible(true), 0)
+  }, [cocktailListStore.scrollPosition, setVisible])
 
   useEffect(() => {
     if (isLoadingInitialData) {
