@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import SearchBar from 'components/common/input/searchBar'
-import useStore from 'lib/services/storeAdapter'
+import useSearchBarInner from 'lib/application/ui/useSearchBarInner'
 
 export default {
   title: 'input/Search Bar',
@@ -39,10 +39,10 @@ Filled.args = {
 }
 Filled.decorators = [
   story => {
-    const setSearchBarInput = useStore(state => state.setSearchBarInput)
+    const { setInput } = useSearchBarInner()
     useEffect(() => {
-      setSearchBarInput('淡萊姆')
-    }, [setSearchBarInput])
+      setInput('淡萊姆')
+    }, [setInput])
     return story()
   }
 ]

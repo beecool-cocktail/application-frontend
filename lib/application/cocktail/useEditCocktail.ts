@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import { join } from 'lib/helper/url'
 import useConfig from 'lib/application/useConfig'
 import cocktailService from 'lib/services/cocktailAdapter'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const useEditCocktail = (id: number) => {
   const { token } = useAuth()

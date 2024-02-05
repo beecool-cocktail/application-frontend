@@ -8,7 +8,7 @@ import '@fontsource/montserrat/800.css'
 import 'lib/styles/globals.css'
 import strictModeDecorator from '../stories/decorators/strictModeDecorator'
 import themeDecorator from '../stories/decorators/themeDecorator'
-import storeDecorator from '../stories/decorators/storeDecorator'
+// import storeDecorator from '../stories/decorators/storeDecorator'
 import loggedOutDecorator from '../stories/decorators/loggedOutDecorator'
 import SWRConfigDecorator from '../stories/decorators/SWRConfigDecorator'
 
@@ -19,7 +19,7 @@ const preview: Preview = {
     strictModeDecorator,
     mswDecorator,
     themeDecorator,
-    storeDecorator,
+    // storeDecorator,
     loggedOutDecorator,
     SWRConfigDecorator
   ],

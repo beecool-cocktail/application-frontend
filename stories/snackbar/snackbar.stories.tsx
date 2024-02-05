@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import Snackbar from 'components/common/snackbar/snackbar'
 import useOnce from 'lib/hooks/useOnce'
-import useStore from 'lib/services/storeAdapter'
+import useSnackbar from 'lib/application/ui/useSnackbar'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 
 export default {
@@ -21,18 +21,13 @@ const Template: ComponentStory<typeof Snackbar> = () => <Snackbar />
 export const Normal = Template.bind({})
 Normal.decorators = [
   story => {
-    const toInitialState = useStore(state => state.toInitialState)
-    useOnce(() =>
-      toInitialState({
-        snackbarOpen: true,
-        snackbarMessage: snackbarMessages.createDraft.success,
-        snackbarDuration: 3000,
-        snackbarOnClick: () => {
-          // eslint-disable-next-line no-console
-          console.log('click')
-        }
+    const snackbar = useSnackbar()
+    useOnce(() => {
+      snackbar.success(snackbarMessages.createDraft.success, 3000, () => {
+        // eslint-disable-next-line no-console
+        console.log('click')
       })
-    )
+    })
     return story()
   }
 ]
@@ -40,22 +35,17 @@ Normal.decorators = [
 export const Undo = Template.bind({})
 Undo.decorators = [
   story => {
-    const toInitialState = useStore(state => state.toInitialState)
-    useOnce(() =>
-      toInitialState({
-        snackbarOpen: true,
-        snackbarMessage: snackbarMessages.removeFavorite.success,
-        snackbarDuration: 5000,
-        snackbarOnClick: () => {
-          // eslint-disable-next-line no-console
-          console.log('click')
-        },
-        snackbarOnUndo: () => {
-          // eslint-disable-next-line no-console
-          console.log('undo')
-        }
-      })
-    )
+    const snackbar = useSnackbar()
+    useOnce(() => {
+      snackbar.success(
+        snackbarMessages.removeFavorite.success,
+        5000,
+        // eslint-disable-next-line no-console
+        () => console.log('click'),
+        // eslint-disable-next-line no-console
+        () => console.log('undo')
+      )
+    })
     return story()
   }
 ]

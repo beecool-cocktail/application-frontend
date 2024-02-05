@@ -1,9 +1,9 @@
 import { Box, Stack } from '@mui/material'
-import useTabBar from 'lib/application/ui/useTabBar'
+import useTabBarInner from 'lib/application/ui/useTabBarInner'
 import AnimationToggleIcon from '../common/animationToggleIcon'
 
 export const TabBar = () => {
-  const { routes, isVisible } = useTabBar()
+  const { routes, isVisible } = useTabBarInner()
 
   return (
     <Stack

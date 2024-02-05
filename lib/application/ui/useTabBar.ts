@@ -6,11 +6,11 @@ interface TabBarStore {
   setVisible: (visible: boolean) => void
 }
 
-const useTabBarStore = create<TabBarStore>()(
-  devtools(set => ({
+const useTabBar = create<TabBarStore>()(
+  devtools<TabBarStore>(set => ({
     isVisible: false,
     setVisible: (isVisible: boolean) => set({ isVisible })
   }))
 )
 
-export default useTabBarStore
+export default useTabBar

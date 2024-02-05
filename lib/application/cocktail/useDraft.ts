@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import draftService from 'lib/services/draftAdapter'
 import { join } from 'lib/helper/url'
 import useConfig from '../useConfig'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const FETCH_KEY = 'DRAFT'
 

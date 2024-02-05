@@ -5,11 +5,11 @@ import useCornerRouter from 'lib/application/useCornerRouter'
 import useCurrentUser from 'lib/application/user/useCurrentUser'
 import useLoginDialog from 'lib/application/ui/useLoginDialog'
 import Avatar from 'components/common/image/avatar'
-import useTabBarStore from 'lib/services/useTabBarStore'
-import useAuth from '../useAuth'
+import useTabBar from 'lib/application/ui/useTabBar'
+import useAuth from '../auth/useAuth'
 
-const useTabBar = () => {
-  const { isVisible, setVisible } = useTabBarStore()
+const useTabBarInner = () => {
+  const { isVisible, setVisible } = useTabBar()
   const lastScrollTop = useRef(0)
   const loginDialog = useLoginDialog()
   const { token } = useAuth()
@@ -80,4 +80,4 @@ const useTabBar = () => {
   return { routes: tabBarRoutes, isVisible }
 }
 
-export default useTabBar
+export default useTabBarInner

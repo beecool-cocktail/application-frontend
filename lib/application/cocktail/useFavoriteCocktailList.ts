@@ -19,7 +19,7 @@ import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 import useLoginDialog from '../ui/useLoginDialog'
 import useErrorHandler from '../useErrorHandler'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const FETCH_KEY = 'FAVORITE_COCKTAIL_LIST'
 

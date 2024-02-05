@@ -1,12 +1,12 @@
 import { ReactElement } from 'react'
 import Head from 'next/head'
-import useSearchBar from 'lib/application/ui/useSearchBar'
+import useSearchBarInner from 'lib/application/ui/useSearchBarInner'
 import Layout from 'components/layout/layout'
 import CocktailList from 'components/common/cocktailList/cocktailList'
 import useCocktailSearchListStore from 'lib/services/useCocktailSearchListStore'
 
 const Search = () => {
-  const { input } = useSearchBar()
+  const { input } = useSearchBarInner()
   const cocktailListStore = useCocktailSearchListStore()
 
   const getWebsiteTitle = () => {

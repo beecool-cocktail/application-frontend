@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
-import useAuth from 'lib/application/useAuth'
+import useAuth from 'lib/application/auth/useAuth'
 import useErrorHandler from 'lib/application/useErrorHandler'
 
 const GoogleAuthenticate = () => {

@@ -2,7 +2,7 @@ import dialogMessages from 'lib/constants/dialogMessages'
 import { NetworkIssueError, UnauthorizedError } from 'lib/domain/error'
 import useConfirmDialog from './ui/useConfirmDialog'
 import useSnackbar from './ui/useSnackbar'
-import useAuth from './useAuth'
+import useAuth from './auth/useAuth'
 
 const useErrorHandler = () => {
   const snackbar = useSnackbar()

@@ -20,7 +20,7 @@ import useCornerRouter from '../useCornerRouter'
 import useConfirmDialog from '../ui/useConfirmDialog'
 import useWholePageSpinner from '../ui/useWholePageSpinner'
 import useErrorHandler from '../useErrorHandler'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const totalStep = 2
 

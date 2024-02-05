@@ -1,6 +1,6 @@
 import { MouseEventHandler } from 'react'
 import { Box } from '@mui/material'
-import useSearchBar from 'lib/application/ui/useSearchBar'
+import useSearchBarInner from 'lib/application/ui/useSearchBarInner'
 import Search from 'lib/assets/searchOutlined.svg'
 import Close from 'lib/assets/cancelClose.svg'
 import Input from './input'
@@ -12,7 +12,7 @@ type SearchBarProps = {
 }
 
 const SearchBar = (props: SearchBarProps) => {
-  const { ref, input, setInput, handleCancel } = useSearchBar()
+  const { ref, input, setInput, handleCancel } = useSearchBarInner()
 
   return (
     <Input

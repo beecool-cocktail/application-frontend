@@ -2,7 +2,7 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import useOnce from 'lib/hooks/useOnce'
-import useStore from 'lib/services/storeAdapter'
+import useLoginDialog from 'lib/application/ui/useLoginDialog'
 
 export default {
   title: 'dialog/Login Dialog',
@@ -20,8 +20,8 @@ const Template: ComponentStory<typeof LoginDialog> = () => <LoginDialog />
 export const Normal = Template.bind({})
 Normal.decorators = [
   story => {
-    const toInitialState = useStore(state => state.toInitialState)
-    useOnce(() => toInitialState({ loginDialogOpen: true }))
+    const loginDialog = useLoginDialog()
+    useOnce(loginDialog.open)
     return story()
   }
 ]

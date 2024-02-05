@@ -1,21 +1,13 @@
 import { UrlObject } from 'url'
 import { useRouter } from 'next/router'
-import { useShallow } from 'zustand/react/shallow'
 import routes, { pathname } from 'lib/configs/routes'
-import useStore from 'lib/services/storeAdapter'
+import useHistory from 'lib/application/ui/useHistory'
 import useScrollRestoration from './useScrollRestoration'
 
 const useCornerRouter = () => {
   const router = useRouter()
   useScrollRestoration(router)
-  const { history, setHistory } = useStore(
-    useShallow(state => {
-      return {
-        history: state.history,
-        setHistory: state.setHistory
-      }
-    })
-  )
+  const { history, setHistory } = useHistory()
 
   const push = (url: string | UrlObject) => {
     const route = routes.find(r => {

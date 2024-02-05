@@ -7,7 +7,7 @@ import draftService from 'lib/services/draftAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import useConfig from '../useConfig'
 import useErrorHandler from '../useErrorHandler'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const FETCH_KEY = 'DRAFTS'
 

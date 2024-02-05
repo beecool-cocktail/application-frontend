@@ -6,7 +6,7 @@ import FavoriteCocktailCardList from 'components/common/favoriteCocktailList/fav
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import { GetUserFavoriteCocktailListResponse } from 'sdk'
 import useOnce from 'lib/hooks/useOnce'
-import useTokenStore from 'lib/services/useTokenStore'
+import useTokenStore from 'lib/application/auth/useTokenStore'
 
 const genDate = (index: number) =>
   `2022-11-09 11:07:${index.toString().padStart(2, '0')}`

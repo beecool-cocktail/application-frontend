@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import dialogMessages from 'lib/constants/dialogMessages'
-import useStore from 'lib/services/storeAdapter'
+import useLoginAction from 'lib/application/ui/useLoginAction'
 import { LoginState } from 'lib/domain/auth'
-import useAuthService from '../services/authAdapter'
-import { pathname, paths } from '../configs/routes'
-import useTokenStore from '../services/useTokenStore'
-import useSnackbar from './ui/useSnackbar'
-import useConfirmDialog from './ui/useConfirmDialog'
-import useWholePageSpinner from './ui/useWholePageSpinner'
+import useAuthService from '../../services/authAdapter'
+import { pathname, paths } from '../../configs/routes'
+import useSnackbar from '../ui/useSnackbar'
+import useConfirmDialog from '../ui/useConfirmDialog'
+import useWholePageSpinner from '../ui/useWholePageSpinner'
+import useTokenStore from './useTokenStore'
 
 const useAuth = () => {
   const [isTokenReady, setTokenReady] = useState(false)
@@ -19,7 +19,7 @@ const useAuth = () => {
   const confirmDialog = useConfirmDialog()
   const authService = useAuthService()
   const { setLoading } = useWholePageSpinner()
-  const store = useStore(
+  const store = useLoginAction(
     useShallow(state => ({
       setCollectAfterLogin: state.setCollectAfterLogin
     }))

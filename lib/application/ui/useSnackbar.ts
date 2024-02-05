@@ -1,84 +1,84 @@
-import { useShallow } from 'zustand/react/shallow'
+import { AlertColor } from '@mui/material'
+import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 import { DEFAULT_CONFIG } from 'lib/configs/snackbar'
-import useStore from 'lib/services/storeAdapter'
 
-const useSnackbar = () => {
-  const {
-    open,
-    severity,
-    duration,
-    message,
-    setOpen,
-    setState,
-    onClick,
-    onUndo
-  } = useStore(
-    useShallow(state => ({
-      open: state.snackbarOpen,
-      duration: state.snackbarDuration,
-      severity: state.snackbarSeverity,
-      message: state.snackbarMessage,
-      setOpen: state.setSnackbarOpen,
-      setState: state.setSnackbarState,
-      onClick: state.snackbarOnClick,
-      onUndo: state.snackbarOnUndo
-    }))
-  )
-  const close = () => setOpen(false)
+export interface SnackbarState {
+  open: boolean
+  duration: number | null
+  severity: AlertColor
+  message: string
+  onClick?: () => void
+  onUndo?: () => void
+}
 
-  const info = (message: string, duration?: number) => {
-    setState({
-      open: true,
-      severity: 'info',
-      duration: duration || DEFAULT_CONFIG.duration,
-      message: message || 'info'
-    })
-  }
-  const success = (
+export interface SnackbarStore extends SnackbarState {
+  close: () => void
+  info: (message: string, duration?: number) => void
+  success: (
     message: string,
     duration?: number,
     onClick?: () => void,
     onUndo?: () => void
-  ) => {
-    setState({
-      open: true,
-      severity: 'success',
-      duration: duration || DEFAULT_CONFIG.duration,
-      message: message || 'success',
-      onClick,
-      onUndo
-    })
-  }
-  const warning = (message: string, duration?: number) => {
-    setState({
-      open: true,
-      severity: 'warning',
-      duration: duration || DEFAULT_CONFIG.duration,
-      message: message || 'success'
-    })
-  }
-  const error = (message: string, duration?: number) => {
-    setState({
-      open: true,
-      severity: 'error',
-      duration: duration || DEFAULT_CONFIG.duration,
-      message: message || 'failed'
-    })
-  }
-
-  return {
-    open,
-    severity,
-    duration,
-    message,
-    info,
-    success,
-    warning,
-    error,
-    close,
-    onClick,
-    onUndo
-  }
+  ) => void
+  warning: (message: string, duration?: number) => void
+  error: (message: string, duration?: number) => void
 }
+
+const initialState: SnackbarState = {
+  open: false,
+  duration: 0,
+  severity: 'info' as AlertColor,
+  message: '',
+  onUndo: undefined
+}
+
+const useSnackbar = create<SnackbarStore>()(
+  devtools<SnackbarStore>(set => {
+    return {
+      ...initialState,
+      close: () => set(initialState),
+      info: (message: string, duration?: number) => {
+        set({
+          open: true,
+          severity: 'info',
+          duration: duration || DEFAULT_CONFIG.duration,
+          message: message || 'info'
+        })
+      },
+      success: (
+        message: string,
+        duration?: number,
+        onClick?: () => void,
+        onUndo?: () => void
+      ) => {
+        set({
+          open: true,
+          severity: 'success',
+          duration: duration || DEFAULT_CONFIG.duration,
+          message: message || 'success',
+          onClick,
+          onUndo
+        })
+      },
+      warning: (message: string, duration?: number) => {
+        set({
+          open: true,
+          severity: 'warning',
+          duration: duration || DEFAULT_CONFIG.duration,
+          message: message || 'success'
+        })
+      },
+      error: (message: string, duration?: number) => {
+        set({
+          open: true,
+          severity: 'error',
+          duration: duration || DEFAULT_CONFIG.duration,
+          message: message || 'failed'
+        })
+      }
+    }
+  })
+)
 
 export default useSnackbar

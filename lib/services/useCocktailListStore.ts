@@ -11,7 +11,7 @@ export interface CocktailListStore {
 }
 
 const useCocktailListStore = create<CocktailListStore>()(
-  devtools(set => ({
+  devtools<CocktailListStore>(set => ({
     fetchId: uuidv4(),
     scrollPosition: 0,
     setScrollPosition: (posY: number) => set({ scrollPosition: posY }),

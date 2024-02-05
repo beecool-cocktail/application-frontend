@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import { FALLBACK_URL } from 'lib/constants/image'
 import userService from 'lib/services/userAdapter'
 import useConfig from '../useConfig'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const FETCH_KEY = 'USER'
 

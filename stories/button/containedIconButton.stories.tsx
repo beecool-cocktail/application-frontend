@@ -2,11 +2,11 @@ import React from 'react'
 import { Box, Stack } from '@mui/material'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import ContainedIconButton from 'components/common/button/containedIconButton'
-import BackIcon from 'lib/assets/backReturnOutlined.svg'
+// import BackIcon from 'lib/assets/backReturnOutlined.svg'
 import BackBgIcon from 'lib/assets/backReturnGrayBgOutlined.svg'
-import ShareIcon from 'lib/assets/shareOutlined.svg'
+// import ShareIcon from 'lib/assets/shareOutlined.svg'
 import ShareBgIcon from 'lib/assets/shareGrayBgOutlined.svg'
-import EditIcon from 'lib/assets/editOutlined.svg'
+// import EditIcon from 'lib/assets/editOutlined.svg'
 import EditBgIcon from 'lib/assets/editGrayBgOutlined.svg'
 
 export default {
@@ -25,7 +25,7 @@ export default {
 
 const Template: ComponentStory<typeof ContainedIconButton> = args => {
   const bgIcons = [BackBgIcon, EditBgIcon, ShareBgIcon]
-  const normalIcons = [BackIcon, EditIcon, ShareIcon]
+  // const normalIcons = [BackIcon, EditIcon, ShareIcon]
 
   return (
     <Stack gap="8px">
@@ -43,7 +43,7 @@ const Template: ComponentStory<typeof ContainedIconButton> = args => {
           </ContainedIconButton>
         ))}
       </Box>
-      <Box
+      {/* <Box
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -56,7 +56,7 @@ const Template: ComponentStory<typeof ContainedIconButton> = args => {
             <Icon />
           </ContainedIconButton>
         ))}
-      </Box>
+      </Box> */}
     </Stack>
   )
 }

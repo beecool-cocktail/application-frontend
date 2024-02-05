@@ -1,4 +1,4 @@
-import useAuthGuard from 'lib/application/useAuthGuard'
+import useAuthGuard from 'lib/application/auth/useAuthGuard'
 
 interface AuthGuardProps {
   children: React.ReactNode

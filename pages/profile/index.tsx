@@ -4,7 +4,7 @@ import useUser from 'lib/application/user/useUser'
 import Layout from 'components/layout/layout'
 import ProfileDetail from 'components/pages/profile/profileDetail'
 import AnonymousProfile from 'components/pages/profile/anonymousProfile'
-import useAuth from 'lib/application/useAuth'
+import useAuth from 'lib/application/auth/useAuth'
 
 const Profile = () => {
   const { user } = useUser()

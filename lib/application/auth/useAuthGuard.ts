@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { paths } from 'lib/configs/routes'
-import useCornerRouter from './useCornerRouter'
+import useCornerRouter from '../useCornerRouter'
 import useAuth from './useAuth'
 
 const useAuthGuard = () => {

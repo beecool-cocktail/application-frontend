@@ -7,7 +7,7 @@ import { pathname } from 'lib/configs/routes'
 import useOnce from 'lib/hooks/useOnce'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import loggedInDecorator from 'stories/decorators/loggedInDecorator'
-import useTokenStore from 'lib/services/useTokenStore'
+import useTokenStore from 'lib/application/auth/useTokenStore'
 
 export default {
   title: 'layout/Tab Bar',

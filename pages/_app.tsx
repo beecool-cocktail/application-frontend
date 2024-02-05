@@ -7,7 +7,6 @@ import '@fontsource/noto-sans-tc/400.css'
 import '@fontsource/noto-sans-tc/500.css'
 import '@fontsource/montserrat/700.css'
 import '@fontsource/montserrat/800.css'
-import { useShallow } from 'zustand/react/shallow'
 import SWRConfigWrapper from 'components/app/SWRConfigWrapper'
 import LoginDialog from 'components/common/dialog/loginDialog'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
@@ -17,7 +16,7 @@ import NProgress from 'components/layout/nprogress'
 import WholePageSpinner from 'components/layout/wholePageSpinner'
 import MainContentContainer from 'components/layout/mainContentContainer'
 import theme from 'lib/configs/theme'
-import useStore from 'lib/services/storeAdapter'
+import useHistory from 'lib/application/ui/useHistory'
 import useCornerRouter from 'lib/application/useCornerRouter'
 import type { AppProps } from 'next/app'
 import 'lib/styles/globals.css'
@@ -40,10 +39,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   const router = useCornerRouter()
-  const { setHistory } = useStore(
-    useShallow(state => ({ setHistory: state.setHistory }))
-  )
-
+  const { setHistory } = useHistory()
   const initialized = useRef(false)
 
   useEffect(() => {

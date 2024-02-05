@@ -16,7 +16,7 @@ import useLoginDialog from '../ui/useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
 import useShare from '../ui/useShare'
 import useErrorHandler from '../useErrorHandler'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const FETCH_KEY = Symbol('MY_COCKTAIL')
 

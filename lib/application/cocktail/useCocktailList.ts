@@ -9,27 +9,27 @@ import favoriteCocktailService from 'lib/services/favoriteCocktailAdapter'
 import { PhotoWithBlur } from 'lib/domain/photo'
 import cocktailService from 'lib/services/cocktailAdapter'
 import { PAGE_SIZE } from 'lib/constants/pagination'
-import useStore from 'lib/services/storeAdapter'
 import snackbarMessages from 'lib/constants/snackbarMessages'
 import useDebounce from 'lib/hooks/useDebounce'
 import { Page } from 'lib/domain/pagination'
 import { CocktailListStore } from 'lib/services/useCocktailListStore'
-import useTabBarStore from 'lib/services/useTabBarStore'
+import useTabBar from 'lib/application/ui/useTabBar'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useErrorHandler from '../useErrorHandler'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
+import useSearchBar from '../ui/useSearchBar'
 
 const useCocktailList = (
   pageSize: number,
   useSearch = false,
   cocktailListStore: CocktailListStore
 ) => {
-  const { setVisible } = useTabBarStore()
+  const { setVisible } = useTabBar()
   const router = useRouter()
   const { token } = useAuth()
-  const keyword = useStore(state => state.searchBarInput)
-  const debouncedKeyword = useDebounce(keyword, 500)
+  const searchBar = useSearchBar()
+  const debouncedKeyword = useDebounce(searchBar.keyword, 500)
   const loginDialog = useLoginDialog()
   const { handleError } = useErrorHandler()
   const { config, loading: configLoading, toAbsolutePath } = useConfig()
@@ -37,7 +37,7 @@ const useCocktailList = (
   const result = useSWRInfinite<Page<CocktailPostItem>>(
     (index, previousPageData: Page<CocktailPostItem>) => {
       if (previousPageData && !previousPageData.data.length) return null
-      if (useSearch && (!keyword || !debouncedKeyword)) return null
+      if (useSearch && (!searchBar.keyword || !debouncedKeyword)) return null
       return [
         index + 1,
         PAGE_SIZE,
@@ -192,7 +192,7 @@ const useCocktailList = (
     ...result,
     cocktails,
     total,
-    keyword,
+    keyword: searchBar.keyword,
     debouncedKeyword,
     isRefreshing,
     isLoadingInitialData,

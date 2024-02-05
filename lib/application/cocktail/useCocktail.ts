@@ -7,17 +7,17 @@ import cocktailService from 'lib/services/cocktailAdapter'
 import useUser from 'lib/application/user/useUser'
 import { paths } from 'lib/configs/routes'
 import snackbarMessages from 'lib/constants/snackbarMessages'
-import useStore from 'lib/services/storeAdapter'
+import useLoginAction from 'lib/application/ui/useLoginAction'
 import useConfig from '../useConfig'
 import useLoginDialog from '../ui/useLoginDialog'
 import useCornerRouter from '../useCornerRouter'
 import useErrorHandler from '../useErrorHandler'
-import useAuth from '../useAuth'
+import useAuth from '../auth/useAuth'
 
 const FETCH_KEY = 'COCKTAIL'
 
 const useCocktail = (id?: number) => {
-  const store = useStore(state => ({
+  const store = useLoginAction(state => ({
     collectAfterLogin: state.collectAfterLogin,
     setCollectAfterLogin: state.setCollectAfterLogin
   }))
