@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import Button, { ButtonProps } from 'components/common/button/button'
-import { MAX_WIDTH } from 'lib/constants/layout'
+import { MAX_WIDTH } from 'lib/application/constants/layout'
 
 interface BottomButton extends ButtonProps {
   position?: 'static' | 'fixed' | 'sticky'

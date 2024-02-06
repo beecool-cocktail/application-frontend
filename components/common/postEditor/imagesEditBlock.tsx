@@ -1,6 +1,6 @@
 import { Control, Controller } from 'react-hook-form'
 import { Stack, Typography } from '@mui/material'
-import { CocktailPostForm } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/application/types/cocktail'
 import { CropResult } from 'lib/domain/photo'
 import ImageSelector, { ImageSelectorProps } from './imageSelector'
 

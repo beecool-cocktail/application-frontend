@@ -13,7 +13,7 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Control, useFieldArray, useWatch } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/application/types/cocktail'
 import IconButton from '../button/iconButton'
 import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import StepInput from './stepInput'

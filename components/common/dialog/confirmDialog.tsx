@@ -1,4 +1,4 @@
-import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
+import useConfirmDialog from 'lib/application/hooks/ui/useConfirmDialog'
 import BaseDialog from './baseDialog'
 
 const ConfirmDialog = () => {

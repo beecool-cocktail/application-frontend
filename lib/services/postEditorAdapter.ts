@@ -5,10 +5,8 @@ import {
   UpdateFormalArticleRequest
 } from 'sdk'
 import { PostEditorService } from 'lib/application/ports'
-import {
-  CocktailPostCreateForm,
-  CocktailPostUpdateForm
-} from 'lib/domain/cocktail'
+import { CocktailPostUpdateForm } from 'lib/application/types/cocktail'
+import { CocktailPostCreateForm } from 'lib/application/types/cocktail'
 import { cocktailApi } from './api'
 
 const getCreateReqPayload = async (

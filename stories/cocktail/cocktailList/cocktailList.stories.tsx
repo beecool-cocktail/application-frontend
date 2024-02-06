@@ -8,7 +8,7 @@ import mockCocktail from 'lib/mocks/data/cocktail'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import { GetPopularCocktailListResponse, PopularCocktailList } from 'sdk'
 import mockPhotos from 'lib/mocks/data/photos'
-import useCocktailListStore from 'lib/services/useCocktailListStore'
+import useCocktailListStore from 'lib/application/hooks/cocktail/useCocktailListStore'
 
 export default {
   title: 'Cocktail/Cocktail List/Normal Cocktail List',

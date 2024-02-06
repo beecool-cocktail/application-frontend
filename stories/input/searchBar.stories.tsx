@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import SearchBar from 'components/common/input/searchBar'
-import useSearchBarInner from 'lib/application/ui/useSearchBarInner'
+import useSearchBarInner from 'lib/application/hooks/ui/useSearchBarInner'
 
 export default {
   title: 'input/Search Bar',

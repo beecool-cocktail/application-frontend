@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
-import useUser from 'lib/application/user/useUser'
+import useUser from 'lib/application/hooks/user/useUser'
 import ProfileDetail from 'components/pages/profile/profileDetail'
-import useCornerRouter from 'lib/application/useCornerRouter'
+import useCornerRouter from 'lib/application/hooks/useCornerRouter'
 
 const UserPage: NextPage = () => {
   const router = useCornerRouter()

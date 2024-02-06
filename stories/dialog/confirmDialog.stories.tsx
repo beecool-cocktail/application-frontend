@@ -2,8 +2,8 @@ import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { noop } from 'ramda-adjunct'
 import ConfirmDialog from 'components/common/dialog/confirmDialog'
-import useConfirmDialog from 'lib/application/ui/useConfirmDialog'
-import useOnce from 'lib/hooks/useOnce'
+import useConfirmDialog from 'lib/application/hooks/ui/useConfirmDialog'
+import useOnce from 'lib/utils/hooks/useOnce'
 
 export default {
   title: 'dialog/Confirm Dialog',

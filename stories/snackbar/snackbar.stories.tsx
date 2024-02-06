@@ -1,9 +1,9 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import Snackbar from 'components/common/snackbar/snackbar'
-import useOnce from 'lib/hooks/useOnce'
-import useSnackbar from 'lib/application/ui/useSnackbar'
-import snackbarMessages from 'lib/constants/snackbarMessages'
+import useOnce from 'lib/utils/hooks/useOnce'
+import useSnackbar from 'lib/application/hooks/ui/useSnackbar'
+import snackbarMessages from 'lib/application/constants/snackbarMessages'
 
 export default {
   title: 'Snackbar/Snackbar',

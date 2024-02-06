@@ -7,8 +7,8 @@ import BackButton from 'components/common/button/backButton'
 import Input from 'components/common/input/input'
 import Close from 'lib/assets/cancelClose.svg'
 import SubmitButton from 'components/common/button/submitButton'
-import { CJKPattern } from 'lib/helper/string'
-import useCurrentUser from 'lib/application/user/useCurrentUser'
+import { CJKPattern } from 'lib/application/utils/string'
+import useCurrentUser from 'lib/application/hooks/user/useCurrentUser'
 import AuthGuard from 'components/app/authGuard'
 
 interface UserNameContentProps {

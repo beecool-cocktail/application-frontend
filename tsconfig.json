@@ -26,7 +26,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "lib/application/useScrollRestoration.js"
+    "lib/application/hooks/useScrollRestoration.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
 import { Control, Controller } from 'react-hook-form'
-import { CocktailPostForm } from 'lib/domain/cocktail'
-import { mergeSpaces } from 'lib/helper/string'
+import { CocktailPostForm } from 'lib/application/types/cocktail'
+import { mergeSpaces } from 'lib/application/utils/string'
 import Input from '../input/input'
 
 interface DescriptionInputProps {

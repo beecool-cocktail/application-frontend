@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Button, Stack } from '@mui/material'
 import { useRouter } from 'next/router'
-import useDraft from 'lib/application/cocktail/useDraft'
+import useDraft from 'lib/application/hooks/cocktail/useDraft'
 import PostCreate from 'components/common/postEditor/postCreate/postCreate'
 import PostEditorSkeleton from 'components/common/postEditor/postEditor/postEditorSkeleton'
 import BottomButton from 'components/common/button/bottomButton'

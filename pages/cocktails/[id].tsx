@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Stack } from '@mui/material'
 import Post from 'components/common/post/post'
 import PostSkeleton from 'components/common/post/postSkeleton'
-import useCocktail from 'lib/application/cocktail/useCocktail'
+import useCocktail from 'lib/application/hooks/cocktail/useCocktail'
 
 const CocktailPage: NextPage = () => {
   const router = useRouter()

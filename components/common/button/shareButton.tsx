@@ -1,4 +1,4 @@
-import useShare from 'lib/application/ui/useShare'
+import useShare from 'lib/application/hooks/ui/useShare'
 import ShareIcon from 'lib/assets/shareOutlined.svg'
 import ShareBgIcon from 'lib/assets/shareGrayBgOutlined.svg'
 import IconButton from './iconButton'

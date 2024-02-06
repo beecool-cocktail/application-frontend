@@ -1,4 +1,4 @@
-import Config from 'lib/types/config'
+import Config from 'lib/application/types/config'
 
 const mockConfig: Config = {
   apiBaseUrl: window.location.origin || '',

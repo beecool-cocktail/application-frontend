@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { COCKTAIL_CARD_SMALL_RATIO } from 'lib/constants/layout'
+import { COCKTAIL_CARD_SMALL_RATIO } from 'lib/application/constants/layout'
 
 const CardGridContainer = (props: { children: React.ReactNode }) => (
   <Box

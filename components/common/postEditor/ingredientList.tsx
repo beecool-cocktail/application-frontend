@@ -14,7 +14,7 @@ import {
   useSensors
 } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { CocktailPostForm } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/application/types/cocktail'
 import IconButton from '../button/iconButton'
 import AddIcon from '/lib/assets/plusAddOutlined.svg'
 import IngredientInput from './ingredientInput'

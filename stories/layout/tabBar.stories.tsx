@@ -3,11 +3,11 @@ import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { rest } from 'msw'
 import { Stack } from '@mui/material'
 import TabBar from 'components/layout/tabBar'
-import { pathname } from 'lib/configs/routes'
-import useOnce from 'lib/hooks/useOnce'
+import { pathname } from 'lib/application/configs/routes'
+import useOnce from 'lib/utils/hooks/useOnce'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import loggedInDecorator from 'stories/decorators/loggedInDecorator'
-import useTokenStore from 'lib/application/auth/useTokenStore'
+import useTokenStore from 'lib/application/hooks/auth/useTokenStore'
 
 export default {
   title: 'layout/Tab Bar',

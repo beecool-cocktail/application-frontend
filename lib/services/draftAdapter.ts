@@ -1,5 +1,6 @@
 import { DraftService } from 'lib/application/ports'
-import { CocktailPostDraft, CocktailPostDraftList } from 'lib/domain/cocktail'
+import { CocktailPostDraft } from 'lib/domain/cocktail'
+import { CocktailPostDraftList } from 'lib/application/types/cocktail'
 import { cocktailApi } from './api'
 
 const getList = async (token: string): Promise<CocktailPostDraftList> => {

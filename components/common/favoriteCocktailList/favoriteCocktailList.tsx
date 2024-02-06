@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import useFavoriteCocktailList from 'lib/application/cocktail/useFavoriteCocktailList'
+import useFavoriteCocktailList from 'lib/application/hooks/cocktail/useFavoriteCocktailList'
 import noWayDeerIllustration from 'public/illustrations/meme_nowayDeer.png'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'

@@ -1,6 +1,6 @@
 import { GlobalStyles } from '@mui/material'
-import useNProgress from 'lib/application/ui/useNProgress'
-import theme from 'lib/configs/theme'
+import useNProgress from 'lib/application/hooks/ui/useNProgress'
+import theme from 'lib/application/configs/theme'
 
 const NProgress = () => {
   useNProgress(300, {

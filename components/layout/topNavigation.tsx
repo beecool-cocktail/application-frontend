@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Stack, Typography } from '@mui/material'
 import throttle from 'lodash.throttle'
-import { MAX_WIDTH } from 'lib/constants/layout'
+import { MAX_WIDTH } from 'lib/application/constants/layout'
 
 export interface TopNavigationProps {
   position?: 'static' | 'fixed' | 'sticky'

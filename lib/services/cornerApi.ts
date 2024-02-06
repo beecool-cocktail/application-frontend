@@ -1,13 +1,13 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import ResponseCode from 'lib/constants/responseCode'
+import ResponseCode from 'lib/application/constants/responseCode'
 import {
   HttpStatusError,
   NetworkIssueError,
   RequestSetupError,
   ResponseCodeError,
   UnauthorizedError
-} from 'lib/domain/error'
-import { ApiResponse } from 'lib/types/responseBase'
+} from 'lib/application/types/error'
+import { ApiResponse } from 'lib/application/types/responseBase'
 
 const validateStatus = (status: number) => {
   if (status >= 200 && status <= 300) return true

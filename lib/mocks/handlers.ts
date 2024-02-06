@@ -1,6 +1,6 @@
 import { ResponseComposition, rest, RestContext } from 'msw'
-import { ApiResponse } from 'lib/types/responseBase'
-import responseCode from 'lib/constants/responseCode'
+import { ApiResponse } from 'lib/application/types/responseBase'
+import responseCode from 'lib/application/constants/responseCode'
 import mockConfig from './data/config'
 
 export const responseJson = <T>(

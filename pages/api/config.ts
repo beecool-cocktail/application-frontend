@@ -1,7 +1,7 @@
 import getConfig from 'next/config'
-import { ApiResponse } from 'lib/types/responseBase'
-import Config from 'lib/types/config'
-import ResponseCode from 'lib/constants/responseCode'
+import { ApiResponse } from 'lib/application/types/responseBase'
+import Config from 'lib/application/types/config'
+import ResponseCode from 'lib/application/constants/responseCode'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const { serverRuntimeConfig } = getConfig()

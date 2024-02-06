@@ -6,7 +6,7 @@ import EditIcon from 'lib/assets/editOutlined.svg'
 import ReloadIcon from 'lib/assets/reloadBlueBg.svg'
 import PinIcon from 'lib/assets/pictureBlueBg.svg'
 import TrashIcon from 'lib/assets/trashOutlined.svg'
-import theme from 'lib/configs/theme'
+import theme from 'lib/application/configs/theme'
 
 export default {
   title: 'PostCreate/Action Sheet',

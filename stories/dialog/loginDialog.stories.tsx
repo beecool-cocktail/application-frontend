@@ -1,8 +1,8 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import LoginDialog from 'components/common/dialog/loginDialog'
-import useOnce from 'lib/hooks/useOnce'
-import useLoginDialog from 'lib/application/ui/useLoginDialog'
+import useOnce from 'lib/utils/hooks/useOnce'
+import useLoginDialog from 'lib/application/hooks/ui/useLoginDialog'
 
 export default {
   title: 'dialog/Login Dialog',

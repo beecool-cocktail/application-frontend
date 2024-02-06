@@ -5,7 +5,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
 import Input from 'components/common/input/input'
-import { CocktailPostForm } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/application/types/cocktail'
 import IconButton from '../button/iconButton'
 
 interface StepInputProps {

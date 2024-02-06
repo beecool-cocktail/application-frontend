@@ -3,10 +3,14 @@ import { Box, Slider, Typography, Stack, useTheme } from '@mui/material'
 import Cropper, { Area } from 'react-easy-crop'
 import BasedTopNavigation from 'components/layout/topNavigation'
 import BackButton from 'components/common/button/backButton'
-import useSnackbar from 'lib/application/ui/useSnackbar'
-import { canvasToDataUrl, getCroppedImg, urlToDataURL } from 'lib/helper/image'
-import { EDIT_CONFIG } from 'lib/constants/image'
-import snackbarMessages from 'lib/constants/snackbarMessages'
+import useSnackbar from 'lib/application/hooks/ui/useSnackbar'
+import {
+  canvasToDataUrl,
+  getCroppedImg,
+  urlToDataURL
+} from 'lib/application/utils/image'
+import { EDIT_CONFIG } from 'lib/application/constants/image'
+import snackbarMessages from 'lib/application/constants/snackbarMessages'
 import ConfirmButton from './confirmButton'
 import type { Coordinate, CropResult, EditorType } from 'lib/domain/photo'
 

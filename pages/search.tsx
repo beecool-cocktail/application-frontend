@@ -1,9 +1,9 @@
 import { ReactElement } from 'react'
 import Head from 'next/head'
-import useSearchBarInner from 'lib/application/ui/useSearchBarInner'
+import useSearchBarInner from 'lib/application/hooks/ui/useSearchBarInner'
 import Layout from 'components/layout/layout'
 import CocktailList from 'components/common/cocktailList/cocktailList'
-import useCocktailSearchListStore from 'lib/services/useCocktailSearchListStore'
+import useCocktailSearchListStore from 'lib/application/hooks/cocktail/useCocktailSearchListStore'
 
 const Search = () => {
   const { input } = useSearchBarInner()

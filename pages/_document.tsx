@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import theme from 'lib/configs/theme'
+import theme from 'lib/application/configs/theme'
 
 export default function Document() {
   return (

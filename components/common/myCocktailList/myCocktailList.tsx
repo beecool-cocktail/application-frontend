@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import useMyCocktailList from 'lib/application/cocktail/useMyCocktailList'
+import useMyCocktailList from 'lib/application/hooks/cocktail/useMyCocktailList'
 import cryDogIllustration from 'public/illustrations/meme_cryDog.png'
 import Error from '../status/error'
 import CocktailCardSmall from '../cocktailCardSmall/cocktailCardSmall'

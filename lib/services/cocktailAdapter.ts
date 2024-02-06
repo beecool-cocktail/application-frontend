@@ -1,10 +1,7 @@
 import { AxiosRequestConfig } from 'axios'
 import { CocktailService } from 'lib/application/ports'
-import {
-  CocktailListPage,
-  CocktailPost,
-  CocktailPostItem
-} from 'lib/domain/cocktail'
+import { CocktailPost, CocktailPostItem } from 'lib/domain/cocktail'
+import { CocktailListPage } from 'lib/application/types/cocktail'
 import { cocktailApi } from './api'
 
 const getById = async (

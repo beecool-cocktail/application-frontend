@@ -6,7 +6,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
 import Input from 'components/common/input/input'
 import DeleteIcon from 'lib/assets/deleteInputOutlined.svg'
-import { CocktailPostForm } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/application/types/cocktail'
 import IconButton from '../button/iconButton'
 
 interface IngredientInputProps {

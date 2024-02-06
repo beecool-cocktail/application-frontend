@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material'
 import Rive from '@rive-app/react-canvas'
-import useWholePageSpinner from 'lib/application/ui/useWholePageSpinner'
+import useWholePageSpinner from 'lib/application/hooks/ui/useWholePageSpinner'
 
 const stateMachineName = 'State Machine 1'
 

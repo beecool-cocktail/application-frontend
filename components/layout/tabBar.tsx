@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material'
-import useTabBarInner from 'lib/application/ui/useTabBarInner'
+import useTabBarInner from 'lib/application/hooks/ui/useTabBarInner'
 import AnimationToggleIcon from '../common/animationToggleIcon'
 
 export const TabBar = () => {

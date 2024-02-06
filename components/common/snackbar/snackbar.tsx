@@ -6,7 +6,7 @@ import {
   SlideProps
 } from '@mui/material'
 import { TouchEventHandler } from 'react'
-import useSnackbar from 'lib/application/ui/useSnackbar'
+import useSnackbar from 'lib/application/hooks/ui/useSnackbar'
 import UndoCountDown from './undoCountDown'
 
 const mx = 24

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { Box, Stack } from '@mui/material'
 import SearchBar from 'components/common/input/searchBar'
 import SmallLogoIcon from 'lib/assets/bottomLine.svg'
-import { isMobile } from 'lib/helper/ua'
+import { isMobile } from 'lib/application/utils/ua'
 import LogoHeader from './logoHeader'
 
 type LayoutProps = {

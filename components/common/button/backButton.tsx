@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import BackIcon from 'lib/assets/backReturn.svg'
 import BackBgIcon from 'lib/assets/backReturnGrayBgOutlined.svg'
-import useCornerRouter from 'lib/application/useCornerRouter'
+import useCornerRouter from 'lib/application/hooks/useCornerRouter'
 import IconButton from './iconButton'
 import ContainedIconButton from './containedIconButton'
 

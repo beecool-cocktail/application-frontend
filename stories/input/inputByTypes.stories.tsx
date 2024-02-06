@@ -4,7 +4,7 @@ import { Box, Stack } from '@mui/material'
 import Input from 'components/common/input/input'
 import Search from 'lib/assets/searchOutlined.svg'
 import Close from 'lib/assets/cancelCloseOutlined.svg'
-import { getCharacterCount } from 'lib/helper/string'
+import { getCharacterCount } from 'lib/application/utils/string'
 
 export default {
   title: 'input/Normal Input/Input by Types',

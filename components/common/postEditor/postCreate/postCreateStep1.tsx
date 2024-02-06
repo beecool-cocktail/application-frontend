@@ -2,7 +2,7 @@ import React from 'react'
 import { Stack } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
 import Input from 'components/common/input/input'
-import { CocktailPostForm } from 'lib/domain/cocktail'
+import { CocktailPostForm } from 'lib/application/types/cocktail'
 import IngredientList from '../ingredientList'
 import StepList from '../stepList'
 

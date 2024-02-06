@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import useCurrentUser from 'lib/application/user/useCurrentUser'
+import useCurrentUser from 'lib/application/hooks/user/useCurrentUser'
 import AvatarEditor from 'components/common/imageEditor/avatarEditor'
-import { UpdateUserAvatarForm } from 'lib/domain/user'
+import { UpdateUserAvatarForm } from 'lib/application/types/user'
 import { CropResult } from 'lib/domain/photo'
 import AuthGuard from 'components/app/authGuard'
 

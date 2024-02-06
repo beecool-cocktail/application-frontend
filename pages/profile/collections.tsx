@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { ReactElement } from 'react'
-import useUser from 'lib/application/user/useUser'
+import useUser from 'lib/application/hooks/user/useUser'
 import Layout from 'components/layout/layout'
 import ProfileDetail from 'components/pages/profile/profileDetail'
 import AuthGuard from 'components/app/authGuard'

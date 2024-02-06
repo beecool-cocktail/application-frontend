@@ -5,8 +5,8 @@ import { rest } from 'msw'
 import MyCocktailList from 'components/common/myCocktailList/myCocktailList'
 import { configHandler, responseJson } from 'lib/mocks/handlers'
 import { GetSelfCocktailListResponse } from 'sdk'
-import useOnce from 'lib/hooks/useOnce'
-import useTokenStore from 'lib/application/auth/useTokenStore'
+import useOnce from 'lib/utils/hooks/useOnce'
+import useTokenStore from 'lib/application/hooks/auth/useTokenStore'
 
 const genDate = (index: number) =>
   `2022-11-09 11:07:${index.toString().padStart(2, '0')}`

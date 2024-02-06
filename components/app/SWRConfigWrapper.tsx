@@ -1,6 +1,6 @@
 import { SWRConfig, Cache } from 'swr'
-import fetcher from 'lib/helper/fetcher'
-import useErrorHandler from 'lib/application/useErrorHandler'
+import fetcher from 'lib/application/utils/fetcher'
+import useErrorHandler from 'lib/application/hooks/useErrorHandler'
 
 interface SWRConfigWrapperProps {
   provider?(): Cache

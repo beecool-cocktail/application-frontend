@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import Head from 'next/head'
 import Layout from 'components/layout/layout'
 import CocktailList from 'components/common/cocktailList/cocktailList'
-import useCocktailListStore from 'lib/services/useCocktailListStore'
+import useCocktailListStore from 'lib/application/hooks/cocktail/useCocktailListStore'
 
 const Home = () => {
   const websiteTitle = 'Corner - 找到屬於你的一杯酒'

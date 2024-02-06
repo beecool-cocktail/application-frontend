@@ -1,26 +1,17 @@
 import { LoginResult, LoginState } from 'lib/domain/auth'
 import {
-  CocktailListPage,
   CocktailPost,
   CocktailPostDraft,
-  CocktailPostDraftList,
-  CocktailPostCreateForm,
-  CocktailPostUpdateForm,
   FavoriteCocktailList,
   MyCocktailItem
 } from 'lib/domain/cocktail'
-import {
-  User,
-  CurrentUser,
-  UpdateUserInfoForm,
-  UpdateUserAvatarForm
-} from 'lib/domain/user'
-
-export interface LocalStorageService {
-  setToken(token: string): void
-  getToken(): string | null
-  removeToken(): void
-}
+import { User, CurrentUser } from 'lib/domain/user'
+import { CocktailPostDraftList } from './types/cocktail'
+import { CocktailPostUpdateForm } from './types/cocktail'
+import { CocktailPostCreateForm } from './types/cocktail'
+import { UpdateUserInfoForm } from './types/user'
+import { UpdateUserAvatarForm } from './types/user'
+import { CocktailListPage } from './types/cocktail'
 
 export interface AuthService {
   login(code: string, state: string): Promise<LoginResult>

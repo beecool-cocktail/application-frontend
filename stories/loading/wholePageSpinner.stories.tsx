@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import WholePageSpinner from 'components/layout/wholePageSpinner'
-import useWholePageSpinner from 'lib/application/ui/useWholePageSpinner'
-import useOnce from 'lib/hooks/useOnce'
+import useWholePageSpinner from 'lib/application/hooks/ui/useWholePageSpinner'
+import useOnce from 'lib/utils/hooks/useOnce'
 
 export default {
   title: 'status/Whole Page Spinner',
