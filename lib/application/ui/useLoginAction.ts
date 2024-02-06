@@ -7,7 +7,7 @@ export interface LoginActionStore {
 }
 
 const useLoginAction = create<LoginActionStore>()(
-  devtools(set => ({
+  devtools<LoginActionStore>(set => ({
     collectAfterLogin: false,
     setCollectAfterLogin: value => set({ collectAfterLogin: value })
   }))

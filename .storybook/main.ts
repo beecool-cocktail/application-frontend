@@ -5,8 +5,8 @@ const config: StorybookConfig = {
     name: '@storybook/nextjs',
     options: {
       builder: {
-        useSWC: true,
-      },
+        useSWC: true
+      }
     }
   },
   stories: [
@@ -23,6 +23,7 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: 'react-docgen'
   },
+
   webpackFinal: webpackConfig => {
     if (!webpackConfig.module?.rules) return webpackConfig
 
@@ -46,6 +47,10 @@ const config: StorybookConfig = {
     })
 
     return webpackConfig
+  },
+
+  docs: {
+    autodocs: true
   }
 }
 
