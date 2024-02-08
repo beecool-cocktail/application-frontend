@@ -1,5 +1,5 @@
 import getConfig from 'next/config'
-import { ApiResponse } from 'lib/application/types/responseBase'
+import { ApiResponse } from 'lib/services/responseBase'
 import Config from 'lib/application/types/config'
 import ResponseCode from 'lib/application/constants/responseCode'
 import type { NextApiRequest, NextApiResponse } from 'next'

@@ -5,7 +5,7 @@ import snackbarMessages from 'lib/application/constants/snackbarMessages'
 import dialogMessages from 'lib/application/constants/dialogMessages'
 import useLoginAction from 'lib/application/hooks/ui/useLoginAction'
 import { LoginState } from 'lib/domain/auth'
-import useAuthService from '../../../services/authAdapter'
+import authService from 'lib/services/authAdapter'
 import { pathname, paths } from '../../configs/routes'
 import useSnackbar from '../ui/useSnackbar'
 import useConfirmDialog from '../ui/useConfirmDialog'
@@ -17,7 +17,6 @@ const useAuth = () => {
   const router = useRouter()
   const snackbar = useSnackbar()
   const confirmDialog = useConfirmDialog()
-  const authService = useAuthService()
   const { setLoading } = useWholePageSpinner()
   const store = useLoginAction(
     useShallow(state => ({

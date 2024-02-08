@@ -9,7 +9,7 @@ interface TokenStore {
 
 const useTokenStore = create<TokenStore>()(
   devtools(
-    persist(
+    persist<TokenStore>(
       set => ({
         token: null,
         setToken: (token: string) => set({ token }),

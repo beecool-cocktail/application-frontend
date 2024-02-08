@@ -1,5 +1,5 @@
 import { ResponseComposition, rest, RestContext } from 'msw'
-import { ApiResponse } from 'lib/application/types/responseBase'
+import { ApiResponse } from 'lib/services/responseBase'
 import responseCode from 'lib/application/constants/responseCode'
 import mockConfig from './data/config'
 

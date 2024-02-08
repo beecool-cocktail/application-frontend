@@ -1,5 +1,5 @@
 import { SWRConfig, Cache } from 'swr'
-import fetcher from 'lib/application/utils/fetcher'
+import commonFetchService from 'lib/services/commonFetchAdapter'
 import useErrorHandler from 'lib/application/hooks/useErrorHandler'
 
 interface SWRConfigWrapperProps {
@@ -13,8 +13,8 @@ const SWRConfigWrapper = ({ provider, children }: SWRConfigWrapperProps) => {
   return (
     <SWRConfig
       value={{
-        onError: (error: unknown) => handleError(error),
-        fetcher,
+        onError: error => handleError(error),
+        fetcher: commonFetchService.fetch,
         provider
       }}
     >

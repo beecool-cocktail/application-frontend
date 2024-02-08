@@ -1,13 +1,10 @@
 import { AxiosRequestConfig } from 'axios'
-import cornerApi from 'lib/services/cornerApi'
+import cornerApi from 'lib/services/api'
+import { CommonFetchService } from 'lib/application/ports'
 import type Pagination from 'lib/application/types/pagination'
-import type { ApiResponse } from 'lib/application/types/responseBase'
+import type { ApiResponse } from 'lib/services/responseBase'
 
-const fetcher = async (
-  path: string,
-  token?: string,
-  pagination?: Pagination
-) => {
+const fetch = async (path: string, token?: string, pagination?: Pagination) => {
   const config: AxiosRequestConfig = {}
   config.headers = { ...(token && { Authorization: `Bearer ${token}` }) }
   config.params = pagination
@@ -18,4 +15,6 @@ const fetcher = async (
   return res.data.data
 }
 
-export default fetcher
+const CommonFetchService: CommonFetchService = { fetch }
+
+export default CommonFetchService

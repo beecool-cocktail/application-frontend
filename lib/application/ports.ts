@@ -12,6 +12,11 @@ import { CocktailPostCreateForm } from './types/cocktail'
 import { UpdateUserInfoForm } from './types/user'
 import { UpdateUserAvatarForm } from './types/user'
 import { CocktailListPage } from './types/cocktail'
+import Pagination from './types/pagination'
+
+export interface CommonFetchService {
+  fetch(path: string, token?: string, pagination?: Pagination): Promise<unknown>
+}
 
 export interface AuthService {
   login(code: string, state: string): Promise<LoginResult>
