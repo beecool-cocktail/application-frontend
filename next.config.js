@@ -31,7 +31,7 @@ const config = {
       },
       {
         protocol: 'https',
-        hostname: 'whispering.serveblog.net'
+        hostname: 'api.corner-cocktails.com'
       },
       {
         protocol: 'https',
