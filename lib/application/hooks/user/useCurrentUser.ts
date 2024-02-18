@@ -8,15 +8,15 @@ import { paths } from 'lib/application/configs/routes'
 import useAuth from '../auth/useAuth'
 import useConfig from '../useConfig'
 import useConfirmDialog from '../ui/useConfirmDialog'
-import useSnackbar from '../ui/useSnackbar'
 import useWholePageSpinner from '../ui/useWholePageSpinner'
 import useCornerRouter from '../useCornerRouter'
+import useErrorHandler from '../useErrorHandler'
 
 const FETCH_KEY = 'CURRENT_USER'
 
 const useCurrentUser = () => {
+  const { handleError } = useErrorHandler()
   const confirmDialog = useConfirmDialog()
-  const snackbar = useSnackbar()
   const router = useCornerRouter()
   const { token } = useAuth()
   const { setLoading: setWholePageLoading } = useWholePageSpinner()
@@ -37,8 +37,9 @@ const useCurrentUser = () => {
       )
       await mutate()
     } catch (error) {
-      snackbar.error(snackbarMessages.updateUserInfo.error)
-      console.error(error)
+      handleError(error, {
+        snackbarMessage: snackbarMessages.updateUserInfo.error
+      })
     }
   }
 
@@ -50,8 +51,9 @@ const useCurrentUser = () => {
       await mutate()
       router.back(paths.settings)
     } catch (error) {
-      snackbar.error(snackbarMessages.updateUserInfo.error)
-      console.error(error)
+      handleError(error, {
+        snackbarMessage: snackbarMessages.updateUserInfo.error
+      })
     }
   }
 
@@ -63,9 +65,10 @@ const useCurrentUser = () => {
       await userService.updateCurrentUserAvatar(form, token)
       await mutate()
       router.back(paths.settings)
-    } catch (e) {
-      snackbar.error(snackbarMessages.updateUserInfo.error)
-      console.error(e)
+    } catch (error) {
+      handleError(error, {
+        snackbarMessage: snackbarMessages.updateUserInfo.error
+      })
     } finally {
       setWholePageLoading(false)
     }
@@ -81,8 +84,9 @@ const useCurrentUser = () => {
           await userService.deleteCurrentUserAvatar(token)
           await mutate()
         } catch (error) {
-          snackbar.error(snackbarMessages.updateUserInfo.error)
-          console.error(error)
+          handleError(error, {
+            snackbarMessage: snackbarMessages.updateUserInfo.error
+          })
         } finally {
           confirmDialog.destroy()
         }
